@@ -1,0 +1,1 @@
+{"name": "TICKETS LOGS CZ BIG EGG", "short_name": "TICKETS LOGS", "start_url": "./", "display": "standalone", "background_color": "#07070f", "theme_color": "#07070f", "icons": [{"src": "logo.png", "sizes": "256x256", "type": "image/png", "purpose": "any"}]}
