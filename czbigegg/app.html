@@ -636,12 +636,36 @@ button.gx{cursor:pointer}
  .tpw .gbar{padding:8px 10px}.tpw .gtit{font-size:13px!important}.tpw .rdst{font-size:10px}
  .tpb{padding:8px;gap:6px}.tph{font-size:12px;gap:6px}.tph img{width:30px;height:30px}.tph small{font-size:8px}
  .tpl{gap:4px}.tpl li{padding:4px 6px;font-size:11px;gap:5px;border-radius:8px}.tpl li small{font-size:9px}.tpl li span{font-size:8px;padding:1px 4px 0}
- .tpl li:nth-child(n+6){display:none}
+ .tpl li:nth-child(n+6){display:none}.tpl li span{white-space:nowrap;font-size:0!important;padding:2px 4px!important}.tpl li span::before{content:"🔒";font-size:10px}
+ .feed li{font-size:13px;gap:8px;padding:7px 9px 5px}.feed li .ic{width:30px;height:30px;font-size:15px}.feed li span{white-space:normal;line-height:1.15}
  .shotrow>.panel{padding:12px!important}.shotrow .eyebrow{font-size:10px}
  #recN{font-size:16px!important;-webkit-text-stroke:3px #030806!important}#recX{font-size:32px!important;-webkit-text-stroke:4px #030806!important}#recG{font-size:10px!important}
  .shotrow>.panel .btn{font-size:12px!important;margin-top:10px!important;padding:8px 6px 6px}
  .recimg img{width:64px!important;height:64px!important}
- .galg{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-height:340px}.gc{height:108px!important}
+ #calculadora .gbody{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important;grid-template-areas:"gal show" "ctrl ctrl";gap:8px;padding:8px}
+ #calculadora .gbar{padding:8px 12px}#calculadora .gtit{font-size:20px}
+ .gal{padding:6px;gap:6px;border-width:3px;border-radius:14px;max-height:330px!important}
+ .galtop{flex-wrap:wrap;gap:4px}.galtop input{font-size:11px;padding:6px 7px 4px;border-width:2px;border-radius:9px}.galtop span{display:none}.galtop input{width:100%}
+ .galg{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:5px;max-height:none!important;flex:1;min-height:0}
+ .gc{height:74px!important;padding:3px;border-width:2px;border-radius:9px;box-shadow:0 2px 0 #030806}.gc b{font-size:8px;-webkit-text-stroke:1.5px #030806}.gc i{font-size:8px;bottom:2px}
+ .show{min-height:330px!important;border-width:3px;border-radius:14px}
+ .show .tagL,.show .tagR{top:6px;font-size:10px;padding:3px 6px 1px;border-width:2px;border-radius:7px}.show .tagL{left:6px}.show .tagR{right:6px}
+ .bigegg{width:96px;height:122px;border-width:4px}.bigegg:before{height:13px;border-width:3px}.bigegg .crown{top:-28px;font-size:28px}
+ .bigimg{width:76%;max-height:150px}
+ .pname{font-size:20px;margin-top:10px;-webkit-text-stroke:3px #030806}.prar{font-size:12px;-webkit-text-stroke:2px #030806}
+ #calculadora .show .pval{font-size:26px;-webkit-text-stroke:3px #030806;text-shadow:0 3px 0 #030806}
+ .x2{font-size:22px}.orbit span{font-size:18px}
+ .ctrl{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px!important}
+ .ctrl .gbox{padding:8px;border-width:3px;border-radius:12px}.ctrl .gbox:nth-child(1),.ctrl .gbox:nth-child(3){grid-column:1/-1}.ctrl .gbox:nth-child(3){order:5}.ctrl .gbox:nth-child(4){display:flex;flex-direction:column}
+ .ctrl .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .ctrl .gl{font-size:12px;margin:0 0 6px;-webkit-text-stroke:1.5px #030806}.gin{font-size:16px;padding:6px 8px;border-width:2px;border-radius:9px}.gsm{font-size:8px;margin-top:3px}
+ .ctrl .vgrid,.ctrl .mgrid{gap:5px!important}.ctrl .mgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .ctrl .gb{font-size:10px;padding:5px 3px;border-width:2px;border-radius:8px;box-shadow:0 2px 0 #030806;-webkit-text-stroke:1px #030806}.ctrl .gb small{font-size:8px}
+ .gpass{font-size:14px!important;padding:10px 4px!important;flex:1}
+ .gfinal{padding:8px 10px;gap:6px;flex-wrap:nowrap}.gfinal .gl{font-size:10px}.gfinal .gsm{font-size:8px}
+ #calculadora .gfinal .pval{font-size:22px;-webkit-text-stroke:3px #030806}
+ .gact{gap:4px;flex-wrap:nowrap}.gact .gb{font-size:0;padding:5px 7px;border-width:2px;border-radius:8px}.gact .gb::first-letter{font-size:15px}
+ .ghist{padding:0 10px 10px}
  .plan{padding:16px 10px 12px!important}.plan .pe{font-size:22px!important}.plan .pr{font-size:28px!important}.plan .dy{margin:8px 0 12px!important}
  #faq .wrap>*{max-width:100%}
  #huevos{padding-top:30px}#huevos .panel{padding:16px 12px!important}#huevos h2{font-size:28px!important;margin:6px 0 2px!important}#huevos p{font-size:13px;margin-bottom:10px!important}
@@ -1246,7 +1270,7 @@ function elegir(e){SEL=e;const im=document.getElementById("sImg"),sh=document.qu
  if(e.img){im.src=src(e.img);im.hidden=false;sh.classList.add("conimg")}else{im.hidden=true;sh.classList.remove("conimg")}
  if(e.v){document.getElementById("cBase").value=e.v}
  document.querySelectorAll("#galG .gc").forEach(x=>x.classList.toggle("on",x.querySelector("b").textContent===e.n));
- calc();if(matchMedia("(max-width:900px)").matches)document.querySelector("#calculadora .show").scrollIntoView({behavior:"smooth",block:"center"})}
+ calc();if(matchMedia("(max-width:900px) and (min-width:561px)").matches)document.querySelector("#calculadora .show").scrollIntoView({behavior:"smooth",block:"center"})}
 document.getElementById("galQ").addEventListener("input",galeria);
 
 document.getElementById("cCopy").onclick=async e=>{const t=e.currentTarget;try{await navigator.clipboard.writeText(ultimo+" · CZ BIG EGG");t.textContent="✅ LISTO"}catch(x){t.textContent="NO SE PUDO"}setTimeout(()=>t.textContent="📋 COPIAR",1500)};
