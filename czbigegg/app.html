@@ -766,6 +766,38 @@ button.gx{cursor:pointer}
  .row{font-size:10px!important;padding:4px 5px 3px!important}
  .ticker{margin-top:22px!important}
 }
+
+/* ===== ⏰ contador radar gratis ===== */
+#cuenta{padding:26px 0 6px}
+.cdw{position:relative;overflow:hidden;border:4px solid #030806;border-radius:26px;box-shadow:0 0 0 4px #ffd23a,0 12px 0 #020503,0 0 60px rgba(255,210,58,.25);background:radial-gradient(700px 300px at 50% 0,rgba(255,210,58,.28),transparent),#0b1e12;text-align:center}
+.cdw.abierto{box-shadow:0 0 0 4px #7dff3a,0 12px 0 #020503,0 0 70px rgba(125,255,58,.35);background:radial-gradient(700px 300px at 50% 0,rgba(125,255,58,.3),transparent),#0b1e12}
+.cdrays{position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.035) 0 8deg,transparent 8deg 16deg);animation:spin 40s linear infinite;pointer-events:none}
+.cdin{position:relative;padding:26px 18px 28px}
+.cdtag{display:inline-block;font:400 15px "Luckiest Guy";letter-spacing:.6px;padding:6px 14px 3px;border-radius:10px;border:3px solid #030806;background:#ffd23a;color:#030806;box-shadow:0 4px 0 #030806;transform:rotate(-2deg)}
+.cdw.abierto .cdtag{background:#7dff3a;animation:pls 1.4s infinite}
+.cdh{margin:14px 0 16px;font:400 clamp(28px,4.4vw,52px)/1.05 "Luckiest Guy";color:#fff;-webkit-text-stroke:5px #030806;paint-order:stroke fill;text-shadow:0 6px 0 #030806}
+.cdclock{display:flex;justify-content:center;align-items:center;gap:10px}
+.cdclock div{min-width:118px;padding:12px 10px 8px;border:4px solid #030806;border-radius:18px;background:linear-gradient(180deg,#ffe766,#ffb800);box-shadow:0 7px 0 #030806}
+.cdclock b{display:block;font:400 clamp(44px,6vw,78px)/1 "Luckiest Guy";color:#fff;-webkit-text-stroke:5px #030806;paint-order:stroke fill;text-shadow:0 5px 0 #030806;font-variant-numeric:tabular-nums}
+.cdclock small{display:block;margin-top:4px;font:400 13px "Luckiest Guy";letter-spacing:1px;color:#030806}
+.cdclock i{font:400 52px "Luckiest Guy";font-style:normal;color:#ffd23a;-webkit-text-stroke:4px #030806;paint-order:stroke fill;animation:parp 1s steps(2) infinite}
+@keyframes parp{50%{opacity:.25}}
+.cdsub{margin-top:16px;font:600 15px Poppins;color:#cfe8d4}.cdsub b{color:#ffd23a}
+.cdsteps{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px 0}
+.cdsteps span{display:flex;align-items:center;gap:8px;background:#effff0;color:#030806;border:3px solid #030806;border-radius:12px;padding:8px 12px 6px;font:400 16px "Luckiest Guy";box-shadow:0 4px 0 #030806}
+.cdsteps b{width:26px;height:26px;display:grid;place-items:center;border-radius:8px;border:2px solid #030806;background:#7dff3a;font-weight:400}
+.cdbtns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}.cdbtns .btn{font-size:20px;padding:14px 26px 11px}
+a.lockfree{opacity:.75;filter:saturate(.6)}
+.cdclock[hidden],.cdopen[hidden]{display:none!important}
+@media(max-width:560px){
+ #cuenta{padding:12px 0 2px}.cdin{padding:16px 10px 18px}.cdtag{font-size:11px;padding:4px 9px 2px}
+ .cdh{font-size:22px!important;margin:10px 0 10px;-webkit-text-stroke:3px #030806}
+ .cdclock{gap:5px}.cdclock div{min-width:0;flex:1;max-width:96px;padding:8px 4px 5px;border-width:3px;border-radius:12px}
+ .cdclock b{font-size:36px!important;-webkit-text-stroke:3px #030806}.cdclock small{font-size:9px}.cdclock i{font-size:30px}
+ .cdsub{font-size:11px;margin-top:10px}
+ .cdsteps{gap:5px;margin:10px 0}.cdsteps span{font-size:10px;padding:5px 6px 3px;gap:5px;border-width:2px}.cdsteps b{width:18px;height:18px;font-size:10px}
+ .cdbtns{gap:6px;display:grid;grid-template-columns:1fr 1fr}.cdbtns .btn{font-size:12px!important;padding:10px 4px 8px!important}
+}
 </style>
 </head>
 <body>
@@ -792,6 +824,24 @@ button.gx{cursor:pointer}
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>⚙️ ADMIN</a></div>
  </div>
 </nav>
+
+<section id="cuenta" hidden>
+ <div class="wrap">
+  <div class="cdw">
+   <div class="cdrays"></div>
+   <div class="cdin">
+    <div class="cdtag" id="cdTag">⏰ MUY PRONTO</div>
+    <h2 class="cdh" id="cdH">🆓 RADAR GRATIS ABRE EN</h2>
+    <div class="cdclock" id="cdClock"><div><b id="cdHh">00</b><small>HORAS</small></div><i>:</i><div><b id="cdMm">00</b><small>MIN</small></div><i>:</i><div><b id="cdSs">00</b><small>SEG</small></div></div>
+    <p class="cdsub" id="cdSub"></p>
+    <div class="cdopen" id="cdOpen" hidden>
+     <div class="cdsteps"><span><b>1</b>Entra a egg.report/czbigegg</span><span><b>2</b>Crea tu usuario y contraseña</span><span><b>3</b>¡Listo, ya estás en el radar!</span></div>
+     <div class="cdbtns"><a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener" data-free="1">🆓 ¡ENTRAR GRATIS!</a><a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">💬 Únete al Discord</a></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
 
 <header class="hero">
  <div class="wrap cols">
@@ -1175,7 +1225,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N)}
    catch(err){document.getElementById("pNote").textContent="⚠️ No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
-function pintarWeb(j){if(!j)return;if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
@@ -1183,7 +1233,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){anuncios(j.anuncios);if(typeof cuentaWeb==="function")cuentaWeb(j);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
 
 // ── PLANES (edita los precios aquí) ──
@@ -1371,6 +1421,32 @@ calc();hist();
 document.getElementById("y").textContent=new Date().getFullYear();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+// ===== ⏰ contador del radar gratis =====
+var CD=null,CDG=false,CDT=null;
+function dos(n){return String(n).padStart(2,"0")}
+function cuentaWeb(j){CD=j&&j.cuenta&&j.cuenta.on?j.cuenta:null;CDG=!!(j&&j.gratis);pintarCuenta();if(!CDT)CDT=setInterval(pintarCuenta,1000)}
+function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)return;
+ const libres=[...document.querySelectorAll('a[href*="egg.report/czbigegg"]:not([data-free])')];
+ if(!CD){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
+ const falta=CD.ms-Date.now(),abierto=falta<=0;
+ // terminado hace rato y el radar gratis ya se cerró → se esconde
+ if(abierto&&!CDG&&falta<-30*60*1000){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
+ sec.hidden=false;const w=sec.querySelector(".cdw");w.classList.toggle("abierto",abierto);
+ const hora=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false});
+ const tit=(CD.tit||"RADAR GRATIS").toUpperCase();
+ if(!abierto){const s=Math.floor(falta/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);
+  document.getElementById("cdHh").textContent=dos(h);document.getElementById("cdMm").textContent=dos(m);document.getElementById("cdSs").textContent=dos(s%60);
+  document.getElementById("cdTag").textContent=h<1?"🔥 ¡YA CASI!":"⏰ MUY PRONTO";document.getElementById("cdH").textContent="🆓 "+tit+" ABRE EN";
+  const chile=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
+  document.getElementById("cdSub").innerHTML=`Se abre a las <b>${chile} hrs (hora Chile)</b>${hora!==chile?` · en tu hora: <b>${hora} hrs</b>`:""}. Cuando llegue a cero aparecen los botones para entrar gratis.`;
+  document.getElementById("cdClock").hidden=false;document.getElementById("cdOpen").hidden=true;libres.forEach(a=>bloq(a,true,chile))}
+ else{document.getElementById("cdTag").textContent="🟢 ¡ABIERTO AHORA!";document.getElementById("cdH").textContent="🆓 ¡"+tit+" ABIERTO!";
+  document.getElementById("cdClock").hidden=true;document.getElementById("cdOpen").hidden=false;
+  document.getElementById("cdSub").innerHTML="Entra ya y crea tu cuenta gratis. <b>¡Corre que se llena!</b>";libres.forEach(a=>bloq(a,false))}}
+function bloq(a,si,hora){if(si){if(!a.dataset.orig){a.dataset.orig=a.innerHTML;a.dataset.oh=a.getAttribute("href");a.dataset.ot=a.getAttribute("target")||""}
+  a.innerHTML="⏰ Abre "+(hora||"pronto");a.setAttribute("href","#cuenta");a.removeAttribute("target");a.classList.add("lockfree")}
+ else if(a.dataset.orig){a.innerHTML=a.dataset.orig;a.setAttribute("href",a.dataset.oh);if(a.dataset.ot)a.setAttribute("target",a.dataset.ot);a.classList.remove("lockfree");delete a.dataset.orig}}
 </script>
 </body>
 </html>
