@@ -539,6 +539,27 @@ button.gx{cursor:pointer}
 .toastv[hidden]{display:none}
 .toastv small{display:block;font:600 11px Poppins;color:#4a6a52}
 @media(max-width:560px){.acts3{grid-template-columns:minmax(0,1fr)}.ak{display:flex;align-items:center;gap:12px;text-align:left}.ak b{font-size:30px}.feed li{font-size:14px}.toastv{left:16px;right:16px;bottom:80px}}
+/* radar en vivo (solo mirar) */
+.rdw{margin-bottom:26px}
+.rdst{position:relative;z-index:1;font:400 14px "Luckiest Guy";letter-spacing:.5px;color:#fff;background:#ff3b4f;border:3px solid #030806;border-radius:10px;padding:6px 10px 3px;box-shadow:0 3px 0 #030806;white-space:nowrap}
+.rdst.off{background:#14361f;color:#9fbfa8}
+.rdb{position:relative;padding:16px;background:radial-gradient(600px 300px at 50% 0,rgba(125,255,58,.12),transparent),#06120a;overflow:hidden}
+.rdsweep{position:absolute;inset:-40%;background:conic-gradient(from 0deg,rgba(125,255,58,.13),transparent 18%);animation:spin 6s linear infinite;pointer-events:none}
+.rdl{position:relative;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:520px;overflow-y:auto;pointer-events:none;user-select:none;padding-right:2px}
+.rdl li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;background:rgba(12,26,16,.92);border:2px solid #1d5a2c;border-left:6px solid var(--rc,#7dff3a);border-radius:12px;padding:7px 10px;animation:fin2 .4s both}
+.rdl li img,.rdl li .eg{width:52px;height:52px;object-fit:contain;border-radius:10px;background:#0b1e12;border:2px solid #030806}
+.rdl li .eg{display:grid;place-items:center;font-size:24px}
+.rdl li b{display:block;font:400 16px "Luckiest Guy";letter-spacing:.3px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdl li small{display:block;font:600 11px Poppins;color:#9fbfa8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rdl li .rz{font:400 11px "Luckiest Guy";padding:1px 6px 0;border-radius:6px;color:#030806;background:var(--rc,#7dff3a);margin-right:4px}
+.rdl li .vl{text-align:right}
+.rdl li .vl b{color:#7dff3a;font-size:17px}
+.rdl li .vl .x{color:#56cfff}
+.rdl li .lk{display:inline-block;margin-top:3px;font:400 11px "Luckiest Guy";background:#14361f;color:#9fbfa8;border:2px solid #030806;border-radius:7px;padding:2px 7px 0}
+.rdcta{position:relative;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:14px;text-align:center;font:600 14px Poppins;color:#cfe8d4}
+.rdcta span{flex-basis:100%}
+.rdempty{grid-column:1/-1;text-align:center;padding:30px;font:400 17px "Luckiest Guy";color:#9fbfa8}
+@media(max-width:760px){.rdl{grid-template-columns:minmax(0,1fr);max-height:460px}.rdw .gtit{font-size:22px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -657,6 +678,14 @@ button.gx{cursor:pointer}
  <div class="wrap">
   <div class="head rv"><div><div class="eyebrow">EN VIVO DESDE EL RADAR</div><h2>Así se ve <span class="grad">por dentro</span></h2></div>
    <p>La lista en vivo de servidores con el multiplicador y el dinero por segundo de cada huevo. Con Premium desbloqueas los más grandes.</p></div>
+  <div class="gw rdw" id="rdw" hidden>
+   <div class="gbar"><span class="gtit">📡 RADAR EN VIVO · AHORA</span><span class="rdst" id="rdSt">conectando...</span></div>
+   <div class="rdb">
+    <div class="rdsweep"></div>
+    <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"></ul>
+    <div class="rdcta"><span>👀 Esto es lo que está saliendo <b>ahora mismo</b> en nuestro radar. Para entrar a esos servidores necesitas una cuenta.</span><a class="btn btn-y btn-s" href="#planes">⭐ VER PLANES</a><a class="btn btn-g btn-s" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 RADAR GRATIS</a></div>
+   </div>
+  </div>
   <div class="inside">
    <div class="phone rv"><video src="assets/video.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline></video></div>
    <div class="shots">
@@ -1029,6 +1058,22 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
  document.getElementById("sX2").classList.toggle("on",c2);
  ultimo=`${fmtV(base)} × x${esc} · ${cv}${cm.size?" · "+[...cm].join("+"):""}${c2?" · 2X":""} = ${fmtV(fin)}`}
 ["cBase","cEsc"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+// ===== 📡 radar en vivo (solo lectura) =====
+var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
+function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
+function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
+function pintarRadar(){if(!RD)return;const w=document.getElementById("rdw");w.hidden=false;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
+ const vivo=pas<240;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
+ const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
+  return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg">🥚</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
+  <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`}
+async function cargarRadar(){let t=null;
+ try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json`,{headers:h,cache:"no-store"});
+  if(r.status===304){pintarRadar();return}if(r.ok){RDETAG=r.headers.get("ETag")||"";t=await r.text()}}catch(_){}
+ if(!t)try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czradar.json?t=${Math.floor(Date.now()/60000)}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
+ if(t)try{RD=JSON.parse(t)}catch(_){}pintarRadar()}
+cargarRadar();setInterval(()=>{if(!document.hidden)cargarRadar()},50000);setInterval(()=>{if(RD&&!document.hidden)pintarRadar()},15000);
+
 // ===== 📡 actividad en vivo (datos reales del bot) =====
 var FEEDK="",FEEDETAG="",FEEDVISTOS=null;
 function haceTxt(t){const s=Math.max(0,Date.now()/1000-t);return s<90?"ahora":s<3600?`hace ${Math.round(s/60)} min`:s<86400?`hace ${Math.round(s/3600)} h`:`hace ${Math.round(s/86400)} d`}
