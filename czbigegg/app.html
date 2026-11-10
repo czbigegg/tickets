@@ -859,6 +859,46 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  #calculadora .gfinal .pval{text-align:right;font-size:26px!important}
  .gact .gb{padding:6px 8px}
 }
+
+/* ===== efectos animados de los botones de la calculadora ===== */
+#calculadora .gb.mu{isolation:isolate}
+#calculadora .gb.mu:before{z-index:-1;animation:fxdrift 7s linear infinite}
+#calculadora .gb.mu span{position:static}
+#calculadora .gb.mu.on:after{content:none}
+#calculadora .gb.mu.on span:after{content:"✓";position:absolute;top:3px;right:6px;font-size:13px;color:#fff;z-index:2}
+@keyframes fxdrift{from{transform:translateX(0)}to{transform:translateX(-44px)}}
+.mu-musical:before,.mu-scrambled:before{animation:fxup 3.2s linear infinite!important}
+@keyframes fxup{from{transform:translateY(8px)}to{transform:translateY(-22px)}}
+.mu-nitro:before{animation:fxup 1.6s linear infinite!important}
+.mu-spectral{background-size:100% 22px,100% 100%!important;animation:fxscan 2.4s linear infinite}
+.mu-spectral:before{opacity:.18!important;animation:fxdrift 9s linear infinite!important}
+@keyframes fxscan{to{background-position:0 22px,0 0}}
+.mu-darkmatter{background-size:48px 48px,48px 48px,100% 100%!important;animation:fxswirl 4s linear infinite}
+@keyframes fxswirl{to{background-position:48px 0,-48px 0,0 0}}
+.mu-fractured{animation:fxcrack 2.6s ease-in-out infinite}
+@keyframes fxcrack{50%{filter:brightness(1.25) saturate(1.2)}}
+.mu-parasite{animation:fxpar 3s linear infinite}
+@keyframes fxpar{to{background-position:12px 12px,0 0}}
+.mu-alien{animation:fxalien 2.2s ease-in-out infinite}
+@keyframes fxalien{50%{box-shadow:0 2px 0 #030806,inset 0 0 14px rgba(125,255,58,.55)}}
+/* brillo que pasa por encima (variantes, mutaciones y 2X) */
+#calculadora #cVar .gb,#calculadora .gpass{position:relative;overflow:hidden;isolation:isolate}
+#calculadora #cVar .gb:after,#calculadora .gb.mu:after,#calculadora .gpass:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.5) 50%,transparent 62%);background-size:260% 100%;background-position:150% 0;animation:fxshine 3.6s ease-in-out infinite}
+#calculadora .gb.mu:nth-child(2n):after{animation-delay:.5s}#calculadora .gb.mu:nth-child(3n):after{animation-delay:1.1s}#calculadora #cVar .gb:nth-child(2):after{animation-delay:.7s}#calculadora #cVar .gb:nth-child(3):after{animation-delay:1.4s}
+@keyframes fxshine{0%,55%{background-position:150% 0}100%{background-position:-60% 0}}
+#calculadora #cVar .gb.rainbow{background:linear-gradient(90deg,#ff4d6d,#ffb13b,#ffe93b,#5be35b,#38c6ff,#9b6bff,#ff4d6d)!important;background-size:300% 100%!important;animation:fxrain 4s linear infinite}
+@keyframes fxrain{to{background-position:300% 0}}
+#calculadora #cVar .gb.golden,#calculadora .gpass{background:linear-gradient(110deg,#e2a10a,#ffe46b 30%,#fff6b8 45%,#ffe46b 60%,#e2a10a)!important;background-size:250% 100%!important;animation:fxgold 3s ease-in-out infinite alternate}
+@keyframes fxgold{to{background-position:100% 0}}
+#calculadora #cVar .gb.silver{background:linear-gradient(110deg,#9fb0c0,#f2f6fa 40%,#ffffff 50%,#c9d4de 65%,#8496a8)!important;background-size:250% 100%!important;animation:fxgold 3.4s ease-in-out infinite alternate}
+/* al pasar el mouse y al elegir */
+#calculadora .ctrl .gb{transition:transform .12s,filter .15s,box-shadow .15s}
+@media(hover:hover){#calculadora .ctrl .gb:hover{transform:translateY(-2px) scale(1.03);filter:brightness(1.12)}}
+#calculadora .ctrl .gb.on{animation-name:fxsel;animation-duration:1.4s;animation-iteration-count:infinite}
+#calculadora .ctrl .gb.mu.on{box-shadow:0 0 0 3px #fff inset,0 0 16px rgba(255,255,255,.55)}
+@keyframes fxsel{50%{box-shadow:0 0 0 3px #fff inset,0 0 22px rgba(255,255,255,.8)}}
+#calculadora .gpass.on{box-shadow:0 0 0 3px #fff inset,0 0 22px rgba(255,214,58,.8)}
 </style>
 </head>
 <body>
@@ -1362,7 +1402,7 @@ function esc_(t){return String(t).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;","
 const cVar=document.getElementById("cVar"),cMut=document.getElementById("cMut");
 VARS.forEach(([n,m,k])=>{const b=document.createElement("button");b.type="button";b.className="gb "+k+(n===cv?" on":"");b.innerHTML=`${n}<small>${m}x</small>`;
  b.onclick=()=>{cv=n;[...cVar.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");calc()};cVar.appendChild(b)});
-const MUFX={"Bloom":"🌸","Spirit Bloom":"✿","Nitro":"🔥","Enchanted":"🌸 ✨","Musical":"♪ ♫","Alien":"👽"};
+const MUFX={"Bloom":"🌸","Spirit Bloom":"✿","Nitro":"🔥","Enchanted":"🌸 ✨","Musical":"♪ ♫","Alien":"👽","Scrambled":"○ ° ◦","Spectral":"👻","Parasite":"• ·"};
 MUTS.forEach(([n,m,col])=>{const b=document.createElement("button");b.type="button";b.className="gb mu mu-"+n.toLowerCase().replace(/\s+/g,"");const fx=MUFX[n]?(MUFX[n]+"  ").repeat(14):"";b.dataset.fx=fx;b.innerHTML=`<span>${n}<small>${m}x</small></span>`;
  b.onclick=()=>{cm.has(n)?cm.delete(n):cm.add(n);b.classList.toggle("on");calc()};cMut.appendChild(b)});
 const b2=document.getElementById("c2x");b2.onclick=()=>{c2=!c2;b2.classList.toggle("on");calc()};
