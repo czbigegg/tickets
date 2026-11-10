@@ -1007,6 +1007,19 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  .cdrec .btn{font-size:11px!important;padding:8px 8px 6px!important;flex:1}}
 .row .ds{flex:none;white-space:nowrap}.row{min-width:0;overflow:hidden}.screen{min-width:0}
 @media(max-width:560px){.row .ds{font-size:8.5px!important;padding:1px 3px!important;letter-spacing:0}.row{gap:3px!important}.row .nm{font-size:8px!important}}
+
+/* encuesta flotante en pantalla */
+.poll.flota{position:fixed;left:50%;bottom:18px;z-index:150;width:min(460px,calc(100% - 24px));transform:translateX(-50%);animation:flotaIn .5s cubic-bezier(.2,1.3,.4,1);box-shadow:0 0 0 4px #ffd23a,0 14px 0 #020503,0 20px 60px rgba(0,0,0,.6)!important}
+.poll.flota.sale{animation:flotaOut .35s ease-in forwards}
+@keyframes flotaIn{from{transform:translate(-50%,140%)}}
+@keyframes flotaOut{to{transform:translate(-50%,140%);opacity:0}}
+.poll .fx{display:none}
+.poll.flota .fx{display:grid;place-items:center;width:30px;height:30px;margin-left:8px;border-radius:9px;border:3px solid #030806;background:#ff3b4f;color:#fff;font:400 15px "Luckiest Guy";cursor:pointer}
+.poll .ftime{display:none}
+.poll.flota .ftime{display:block;height:6px;background:#06120a}.poll.flota .ftime i{display:block;height:100%;background:linear-gradient(90deg,#ffd23a,#7dff3a);width:100%}
+.poll.flota .pbody{max-height:60vh;overflow:auto}
+#encuesta .wrap{min-height:0}
+@media(max-width:560px){.poll.flota{bottom:10px}}
 </style>
 </head>
 <body>
@@ -1120,7 +1133,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <section id="encuesta" hidden style="padding-top:10px">
  <div class="wrap">
   <div class="gw poll">
-   <div class="gbar"><span class="gtit">ENCUESTA</span><span class="gx" id="pTot">0</span></div>
+   <div class="gbar"><span class="gtit">ENCUESTA</span><span class="gx" id="pTot">0</span><button class="fx" id="pFx" type="button" aria-label="Cerrar">✕</button></div><div class="ftime"><i id="pFt"></i></div>
    <div class="pbody"><h3 class="pq" id="pQ"></h3><div class="pops" id="pOps"></div><p class="pnote" id="pNote">Toca una opción para votar · 1 voto por persona</p></div>
   </div>
  </div>
@@ -1434,7 +1447,7 @@ function anuncios(L){const bar=document.getElementById("bar");L=(L||[]).filter(a
 // ---- encuesta ----
 function voterId(){try{let v=localStorage.getItem("czVoter");if(!v){v=(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2));localStorage.setItem("czVoter",v)}return v}catch(e){return "anon-"+Math.random().toString(36).slice(2)}}
 function miVoto(id){try{const o=JSON.parse(localStorage.getItem("czVotos")||"{}");return o[id]}catch(e){return undefined}}
-function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.getElementById("navEnc");
+function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.getElementById("navEnc");setTimeout(()=>typeof encFlota==="function"&&encFlota(E),3500);
  if(!E||!E.ops||E.on===false){sec.hidden=true;nav.hidden=true;return}sec.hidden=false;nav.hidden=false;
  document.getElementById("pQ").textContent=E.q;const mio=miVoto(E.id),ya=mio!=null,tot=E.total||0;
  document.getElementById("pTot").textContent=tot+(tot===1?" voto":" votos");
@@ -1448,7 +1461,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Encuesta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"voto",id:E.id,op:i,voter:voterId()})+"\n```"}));
     try{const r=await fetch(VOTO,{method:"POST",body:fd});if(!r.ok&&r.status!==204)throw new Error("intenta de nuevo")}catch(e){if(e.message==="intenta de nuevo")throw e;await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
     try{const o=JSON.parse(localStorage.getItem("czVotos")||"{}");o[E.id]=i;localStorage.setItem("czVotos",JSON.stringify(o))}catch(e){}
-    const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N)}
+    const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N);if(FLOTA)setTimeout(cerrarFlota,3500)}
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
 function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
@@ -1716,6 +1729,19 @@ document.getElementById("cdNot").onclick=async()=>{const n=document.getElementBy
   n.dataset.ok=1;n.classList.add("ok");n.textContent="Te avisaremos aquí";
   clearTimeout(cdAvisoT);const f=CD.ms-Date.now();if(f>0&&f<2147483000)cdAvisoT=setTimeout(()=>{try{new Notification("Radar GRATIS abierto",{body:"Entra ahora en czbigegg.com",icon:"assets/logo.png"})}catch(_){}},f);
   alert("Listo. Deja esta pestaña abierta y te avisaremos cuando abra el radar gratis. Para que te avise aunque cierres la página, usa Google Calendar o iPhone / Outlook.")}catch(_){alert("Tu navegador no permite avisos. Usa Google Calendar o iPhone / Outlook.")}};
+
+// ===== encuesta flotante (el dueño elige cuánto tiempo sale en pantalla) =====
+var FLOTA=null;
+function encFlota(E){if(!E||!E.on||!(E.pop>0))return;const card=document.querySelector("#encuesta .poll");if(!card||FLOTA)return;
+ const key=E.id+"|"+(E.pv||"");let vistos={};try{vistos=JSON.parse(localStorage.getItem("czPollPop")||"{}")}catch(_){}
+ if(vistos[key]||miVoto(E.id)!=null&&!E.pv)return;
+ vistos[key]=1;try{localStorage.setItem("czPollPop",JSON.stringify(vistos))}catch(_){}
+ const ph=document.createElement("div");ph.style.height=card.offsetHeight+"px";ph.id="pollPh";card.after(ph);
+ card.classList.add("flota");const ms=E.pop*1000,t0=Date.now(),bar=document.getElementById("pFt");
+ FLOTA={t:setInterval(()=>{const f=Math.max(0,1-(Date.now()-t0)/ms);bar.style.width=(f*100)+"%";if(f<=0)cerrarFlota()},200)}}
+function cerrarFlota(){if(!FLOTA)return;clearInterval(FLOTA.t);const card=document.querySelector("#encuesta .poll");card.classList.add("sale");
+ setTimeout(()=>{card.classList.remove("flota","sale");const ph=document.getElementById("pollPh");if(ph)ph.remove();FLOTA=null},350)}
+document.getElementById("pFx").onclick=cerrarFlota;
 </script>
 </body>
 </html>
