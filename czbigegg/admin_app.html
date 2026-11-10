@@ -94,6 +94,58 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 @media(max-width:560px){.row3{grid-template-columns:1fr}}
 .viejo{margin-top:24px;padding:16px 18px;background:#3a0b10!important;box-shadow:0 0 0 3px #ff3b4f,0 8px 0 #020503!important;color:#ffd6db;font-size:15px}
 .viejo b{font-family:"Luckiest Guy";font-weight:400;letter-spacing:.5px;color:#fff}
+
+/* ===== panel profesional ===== */
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;margin-top:26px;align-items:start}
+.side{position:sticky;top:16px;display:flex;flex-direction:column;gap:8px}
+.side button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:400 17px "Luckiest Guy";letter-spacing:.5px;color:#dfffe0;background:#0b1e12;border:3px solid var(--ink);border-radius:13px;padding:11px 14px 8px;box-shadow:0 4px 0 var(--ink);cursor:pointer;-webkit-text-stroke:0}
+.side button .ct{margin-left:auto;font:700 12px Poppins;background:#ff3b4f;color:#fff;border-radius:99px;padding:1px 8px;-webkit-text-stroke:0}
+.side button.on{background:linear-gradient(180deg,#ffe766,#ffb800);color:var(--ink)}
+.side .live{margin-top:8px;font:600 13px Poppins;color:var(--mut);padding:10px 12px;border:2px dashed #1d5a2c;border-radius:12px}
+.main{min-width:0}
+.tabs{display:none!important}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.kpi{padding:16px 18px;position:relative;overflow:hidden}
+.kpi .k{font:400 13px "Luckiest Guy";letter-spacing:.8px;color:var(--mut)}
+.kpi .v{font:800 38px/1.1 Poppins;color:#fff;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi .s{font:600 13px Poppins;color:var(--mut);margin-top:2px}
+.kpi .s b{color:var(--g)}.kpi .s b.dn{color:#ff7a88}
+.kpi .ic{position:absolute;right:14px;top:12px;font-size:26px;opacity:.9}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ee06a;box-shadow:0 0 0 0 rgba(62,224,106,.7);animation:pl 1.6s infinite;margin-right:6px;vertical-align:2px}
+@keyframes pl{70%{box-shadow:0 0 0 10px rgba(62,224,106,0)}100%{box-shadow:0 0 0 0 rgba(62,224,106,0)}}
+.grid2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.card2{padding:18px}
+.card2 h3{font:400 18px "Luckiest Guy";letter-spacing:.6px;color:#fff;margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.card2 h3 small{font:600 12px Poppins;color:var(--mut);letter-spacing:0}
+.chart{position:relative}
+.chart svg{width:100%;height:220px;display:block}
+.chart .tip{position:absolute;pointer-events:none;background:#effff0;color:var(--ink);border:2px solid var(--ink);border-radius:9px;padding:5px 9px;font:700 13px Poppins;white-space:nowrap;transform:translate(-50%,-110%);opacity:0;transition:opacity .12s}
+.hb{display:grid;gap:9px}
+.hb .r{display:grid;grid-template-columns:130px minmax(0,1fr) 54px;gap:10px;align-items:center;font:600 14px Poppins}
+.hb .r span{color:#dfffe0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb .r i{display:block;height:16px;border-radius:0 4px 4px 0;background:#7dff3a;min-width:3px;transition:width .6s}
+.hb .r i.y{background:#ffd23a}
+.hb .r b{text-align:right;color:#fff;font-variant-numeric:tabular-nums}
+.hb .r small{display:block;font:500 11px Poppins;color:var(--mut);text-align:right;white-space:nowrap}
+#hbEv .r{grid-template-columns:120px minmax(0,1fr) 112px}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 8px;font:500 14px Poppins}
+.tbl th{font:400 12px "Luckiest Guy";letter-spacing:.7px;color:var(--mut);text-align:left;padding:0 10px}
+.tbl td{background:#0f2717;padding:10px;border-top:2px solid #1d5a2c;border-bottom:2px solid #1d5a2c;vertical-align:middle}
+.tbl td:first-child{border-left:2px solid #1d5a2c;border-radius:12px 0 0 12px}.tbl td:last-child{border-right:2px solid #1d5a2c;border-radius:0 12px 12px 0}
+.av{width:38px;height:38px;border-radius:10px;border:2px solid var(--ink);background:#14361f;object-fit:cover;display:grid;place-items:center;font:400 18px "Luckiest Guy";color:#7dff3a}
+.who{display:flex;gap:10px;align-items:center}.who b{display:block;color:#fff}.who small{color:var(--mut)}
+.est{font:400 13px "Luckiest Guy";padding:6px 8px 3px;border-radius:9px;border:2px solid var(--ink);width:auto}
+.est.nuevo{background:#ffd23a}.est.contactado{background:#56cfff}.est.cliente{background:#7dff3a}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.tools input,.tools select{width:auto;flex:1;min-width:160px}
+.users{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.users div{background:#0f2717;border:2px solid #1d5a2c;border-radius:12px;padding:10px;text-align:center;font:600 13px Poppins;color:#fff;overflow:hidden}
+.users img,.users .av{width:64px;height:64px;margin:0 auto 6px;border-radius:12px}
+.users small{display:block;color:var(--mut);font-weight:500}
+.updated{font:600 13px Poppins;color:var(--mut);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.empty2{color:var(--mut);font:500 14px Poppins;padding:16px;text-align:center}
+@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}.side button{width:auto;white-space:nowrap}.side .live{display:none}.grid2{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#hbEv .r{grid-template-columns:96px minmax(0,1fr) 92px}.kpi .v{font-size:30px}.hb .r{grid-template-columns:96px minmax(0,1fr) 44px}.tbl thead{display:none}.tbl td{display:block;border-radius:0!important;border-left:2px solid #1d5a2c;border-right:2px solid #1d5a2c}.tbl tr td:first-child{border-radius:12px 12px 0 0!important}.tbl tr td:last-child{border-radius:0 0 12px 12px!important}}
 </style>
 </head>
 <body>
@@ -109,8 +161,44 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 
  <div id="panel">
   <div class="box viejo" id="viejo" hidden>⚠️ <b>EL BOT NO PUBLICÓ LOS CAMBIOS.</b> <span id="viejoTxt">Revisa que el bot de Discord esté prendido y vuelve a tocar GUARDAR.</span></div>
-  <div class="tabs" id="tabs"><button data-t="huevos" class="on">🥚 HUEVOS</button><button data-t="anuncios">📢 ANUNCIOS</button><button data-t="encuesta">📊 ENCUESTA</button></div>
-  <div data-tab="huevos">
+  <div class="tabs" id="tabs"></div>
+  <div class="layout">
+  <nav class="side" id="side">
+   <button data-t="resumen" class="on">📊 RESUMEN</button>
+   <button data-t="registros">📝 REGISTROS <span class="ct" id="ctReg" hidden></span></button>
+   <button data-t="usuarios">🧑 USUARIOS TOP</button>
+   <button data-t="huevos">🥚 HUEVOS</button>
+   <button data-t="anuncios">📢 ANUNCIOS</button>
+   <button data-t="encuesta">🗳️ ENCUESTA</button>
+   <div class="live"><span class="dot"></span><b id="sideOn">0</b> conectados ahora<br><span id="sideUpd">—</span></div>
+  </nav>
+  <div class="main">
+  <div data-tab="resumen">
+   <div class="top"><div><h2 class="L st">📊 RESUMEN</h2><p>Lo que pasa en tu web en tiempo real. Se actualiza solo cada minuto y medio.</p></div>
+    <div class="updated"><span id="upd">Cargando...</span><button class="btn sm" id="bRef" type="button">🔄 ACTUALIZAR</button></div></div>
+   <div class="kpis" id="kpis"></div>
+   <div class="grid2">
+    <div class="box card2"><h3>👀 VISITAS · ÚLTIMOS 14 DÍAS <small id="visTot"></small></h3><div class="chart" id="chVis"></div></div>
+    <div class="box card2"><h3>🖱️ CLICS <small>hoy · 7 días</small></h3><div class="hb" id="hbEv"></div></div>
+   </div>
+   <div class="grid2">
+    <div class="box card2"><h3>🗳️ ENCUESTA <small id="encTot"></small></h3><div id="encRes"></div></div>
+    <div class="box card2"><h3>🌐 DE DÓNDE VIENEN <small>7 días</small></h3><div class="hb" id="hbFu"></div>
+     <h3 style="margin-top:18px">📱 DISPOSITIVOS <small>7 días</small></h3><div class="hb" id="hbDev"></div></div>
+   </div>
+   <div class="box card2" style="margin-top:14px"><h3>📝 ÚLTIMOS REGISTROS <small><a href="#" id="verRegs" style="color:var(--y)">ver todos →</a></small></h3><div id="ultRegs"></div></div>
+  </div>
+  <div data-tab="registros" hidden>
+   <div class="top"><div><h2 class="L st">📝 REGISTROS</h2><p>Personas que se registraron en la web. El bot también te avisa en Discord, en el canal <b>📝-registros-web</b>.</p></div>
+    <button class="btn y sm" id="bCsv" type="button">⬇ DESCARGAR EXCEL (CSV)</button></div>
+   <div class="tools"><input id="qReg" placeholder="🔎 Buscar por Roblox, Discord o país"><select id="fReg"><option value="">Todos</option><option value="nuevo">🟡 Nuevos</option><option value="contactado">🔵 Contactados</option><option value="cliente">🟢 Ya son clientes</option></select></div>
+   <div id="tblReg"></div>
+  </div>
+  <div data-tab="usuarios" hidden>
+   <div class="top"><div><h2 class="L st">🧑 USUARIOS EN EL TOP</h2><p>Gente que se puso en la tabla "TOP DINERO/S" de la web con su usuario de Roblox.</p></div></div>
+   <div class="box card2"><div class="users" id="usrs"></div></div>
+  </div>
+  <div data-tab="huevos" hidden>
   <div class="top">
    <div><h2 class="L st">🥚 HUEVOS DE LA WEB</h2><p>Toca la imagen para subir una foto. Cambia nombre, rareza y zona, ordénalos con las flechas y al final toca <b>GUARDAR</b>. La web se actualiza sola en 1-5 minutos.</p></div>
    <div class="opts"><label class="chk"><input type="checkbox" id="quitarFondo" checked> QUITAR FONDO AUTOMÁTICO</label></div>
@@ -126,6 +214,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <div class="top"><div><h2 class="L st">📊 ENCUESTA</h2><p>La encuesta activa sale en la web y cada persona puede votar una vez. Aquí ves los resultados.</p></div></div>
    <div id="encBox"></div>
   </div>
+  </div></div>
   <div class="box extra">
    <h3 class="L st">🔑 TU CLAVE</h3>
    <p style="color:var(--mut);font-size:15px">Es la misma contraseña <b>Owner</b> de TICKETS LOGS. Se crea o se cambia en Discord con <b>/tickets-clave</b>. Los cambios los publica tu bot en segundos.</p>
@@ -183,7 +272,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
   if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw)}catch(_){}
-  $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc()}
+  $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
  catch(err){m.className="msg err";m.textContent="❌ "+(err.message||"Error")}
  b.disabled=false};
 try{const s=sessionStorage.getItem("czAdm");if(s){$("pass").value=s;$("fLogin").requestSubmit()}}catch(_){}
@@ -215,8 +304,85 @@ $("grid").addEventListener("click",e=>{const p=e.target.closest(".pic");if(p){pi
  else return;setDirty(true);render()});
 
 // ---- pestañas ----
-$("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;[...$("tabs").children].forEach(x=>x.classList.toggle("on",x===b));
- document.querySelectorAll("[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==b.dataset.t)};
+function irA(t){[...$("side").querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x.dataset.t===t));
+ document.querySelectorAll("[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==t);
+ $("saveBar").style.display=["huevos","anuncios","encuesta"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
+$("side").onclick=e=>{const b=e.target.closest("button");if(b)irA(b.dataset.t)};
+$("verRegs").onclick=e=>{e.preventDefault();irA("registros")};
+
+// ===== 📊 ESTADÍSTICAS (cifradas: solo tu clave Owner las abre) =====
+let ST=null,STETAG="";
+async function leerStats(){let txt=null;
+ try{const h={Accept:"application/vnd.github.raw+json"};if(STETAG)h["If-None-Match"]=STETAG;
+  const r=await fetch(GH+"czstats.json",{headers:h,cache:"no-store"});if(r.status===304)return ST;if(r.ok){STETAG=r.headers.get("ETag")||"";txt=await r.text()}}catch(_){}
+ if(!txt)try{const r=await fetch(RAW+"czstats.json?t="+Date.now(),{cache:"no-store"});if(r.ok)txt=await r.text()}catch(_){}
+ if(!txt)return ST;const c=JSON.parse(txt),w=c.k&&c.k[YO.nombre];if(!w)throw new Error("Tu usuario aún no tiene llave de estadísticas (espera 1 minuto)");
+ const kw=await crypto.subtle.importKey("raw",await crypto.subtle.digest("SHA-256",new TextEncoder().encode("czstats:"+YO.sec)),"AES-GCM",false,["decrypt"]);
+ const wb=b64(w),K=await crypto.subtle.decrypt({name:"AES-GCM",iv:wb.slice(0,12)},kw,wb.slice(12));
+ const kk=await crypto.subtle.importKey("raw",K,"AES-GCM",false,["decrypt"]),ct=b64(c.ct);
+ const gz=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(c.iv)},kk,ct);
+ ST=JSON.parse(await new Response(new Blob([gz]).stream().pipeThrough(new DecompressionStream("gzip"))).text());return ST}
+const nf=n=>Number(n||0).toLocaleString("es-CL");
+const hace=t=>{const s=Math.max(0,Date.now()/1000-t);return s<60?"hace segundos":s<3600?`hace ${Math.floor(s/60)} min`:s<86400?`hace ${Math.floor(s/3600)} h`:`hace ${Math.floor(s/86400)} días`};
+const DIAS=["dom","lun","mar","mié","jue","vie","sáb"];
+function barras(id,datos,col){const el=$(id),max=Math.max(1,...datos.map(x=>x.v));
+ el.innerHTML=datos.map(x=>`<div class="r"><span title="${esc(x.n)}">${esc(x.n)}</span><i class="${col||""}" style="width:${Math.round(x.v/max*100)}%"></i><b>${nf(x.v)}${x.s!=null?`<small>${esc(x.s)}</small>`:""}</b></div>`).join("")||`<div class="empty2">Todavía no hay datos</div>`}
+function graficoVisitas(dias){const el=$("chVis"),W=640,H=220,pl=34,pb=26,pt=12,max=Math.max(4,...dias.map(d=>d.v)),n=dias.length,bw=(W-pl-8)/n;
+ const paso=Math.pow(10,Math.floor(Math.log10(max)))*(max/Math.pow(10,Math.floor(Math.log10(max)))>5?2:1),top=Math.ceil(max/paso)*paso,y=v=>H-pb-(H-pb-pt)*v/top;
+ let g="";for(let v=0;v<=top;v+=paso)g+=`<line x1="${pl}" x2="${W}" y1="${y(v)}" y2="${y(v)}" stroke="#1d5a2c" stroke-width="1"/><text x="${pl-6}" y="${y(v)+4}" text-anchor="end" fill="#9fbfa8" font-size="11" font-family="Poppins">${v}</text>`;
+ dias.forEach((d,i)=>{const x=pl+i*bw+2,w=bw-4,h=Math.max(0,H-pb-y(d.v)),dt=new Date(d.d+"T12:00:00"),hoy=i===n-1;
+  if(d.v>0)g+=`<path data-i="${i}" d="M${x},${H-pb}V${H-pb-h+Math.min(4,h)}q0,-4 4,-4h${w-8}q4,0 4,4V${H-pb}Z" fill="${hoy?"#ffd23a":"#7dff3a"}"/>`;
+  g+=`<rect data-i="${i}" x="${x-2}" y="${pt}" width="${bw}" height="${H-pb-pt}" fill="transparent"/>`;
+  if(i%2===(n-1)%2)g+=`<text x="${x+w/2}" y="${H-8}" text-anchor="middle" fill="${hoy?"#ffd23a":"#9fbfa8"}" font-size="11" font-family="Poppins">${hoy?"hoy":DIAS[dt.getDay()]+" "+dt.getDate()}</text>`});
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Visitas por día">${g}</svg><div class="tip"></div>`;
+ const tip=el.querySelector(".tip"),svg=el.querySelector("svg");
+ svg.onmousemove=e=>{const i=e.target.dataset&&e.target.dataset.i;if(i==null){tip.style.opacity=0;return}const d=dias[+i],dt=new Date(d.d+"T12:00:00"),r=el.getBoundingClientRect();
+  tip.textContent=`${DIAS[dt.getDay()]} ${dt.getDate()}/${dt.getMonth()+1}: ${d.v} visita${d.v===1?"":"s"}`;tip.style.left=(e.clientX-r.left)+"px";tip.style.top=(e.clientY-r.top)+"px";tip.style.opacity=1};
+ svg.onmouseleave=()=>tip.style.opacity=0}
+function avatar(img,n){return img?`<img class="av" src="${esc(img)}" alt="" loading="lazy">`:`<div class="av">${esc((n||"?").charAt(0).toUpperCase())}</div>`}
+function pintarStats(){const S=ST;if(!S)return;const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
+ const regs=S.regs||[],nuevos=regs.filter(r=>r.estado==="nuevo").length,E=S.encuesta,cm=(S.ev||{}).comprar||{};
+ const delta=(a,b)=>b?`<b class="${a>=b?"":"dn"}">${a>=b?"▲":"▼"} ${Math.abs(Math.round((a-b)/b*100))}%</b>`:"";
+ $("kpis").innerHTML=[
+  ["🟢","CONECTADOS AHORA",`<span class="dot"></span>${nf(S.online)}`,`${nf(S.online_m)} en celular · ${nf(S.online-S.online_m)} en PC`],
+  ["👀","VISITAS HOY",nf(hoy),`${delta(hoy,ayer)} vs ayer (${nf(ayer)})`],
+  ["📅","VISITAS 7 DÍAS",nf(s7),`${delta(s7,p7)} vs semana anterior · total ${nf(S.total)}`],
+  ["📝","REGISTROS",nf(regs.length),`${nuevos?`<b>${nuevos} nuevos</b> sin contactar`:"todos contactados ✅"}`],
+  ["🛒","CLICS EN COMPRAR",nf(cm.hoy),`hoy · ${nf(cm.d7)} en 7 días`],
+  ["🗳️","VOTOS ENCUESTA",nf(E?E.total:0),E?esc(E.q||""):"sin encuesta"]].map(([ic,k,v,sub])=>`<div class="box kpi"><span class="ic">${ic}</span><div class="k">${k}</div><div class="v">${v}</div><div class="s">${sub}</div></div>`).join("");
+ $("visTot").textContent=nf(d.reduce((a,x)=>a+x.v,0))+" en 14 días";graficoVisitas(d);
+ barras("hbEv",Object.values(S.ev||{}).map(x=>({n:x.n,v:x.d7,s:`hoy ${x.hoy} · total ${nf(x.total)}`})).sort((a,b)=>b.v-a.v),"y");
+ barras("hbFu",Object.entries(S.fuentes||{}).map(([n,v])=>({n,v})).sort((a,b)=>b.v-a.v));
+ const dv=S.devs||{};barras("hbDev",[{n:"📱 Celular",v:dv.movil||0},{n:"💻 PC",v:dv.pc||0}]);
+ if(E&&E.ops){const t=E.total||0;$("encTot").textContent=`${nf(t)} voto${t===1?"":"s"}`;
+  $("encRes").innerHTML=`<p style="font:400 17px 'Luckiest Guy';color:#fff;margin-bottom:10px">${esc(E.q)}</p><div class="hb">`+E.ops.map((o,i)=>{const v=(E.votos||[])[i]||0,pc=t?Math.round(v/t*100):0;return `<div class="r"><span>${esc(o)}</span><i style="width:${pc}%"></i><b>${pc}%<small>${nf(v)} voto${v===1?"":"s"}</small></b></div>`}).join("")+`</div>`+(E.on?"":`<p class="lb" style="margin-top:10px">⚠️ La encuesta está apagada en la web</p>`)}
+ else{$("encTot").textContent="";$("encRes").innerHTML=`<div class="empty2">No hay encuesta. Créala en 🗳️ ENCUESTA.</div>`}
+ $("ultRegs").innerHTML=tablaRegs(regs.slice(0,5),true);
+ $("ctReg").hidden=!nuevos;$("ctReg").textContent=nuevos;$("sideOn").textContent=nf(S.online);
+ $("usrs").innerHTML=(S.top||[]).map(u=>`<div>${u.img?`<img src="${esc(u.img)}" alt="" loading="lazy">`:`<div class="av">${esc(u.n.charAt(0).toUpperCase())}</div>`}${esc(u.n)}<small>${hace(u.t)}</small></div>`).join("")||`<div class="empty2">Nadie se ha puesto en la tabla todavía</div>`;
+ pintarRegs();if(ENC&&E&&E.id===ENC.id){ENC.votos=E.votos;if(!dirty)renderEnc()}}
+const PAIS={"Chile":"🇨🇱","México":"🇲🇽","Perú":"🇵🇪","Argentina":"🇦🇷","Colombia":"🇨🇴","España":"🇪🇸","Estados Unidos":"🇺🇸","Ecuador":"🇪🇨","Venezuela":"🇻🇪","Bolivia":"🇧🇴","Uruguay":"🇺🇾","Otro":"🌎"};
+function tablaRegs(L,corto){if(!L.length)return `<div class="empty2">Todavía nadie se registra. Comparte tu web 😉</div>`;
+ return `<table class="tbl"><thead><tr><th>CLIENTE</th><th>DISCORD</th><th>PAÍS</th><th>LE INTERESA</th><th>FECHA</th>${corto?"":"<th>ESTADO</th><th></th>"}</tr></thead><tbody>`+
+ L.map(r=>`<tr><td><div class="who">${avatar(r.img,r.rbx)}<div><b>${esc(r.rbx)}</b><small>Roblox</small></div></div></td><td>${esc(r.dc)}${r.msg?`<br><small style="color:var(--mut)">💬 ${esc(r.msg)}</small>`:""}</td><td>${PAIS[r.pais]||""} ${esc(r.pais||"—")}</td><td>${esc(r.plan||"—")}</td><td><small>${new Date(r.t*1000).toLocaleString("es-CL",{dateStyle:"short",timeStyle:"short"})}</small><br><small style="color:var(--mut)">${hace(r.t)}</small></td>`+
+ (corto?"":`<td><select class="est ${esc(r.estado)}" data-rid="${esc(r.id)}"><option value="nuevo"${r.estado==="nuevo"?" selected":""}>🟡 Nuevo</option><option value="contactado"${r.estado==="contactado"?" selected":""}>🔵 Contactado</option><option value="cliente"${r.estado==="cliente"?" selected":""}>🟢 Cliente</option></select></td><td><button class="btn r sm" data-rdel="${esc(r.id)}" type="button">🗑</button></td>`)+`</tr>`).join("")+`</tbody></table>`}
+function filtrados(){const q=$("qReg").value.trim().toLowerCase(),f=$("fReg").value;return ((ST&&ST.regs)||[]).filter(r=>(!f||r.estado===f)&&(!q||[r.rbx,r.dc,r.pais,r.plan].join(" ").toLowerCase().includes(q)))}
+function pintarRegs(){$("tblReg").innerHTML=tablaRegs(filtrados(),false)}
+$("qReg").oninput=pintarRegs;$("fReg").onchange=pintarRegs;
+$("tblReg").addEventListener("change",async e=>{const sel=e.target.closest("[data-rid]");if(!sel)return;const r=ST.regs.find(x=>x.id===sel.dataset.rid);if(r)r.estado=sel.value;sel.className="est "+sel.value;
+ try{await enviar({t:"czreg",id:sel.dataset.rid,acc:sel.value},new Blob(["{}"]),"x.json","📝 Registro: "+sel.value)}catch(err){alert("No se pudo guardar: "+err.message)}pintarStats()});
+$("tblReg").addEventListener("click",async e=>{const b=e.target.closest("[data-rdel]");if(!b)return;if(!confirm("¿Borrar este registro?"))return;
+ ST.regs=ST.regs.filter(x=>x.id!==b.dataset.rdel);pintarStats();try{await enviar({t:"czreg",id:b.dataset.rdel,acc:"del"},new Blob(["{}"]),"x.json","🗑 Registro borrado")}catch(err){alert("No se pudo borrar: "+err.message)}});
+$("bCsv").onclick=()=>{const L=filtrados(),c=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+ const csv="﻿"+["Roblox;Discord;País;Le interesa;Mensaje;Fecha;Estado"].concat(L.map(r=>[r.rbx,r.dc,r.pais,r.plan,r.msg,new Date(r.t*1000).toLocaleString("es-CL"),r.estado].map(c).join(";"))).join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="registros_czbigegg.csv";a.click()};
+let ultCarga=0;
+async function refrescar(){$("upd").textContent="Actualizando...";
+ try{await leerStats();ultCarga=Date.now();pintarStats();if(!ST)$("upd").textContent="Esperando datos del bot (prende el bot y espera 1 minuto)"}
+ catch(err){$("upd").textContent="⚠️ "+err.message}}
+setInterval(()=>{if(!ultCarga||!ST)return;const s=Math.round((Date.now()-ultCarga)/1000),g=Math.round(Date.now()/1000-ST.gen);const t=`Datos del bot ${hace(ST.gen)}`;$("upd").textContent=t;$("sideUpd").textContent=t},5000);
+setInterval(()=>{if(YO&&!document.hidden)refrescar()},90000);
+$("bRef").onclick=refrescar;
 // ---- anuncios ----
 const COLS={g:"🟢 Verde",y:"🟡 Amarillo",r:"🔴 Rojo",b:"🔵 Azul",p:"🟣 Morado"};
 function renderAn(){const L=$("anList");L.innerHTML=ANUNCIOS.length?"":`<div class="box empty">No hay anuncios. Toca <b>+ NUEVO ANUNCIO</b>.</div>`;
