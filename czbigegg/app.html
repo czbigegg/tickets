@@ -1063,6 +1063,12 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 
 .rulspin{width:100%;height:100%;border-radius:50%;animation:spin 16s linear infinite}
 .rulspin.parado{animation-play-state:paused}
+
+.rulgift{margin-top:10px;display:grid;gap:6px;font:600 12px Poppins;color:#9fbfa8}
+.rulgift div{display:flex;gap:6px}.rulgift input{flex:1;min-width:0;border:3px solid #030806;border-radius:10px;padding:7px 9px 5px;font:600 15px Poppins;background:#effff0;color:#030806}
+.rulgift .btn{width:auto!important;padding:7px 12px 5px!important;font-size:13px!important}
+#rulGift[hidden],.rulyo[hidden]{display:none}
+.rulyo{margin-top:8px;font:600 12px Poppins;color:#cfe8d4}.rulyo b{color:#7dff3a}.rulyo a{color:#9fbfa8;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -1173,6 +1179,8 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
       <label>TU USUARIO DE DISCORD<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
       <button class="btn btn-y" type="submit">RECLAMAR PREMIO</button>
      </form>
+     <div id="rulGift"><form class="rulgift" id="rulGiftF" autocomplete="off"><span>¿Te regalamos giros? Pon tu usuario de Roblox</span><div><input id="rulGiftU" maxlength="20" placeholder="Usuario de Roblox"><button class="btn btn-s btn-g" type="submit">OK</button></div></form></div>
+     <p class="rulyo" id="rulYo" hidden></p>
      <p class="rulleg">Premios sujetos a disponibilidad.</p>
     </div>
    </div>
@@ -1821,27 +1829,44 @@ function rulDibujar(premio){const W=document.getElementById("rulW");if(!W||W.dat
   h+=`<path d="M0 0 L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z" fill="${col[i]}" stroke="#030806" stroke-width="2"/>`;
   const am=i*45;h+=`<g transform="rotate(${am})"><text x="0" y="-62" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i]).split(" ").slice(0,2).join(" ")}</text>${etq[i].split(" ").length>2?`<text x="0" y="-50" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i].split(" ").slice(2).join(" "))}</text>`:""}</g>`}
  h+=`<circle r="104" fill="none" stroke="#030806" stroke-width="3"/>`;W.innerHTML=h}
-function rulWeb(j){RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:{on:true,id:"0",n:0,premio:"1 DÍA PREMIUM"};rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulEstado()}
+function rulWeb(j){RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:{on:true,id:"0",n:0,premio:"1 DÍA PREMIUM",reg:{}};rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulMio(RUL).then(rulEstado)}
 function rulAbrir(si){const sec=document.getElementById("ruleta");sec.hidden=!si;if(si){if(!RUL)rulWeb(null);rulEstado()}}
 document.getElementById("rulFab").onclick=()=>rulAbrir(document.getElementById("ruleta").hidden);
 document.getElementById("rulX").onclick=()=>rulAbrir(false);
 setTimeout(()=>{if(!RUL)rulWeb(null)},4000);
 function rulGuard(){try{return JSON.parse(localStorage.getItem("czRul")||"{}")}catch(_){return{}}}
-function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;{const gg=rulGuard(),libre=(gg.t||0)+86400000<=Date.now()||(gg.gano===RUL.id&&!gg.env);document.getElementById("rulDot").hidden=!libre}
- if(g.gano===RUL.id&&!g.env){document.getElementById("rulF").hidden=false;b.disabled=true;return}
- const falta=(g.t||0)+86400000-Date.now();if(falta>0&&!b.dataset.girando){b.disabled=true;m.innerHTML=`Ya giraste hoy. Vuelve en <b>${falta>3600000?Math.ceil(falta/3600000)+" h":Math.ceil(falta/60000)+" min"}</b>.`}
- else if(!b.dataset.girando){b.disabled=false;m.innerHTML="Toca <b>GIRAR</b>. Tienes 1 giro al día."}}
+function rulSave(g){try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}}
+var MIRUL=null;
+async function rulHash(u){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("czrul:"+u.toLowerCase()));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,16)}catch(_){return ""}}
+async function rulMio(R){const g=rulGuard();if(!g.rbx||!R||!R.reg){MIRUL=null;return}const h=await rulHash(g.rbx);MIRUL=R.reg[h]||null}
+function rulExtras(){const g=rulGuard();if(!MIRUL)return{giros:0,forz:false};const usados=(g.usados||{})[MIRUL.id]||0;
+ return{giros:Math.max(0,(MIRUL.s||0)-usados),forz:!!MIRUL.f&&!(g.fusado||{})[MIRUL.id]}}
+function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;
+ const ex=rulExtras(),libre=(g.t||0)+86400000<=Date.now(),pend=g.gano&&!g.env;
+ document.getElementById("rulDot").hidden=!(libre||ex.giros>0||ex.forz||pend);document.getElementById("rulDot").textContent=String(Math.max(1,(libre?1:0)+ex.giros));
+ const gi=document.getElementById("rulGift");if(gi)gi.hidden=!!g.rbx;const yo=document.getElementById("rulYo");if(yo){yo.hidden=!g.rbx;yo.innerHTML=g.rbx?`Jugando como <b>${esc(g.rbx)}</b> · <a href="#" id="rulOut">cambiar</a>`:""}
+ if(pend){document.getElementById("rulF").hidden=false;b.disabled=true;return}
+ if(b.dataset.girando)return;
+ if(libre||ex.giros>0||ex.forz){b.disabled=false;m.innerHTML=libre?"Toca <b>GIRAR</b>. Tienes 1 giro al día."+(ex.giros?` + <b>${ex.giros}</b> regalado${ex.giros>1?"s":""}`:""):`¡Tienes <b>${ex.giros||1}</b> giro${(ex.giros||1)>1?"s":""} de regalo! Toca <b>GIRAR</b>.`}
+ else{const falta=(g.t||0)+86400000-Date.now();b.disabled=true;m.innerHTML=`Ya giraste hoy. Vuelve en <b>${falta>3600000?Math.ceil(falta/3600000)+" h":Math.ceil(falta/60000)+" min"}</b>.`}}
 document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");b.disabled=true;b.dataset.girando=1;m.textContent="Girando...";
- let gana=false;try{const t=await leerWeb();const j=JSON.parse(t);if(j.ruleta&&j.ruleta.on&&j.ruleta.id===RUL.id&&(j.ruleta.n||0)>0)gana=true}catch(_){}
+ try{const t=await leerWeb();const j=JSON.parse(t);if(j.ruleta)RUL=j.ruleta;await rulMio(RUL)}catch(_){}
+ const g=rulGuard(),ex=rulExtras(),libre=(g.t||0)+86400000<=Date.now();
+ let gana=false;if(ex.forz){gana=true;g.fusado=Object.assign(g.fusado||{},{[MIRUL.id]:1})}else if((RUL.n||0)>0)gana=true;
+ if(libre)g.t=Date.now();else if(ex.giros>0){g.usados=g.usados||{};g.usados[MIRUL.id]=(g.usados[MIRUL.id]||0)+1}else if(!ex.forz){delete b.dataset.girando;rulEstado();return}
+ if(gana){g.gano=String(Date.now());g.env=0}rulSave(g);
  let seg=0;if(!gana){seg=1+Math.floor(Math.random()*(RULSEG-1));if(Math.random()<.45)seg=Math.random()<.5?1:RULSEG-1}
  const sp=document.getElementById("rulSp"),mt=getComputedStyle(sp).transform;let ia=0;if(mt&&mt!=="none"){const v=mt.match(/matrix\(([^)]+)\)/);if(v){const q=v[1].split(",").map(parseFloat);ia=Math.atan2(q[1],q[0])*180/Math.PI}}
  sp.classList.add("parado");const base=((ia%360)+360)%360;
  const jit=(Math.random()-.5)*30;RULGIRO+=360*6+((((360-seg*45-base)-(RULGIRO%360))%360)+720)%360+jit;
  const W=document.getElementById("rulW");W.style.transform=`rotate(${RULGIRO}deg)`;RULGIRO-=jit;
- const g=rulGuard();g.t=Date.now();if(gana)g.gano=RUL.id;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
  setTimeout(()=>{delete b.dataset.girando;const w=document.querySelector(".rulw");setTimeout(()=>document.getElementById("rulSp").classList.remove("parado"),7000);
-  if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";document.getElementById("rulF").hidden=false}
-  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>¡Vuelve mañana por otro giro!"}},5200)};
+  if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";const gg=rulGuard();if(gg.rbx)document.getElementById("rulRbx").value=gg.rbx;document.getElementById("rulF").hidden=false;document.getElementById("rulDot").hidden=false}
+  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();if(document.getElementById("rulGo").disabled)m.innerHTML+=" <br>¡Vuelve mañana por otro giro!"}},5200)};
+document.getElementById("rulGiftF").onsubmit=async e=>{e.preventDefault();const v=document.getElementById("rulGiftU").value.trim();if(!/^[A-Za-z0-9_]{3,20}$/.test(v))return;
+ const g=rulGuard();g.rbx=v;rulSave(g);await rulMio(RUL);rulEstado();const ex=rulExtras();
+ document.getElementById("rulMsg").innerHTML=ex.giros||ex.forz?`¡<b>${esc(v)}</b>, tienes giros de regalo! Toca <b>GIRAR</b>.`:`Listo <b>${esc(v)}</b>. Si te regalamos giros, aparecerán aquí.`};
+document.addEventListener("click",async e=>{if(e.target.id!=="rulOut")return;e.preventDefault();const g=rulGuard();delete g.rbx;rulSave(g);MIRUL=null;rulEstado()});
 document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=document.getElementById("rulRbx").value.trim(),dc=document.getElementById("rulDc").value.trim(),m=document.getElementById("rulMsg");
  if(!/^[A-Za-z0-9_]{3,20}$/.test(rbx))return m.textContent="Escribe un usuario de Roblox válido.";if(dc.length<2)return m.textContent="Escribe tu usuario de Discord.";
  const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="ENVIANDO...";
