@@ -899,6 +899,8 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 #calculadora .ctrl .gb.mu.on{box-shadow:0 0 0 3px #fff inset,0 0 16px rgba(255,255,255,.55)}
 @keyframes fxsel{50%{box-shadow:0 0 0 3px #fff inset,0 0 22px rgba(255,255,255,.8)}}
 #calculadora .gpass.on{box-shadow:0 0 0 3px #fff inset,0 0 22px rgba(255,214,58,.8)}
+
+.bar[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -914,7 +916,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  <button class="skip" onclick="hideIntro()">Saltar intro</button>
 </div>
 
-<div class="bar" id="bar"><a href="https://egg.report/czbigegg" target="_blank" rel="noopener"><span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →</a><button aria-label="Cerrar" onclick="document.getElementById('bar').remove()">×</button></div>
+<div class="bar" id="bar" hidden><a href="https://egg.report/czbigegg" target="_blank" rel="noopener"><span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →</a><button aria-label="Cerrar" onclick="document.getElementById('bar').remove()">×</button></div>
 
 <nav>
  <div class="wrap">
@@ -1292,7 +1294,12 @@ function pintarHuevos(l){if(Array.isArray(l)&&l.length){EGGS=l}filtros();eggs();
 pintarHuevos(null);
 // ---- anuncios ----
 let anT=null;
-function anuncios(L){const bar=document.getElementById("bar");L=(L||[]).filter(a=>a.on!==false);if(!bar||!L.length)return;clearInterval(anT);
+function barSinAnuncios(bar){clearInterval(anT);const el=bar.querySelector("a");if(!el)return;bar.className="bar";el.className="";
+ if(typeof CD!=="undefined"&&CD&&CD.ms>Date.now()){const h=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
+  el.href="#cuenta";el.removeAttribute("target");el.innerHTML=`<span class="nw">⏰ PRONTO</span> Radar GRATIS abre hoy a las ${h} (hora Chile) →`;bar.hidden=false}
+ else if(typeof CDG!=="undefined"&&CDG){el.href="https://egg.report/czbigegg";el.target="_blank";el.innerHTML=`<span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →`;bar.hidden=false}
+ else bar.hidden=true}
+function anuncios(L){const bar=document.getElementById("bar");L=(L||[]).filter(a=>a.on!==false);if(!bar)return;if(!L.length)return barSinAnuncios(bar);bar.hidden=false;clearInterval(anT);
  let k=0;const show=()=>{const a=L[k%L.length],link=a.link?` <span class="go">${esc(a.btn||"VER")} →</span>`:"";
   bar.className="bar"+(a.col&&a.col!=="y"?" c-"+a.col:"");
   const el=bar.querySelector("a");el.className="atx";el.removeAttribute("href");if(a.link){el.href=a.link}
@@ -1334,7 +1341,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){anuncios(j.anuncios);if(typeof cuentaWeb==="function")cuentaWeb(j);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){if(typeof cuentaWeb==="function")cuentaWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
 
 // ── PLANES (edita los precios aquí) ──
