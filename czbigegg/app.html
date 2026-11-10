@@ -485,6 +485,36 @@ button.gx{cursor:pointer}
 @media(max-width:1180px){.gbody{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-areas:"gal show" "gal ctrl"}}
 @media(max-width:900px){.gbody{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"show" "gal" "ctrl"}.gal{max-height:none}.galg{grid-template-columns:repeat(3,minmax(0,1fr));max-height:420px}}
 @media(max-width:560px){.galg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* directos */
+#streams{padding-top:40px}
+.sts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin-top:6px}
+.stc{position:relative;display:flex;flex-direction:column;gap:10px;padding:14px;border:4px solid #030806;border-radius:20px;background:#0b1e12;box-shadow:0 0 0 3px #1d5a2c,0 8px 0 #020503;color:#fff;transition:transform .15s}
+.stc:hover{transform:translateY(-4px)}
+.stc.on{box-shadow:0 0 0 3px #ff3b4f,0 8px 0 #020503,0 0 40px rgba(255,59,79,.35)}
+.stc .th{position:relative;aspect-ratio:16/9;border-radius:12px;border:3px solid #030806;overflow:hidden;background:linear-gradient(135deg,#14361f,#081a0e);display:grid;place-items:center}
+.stc .th img.cv{width:100%;height:100%;object-fit:cover}
+.stc .th .av{width:76px;height:76px;border-radius:50%;border:4px solid #030806;object-fit:cover;background:#14361f;display:grid;place-items:center;font:400 34px "Luckiest Guy";color:#7dff3a}
+.stc .bd{position:absolute;top:8px;left:8px;font:400 13px "Luckiest Guy";padding:4px 8px 1px;border-radius:8px;border:2px solid #030806}
+.stc .bd.vivo{background:#ff3b4f;color:#fff;animation:pls 1.4s infinite}
+.stc .bd.off{background:#14361f;color:#9fbfa8}
+@keyframes pls{50%{transform:scale(1.08)}}
+.stc .red{position:absolute;top:8px;right:8px;font:400 12px "Luckiest Guy";padding:4px 8px 1px;border-radius:8px;border:2px solid #030806;color:#030806}
+.red.kick{background:#53fc18}.red.tiktok{background:#fff}.red.youtube{background:#ff0000;color:#fff!important}.red.twitch{background:#9146ff;color:#fff!important}
+.stc .vw{position:absolute;bottom:8px;left:8px;font:700 12px Poppins;background:rgba(3,8,6,.8);padding:3px 8px;border-radius:8px}
+.stc .nm{display:flex;align-items:center;gap:10px}
+.stc .nm img,.stc .nm .ini{width:40px;height:40px;border-radius:50%;border:3px solid #030806;object-fit:cover;background:#14361f;display:grid;place-items:center;font:400 18px "Luckiest Guy";color:#7dff3a;flex:none}
+.stc .nm b{font:400 19px "Luckiest Guy";letter-spacing:.5px;-webkit-text-stroke:3px #030806;paint-order:stroke fill;display:block}
+.stc .nm small{color:#9fbfa8;font:600 12px Poppins}
+.stc .tt{font:600 13px Poppins;color:#cfe8d4;min-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stc .btn{width:100%}
+#stPlayer{margin-bottom:18px}
+.player{border:4px solid #030806;border-radius:20px;overflow:hidden;box-shadow:0 0 0 3px #ff3b4f,0 10px 0 #020503;background:#000;aspect-ratio:16/9;max-width:980px;margin:0 auto}
+.player iframe{width:100%;height:100%;border:0;display:block}
+.livepill{position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:10px;background:#ff3b4f;color:#fff;border:3px solid #030806;border-radius:99px;padding:8px 16px 6px 10px;box-shadow:0 5px 0 #030806;font:400 15px "Luckiest Guy";letter-spacing:.4px;max-width:calc(100vw - 32px);animation:entra .5s cubic-bezier(.2,1.4,.4,1)}
+.livepill[hidden]{display:none}
+.livepill img{width:32px;height:32px;border-radius:50%;border:2px solid #030806;object-fit:cover}
+.livepill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@keyframes entra{from{transform:translateY(120%)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -506,7 +536,7 @@ button.gx{cursor:pointer}
 <nav>
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
-  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
+  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>🔴 En vivo</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar</a>
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>⚙️ ADMIN</a></div>
@@ -542,6 +572,17 @@ button.gx{cursor:pointer}
  </div>
  <div class="ticker"><div class="tk" id="tk"></div></div>
 </header>
+
+<section id="streams" hidden>
+ <div class="wrap">
+  <div class="head"><div><div class="eyebrow" style="background:#ff3b4f;color:#fff!important">🎥 EN VIVO</div><h2>Nuestros <span class="grad">directos</span></h2></div>
+   <p id="stSub">Síguenos en Kick, TikTok y YouTube: cuando estamos en vivo regalamos radar y mostramos huevos gigantes en directo.</p></div>
+  <div id="stPlayer"></div>
+  <div class="sts" id="stList"></div>
+ </div>
+</section>
+
+<a class="livepill" id="livePill" href="#streams" hidden></a>
 
 <section id="gratis">
  <div class="wrap">
@@ -857,7 +898,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N)}
    catch(err){document.getElementById("pNote").textContent="⚠️ No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
-function pintarWeb(j){if(!j)return;if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+function pintarWeb(j){if(!j)return;if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
@@ -865,7 +906,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){anuncios(j.anuncios);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
 
 // ── PLANES (edita los precios aquí) ──
@@ -950,6 +991,25 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
  document.getElementById("sX2").classList.toggle("on",c2);
  ultimo=`${fmtV(base)} × x${esc} · ${cv}${cm.size?" · "+[...cm].join("+"):""}${c2?" · 2X":""} = ${fmtV(fin)}`}
 ["cBase","cEsc"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+// ===== 🎥 directos de los dueños =====
+var RED={kick:"🟢 KICK",tiktok:"🎵 TIKTOK",youtube:"▶️ YOUTUBE",twitch:"🟣 TWITCH"};
+function directos(L){const sec=document.getElementById("streams"),nav=document.getElementById("navSt"),pill=document.getElementById("livePill");
+ L=Array.isArray(L)?L:[];if(!L.length){sec.hidden=true;nav.hidden=true;pill.hidden=true;return}
+ sec.hidden=false;const vivos=L.filter(x=>x.vivo);nav.hidden=!vivos.length;
+ L=[...L].sort((a,b)=>(b.vivo?1:0)-(a.vivo?1:0));
+ document.getElementById("stList").innerHTML=L.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
+  const av=x.avatar?`<img src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="ini">${ini}</span>`;
+  const th=x.vivo&&x.img?`<img class="cv" src="${esc(x.img)}" alt="" referrerpolicy="no-referrer">`:(x.avatar?`<img class="av" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${ini}</span>`);
+  return `<div class="stc${x.vivo?" on":""}"><div class="th">${th}<span class="bd ${x.vivo?"vivo":"off"}">${x.vivo?"🔴 EN VIVO":"OFFLINE"}</span><span class="red ${esc(x.red)}">${RED[x.red]||esc(x.red)}</span>${x.vivo&&x.vistas!=null?`<span class="vw">👀 ${Number(x.vistas).toLocaleString("es-CL")} viendo</span>`:""}</div>
+   <div class="nm">${av}<div><b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small></div></div>
+   <div class="tt">${x.vivo?esc(x.titulo||"¡Estamos en vivo!"):"Síguelo para enterarte cuando prenda"}</div>
+   <a class="btn ${x.vivo?"btn-adm":"btn-o"} btn-s" href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${x.vivo?"🔴 VER DIRECTO":"➕ SEGUIR"}</a></div>`}).join("");
+ const pl=document.getElementById("stPlayer"),emb=vivos.find(x=>x.red==="kick")||vivos.find(x=>x.red==="youtube"&&x.vid)||vivos.find(x=>x.red==="twitch");
+ const urlE=emb?(emb.red==="kick"?`https://player.kick.com/${encodeURIComponent(emb.u)}?muted=true&autoplay=true`:emb.red==="youtube"?`https://www.youtube.com/embed/${encodeURIComponent(emb.vid)}?autoplay=1&mute=1`:`https://player.twitch.tv/?channel=${encodeURIComponent(emb.u)}&parent=${location.hostname}&muted=true`):"";
+ if(pl.dataset.u!==urlE){pl.dataset.u=urlE;pl.innerHTML=urlE?`<div class="player"><iframe src="${esc(urlE)}" allow="autoplay; fullscreen" allowfullscreen title="Directo"></iframe></div>`:""}
+ if(vivos.length){const v=vivos[0];pill.hidden=false;pill.innerHTML=`${v.avatar?`<img src="${esc(v.avatar)}" alt="" referrerpolicy="no-referrer">`:"🔴"}<span>🔴 ${esc(v.nombre)} está EN VIVO en ${esc((RED[v.red]||v.red).replace(/^\S+\s/,""))}${vivos.length>1?` +${vivos.length-1}`:""}</span>`}else pill.hidden=true}
+document.addEventListener("click",e=>{if(e.target.closest("[data-live]")&&typeof evento==="function")evento("live")},true);
+
 // ===== galería de huevos en la calculadora =====
 var SEL=null;
 function galeria(){const g=document.getElementById("galG");if(!g)return;const q=(document.getElementById("galQ").value||"").trim().toLowerCase();
