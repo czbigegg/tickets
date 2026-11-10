@@ -1070,6 +1070,11 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 #rulGift[hidden],.rulyo[hidden]{display:none}
 .rulyo{margin-top:8px;font:600 12px Poppins;color:#cfe8d4}.rulyo b{color:#7dff3a}.rulyo a{color:#9fbfa8;text-decoration:underline}
 .toastv{display:none!important}
+
+.rulsnd{margin-left:auto;margin-right:6px;flex:none;font:400 11px "Luckiest Guy";padding:6px 8px 4px;border-radius:9px;border:3px solid #030806;background:#7dff3a;color:#030806;cursor:pointer}
+.rulsnd.off{background:#2a4a36;color:#cfe8d4}
+#ruleta .gbar{display:flex;align-items:center}#ruleta #rulTag{margin-left:8px}
+@media(max-width:560px){.rulsnd{font-size:9px;padding:5px 6px 3px}#ruleta #rulTag{display:none}}
 </style>
 </head>
 <body>
@@ -1177,7 +1182,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
      <p class="rulmsg" id="rulMsg">Toca GIRAR. Tienes 1 giro al día.</p>
      <form id="rulF" hidden autocomplete="off">
       <label>TU USUARIO DE ROBLOX<input id="rulRbx" maxlength="20" required placeholder="Ej: Privvmat3oo"></label>
-      <label>TU USUARIO DE DISCORD<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
+      <label>TU USUARIO DE DISCORD (te escribimos por privado)<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
       <button class="btn btn-y" type="submit">RECLAMAR PREMIO</button>
      </form>
      <div id="rulGift"><form class="rulgift" id="rulGiftF" autocomplete="off"><span>¿Te regalamos giros? Pon tu usuario de Roblox</span><div><input id="rulGiftU" maxlength="20" placeholder="Usuario de Roblox"><button class="btn btn-s btn-g" type="submit">OK</button></div></form></div>
@@ -1860,10 +1865,10 @@ document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=docume
  const sp=document.getElementById("rulSp"),mt=getComputedStyle(sp).transform;let ia=0;if(mt&&mt!=="none"){const v=mt.match(/matrix\(([^)]+)\)/);if(v){const q=v[1].split(",").map(parseFloat);ia=Math.atan2(q[1],q[0])*180/Math.PI}}
  sp.classList.add("parado");const base=((ia%360)+360)%360;
  const jit=(Math.random()-.5)*30;RULGIRO+=360*6+((((360-seg*45-base)-(RULGIRO%360))%360)+720)%360+jit;
- const W=document.getElementById("rulW");W.style.transform=`rotate(${RULGIRO}deg)`;RULGIRO-=jit;
+ rAC();const W=document.getElementById("rulW");W.style.transform=`rotate(${RULGIRO}deg)`;RULGIRO-=jit;rTicks(5100);
  setTimeout(()=>{delete b.dataset.girando;const w=document.querySelector(".rulw");setTimeout(()=>document.getElementById("rulSp").classList.remove("parado"),7000);
-  if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";const gg=rulGuard();if(gg.rbx)document.getElementById("rulRbx").value=gg.rbx;document.getElementById("rulF").hidden=false;document.getElementById("rulDot").hidden=false}
-  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();if(document.getElementById("rulGo").disabled)m.innerHTML+=" <br>¡Vuelve mañana por otro giro!"}},5200)};
+  if(gana){rGana();confeti();setTimeout(confeti,900);w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";const gg=rulGuard();if(gg.rbx)document.getElementById("rulRbx").value=gg.rbx;document.getElementById("rulF").hidden=false;document.getElementById("rulDot").hidden=false}
+  else{rPierde();document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();if(document.getElementById("rulGo").disabled)m.innerHTML+=" <br>¡Vuelve mañana por otro giro!"}},5200)};
 document.getElementById("rulGiftF").onsubmit=async e=>{e.preventDefault();const v=document.getElementById("rulGiftU").value.trim();if(!/^[A-Za-z0-9_]{3,20}$/.test(v))return;
  const g=rulGuard();g.rbx=v;rulSave(g);await rulMio(RUL);rulEstado();const ex=rulExtras();
  document.getElementById("rulMsg").innerHTML=ex.giros||ex.forz?`¡<b>${esc(v)}</b>, tienes giros de regalo! Toca <b>GIRAR</b>.`:`Listo <b>${esc(v)}</b>. Si te regalamos giros, aparecerán aquí.`};
@@ -1874,9 +1879,29 @@ document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=
  try{if(!VOTO)throw 0;const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Ruleta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rulg",id:RUL.id,vid:voterId(),rbx,dc})+"\n```"}));
   try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
   const g=rulGuard();g.env=1;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
-  e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="Listo, te escribiremos por Discord a <b>"+esc(dc)+"</b> para entregarte tu premio."}
+  e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="¡Listo! Te enviamos un <b>mensaje privado por Discord</b> desde el bot de CZ BIG EGG a <b>"+esc(dc)+"</b>. Para recibirlo tienes que estar en nuestro Discord: <a href=\"https://discord.gg/czbigegg\" target=\"_blank\" rel=\"noopener\" style=\"color:#7dff3a\">discord.gg/czbigegg</a>"}
  catch(_){bt.disabled=false;bt.textContent="RECLAMAR PREMIO";m.textContent="No se pudo enviar, intenta de nuevo."}};
 setInterval(()=>{if(RUL)rulEstado()},30000);
+
+// ===== ruleta: sonido y confeti =====
+var RAC=null,RSON=true;try{RSON=localStorage.getItem("czRulMute")!=="1"}catch(_){}
+function rAC(){if(!RAC){try{RAC=new(window.AudioContext||window.webkitAudioContext)()}catch(_){}}if(RAC&&RAC.state==="suspended")RAC.resume();return RAC}
+function rTono(f,d,tipo,vol,cuando){const c=rAC();if(!c||!RSON)return;const t=c.currentTime+(cuando||0),o=c.createOscillator(),g=c.createGain();o.type=tipo||"square";o.frequency.setValueAtTime(f,t);
+ g.gain.setValueAtTime(vol||.08,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(c.destination);o.start(t);o.stop(t+d+.02)}
+function rTick(){rTono(1500,.035,"square",.05)}
+function rGana(){[523,659,784,1047,784,1047].forEach((f,i)=>rTono(f,.22,"triangle",.12,i*.11));rTono(1319,.6,"triangle",.1,.7)}
+function rPierde(){const c=rAC();if(!c||!RSON)return;const t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type="sawtooth";o.frequency.setValueAtTime(330,t);o.frequency.exponentialRampToValueAtTime(140,t+.6);g.gain.setValueAtTime(.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+.65);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.7)}
+function rAngulo(el){const m=getComputedStyle(el).transform;if(!m||m==="none")return 0;const v=m.match(/matrix\(([^)]+)\)/);if(!v)return 0;const q=v[1].split(",").map(parseFloat);return Math.atan2(q[1],q[0])*180/Math.PI}
+function rTicks(ms){const W=document.getElementById("rulW");let ult=null,acc=0,prev=rAngulo(W);const fin=performance.now()+ms;
+ (function f(){const a=rAngulo(W);let d=a-prev;if(d<-180)d+=360;if(d>180)d-=360;acc+=d;prev=a;const sec=Math.floor(acc/45);if(ult===null)ult=sec;if(sec!==ult){ult=sec;rTick()}if(performance.now()<fin)requestAnimationFrame(f)})()}
+function confeti(){const cv=document.createElement("canvas");cv.style.cssText="position:fixed;inset:0;z-index:9999;pointer-events:none";document.body.appendChild(cv);
+ const x=cv.getContext("2d"),W=cv.width=innerWidth,H=cv.height=innerHeight,C=["#7dff3a","#ffd23a","#ff3b4f","#38d3ff","#b48cff","#fff"];
+ const P=Array.from({length:180},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.55,vx:(Math.random()-.5)*16,vy:-Math.random()*18-6,s:6+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:C[Math.floor(Math.random()*C.length)]}));
+ const t0=performance.now();(function f(t){x.clearRect(0,0,W,H);const k=(t-t0)/3500;P.forEach(p=>{p.vy+=.45;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.globalAlpha=Math.max(0,1-k);x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66);x.restore()});
+  if(k<1)requestAnimationFrame(f);else cv.remove()})(t0)}
+(function(){const bar=document.querySelector("#ruleta .gbar"),b=document.createElement("button");b.type="button";b.className="rulsnd";b.id="rulSnd";
+ const pint=()=>{b.textContent=RSON?"SONIDO ON":"SONIDO OFF";b.classList.toggle("off",!RSON)};pint();b.onclick=()=>{RSON=!RSON;try{localStorage.setItem("czRulMute",RSON?"0":"1")}catch(_){}pint();if(RSON)rTick()};
+ bar.insertBefore(b,document.getElementById("rulX"))})();
 </script>
 </body>
 </html>
