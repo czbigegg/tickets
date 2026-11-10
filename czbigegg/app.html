@@ -908,18 +908,50 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .feed li .ic:before{font:400 20px "Luckiest Guy";color:#030806}.feed li.f-reg .ic:before{content:"+"}.feed li.f-radar .ic:before{content:"✓"}.feed li.f-venta .ic:before{content:"$"}
 .rdl li .eg:empty:before{content:"?";font:400 18px "Luckiest Guy";color:#7dff3a}
 .nw:empty,.eyebrow:empty{display:none}
+
+/* ===== intro nueva: el huevo se rompe ===== */
+#intro{overflow:hidden;background:radial-gradient(circle at 50% 45%,#123d1d,#03060a 70%)}
+.itr-rays{position:absolute;left:50%;top:44%;width:2200px;height:2200px;margin:-1100px 0 0 -1100px;background:repeating-conic-gradient(rgba(125,255,58,.09) 0 9deg,transparent 9deg 18deg);animation:spin 18s linear infinite;opacity:0;animation:spin 18s linear infinite,itrIn .4s .9s forwards}
+.itr{position:relative;width:300px;height:300px;margin-top:-60px}
+.itr-egg{position:absolute;left:50%;top:50%;width:150px;height:190px;margin:-95px 0 0 -75px;animation:itrShake .9s ease-in-out}
+.itr-top,.itr-bot{position:absolute;inset:0;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;border:5px solid #030806;
+ background:radial-gradient(circle at 34% 24%,rgba(255,255,255,.9) 0 7%,transparent 8%),repeating-linear-gradient(-45deg,rgba(255,255,255,.18) 0 10px,transparent 10px 20px),linear-gradient(160deg,#9dff5a,#2fbf4a 60%,#14702a);box-shadow:inset -12px -16px 0 rgba(0,0,0,.2)}
+.itr-top{clip-path:polygon(0 0,100% 0,100% 50%,88% 57%,76% 48%,64% 57%,52% 48%,40% 57%,28% 48%,16% 57%,0 50%);animation:itrTop .55s .9s cubic-bezier(.3,.6,.4,1) forwards}
+.itr-bot{clip-path:polygon(0 50%,16% 57%,28% 48%,40% 57%,52% 48%,64% 57%,76% 48%,88% 57%,100% 50%,100% 100%,0 100%);animation:itrBot .55s .9s ease-in forwards}
+.itr-flash{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px;border-radius:50%;background:#fff;opacity:0;animation:itrFlash .6s .88s ease-out forwards}
+.itr-logo{position:absolute;left:50%;top:50%;width:190px;margin:-95px 0 0 -95px;transform:scale(0);filter:drop-shadow(0 0 30px rgba(125,255,58,.7));animation:itrLogo .6s 1s cubic-bezier(.3,1.6,.5,1) forwards,bob 2s 1.7s ease-in-out infinite}
+.itr-sh i{position:absolute;left:50%;top:50%;width:14px;height:18px;margin:-9px -7px;background:var(--c);border:3px solid #030806;border-radius:4px 10px 4px 10px;opacity:0;animation:itrSh .8s .92s cubic-bezier(.2,.7,.3,1) forwards}
+.itr-name{position:relative;margin-top:-30px;font:400 clamp(40px,8vw,72px) "Luckiest Guy";color:#7dff3a;-webkit-text-stroke:6px #030806;paint-order:stroke fill;text-shadow:0 7px 0 #030806;transform:scale(2.4);opacity:0;animation:itrName .45s 1.35s cubic-bezier(.3,1.4,.5,1) forwards}
+.itr-load{position:absolute;left:50%;bottom:12%;width:min(320px,70vw);transform:translateX(-50%);text-align:center}
+.itr-load div{height:16px;border:3px solid #030806;border-radius:10px;background:#0b1e12;overflow:hidden;box-shadow:0 4px 0 #030806}
+.itr-load i{display:block;height:100%;width:0;background:repeating-linear-gradient(-45deg,#9dff5a 0 10px,#3ee06a 10px 20px);animation:itrBar 2.5s ease-in-out forwards}
+.itr-load span{display:block;margin-top:10px;font:400 15px "Luckiest Guy";letter-spacing:2px;color:#9fbfa8}
+#intro{display:flex;flex-direction:column;align-items:center;justify-content:center}
+@keyframes itrShake{0%,100%{transform:none}10%,50%,90%{transform:rotate(-9deg) translateY(-4px)}30%,70%{transform:rotate(9deg) translateY(-4px)}}
+@keyframes itrTop{to{transform:translate(-30px,-150px) rotate(-38deg);opacity:0}}
+@keyframes itrBot{to{transform:translate(20px,120px) rotate(22deg);opacity:0}}
+@keyframes itrFlash{0%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:scale(14)}}
+@keyframes itrLogo{to{transform:scale(1)}}
+@keyframes itrSh{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(.4)}80%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateY(calc(-1*var(--d))) rotate(200deg) scale(1)}}
+@keyframes itrName{to{transform:none;opacity:1}}
+@keyframes itrIn{to{opacity:1}}
+@keyframes itrBar{to{width:100%}}
+@media(max-width:560px){.itr{transform:scale(.8)}.itr-load{bottom:10%}}
 </style>
 </head>
 <body>
 <div class="bg"></div><div class="grid-bg"></div>
 
 <div id="intro">
- <div class="radar">
-  <div class="ring"></div><div class="ring"></div><div class="ring"></div>
-  <div class="sweep"></div>
-  <span class="blip" style="left:68%;top:24%"></span><span class="blip" style="left:22%;top:66%;animation-delay:.7s"></span><span class="blip" style="left:74%;top:70%;animation-delay:1.4s"></span>
-  <img src="assets/logo.png" alt="">
+ <div class="itr-rays"></div>
+ <div class="itr">
+  <div class="itr-flash"></div>
+  <div class="itr-sh"><i style="--a:0deg;--c:#7dff3a;--d:150px"></i><i style="--a:30deg;--c:#ffd23a;--d:195px"></i><i style="--a:60deg;--c:#38d3ff;--d:240px"></i><i style="--a:90deg;--c:#b48cff;--d:150px"></i><i style="--a:120deg;--c:#ff9de0;--d:195px"></i><i style="--a:150deg;--c:#ff6b6b;--d:240px"></i><i style="--a:180deg;--c:#7dff3a;--d:150px"></i><i style="--a:210deg;--c:#ffd23a;--d:195px"></i><i style="--a:240deg;--c:#38d3ff;--d:240px"></i><i style="--a:270deg;--c:#b48cff;--d:150px"></i><i style="--a:300deg;--c:#ff9de0;--d:195px"></i><i style="--a:330deg;--c:#ff6b6b;--d:240px"></i></div>
+  <div class="itr-egg"><div class="itr-top"></div><div class="itr-bot"></div></div>
+  <img class="itr-logo" src="assets/logo.png" alt="">
  </div>
+ <div class="itr-name">CZ BIG EGG</div>
+ <div class="itr-load"><div><i></i></div><span>CARGANDO RADAR</span></div>
  <button class="skip" onclick="hideIntro()">Saltar intro</button>
 </div>
 
@@ -1234,7 +1266,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <script>
 const TICKET="https://discord.com/channels/1562656550193991690/1564143741621506088";
 function hideIntro(){document.getElementById("intro").classList.add("off");try{sessionStorage.setItem("czIntro","1")}catch(e){}}
-try{if(sessionStorage.getItem("czIntro"))document.getElementById("intro").style.display="none";else setTimeout(hideIntro,2600)}catch(e){setTimeout(hideIntro,2600)}
+try{if(sessionStorage.getItem("czIntro"))document.getElementById("intro").style.display="none";else setTimeout(hideIntro,2900)}catch(e){setTimeout(hideIntro,2900)}
 
 const FR=[];
 let fi=0,ri=0;const ty=document.getElementById("typed");
