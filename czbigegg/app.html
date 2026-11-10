@@ -524,7 +524,10 @@ button.gx{cursor:pointer}
 .ak{background:#effff0;border:3px solid #030806;border-radius:14px;box-shadow:0 4px 0 #030806;padding:12px 14px 9px;text-align:center}
 .ak b{display:block;font:400 clamp(30px,4vw,44px)/1 "Luckiest Guy";color:#1fb45a;-webkit-text-stroke:3px #030806;paint-order:stroke fill;font-variant-numeric:tabular-nums}
 .ak span{font:400 13px "Luckiest Guy";letter-spacing:.4px;color:#030806}
-.feed{list-style:none;display:grid;gap:8px;max-height:360px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.feedw{max-height:380px;overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 85%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 85%,transparent)}
+.feed.loop{animation:subir var(--dur,40s) linear infinite}.feedw:hover .feed.loop{animation-play-state:paused}
+@keyframes subir{to{transform:translateY(-50%)}}
+.feed{list-style:none;display:grid;gap:8px;position:relative;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
 .feed li{display:flex;align-items:center;gap:12px;background:#14361f;border:3px solid #030806;border-radius:13px;padding:9px 12px 7px;box-shadow:0 3px 0 #030806;font:400 16px "Luckiest Guy";letter-spacing:.3px;color:#fff;animation:fin2 .5s cubic-bezier(.2,1.3,.4,1) both}
 .feed li .ic{width:36px;height:36px;flex:none;border-radius:10px;border:2px solid #030806;display:grid;place-items:center;font-size:18px}
 .feed li.f-reg .ic{background:#7dff3a}.feed li.f-radar .ic{background:#56cfff}.feed li.f-venta .ic{background:#ffd23a}
@@ -641,7 +644,7 @@ button.gx{cursor:pointer}
   <div class="gw actw">
    <div class="gbar"><span class="gtit">📡 ACTIVIDAD EN VIVO</span><span class="gx livedot" title="Datos reales"></span></div>
    <div class="actb">
-    <ul class="feed" id="feed"></ul>
+    <div class="feedw"><ul class="feed" id="feed"></ul></div>
     <p class="feedn">Actividad real de CZ BIG EGG · sin nombres, para cuidar la privacidad de nuestros jugadores</p>
    </div>
   </div>
@@ -1036,7 +1039,10 @@ function contar(id,n){const el=document.getElementById(id),de=+el.dataset.n||0;e
 function pintarFeed(F){if(!F)return;const sec=document.getElementById("actividad");
  if(!(F.items||[]).length){sec.hidden=true;return}sec.hidden=false;
  
- document.getElementById("feed").innerHTML=(F.items||[]).slice(0,12).map((x,i)=>{const [ic,tx]=feedTxt(x);return `<li class="f-${x.k}" style="animation-delay:${i*.06}s"><span class="ic">${ic}</span><span>${tx}</span><em>${haceTxt(x.t)}</em></li>`}).join("")||`<li class="f-reg"><span class="ic">📡</span><span>Esperando la próxima actividad...</span></li>`;
+ const L=(F.items||[]).slice(0,20),fe=document.getElementById("feed");
+ const filas=L.map((x,i)=>{const [ic,tx]=feedTxt(x);return `<li class="f-${x.k}" data-i="${i}"><span class="ic">${ic}</span><span>${tx}</span><em>${haceTxt(x.t)}</em></li>`}).join("");
+ if(L.length>=5){fe.innerHTML=filas+filas;fe.classList.add("loop");fe.style.setProperty("--dur",(L.length*3.2)+"s")}
+ else{fe.classList.remove("loop");fe.innerHTML=filas||`<li class="f-reg"><span class="ic">📡</span><span>Esperando la próxima actividad...</span></li>`}
  const nuevos=(F.items||[]).filter(x=>Date.now()/1000-x.t<1800);const k=x=>x.k+x.t;
  if(FEEDVISTOS){const n=nuevos.find(x=>!FEEDVISTOS.has(k(x)));if(n)toast(n)}FEEDVISTOS=new Set((F.items||[]).map(k))}
 let toastT=null;function toast(x){const el=document.getElementById("toastV"),[ic,tx]=feedTxt(x);el.innerHTML=`<span style="font-size:22px">${ic}</span><div>${tx}<small>${haceTxt(x.t)} · CZ BIG EGG</small></div>`;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,6000)}
@@ -1046,7 +1052,9 @@ async function cargarFeed(){let t=null;
  if(!t)try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czfeed.json?t=${Math.floor(Date.now()/60000)}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
  if(!t||t===FEEDK)return;FEEDK=t;try{pintarFeed(JSON.parse(t))}catch(_){}}
 cargarFeed();setInterval(()=>{if(!document.hidden)cargarFeed()},90000);
-setInterval(()=>{if(FEEDK)try{const F=JSON.parse(FEEDK);document.querySelectorAll("#feed li em").forEach((e,i)=>{const x=(F.items||[])[i];if(x)e.textContent=haceTxt(x.t)})}catch(_){}},30000);
+setInterval(()=>{if(FEEDK)try{const F=JSON.parse(FEEDK);document.querySelectorAll("#feed li[data-i] em").forEach(e=>{const x=(F.items||[])[+e.parentNode.dataset.i];if(x)e.textContent=haceTxt(x.t)})}catch(_){}},30000);
+let rotI=0;setInterval(()=>{if(document.hidden||!FEEDK)return;try{const F=JSON.parse(FEEDK),R=(F.items||[]).filter(x=>Date.now()/1000-x.t<86400);   // avisos rotando: solo actividad real de las últimas 24 h
+ if(!R.length||!document.getElementById("toastV").hidden)return;toast(R[rotI++%R.length])}catch(_){}},22000);
 
 // ===== 🎥 directos de los dueños =====
 var RED={kick:"🟢 KICK",tiktok:"🎵 TIKTOK",youtube:"▶️ YOUTUBE",twitch:"🟣 TWITCH"};
