@@ -1021,6 +1021,26 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 #encuesta .wrap{min-height:0}
 @media(max-width:560px){.poll.flota{bottom:10px}}
 #encuesta.soloflota{padding:0!important;height:0;overflow:visible}
+
+/* ===== ruleta ===== */
+.rulw{max-width:980px;margin:0 auto}
+.rulb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:center;padding:24px;background:radial-gradient(500px 300px at 30% 50%,rgba(255,210,58,.15),transparent),#0b1e12}
+.rulbox{position:relative;width:min(380px,100%);aspect-ratio:1;margin:0 auto}
+.rulwheel{width:100%;height:100%;border-radius:50%;border:6px solid #030806;box-shadow:0 0 0 5px #ffd23a,0 10px 0 #030806,0 0 50px rgba(255,210,58,.35);transition:transform 5s cubic-bezier(.12,.75,.12,1)}
+.rulwheel text{font:400 9px "Luckiest Guy";fill:#fff;stroke:#030806;stroke-width:2px;paint-order:stroke fill;letter-spacing:.3px}
+.rulptr{position:absolute;left:50%;top:-14px;z-index:3;width:0;height:0;margin-left:-16px;border-left:16px solid transparent;border-right:16px solid transparent;border-top:34px solid #ff3b4f;filter:drop-shadow(0 3px 0 #030806)}
+.rulbtn{position:absolute;left:50%;top:50%;z-index:2;width:26%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:5px solid #030806;background:linear-gradient(180deg,#ffe766,#ffb800);box-shadow:0 6px 0 #030806;font:400 clamp(14px,2.4vw,20px) "Luckiest Guy";color:#030806;cursor:pointer;animation:pls 1.6s infinite}
+.rulbtn:disabled{animation:none;filter:grayscale(.5);cursor:default}
+.rulh{font:400 clamp(24px,3vw,36px)/1.1 "Luckiest Guy";color:#fff;-webkit-text-stroke:4px #030806;paint-order:stroke fill;text-shadow:0 4px 0 #030806}
+.rulmsg{margin:10px 0 14px;font:600 15px Poppins;color:#cfe8d4}.rulmsg b{color:#ffd23a}
+#rulF{display:grid;gap:10px}#rulF[hidden]{display:none}
+#rulF label{display:grid;gap:4px;font:400 13px "Luckiest Guy";color:#9fbfa8}
+#rulF input{border:3px solid #030806;border-radius:12px;padding:10px 12px 8px;font:600 16px Poppins;background:#effff0;color:#030806}
+.rulleg{margin-top:14px;font:600 11px Poppins;color:#7f9c88}
+.rulw.gano .rulwheel{animation:rulWin 1s ease-in-out 3}
+@keyframes rulWin{50%{box-shadow:0 0 0 5px #7dff3a,0 10px 0 #030806,0 0 80px rgba(125,255,58,.8)}}
+#ruleta[hidden]{display:none}
+@media(max-width:560px){.rulb{grid-template-columns:minmax(0,1fr);padding:14px;gap:14px}.rulbox{width:min(300px,86%)}.rulside{text-align:center}.rulh{font-size:22px!important;-webkit-text-stroke:3px #030806}.rulmsg{font-size:13px}.rulleg{font-size:10px}}
 </style>
 </head>
 <body>
@@ -1111,6 +1131,31 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 </section>
 
 <a class="livepill" id="livePill" href="#streams" hidden></a>
+
+<section id="ruleta" hidden>
+ <div class="wrap">
+  <div class="gw rulw">
+   <div class="gbar"><span class="gtit">RULETA CZ BIG EGG</span><span class="rdst" id="rulTag">GIRA GRATIS</span></div>
+   <div class="rulb">
+    <div class="rulbox">
+     <div class="rulptr"></div>
+     <svg class="rulwheel" id="rulW" viewBox="-110 -110 220 220"></svg>
+     <button class="rulbtn" id="rulGo" type="button">GIRAR</button>
+    </div>
+    <div class="rulside">
+     <h3 class="rulh" id="rulH">¡Gira y gana radar Premium!</h3>
+     <p class="rulmsg" id="rulMsg">Toca GIRAR. Tienes 1 giro cada hora.</p>
+     <form id="rulF" hidden autocomplete="off">
+      <label>TU USUARIO DE ROBLOX<input id="rulRbx" maxlength="20" required placeholder="Ej: Privvmat3oo"></label>
+      <label>TU USUARIO DE DISCORD<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
+      <button class="btn btn-y" type="submit">RECLAMAR PREMIO</button>
+     </form>
+     <p class="rulleg">Premios limitados: solo se pueden ganar cuando CZ BIG EGG libera uno. Si no hay premio liberado, ningún giro gana.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
 
 <section id="gratis">
  <div class="wrap">
@@ -1465,7 +1510,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N);if(FLOTA)setTimeout(cerrarFlota,3500)}
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
-function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
@@ -1473,7 +1518,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){if(typeof cuentaWeb==="function")cuentaWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
 
 // ── PLANES (edita los precios aquí) ──
@@ -1743,6 +1788,40 @@ function encFlota(E){if(!E||!E.on||!E.ops)return;const seg=E.pop>0?E.pop:60;cons
 function cerrarFlota(){if(!FLOTA)return;clearInterval(FLOTA.t);const card=document.querySelector("#encuesta .poll");card.classList.add("sale");
  setTimeout(()=>{card.classList.remove("flota","sale");document.getElementById("encuesta").hidden=true;FLOTA=null},350)}
 document.getElementById("pFx").onclick=cerrarFlota;
+
+// ===== ruleta =====
+var RUL=null,RULGIRO=0;const RULSEG=8;
+function rulDibujar(premio){const W=document.getElementById("rulW");if(!W||W.dataset.p===premio)return;W.dataset.p=premio;
+ const etq=[premio,"SUERTE LA PRÓXIMA","CASI...","OTRA VEZ","SUERTE LA PRÓXIMA","CASI...","OTRA VEZ","SUERTE LA PRÓXIMA"];
+ const col=["#ffd23a","#1fb45a","#14361f","#2fbf4a","#1fb45a","#14361f","#2fbf4a","#14361f"];let h="";
+ for(let i=0;i<RULSEG;i++){const a0=(i*45-90-22.5)*Math.PI/180,a1=((i+1)*45-90-22.5)*Math.PI/180,r=104;
+  h+=`<path d="M0 0 L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z" fill="${col[i]}" stroke="#030806" stroke-width="2"/>`;
+  const am=i*45;h+=`<g transform="rotate(${am})"><text x="0" y="-62" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i]).split(" ").slice(0,2).join(" ")}</text>${etq[i].split(" ").length>2?`<text x="0" y="-50" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i].split(" ").slice(2).join(" "))}</text>`:""}</g>`}
+ h+=`<circle r="104" fill="none" stroke="#030806" stroke-width="3"/>`;W.innerHTML=h}
+function rulWeb(j){const sec=document.getElementById("ruleta");RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:null;if(!sec)return;sec.hidden=!RUL;if(!RUL)return;rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulEstado()}
+function rulGuard(){try{return JSON.parse(localStorage.getItem("czRul")||"{}")}catch(_){return{}}}
+function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;
+ if(g.gano===RUL.id&&!g.env){document.getElementById("rulF").hidden=false;b.disabled=true;return}
+ const falta=(g.t||0)+3600000-Date.now();if(falta>0&&!b.dataset.girando){b.disabled=true;m.innerHTML=`Ya giraste. Vuelve a intentarlo en <b>${Math.ceil(falta/60000)} min</b>.`}
+ else if(!b.dataset.girando){b.disabled=false;m.innerHTML="Toca <b>GIRAR</b>. Tienes 1 giro cada hora."}}
+document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");b.disabled=true;b.dataset.girando=1;m.textContent="Girando...";
+ let gana=false;try{const t=await leerWeb();const j=JSON.parse(t);if(j.ruleta&&j.ruleta.on&&j.ruleta.id===RUL.id&&(j.ruleta.n||0)>0)gana=true}catch(_){}
+ let seg=0;if(!gana){seg=1+Math.floor(Math.random()*(RULSEG-1));if(Math.random()<.45)seg=Math.random()<.5?1:RULSEG-1}
+ const jit=(Math.random()-.5)*30;RULGIRO+=360*6+((360-seg*45-(RULGIRO%360))+360)%360+jit-(RULGIRO?0:0);
+ const W=document.getElementById("rulW");W.style.transform=`rotate(${RULGIRO}deg)`;RULGIRO-=jit;
+ const g=rulGuard();g.t=Date.now();if(gana)g.gano=RUL.id;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
+ setTimeout(()=>{delete b.dataset.girando;const w=document.querySelector(".rulw");
+  if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";document.getElementById("rulF").hidden=false}
+  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>Sigue atento: cuando liberemos un premio podrías ser tú."}},5200)};
+document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=document.getElementById("rulRbx").value.trim(),dc=document.getElementById("rulDc").value.trim(),m=document.getElementById("rulMsg");
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(rbx))return m.textContent="Escribe un usuario de Roblox válido.";if(dc.length<2)return m.textContent="Escribe tu usuario de Discord.";
+ const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="ENVIANDO...";
+ try{if(!VOTO)throw 0;const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Ruleta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rulg",id:RUL.id,vid:voterId(),rbx,dc})+"\n```"}));
+  try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
+  const g=rulGuard();g.env=1;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
+  e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="Listo, te escribiremos por Discord a <b>"+esc(dc)+"</b> para entregarte tu premio."}
+ catch(_){bt.disabled=false;bt.textContent="RECLAMAR PREMIO";m.textContent="No se pudo enviar, intenta de nuevo."}};
+setInterval(()=>{if(RUL)rulEstado()},30000);
 </script>
 </body>
 </html>
