@@ -906,7 +906,7 @@ let fi=0,ri=0;const ty=document.getElementById("typed");
 (()=>{const w=[...document.querySelectorAll("#pal .pw")];let i=0;setInterval(()=>{w[i].classList.remove("on");i=(i+1)%w.length;w[i].classList.add("on")},2600)})();
 function ticker(){const t=document.getElementById("tk");if(!t)return;
  const extra=['<span>💰 +500 BILLONES</span>','<span>⚡ RADAR 24/7</span>','<span>🆓 RADAR GRATIS</span>'];
- const eg=(typeof EGGS!=="undefined"?[...EGGS].sort((x,y)=>(y.img?1:0)-(x.img?1:0)).slice(0,24):[]).map(e=>`<span class="ti">${e.img?`<img src="${esc(src(e.img))}" alt="">`:"🥚 "}${esc(e.n.toUpperCase())}</span>`);
+ const eg=(typeof EGGS!=="undefined"?[...EGGS].sort((x,y)=>((y.img||fotoPet(y.n))?1:0)-((x.img||fotoPet(x.n))?1:0)).slice(0,24):[]).map(e=>{const fi=e.img?src(e.img):fotoPet(e.n);return `<span class="ti">${fi?`<img src="${esc(fi)}" alt="">`:"🥚 "}${esc(e.n.toUpperCase())}</span>`});
  const it=[];eg.forEach((x,k)=>{it.push(x);if(k%3===2&&extra.length)it.push(extra.shift())});it.push(...extra);
  const h=it.map(x=>x+"<b>✦</b>").join("");t.innerHTML=h+h}
 
@@ -960,7 +960,7 @@ function filtros(){fil.innerHTML="";const rs=["Todas",...new Set(EGGS.map(e=>e.r
 function eggs(){const g=document.getElementById("eggs");g.innerHTML="";const q=((document.getElementById("eggQ")||{}).value||"").trim().toLowerCase();
  EGGS.filter(e=>(cur==="Todas"||e.r===cur)&&(!q||e.n.toLowerCase().includes(q)||String(e.z||"").toLowerCase().includes(q))).forEach((e,i)=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="ecard";
   d.style.cssText=`--c:${c[0]};--c2:${c[1]};--c3:${c[2]}`;
-  const pic=e.img?`<img class="eimg" src="${esc(src(e.img))}" alt="${esc(e.n)}" loading="lazy" style="animation-delay:-${i*.4}s" onerror="this.outerHTML='<div class=&quot;egg&quot;></div>'">`:`<div class="egg" style="animation-delay:-${i*.4}s"></div>`;
+  const fi=e.img?src(e.img):fotoPet(e.n);const pic=fi?`<img class="eimg" src="${esc(fi)}" alt="${esc(e.n)}" loading="lazy" style="animation-delay:-${i*.4}s" onerror="this.outerHTML='<div class=&quot;egg&quot;></div>'">`:`<div class="egg" style="animation-delay:-${i*.4}s"></div>`;
   d.innerHTML=`${pic}<div class="n">${esc(e.n.toUpperCase())}</div><span class="r">${esc(e.r)}</span><span class="z">${esc(e.z)}</span>`;g.appendChild(d)});const en=document.getElementById("eggN");if(en)en.textContent=g.children.length+" huevos";if(!g.children.length)g.innerHTML=`<p style="grid-column:1/-1;text-align:center;color:#9fbfa8;font:400 15px 'Luckiest Guy'">No hay huevos con ese nombre</p>`}
 function pintarHuevos(l){if(Array.isArray(l)&&l.length){EGGS=l}filtros();eggs();ticker();if(typeof galeria==="function")galeria()}
 pintarHuevos(null);
