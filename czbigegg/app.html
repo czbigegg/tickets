@@ -1020,6 +1020,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .poll.flota .pbody{max-height:60vh;overflow:auto}
 #encuesta .wrap{min-height:0}
 @media(max-width:560px){.poll.flota{bottom:10px}}
+#encuesta.soloflota{padding:0!important;height:0;overflow:visible}
 </style>
 </head>
 <body>
@@ -1448,7 +1449,7 @@ function anuncios(L){const bar=document.getElementById("bar");L=(L||[]).filter(a
 function voterId(){try{let v=localStorage.getItem("czVoter");if(!v){v=(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2));localStorage.setItem("czVoter",v)}return v}catch(e){return "anon-"+Math.random().toString(36).slice(2)}}
 function miVoto(id){try{const o=JSON.parse(localStorage.getItem("czVotos")||"{}");return o[id]}catch(e){return undefined}}
 function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.getElementById("navEnc");setTimeout(()=>typeof encFlota==="function"&&encFlota(E),3500);
- if(!E||!E.ops||E.on===false){sec.hidden=true;nav.hidden=true;return}sec.hidden=false;nav.hidden=false;
+ if(!E||!E.ops||E.on===false){sec.hidden=true;nav.hidden=true;return}sec.hidden=!FLOTA;nav.hidden=true;
  document.getElementById("pQ").textContent=E.q;const mio=miVoto(E.id),ya=mio!=null,tot=E.total||0;
  document.getElementById("pTot").textContent=tot+(tot===1?" voto":" votos");
  document.getElementById("pNote").textContent=ya?"¡Gracias por votar! Así va la encuesta":"Toca una opción para votar · 1 voto por persona";
@@ -1732,15 +1733,15 @@ document.getElementById("cdNot").onclick=async()=>{const n=document.getElementBy
 
 // ===== encuesta flotante (el dueño elige cuánto tiempo sale en pantalla) =====
 var FLOTA=null;
-function encFlota(E){if(!E||!E.on||!(E.pop>0))return;const card=document.querySelector("#encuesta .poll");if(!card||FLOTA)return;
+function encFlota(E){if(!E||!E.on||!E.ops)return;const seg=E.pop>0?E.pop:60;const card=document.querySelector("#encuesta .poll");if(!card||FLOTA)return;
  const key=E.id+"|"+(E.pv||"");let vistos={};try{vistos=JSON.parse(localStorage.getItem("czPollPop")||"{}")}catch(_){}
  if(vistos[key]||miVoto(E.id)!=null&&!E.pv)return;
  vistos[key]=1;try{localStorage.setItem("czPollPop",JSON.stringify(vistos))}catch(_){}
- const ph=document.createElement("div");ph.style.height=card.offsetHeight+"px";ph.id="pollPh";card.after(ph);
- card.classList.add("flota");const ms=E.pop*1000,t0=Date.now(),bar=document.getElementById("pFt");
+ const sec=document.getElementById("encuesta");sec.classList.add("soloflota");sec.hidden=false;
+ card.classList.add("flota");const ms=seg*1000,t0=Date.now(),bar=document.getElementById("pFt");
  FLOTA={t:setInterval(()=>{const f=Math.max(0,1-(Date.now()-t0)/ms);bar.style.width=(f*100)+"%";if(f<=0)cerrarFlota()},200)}}
 function cerrarFlota(){if(!FLOTA)return;clearInterval(FLOTA.t);const card=document.querySelector("#encuesta .poll");card.classList.add("sale");
- setTimeout(()=>{card.classList.remove("flota","sale");const ph=document.getElementById("pollPh");if(ph)ph.remove();FLOTA=null},350)}
+ setTimeout(()=>{card.classList.remove("flota","sale");document.getElementById("encuesta").hidden=true;FLOTA=null},350)}
 document.getElementById("pFx").onclick=cerrarFlota;
 </script>
 </body>
