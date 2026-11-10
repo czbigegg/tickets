@@ -166,7 +166,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .gst{font:400 15px "Luckiest Guy";padding:6px 12px 3px;border-radius:10px;border:3px solid #030806;background:#2a4a36;color:#fff;white-space:nowrap}
 .gst.on{background:#7dff3a;color:#030806}.gst.off{background:#ff3b4f}
 .gratisbox textarea{width:100%;margin:12px 0;border:3px solid #030806;border-radius:12px;padding:10px;font:600 15px Poppins;background:#effff0;color:#030806;resize:vertical}
-.gbtns{display:flex;gap:10px;flex-wrap:wrap}.gbtns .btn{flex:1;min-width:200px}
+.gbtns{display:flex;gap:10px;flex-wrap:wrap}
+.cfila{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 8px}.cfila label{display:grid;gap:4px;font:400 13px "Luckiest Guy";color:#9fbfa8}
+.cfila input{border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
+.cchk{display:flex;gap:8px;align-items:center;margin:4px 0 12px;font:600 14px Poppins;color:#cfe8d4}.cchk input{width:18px;height:18px}
+@media(max-width:560px){.cfila{grid-template-columns:1fr}}.gbtns .btn{flex:1;min-width:200px}
 </style>
 </head>
 <body>
@@ -263,6 +267,12 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <textarea id="gTxt" maxlength="300" rows="2" placeholder="Mensaje del anuncio"></textarea>
     <div class="gbtns"><button class="btn g" id="gOn" type="button">🚀 LANZAR RADAR GRATIS</button><button class="btn r" id="gOff" type="button">⛔ CERRAR RADAR GRATIS</button></div>
    </div>
+   <div class="box gratisbox" id="cBox" style="box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">⏰ CONTADOR DEL RADAR GRATIS</h3><p>Sale arriba en la web con la cuenta regresiva. Mientras corre, los botones de radar gratis dicen "Abre a las…"; al llegar a cero aparecen los botones para entrar.</p></div><span class="gst" id="cSt">…</span></div>
+    <div class="cfila"><label>FECHA Y HORA (tu hora)<input type="datetime-local" id="cFecha"></label><label>TÍTULO<input id="cTit" maxlength="80" value="RADAR GRATIS"></label></div>
+    <label class="cchk"><input type="checkbox" id="cAuto" checked> Abrir el radar gratis solo (con el anuncio) cuando llegue a cero</label>
+    <div class="gbtns"><button class="btn y" id="cOn" type="button">⏰ GUARDAR CONTADOR</button><button class="btn r" id="cOff" type="button">🗑 QUITAR CONTADOR</button></div>
+   </div>
    <div class="top"><div><h2 class="L st">📢 ANUNCIOS</h2><p>Los anuncios activos salen en la barra de arriba de la web. Si marcas <b>VENTANA EMERGENTE</b>, también salen en grande al entrar (una vez por persona).</p></div></div>
    <div id="anList"></div>
    <button class="addline" id="anAdd" type="button">+ NUEVO ANUNCIO</button>
@@ -328,7 +338,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;setTimeout(()=>typeof pintarGratis==="function"&&pintarGratis(),0)}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;CUENTA=j.cuenta||null;setTimeout(()=>{typeof pintarGratis==="function"&&pintarGratis();typeof pintarCuentaAdm==="function"&&pintarCuentaAdm()},0)}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -589,6 +599,22 @@ async function gratis(on){const b=$(on?"gOn":"gOff"),t0=b.textContent;
   else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("gOn").onclick=()=>gratis(true);$("gOff").onclick=()=>gratis(false);
+
+// ===== ⏰ contador =====
+var CUENTA=null;
+function fLocal(ms){const d=new Date(ms),z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
+function pintarCuentaAdm(){const st=$("cSt");if(!st)return;const c=CUENTA&&CUENTA.on?CUENTA:null;
+ if(c){const f=c.ms-Date.now();st.className="gst "+(f>0?"on":"off");st.textContent=f>0?"⏳ CORRIENDO":"✅ TERMINÓ";$("cFecha").value=fLocal(c.ms);$("cTit").value=c.tit||"RADAR GRATIS";$("cAuto").checked=!!c.auto}
+ else{st.className="gst";st.textContent="SIN CONTADOR";if(!$("cFecha").value){const d=new Date();d.setHours(17,0,0,0);if(d<new Date())d.setDate(d.getDate()+1);$("cFecha").value=fLocal(d.getTime())}}}
+async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={t:"czcuenta",on:!!on};
+ if(on){const ms=new Date($("cFecha").value).getTime();if(!ms)return alert("Elige la fecha y hora");if(ms<Date.now())return alert("Esa hora ya pasó");p.ms=ms;p.auto=$("cAuto").checked;p.tit=$("cTit").value.trim()}
+ else if(!confirm("¿Quitar el contador de la web?"))return;
+ b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
+ try{await enviar(p,new Blob(["{}"]),"x.json",on?"⏰ Contador radar gratis":"🗑 Quitar contador");
+  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
+  if(j){CUENTA=j.cuenta||null;pintarCuentaAdm();alert(on?"✅ Contador guardado: ya sale en la web.":"✅ Contador quitado.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+ catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
+$("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
 </script>
 </body>
 </html>
