@@ -741,6 +741,31 @@ button.gx{cursor:pointer}
  .final{padding:26px 12px!important}.final img{width:70px}.final h2{font-size:24px!important;-webkit-text-stroke:3px var(--ink)}.final p{font-size:11px;margin:6px auto 12px}
  .final .ctas{display:grid!important;grid-template-columns:1fr 1fr}.final .ctas .btn{grid-column:auto!important;font-size:11px!important}
 }
+
+/* ===== celular: inicio ordenado (v3) ===== */
+@media(max-width:560px){
+ .hero{padding:14px 0 0}
+ .hero .cols{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;grid-template-areas:"tag tag" "big mon" "sub mon" "cta mon" "ima ima";column-gap:10px!important;row-gap:8px!important;align-items:start}
+ .hero .cols>div:first-child{display:contents}
+ .hero .cols>div:nth-child(2){grid-area:mon;align-self:center}
+ .hero .logoline,.hero .desc,.hero .live{display:none!important}
+ .hero .tagline{grid-area:tag;justify-self:start;font-size:10px;padding:5px 9px 3px}
+ .hero .big{grid-area:big;margin:2px 0 0!important;gap:4px}
+ .hero .big .bl1{font-size:21px!important}
+ .hero .big .typed,.hero .big .pw{font-size:26px!important}
+ .hero .sub{grid-area:sub;font-size:12px!important;line-height:1.25}
+ .hero .ctas{grid-area:cta;display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:6px!important;margin:0!important}
+ .hero .ctas .btn{font-size:12px!important;padding:9px 6px 7px!important;grid-column:auto!important}
+ .hero .imagine{grid-area:ima;margin:4px 0 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+ .hero .imagine label{font-size:11px;margin:0;flex:none}
+ .hero .imagine form{flex:1;display:flex;gap:6px;min-width:0}
+ .hero .imagine input{font-size:16px!important;padding:7px 9px 5px!important}
+ .hero .imagine .btn{font-size:12px!important;padding:7px 10px 5px!important}
+ .hero .imagine #topMsg{flex-basis:100%}
+ .monitor .top{font-size:14px!important}
+ .row{font-size:10px!important;padding:4px 5px 3px!important}
+ .ticker{margin-top:22px!important}
+}
 </style>
 </head>
 <body>
