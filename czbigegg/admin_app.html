@@ -147,6 +147,13 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .empty2{color:var(--mut);font:500 14px Poppins;padding:16px;text-align:center}
 @media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}.side button{width:auto;white-space:nowrap}.side .live{display:none}.grid2{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){#hbEv .r{grid-template-columns:96px minmax(0,1fr) 92px}.kpi .v{font-size:30px}.hb .r{grid-template-columns:96px minmax(0,1fr) 44px}.tbl thead{display:none}.tbl td{display:block;border-radius:0!important;border-left:2px solid #1d5a2c;border-right:2px solid #1d5a2c}.tbl tr td:first-child{border-radius:12px 12px 0 0!important}.tbl tr td:last-child{border-radius:0 0 12px 12px!important}}
+.pets{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.pc{background:#0f2717;border:3px solid var(--ink);border-radius:14px;padding:10px;box-shadow:0 4px 0 var(--ink);display:flex;flex-direction:column;gap:6px}
+.pc .im{height:110px;border-radius:10px;border:2px solid var(--ink);display:grid;place-items:center;background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.12) 0 10deg,transparent 10deg 20deg),linear-gradient(180deg,#ffe766,#ffb800)}
+.pc .im img{max-width:90%;max-height:100px;object-fit:contain;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.pc b{font:400 15px "Luckiest Guy";color:#fff;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc small{font:600 11px Poppins;color:var(--mut)}
+.pc input{padding:7px 9px 5px;font-size:15px}
 </style>
 </head>
 <body>
@@ -168,6 +175,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="resumen" class="on">📊 RESUMEN</button>
    <button data-t="registros">📝 REGISTROS <span class="ct" id="ctReg" hidden></span></button>
    <button data-t="usuarios">🧑 USUARIOS TOP</button>
+   <button data-t="mascotas">🐾 MASCOTAS</button>
    <button data-t="huevos">🥚 HUEVOS</button>
    <button data-t="anuncios">📢 ANUNCIOS</button>
    <button data-t="encuesta">🗳️ ENCUESTA</button>
@@ -200,6 +208,12 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   <div data-tab="usuarios" hidden>
    <div class="top"><div><h2 class="L st">🧑 USUARIOS EN EL TOP</h2><p>Gente que se puso en la tabla "TOP DINERO/S" de la web con su usuario de Roblox.</p></div></div>
    <div class="box card2"><div class="users" id="usrs"></div></div>
+  </div>
+  <div data-tab="mascotas" hidden>
+   <div class="top"><div><h2 class="L st">🐾 MASCOTAS</h2><p>Salen en la galería de la calculadora de tu web. Las fotos se traen solas desde <b>tu radar</b> (egg.report → Diseño → Imágenes de las mascotas). Ponle a cada una su <b>valor base por segundo</b> y toca GUARDAR.</p></div>
+    <button class="btn y sm" id="bImp" type="button">🔄 TRAER DEL RADAR</button></div>
+   <div class="tools"><input id="qPet" placeholder="🔎 Buscar mascota"><span class="updated" id="petN"></span></div>
+   <div class="pets" id="petG"></div>
   </div>
   <div data-tab="owners" hidden>
    <div class="top"><div><h2 class="L st">👑 OWNERS</h2><p>Personas que pueden entrar a este panel. Los <b>Owners de la web</b> solo manejan la web (huevos, anuncios, encuesta, registros y estadísticas): <b>no</b> ven TICKETS LOGS ni tus ventas.</p></div></div>
@@ -290,7 +304,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets()}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -329,7 +343,7 @@ $("grid").addEventListener("click",e=>{const p=e.target.closest(".pic");if(p){pi
 function irA(t){if(t==="salir"){if(dirty&&!confirm("Tienes cambios sin guardar. ¿Salir igual?"))return;dirty=false;try{sessionStorage.removeItem("czAdm");localStorage.removeItem("czOwner")}catch(_){}location.href="./";return}
  [...$("side").querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x.dataset.t===t));
  document.querySelectorAll("[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==t);
- $("saveBar").style.display=["huevos","anuncios","encuesta"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
+ $("saveBar").style.display=["huevos","anuncios","encuesta","mascotas"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
 $("side").onclick=e=>{const b=e.target.closest("button");if(b)irA(b.dataset.t)};
 $("verRegs").onclick=e=>{e.preventDefault();irA("registros")};
 
@@ -420,6 +434,21 @@ $("fOwn").onsubmit=async e=>{e.preventDefault();const m=$("oMsg"),n=$("oNom").va
   (ST.owners=ST.owners||[]).push({n,tipo:"web",por:YO.nombre,creado:Math.floor(Date.now()/1000)});pintarOwners()}
  catch(err){m.className="msg err";m.textContent="❌ "+err.message}
  b.disabled=false};
+
+// ===== 🐾 mascotas =====
+let PETS=[],PETV={};
+function petsDe(j){PETS=(j&&j.pets)||[];PETV={};PETS.forEach(p=>{if(p.v)PETV[p.n]=p.v})}
+function renderPets(){const q=($("qPet").value||"").trim().toLowerCase(),L=PETS.filter(p=>!q||p.n.toLowerCase().includes(q)||(p.r||"").toLowerCase().includes(q));
+ $("petN").textContent=`${PETS.length} mascotas · ${Object.keys(PETV).length} con valor`;
+ $("petG").innerHTML=L.length?L.map(p=>`<div class="pc"><div class="im"><img src="${esc(/^https?:/.test(p.img)?p.img:p.img)}" alt="" loading="lazy"></div><b title="${esc(p.n)}">${esc(p.n)}</b><small>${esc(p.r||"")}${p.z?" · "+esc(p.z):""}</small>
+  <input data-pv="${esc(p.n)}" value="${esc(PETV[p.n]||"")}" maxlength="12" placeholder="Valor: 25B, 800M..."></div>`).join(""):`<div class="empty2">${PETS.length?"No hay mascotas con ese nombre":"Todavía no hay mascotas. Toca 🔄 TRAER DEL RADAR (el bot tiene que estar prendido)."}</div>`}
+$("qPet").oninput=renderPets;
+$("petG").addEventListener("input",e=>{const i=e.target.closest("[data-pv]");if(!i)return;const v=i.value.trim().toUpperCase();if(v)PETV[i.dataset.pv]=v;else delete PETV[i.dataset.pv];setDirty(true);$("petN").textContent=`${PETS.length} mascotas · ${Object.keys(PETV).length} con valor`});
+$("bImp").onclick=async()=>{const b=$("bImp");b.disabled=true;b.textContent="TRAYENDO...";const v0=LASTV;
+ try{await enviar({t:"czimport"},new Blob(["{}"]),"x.json","🐾 Traer mascotas del radar");
+  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
+  if(j){petsDe(j);renderPets();alert(`✅ Listo: ${PETS.length} mascotas`)}else alert("El bot todavía no responde. Revisa que esté prendido.")}
+ catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent="🔄 TRAER DEL RADAR"};
 let ultCarga=0;
 async function refrescar(){$("upd").textContent="Actualizando...";
  try{await leerStats();ultCarga=Date.now();pintarStats();if(!ST)$("upd").textContent="Esperando datos del bot (prende el bot y espera 1 minuto)"}
@@ -494,12 +523,12 @@ $("file").onchange=async()=>{const f=$("file").files[0],i=picking;if(!f||i<0)ret
  catch(err){alert("No se pudo subir la imagen: "+err.message);pic.classList.remove("busy")}};
 
 async function guardar(btn){const B=btn||$("bSave"),old=B.textContent;B.disabled=true;B.textContent="ENVIANDO...";$("viejo").hidden=true;
- try{const estado={eggs:EGGS.filter(x=>x.n.trim()),anuncios:ANUNCIOS.filter(a=>a.txt.trim()),encuesta:ENC?{id:ENC.id,q:ENC.q,ops:ENC.ops,on:ENC.on}:null};
+ try{const estado={eggs:EGGS.filter(x=>x.n.trim()),anuncios:ANUNCIOS.filter(a=>a.txt.trim()),encuesta:ENC?{id:ENC.id,q:ENC.q,ops:ENC.ops,on:ENC.on}:null,pet_v:PETV};
   const v0=LASTV;await enviar({t:"czsave"},new Blob([JSON.stringify(estado)],{type:"application/json"}),"czweb.json","🥚 Cambios de la web CZ BIG EGG");
   B.textContent="PUBLICANDO...";$("estado").textContent="⏳ El bot está publicando...";
   let j=null;for(let k=0;k<20;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
   if(!j){$("viejo").hidden=false;$("viejoTxt").textContent="Mandé los cambios, pero el bot no los publicó en 1 minuto. Revisa que esté prendido y vuelve a tocar GUARDAR.";throw new Error("El bot no respondió")}
-  EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;setDirty(false);render();renderAn();renderEnc();$("estado").textContent="✅ ¡Publicado! Ya sale en la web"}
+  EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();setDirty(false);render();renderAn();renderEnc();$("estado").textContent="✅ ¡Publicado! Ya sale en la web"}
  catch(err){$("estado").textContent="⚠️ No se publicó";alert("No se pudo guardar: "+err.message)}
  if(B.isConnected){B.disabled=false;B.textContent=old}}
 $("bSave").onclick=()=>guardar();
