@@ -697,7 +697,8 @@ function board(){const b=document.getElementById("board");b.innerHTML="";
 let RBXC={},RBXETAG="";
 async function leerRbx(){try{const h={Accept:"application/vnd.github.raw+json"};if(RBXETAG)h["If-None-Match"]=RBXETAG;
   const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czrbx.json`,{headers:h,cache:"no-store"});
-  if(r.status===304)return RBXC;if(r.ok){RBXETAG=r.headers.get("ETag")||"";RBXC=await r.json()}}catch(_){}return RBXC}
+  if(r.status===304)return RBXC;if(r.ok){RBXETAG=r.headers.get("ETag")||"";RBXC=await r.json();return RBXC}}catch(_){}
+ try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czrbx.json?t=${Date.now()}`,{cache:"no-store"});if(r.ok)RBXC=await r.json()}catch(_){}return RBXC}
 async function rbx(name){const k=name.toLowerCase(),res=x=>x.nf?null:{n:x.n||name,img:x.img||null};
  let c=await leerRbx();if(c[k])return res(c[k]);
  for(let w=0;w<10&&!VOTO;w++)await new Promise(z=>setTimeout(z,500));
