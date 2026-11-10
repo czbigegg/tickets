@@ -937,6 +937,30 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 @keyframes itrIn{to{opacity:1}}
 @keyframes itrBar{to{width:100%}}
 @media(max-width:560px){.itr{transform:scale(.8)}.itr-load{bottom:10%}}
+
+/* ===== top 10 de la semana ===== */
+.semw{margin-top:18px}
+.semb{padding:14px;background:#06120a}
+.seml{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:column;grid-template-rows:repeat(5,auto);gap:8px;pointer-events:none;user-select:none}
+.seml li{display:grid;grid-template-columns:34px 44px minmax(0,1fr) auto;gap:10px;align-items:center;background:#0b1e12;border:2px solid #1d5a2c;border-left:6px solid var(--rc,#7dff3a);border-radius:12px;padding:6px 10px}
+.seml .pos{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;border:3px solid #030806;background:#14361f;color:#fff;font:400 18px "Luckiest Guy"}
+.seml li:nth-child(1) .pos{background:linear-gradient(180deg,#ffe766,#ffb800);color:#030806}
+.seml li:nth-child(2) .pos{background:linear-gradient(180deg,#f2f6fa,#9fb0c0);color:#030806}
+.seml li:nth-child(3) .pos{background:linear-gradient(180deg,#ffb879,#d9772b);color:#030806}
+.seml li:nth-child(1){border-color:#ffd23a;box-shadow:0 0 18px rgba(255,210,58,.25)}
+.seml img,.seml .eg{width:44px;height:44px;object-fit:contain;border-radius:10px;background:#14361f;border:2px solid #030806}
+.seml .eg{display:grid;place-items:center;font:400 18px "Luckiest Guy";color:#7dff3a}
+.seml b{display:block;font:400 16px "Luckiest Guy";color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seml small{display:block;font:600 11px Poppins;color:#9fbfa8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seml .rz{font:400 10px "Luckiest Guy";padding:1px 5px 0;border-radius:5px;color:#030806;background:var(--rc,#7dff3a);margin-right:4px}
+.seml .vl{text-align:right}.seml .vl b{color:#7dff3a;font-size:17px}.seml .vl small{color:#56cfff;font:400 13px "Luckiest Guy"}
+.semp{margin-top:10px;text-align:center;font:600 12px Poppins;color:#9fbfa8}
+@media(max-width:760px){.seml{grid-template-columns:minmax(0,1fr);grid-auto-flow:row;grid-template-rows:none}}
+@media(max-width:560px){.semw{margin-top:10px}.semw .gtit{font-size:17px!important}.semb{padding:8px}.seml{gap:5px}
+ .seml li{grid-template-columns:24px 32px minmax(0,1fr) auto;gap:6px;padding:4px 6px;border-left-width:4px;border-radius:9px}
+ .seml .pos{width:24px;height:24px;font-size:12px;border-width:2px;border-radius:7px}.seml img,.seml .eg{width:32px;height:32px;border-radius:7px}
+ .seml b{font-size:12px}.seml small{font-size:9px}.seml .rz{font-size:8px}.seml .vl b{font-size:12px}.seml .vl small{font-size:10px}.semp{font-size:10px}}
+.semw[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -1102,6 +1126,10 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
      </div>
     </div>
    </div>
+  </div>
+  <div class="gw semw" id="semW" hidden>
+   <div class="gbar"><span class="gtit">TOP 10 DE LA SEMANA</span><span class="rdst" id="semN">—</span></div>
+   <div class="semb"><ol class="seml" id="semL"></ol><p class="semp">Lo mejor que salió en nuestro radar esta semana · se reinicia cada lunes · los servidores son solo Premium</p></div>
   </div>
  </div>
 </section>
@@ -1472,7 +1500,12 @@ document.getElementById("eggQ").addEventListener("input",()=>eggs());
 var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
-function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
+function pintarSemana(){const w=document.getElementById("semW"),L=(RD&&RD.sem)||[];if(!w)return;if(!L.length){w.hidden=true;return}w.hidden=false;
+ document.getElementById("semN").textContent=L.length+" huevos";
+ document.getElementById("semL").innerHTML=L.map((x,i)=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a",d=new Date(x.t*1000);
+  const cu=d.toLocaleDateString("es-CL",{weekday:"short",day:"numeric",timeZone:"America/Santiago"});
+  return `<li style="--rc:${c}"><span class="pos">${i+1}</span>${f?`<img src="${esc(f)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=eg>?</span>'">`:`<span class="eg">?</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")} · ${esc(cu)}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small></div><div class="vl"><b>${fmtV(x.g)}</b><small>x${x.x}</small></div></li>`}).join("")}
+function pintarRadar(){if(!RD)return;pintarSemana();const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
  const vivo=pas<420;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"EN VIVO":"en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
   return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg"></span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
