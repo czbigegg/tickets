@@ -312,7 +312,8 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <div class="gtop"><div><h3 class="L">CONTADOR DEL RADAR GRATIS</h3><p>Sale arriba en la web con la cuenta regresiva. Mientras corre, los botones de radar gratis dicen "Abre a las…"; al llegar a cero aparecen los botones para entrar.</p></div><span class="gst" id="cSt">…</span></div>
     <div class="cfila"><label>FECHA Y HORA (tu hora)<input type="datetime-local" id="cFecha"></label><label>TÍTULO<input id="cTit" maxlength="80" value="RADAR GRATIS"></label></div>
     <label class="cchk"><input type="checkbox" id="cAuto" checked> Abrir el radar gratis solo (con el anuncio) cuando llegue a cero</label>
-    <div class="gbtns"><button class="btn y" id="cOn" type="button">GUARDAR CONTADOR</button><button class="btn r" id="cOff" type="button">QUITAR CONTADOR</button></div>
+    <div class="gbtns"><button class="btn y" id="cOn" type="button">GUARDAR CONTADOR</button><button class="btn r" id="cOff" type="button">QUITAR CONTADOR</button><button class="btn" id="cFalla" type="button">AVISO DE FALLA</button></div>
+    <p style="margin:8px 0 0;font:600 12px Poppins;color:#9fbfa8"><b style="color:#ff8a6a">AVISO DE FALLA</b>: cambia el contador por "Estamos arreglando una falla, el radar gratuito vuelve pronto" y no abre el radar gratis solo. Tócalo otra vez para quitarlo.</p>
    </div>
    <div class="top"><div><h2 class="L st">ANUNCIOS</h2><p>Los anuncios activos salen en la barra de arriba de la web. Si marcas <b>VENTANA EMERGENTE</b>, también salen en grande al entrar (una vez por persona).</p></div></div>
    <div id="anList"></div>
@@ -649,7 +650,8 @@ $("gOn").onclick=()=>gratis(true);$("gOff").onclick=()=>gratis(false);
 // ===== contador =====
 var CUENTA=null;
 function fLocal(ms){const d=new Date(ms),z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
-function pintarCuentaAdm(){const st=$("cSt");if(!st)return;const c=CUENTA&&CUENTA.on?CUENTA:null;
+function pintarCuentaAdm(){const st=$("cSt");if(!st)return;const c=CUENTA&&CUENTA.on?CUENTA:null;const fb=$("cFalla");if(fb){fb.textContent=c&&c.falla?"QUITAR AVISO DE FALLA":"AVISO DE FALLA";fb.className="btn "+(c&&c.falla?"g":"")}
+ if(c&&c.falla){st.className="gst off";st.textContent="EN FALLA";$("cFecha").value=fLocal(c.ms);$("cTit").value=c.tit||"RADAR GRATIS";$("cAuto").checked=!!c.auto;return}
  if(c){const f=c.ms-Date.now();st.className="gst "+(f>0?"on":"off");st.textContent=f>0?"CORRIENDO":"TERMINÓ";$("cFecha").value=fLocal(c.ms);$("cTit").value=c.tit||"RADAR GRATIS";$("cAuto").checked=!!c.auto}
  else{st.className="gst";st.textContent="SIN CONTADOR";if(!$("cFecha").value){const d=new Date();d.setHours(17,0,0,0);if(d<new Date())d.setDate(d.getDate()+1);$("cFecha").value=fLocal(d.getTime())}}}
 async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={t:"czcuenta",on:!!on};
@@ -661,6 +663,10 @@ async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={
   sync(v0,j=>{CUENTA=j.cuenta||null;pintarCuentaAdm()})}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
+$("cFalla").onclick=async()=>{const b=$("cFalla"),v=!(CUENTA&&CUENTA.on&&CUENTA.falla),t0=b.textContent;b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
+ try{await enviar({t:"czcuenta",acc:"falla",v},new Blob(["{}"]),"x.json",v?"Aviso de falla":"Quitar aviso de falla");
+  CUENTA=Object.assign({ms:Date.now(),tit:"RADAR GRATIS"},CUENTA||{},{on:true,falla:v});pintarCuentaAdm();aviso(v?"Aviso de falla puesto":"Aviso de falla quitado");
+  sync(v0,j=>{CUENTA=j.cuenta||null;pintarCuentaAdm()})}catch(err){alert("No se pudo: "+err.message);b.textContent=t0}b.disabled=false};
 
 // ===== iPhone/Safari: el borde de las letras se dibuja con sombras (Safari no respeta paint-order y se veía doble) =====
 (function(){const ua=navigator.userAgent;const ios=/iP(hone|ad|od)/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
