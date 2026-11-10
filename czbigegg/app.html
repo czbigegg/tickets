@@ -1109,10 +1109,11 @@ function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/
   document.getElementById("tpL").innerHTML=T.sv.map(v=>`<li><b>x${v.x}</b><small>${fmtV(v.g)}${v.m&&v.m.length?" · "+esc(v.m.join(", ")):""}</small><span>🔒 PREMIUM</span></li>`).join("")}
  const R=RD.rec;if(R){const f=fotoPet(R.a);document.getElementById("recI").innerHTML=f?`<img src="${esc(f)}" alt="">`:"";document.getElementById("recN").textContent=R.a.toUpperCase();
   document.getElementById("recX").textContent="x"+R.x;document.getElementById("recG").textContent=`${fmtV(R.g)} · ${R.r||""} · ${edad(Math.max(0,Math.floor(Date.now()/1000-R.t)))} · solo Premium`}}
-async function cargarRadar(){let t=null;
- try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czradar.json?t=${Date.now()}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
- if(!t)try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json`,{headers:h,cache:"no-store"});
+async function cargarRadar(){let t=null;const RR="radar-en-vivo";
+ try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/${RR}/czradar.json?t=${Date.now()}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
+ if(!t)try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json?ref=${RR}`,{headers:h,cache:"no-store"});
   if(r.status===304){pintarRadar();return}if(r.ok){RDETAG=r.headers.get("ETag")||"";t=await r.text()}}catch(_){}
+ if(!t)try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czradar.json?t=${Date.now()}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
  if(t)try{const n=JSON.parse(t);if(!RD||!(n.gen<RD.gen))RD=n}catch(_){}pintarRadar()}
 cargarRadar();setInterval(()=>{if(!document.hidden)cargarRadar()},15000);setInterval(()=>{if(RD&&!document.hidden)pintarRadar()},5000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarRadar()});
