@@ -100,6 +100,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .side{position:sticky;top:16px;display:flex;flex-direction:column;gap:8px}
 .side button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font:400 17px "Luckiest Guy";letter-spacing:.5px;color:#dfffe0;background:#0b1e12;border:3px solid var(--ink);border-radius:13px;padding:11px 14px 8px;box-shadow:0 4px 0 var(--ink);cursor:pointer;-webkit-text-stroke:0}
 .side button .ct{margin-left:auto;font:700 12px Poppins;background:#ff3b4f;color:#fff;border-radius:99px;padding:1px 8px;-webkit-text-stroke:0}
+.side button.salir{margin-top:8px;background:#3a0b10;color:#ffd6db}
 .side button.on{background:linear-gradient(180deg,#ffe766,#ffb800);color:var(--ink)}
 .side .live{margin-top:8px;font:600 13px Poppins;color:var(--mut);padding:10px 12px;border:2px dashed #1d5a2c;border-radius:12px}
 .main{min-width:0}
@@ -170,6 +171,8 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="huevos">🥚 HUEVOS</button>
    <button data-t="anuncios">📢 ANUNCIOS</button>
    <button data-t="encuesta">🗳️ ENCUESTA</button>
+   <button data-t="owners">👑 OWNERS</button>
+   <button data-t="salir" class="salir">🚪 CERRAR SESIÓN</button>
    <div class="live"><span class="dot"></span><b id="sideOn">0</b> conectados ahora<br><span id="sideUpd">—</span></div>
   </nav>
   <div class="main">
@@ -198,6 +201,22 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <div class="top"><div><h2 class="L st">🧑 USUARIOS EN EL TOP</h2><p>Gente que se puso en la tabla "TOP DINERO/S" de la web con su usuario de Roblox.</p></div></div>
    <div class="box card2"><div class="users" id="usrs"></div></div>
   </div>
+  <div data-tab="owners" hidden>
+   <div class="top"><div><h2 class="L st">👑 OWNERS</h2><p>Personas que pueden entrar a este panel. Los <b>Owners de la web</b> solo manejan la web (huevos, anuncios, encuesta, registros y estadísticas): <b>no</b> ven TICKETS LOGS ni tus ventas.</p></div></div>
+   <div class="grid2" style="margin-top:0">
+    <div class="box card2"><h3>👥 QUIÉN PUEDE ENTRAR</h3><div id="ownLista"><div class="empty2">Cargando...</div></div></div>
+    <div class="box card2"><h3>➕ CREAR OWNER DE LA WEB</h3>
+     <form id="fOwn" autocomplete="off" style="display:grid;gap:4px">
+      <label class="lb">NOMBRE</label><input id="oNom" maxlength="30" placeholder="Ej: Rider">
+      <label class="lb">CLAVE (MÍNIMO 8, LETRAS Y NÚMEROS)</label><input id="oPw" type="password" autocomplete="new-password">
+      <label class="lb">REPITE LA CLAVE</label><input id="oPw2" type="password" autocomplete="new-password">
+      <button class="btn g" type="submit" style="margin-top:12px">👑 CREAR OWNER</button>
+      <div class="msg" id="oMsg"></div>
+      <p style="color:var(--mut);font-size:13px">La clave queda cifrada: ni el bot la guarda en texto. Pásasela a esa persona por privado. Entra en esta misma página con el botón ⚙️ ADMIN.</p>
+     </form>
+    </div>
+   </div>
+  </div>
   <div data-tab="huevos" hidden>
   <div class="top">
    <div><h2 class="L st">🥚 HUEVOS DE LA WEB</h2><p>Toca la imagen para subir una foto. Cambia nombre, rareza y zona, ordénalos con las flechas y al final toca <b>GUARDAR</b>. La web se actualiza sola en 1-5 minutos.</p></div>
@@ -215,10 +234,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <div id="encBox"></div>
   </div>
   </div></div>
-  <div class="box extra">
-   <h3 class="L st">🔑 TU CLAVE</h3>
-   <p style="color:var(--mut);font-size:15px">Es la misma contraseña <b>Owner</b> de TICKETS LOGS. Se crea o se cambia en Discord con <b>/tickets-clave</b>. Los cambios los publica tu bot en segundos.</p>
-  </div>
+  
  </div>
 </div>
 
@@ -243,27 +259,32 @@ const b64=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 async function leerGH(ruta){
  try{const r=await fetch(GH+ruta+"?t="+Date.now(),{headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(r.ok)return await r.json()}catch(_){}
  const r=await fetch(RAW+ruta+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("No pude leer "+ruta+" de GitHub");return await r.json()}
-async function abrir(pw){const D=await leerGH("datos.json");
+async function probar(pw,D){if(!D||!D.salt||!D.llaves)return null;
  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);
  const kk=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(D.salt),iterations:150000,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
- for(const L of D.llaves||[]){const r=b64(L);try{return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:r.slice(0,12)},kk,r.slice(12))))}catch(_){}}
+ for(const L of D.llaves){const r=b64(L);try{return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:r.slice(0,12)},kk,r.slice(12))))}catch(_){}}
  return null}
+async function abrir(pw){const P=await probar(pw,await leerGH("datos.json").catch(()=>null));if(P)return P;   // Owners de TICKETS LOGS
+ return await probar(pw,await leerGH("czowners.json").catch(()=>null))}                                       // Owners de la web
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
 const ordenado=o=>"{"+Object.keys(o).sort().map(k=>JSON.stringify(k)+":"+JSON.stringify(o[k])).join(",")+"}";
 const rnd=n=>hex(crypto.getRandomValues(new Uint8Array(n)));
+let VOTOWH="";
 async function enviar(p,blob,nombre,texto){
- if(!YO||!YO.wh||!YO.sec)throw new Error("Tu usuario no tiene acceso al bot (vuelve a entrar)");
+ if(YO&&YO.tipo==="web"&&!VOTOWH)await cargarWeb();
+ const WH=YO&&YO.tipo==="web"?VOTOWH:YO&&YO.wh;
+ if(!YO||!WH||!YO.sec)throw new Error("Tu usuario no tiene acceso al bot (vuelve a entrar)");
  const bytes=new Uint8Array(await blob.arrayBuffer());p=Object.assign({nonce:rnd(16),ts:Date.now(),u:YO.nombre,por:YO.nombre,h:hex(await crypto.subtle.digest("SHA-256",bytes))},p);
  const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(YO.sec),{name:"HMAC",hash:"SHA-256"},false,["sign"]);
  const sig=hex(await crypto.subtle.sign("HMAC",key,new TextEncoder().encode(ordenado(p))));
  const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Panel web CZ BIG EGG",allowed_mentions:{parse:[]},content:texto+"\n```json\n"+JSON.stringify(Object.assign({},p,{sig}))+"\n```"}));
  fd.append("files[0]",blob,nombre);
- try{const r=await fetch(YO.wh+"?wait=true",{method:"POST",body:fd});if(!r.ok)throw new Error("Discord respondió "+r.status)}
- catch(e){if(/Discord/.test(e.message))throw e;await fetch(YO.wh,{method:"POST",body:fd,mode:"no-cors"})}
+ try{const r=await fetch(WH+"?wait=true",{method:"POST",body:fd});if(!r.ok)throw new Error("Discord respondió "+r.status)}
+ catch(e){if(/Discord/.test(e.message))throw e;await fetch(WH,{method:"POST",body:fd,mode:"no-cors"})}
  return p.ts}
 const src=img=>img?(PREV[img]||(/^https?:/.test(img)?img:BASE+img)):"";
 let LASTV=0;
-async function cargarWeb(){try{const j=await leerGH("czweb.json");if(j.base)BASE=j.base;if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
+async function cargarWeb(){try{const j=await leerGH("czweb.json");if(j.base)BASE=j.base;if(j.voto)VOTOWH=j.voto;if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
 
 $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.querySelector("button");const pw=$("pass").value;
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
@@ -271,7 +292,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
   YO=P;const j=await cargarWeb();
   if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
-  try{sessionStorage.setItem("czAdm",pw)}catch(_){}
+  try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
  catch(err){m.className="msg err";m.textContent="❌ "+(err.message||"Error")}
  b.disabled=false};
@@ -304,7 +325,8 @@ $("grid").addEventListener("click",e=>{const p=e.target.closest(".pic");if(p){pi
  else return;setDirty(true);render()});
 
 // ---- pestañas ----
-function irA(t){[...$("side").querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x.dataset.t===t));
+function irA(t){if(t==="salir"){if(dirty&&!confirm("Tienes cambios sin guardar. ¿Salir igual?"))return;dirty=false;try{sessionStorage.removeItem("czAdm");localStorage.removeItem("czOwner")}catch(_){}location.href="./";return}
+ [...$("side").querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x.dataset.t===t));
  document.querySelectorAll("[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==t);
  $("saveBar").style.display=["huevos","anuncios","encuesta"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
 $("side").onclick=e=>{const b=e.target.closest("button");if(b)irA(b.dataset.t)};
@@ -360,7 +382,7 @@ function pintarStats(){const S=ST;if(!S)return;const d=S.dias||[],hoy=(d[d.lengt
  $("ultRegs").innerHTML=tablaRegs(regs.slice(0,5),true);
  $("ctReg").hidden=!nuevos;$("ctReg").textContent=nuevos;$("sideOn").textContent=nf(S.online);
  $("usrs").innerHTML=(S.top||[]).map(u=>`<div>${u.img?`<img src="${esc(u.img)}" alt="" loading="lazy">`:`<div class="av">${esc(u.n.charAt(0).toUpperCase())}</div>`}${esc(u.n)}<small>${hace(u.t)}</small></div>`).join("")||`<div class="empty2">Nadie se ha puesto en la tabla todavía</div>`;
- pintarRegs();if(ENC&&E&&E.id===ENC.id){ENC.votos=E.votos;if(!dirty)renderEnc()}}
+ pintarOwners();pintarRegs();if(ENC&&E&&E.id===ENC.id){ENC.votos=E.votos;if(!dirty)renderEnc()}}
 const PAIS={"Chile":"🇨🇱","México":"🇲🇽","Perú":"🇵🇪","Argentina":"🇦🇷","Colombia":"🇨🇴","España":"🇪🇸","Estados Unidos":"🇺🇸","Ecuador":"🇪🇨","Venezuela":"🇻🇪","Bolivia":"🇧🇴","Uruguay":"🇺🇾","Otro":"🌎"};
 function tablaRegs(L,corto){if(!L.length)return `<div class="empty2">Todavía nadie se registra. Comparte tu web 😉</div>`;
  return `<table class="tbl"><thead><tr><th>CLIENTE</th><th>DISCORD</th><th>PAÍS</th><th>LE INTERESA</th><th>FECHA</th>${corto?"":"<th>ESTADO</th><th></th>"}</tr></thead><tbody>`+
@@ -376,6 +398,27 @@ $("tblReg").addEventListener("click",async e=>{const b=e.target.closest("[data-r
 $("bCsv").onclick=()=>{const L=filtrados(),c=v=>`"${String(v??"").replace(/"/g,'""')}"`;
  const csv="﻿"+["Roblox;Discord;País;Le interesa;Mensaje;Fecha;Estado"].concat(L.map(r=>[r.rbx,r.dc,r.pais,r.plan,r.msg,new Date(r.t*1000).toLocaleString("es-CL"),r.estado].map(c).join(";"))).join("\n");
  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="registros_czbigegg.csv";a.click()};
+
+function pintarOwners(){const L=(ST&&ST.owners)||[];
+ $("ownLista").innerHTML=L.length?`<table class="tbl"><tbody>`+L.map(o=>`<tr><td><div class="who"><div class="av">${esc(o.n.charAt(0).toUpperCase())}</div><div><b>${esc(o.n)}${o.n===YO.nombre?" (tú)":""}</b><small>${o.tipo==="web"?`👑 Owner web${o.por?" · creado por "+esc(o.por):""}${o.creado?" · "+hace(o.creado):""}`:"🎫 Owner de TICKETS LOGS (se maneja en Discord con /tickets-clave)"}</small></div></div></td>
+  <td style="width:1%">${o.tipo==="web"&&o.n!==YO.nombre?`<button class="btn r sm" data-odel="${esc(o.n)}" type="button">🗑 QUITAR</button>`:""}</td></tr>`).join("")+`</tbody></table>`:`<div class="empty2">Esperando datos del bot...</div>`}
+$("ownLista").addEventListener("click",async e=>{const b=e.target.closest("[data-odel]");if(!b)return;const n=b.dataset.odel;
+ if(!confirm(`¿Quitar a "${n}"? Ya no podrá entrar al panel.`))return;b.disabled=true;
+ try{await enviar({t:"czowner",acc:"del",n},new Blob(["{}"]),"x.json","👑 Quitar Owner");ST.owners=ST.owners.filter(o=>o.n!==n);pintarOwners()}catch(err){alert("No se pudo: "+err.message);b.disabled=false}});
+$("fOwn").onsubmit=async e=>{e.preventDefault();const m=$("oMsg"),n=$("oNom").value.trim(),pw=$("oPw").value,b=e.target.querySelector("button");m.className="msg err";
+ if(n.length<2)return m.textContent="❌ Escribe un nombre";
+ if(((ST&&ST.owners)||[]).some(o=>o.n.toLowerCase()===n.toLowerCase()))return m.textContent="❌ Ya existe alguien con ese nombre";
+ if(pw.length<8||!/[a-zA-Z]/.test(pw)||!/[0-9]/.test(pw))return m.textContent="❌ La clave necesita mínimo 8 caracteres, con letras y números";
+ if(pw!==$("oPw2").value)return m.textContent="❌ Las claves no coinciden";
+ b.disabled=true;m.className="msg";m.textContent="Creando...";
+ try{const k=await crypto.subtle.importKey("raw",await crypto.subtle.digest("SHA-256",new TextEncoder().encode("czpw:"+YO.sec)),"AES-GCM",false,["encrypt"]);
+  const iv=crypto.getRandomValues(new Uint8Array(12)),ct=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},k,new TextEncoder().encode(pw)));
+  const all=new Uint8Array(12+ct.length);all.set(iv);all.set(ct,12);
+  await enviar({t:"czowner",acc:"crear",n,pw:btoa(String.fromCharCode(...all))},new Blob(["{}"]),"x.json","👑 Nuevo Owner de la web");
+  m.className="msg ok";m.textContent=`✅ ¡Listo! ${n} ya puede entrar con su clave (en ~1 minuto).`;$("oNom").value=$("oPw").value=$("oPw2").value="";
+  (ST.owners=ST.owners||[]).push({n,tipo:"web",por:YO.nombre,creado:Math.floor(Date.now()/1000)});pintarOwners()}
+ catch(err){m.className="msg err";m.textContent="❌ "+err.message}
+ b.disabled=false};
 let ultCarga=0;
 async function refrescar(){$("upd").textContent="Actualizando...";
  try{await leerStats();ultCarga=Date.now();pintarStats();if(!ST)$("upd").textContent="Esperando datos del bot (prende el bot y espera 1 minuto)"}
