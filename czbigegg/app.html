@@ -558,7 +558,7 @@ button.gx{cursor:pointer}
 .rdl li .lk{display:inline-block;margin-top:3px;font:400 11px "Luckiest Guy";background:#14361f;color:#9fbfa8;border:2px solid #030806;border-radius:7px;padding:2px 7px 0}
 .rdcta{position:relative;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:14px;text-align:center;font:600 14px Poppins;color:#cfe8d4}
 .rdcta span{flex-basis:100%}
-.rdempty{grid-column:1/-1;text-align:center;padding:30px;font:400 17px "Luckiest Guy";color:#9fbfa8}
+.rdl li.rdempty,.tpl li.rdempty{display:block;grid-column:1/-1;text-align:center;padding:30px;font:400 17px "Luckiest Guy";color:#9fbfa8}
 @media(max-width:760px){.rdl{grid-template-columns:minmax(0,1fr);max-height:460px}.rdw .gtit{font-size:22px}}
 /* bloque en vivo */
 .shots .rdw{margin:0}
@@ -716,7 +716,7 @@ button.gx{cursor:pointer}
    <div class="gbar"><span class="gtit" style="font-size:clamp(22px,2.6vw,32px)">📡 RADAR EN VIVO</span><span class="rdst" id="rdSt">conectando...</span></div>
    <div class="rdb">
     <div class="rdsweep"></div>
-    <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"></ul>
+    <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"><li class="rdempty">📡 Conectando con el radar...</li></ul>
     <div class="rdcta"><span>👀 Esto es lo que está saliendo <b>ahora mismo</b> en nuestro radar. Para entrar a esos servidores necesitas una cuenta.</span><a class="btn btn-y btn-s" href="#planes">⭐ VER PLANES</a><a class="btn btn-g btn-s" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 RADAR GRATIS</a></div>
    </div>
   </div>
@@ -1071,7 +1071,7 @@ const SUF=[["Qa",1e15],["T",1e12],["B",1e9],["M",1e6],["K",1e3]];
 let cv="None",cm=new Set(),c2=false,ultimo="";
 function parseV(t){t=(t||"").replace(/\$|\/s|\s/gi,"").replace(",",".");const m=t.match(/^([\d.]+)(qa|t|b|m|k)?$/i);if(!m)return NaN;
  return parseFloat(m[1])*({qa:1e15,t:1e12,b:1e9,m:1e6,k:1e3}[(m[2]||"").toLowerCase()]||1)}
-function fmtV(v){if(!isFinite(v))return "—";for(const[s,f]of SUF)if(v>=f){const x=v/f;return "$"+(x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2)).replace(/\.?0+$/,"")+s+"/s"}return "$"+v.toFixed(0)+"/s"}
+function fmtV(v){if(!isFinite(v))return "—";for(const[s,f]of SUF)if(v>=f){const x=v/f;return "$"+(x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2)).replace(/(\.\d*?)0+$/,"$1").replace(/\.$/,"")+s+"/s"}return "$"+v.toFixed(0)+"/s"}
 function esc_(t){return String(t).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
 const cVar=document.getElementById("cVar"),cMut=document.getElementById("cMut");
 VARS.forEach(([n,m,k])=>{const b=document.createElement("button");b.type="button";b.className="gb "+k+(n===cv?" on":"");b.innerHTML=`${n}<small>${m}x</small>`;
@@ -1100,7 +1100,7 @@ var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secre
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
 function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
- const vivo=pas<240;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
+ const vivo=pas<150;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
   return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg">🥚</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
   <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`;
@@ -1110,11 +1110,12 @@ function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/
  const R=RD.rec;if(R){const f=fotoPet(R.a);document.getElementById("recI").innerHTML=f?`<img src="${esc(f)}" alt="">`:"";document.getElementById("recN").textContent=R.a.toUpperCase();
   document.getElementById("recX").textContent="x"+R.x;document.getElementById("recG").textContent=`${fmtV(R.g)} · ${R.r||""} · ${edad(Math.max(0,Math.floor(Date.now()/1000-R.t)))} · solo Premium`}}
 async function cargarRadar(){let t=null;
- try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json`,{headers:h,cache:"no-store"});
+ try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czradar.json?t=${Date.now()}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
+ if(!t)try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json`,{headers:h,cache:"no-store"});
   if(r.status===304){pintarRadar();return}if(r.ok){RDETAG=r.headers.get("ETag")||"";t=await r.text()}}catch(_){}
- if(!t)try{const r=await fetch(`https://raw.githubusercontent.com/${REPO}/HEAD/czradar.json?t=${Math.floor(Date.now()/60000)}`,{cache:"no-store"});if(r.ok)t=await r.text()}catch(_){}
- if(t)try{RD=JSON.parse(t)}catch(_){}pintarRadar()}
-cargarRadar();setInterval(()=>{if(!document.hidden)cargarRadar()},50000);setInterval(()=>{if(RD&&!document.hidden)pintarRadar()},15000);
+ if(t)try{const n=JSON.parse(t);if(!RD||!(n.gen<RD.gen))RD=n}catch(_){}pintarRadar()}
+cargarRadar();setInterval(()=>{if(!document.hidden)cargarRadar()},15000);setInterval(()=>{if(RD&&!document.hidden)pintarRadar()},5000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarRadar()});
 
 // ===== 📡 actividad en vivo (datos reales del bot) =====
 var FEEDK="",FEEDETAG="",FEEDVISTOS=null;
