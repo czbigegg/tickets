@@ -190,6 +190,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .chm small{display:block;font:600 10px Poppins;opacity:.7;margin-top:3px}
 .chm.user{align-self:flex-start;background:#effff0;color:#030806}.chm.admin,.chm.bot{align-self:flex-end;background:#1fb45a;color:#fff}.chm.bot{background:#2a4a36}.chm.sys{align-self:center;background:#3a1a1a;color:#ffb3b3;font-size:12px}
 #chF{display:flex;gap:8px;margin-top:8px}#chF textarea{flex:1;border:3px solid #030806;border-radius:12px;padding:8px;font:600 14px Poppins;background:#effff0;color:#030806;resize:vertical}
+#avisoX{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:999;background:#7dff3a;color:#030806;border:3px solid #030806;border-radius:12px;padding:10px 16px 8px;font:400 16px "Luckiest Guy";box-shadow:0 5px 0 #030806;transition:opacity .4s;pointer-events:none}#avisoX.mal{background:#ff3b4f;color:#fff}
 </style>
 </head>
 <body>
@@ -588,7 +589,7 @@ function renderEnc(){const B=$("encBox");
  $("encOn").onchange=e=>{ENC.on=e.target.checked;setDirty(true)};
  if(!ENC.pop)ENC.pop=60;$("encPop").value=String(ENC.pop);if(!$("encPop").value){ENC.pop=60;$("encPop").value="60"}
  $("encPop").onchange=e=>{ENC.pop=+e.target.value;setDirty(true)};
- $("encPopYa").onclick=()=>{if(!ENC.pop){ENC.pop=60;$("encPop").value="60"}ENC.pv=String(Date.now());ENC.on=true;$("encOn").checked=true;setDirty(true);$("encPopYa").textContent="LISTO: TOCA GUARDAR"};
+ $("encPopYa").onclick=()=>{if(!ENC.pop){ENC.pop=60;$("encPop").value="60"}ENC.pv=String(Date.now());ENC.on=true;$("encOn").checked=true;setDirty(true);guardar($("encPopYa"))};
  $("encOps").oninput=e=>{const i=e.target.dataset.o;if(i==null)return;ENC.ops[+i]=e.target.value;setDirty(true)};
  $("encOps").onclick=e=>{const b=e.target.closest("[data-od]");if(!b)return;ENC.ops.splice(+b.dataset.od,1);if(ENC.votos)ENC.votos=null;setDirty(true);renderEnc()};
  if($("encAddOp"))$("encAddOp").onclick=()=>{ENC.ops.push("");setDirty(true);renderEnc();const ins=$("encOps").querySelectorAll("input");ins[ins.length-1].focus()};
@@ -625,10 +626,8 @@ $("file").onchange=async()=>{const f=$("file").files[0],i=picking;if(!f||i<0)ret
 async function guardar(btn){const B=btn||$("bSave"),old=B.textContent;B.disabled=true;B.textContent="ENVIANDO...";$("viejo").hidden=true;
  try{const estado={eggs:EGGS.filter(x=>x.n.trim()),anuncios:ANUNCIOS.filter(a=>a.txt.trim()),encuesta:ENC?{id:ENC.id,q:ENC.q,ops:ENC.ops,on:ENC.on,pop:ENC.pop||0,pv:ENC.pv||""}:null,pet_v:PETV,streamers:STREAMS.filter(x=>String(x.u||"").trim())};
   const v0=LASTV;await enviar({t:"czsave"},new Blob([JSON.stringify(estado)],{type:"application/json"}),"czweb.json","Cambios de la web CZ BIG EGG");
-  B.textContent="PUBLICANDO...";$("estado").textContent="El bot está publicando...";
-  let j=null;for(let k=0;k<20;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  if(!j){$("viejo").hidden=false;$("viejoTxt").textContent="Mandé los cambios, pero el bot no los publicó en 1 minuto. Revisa que esté prendido y vuelve a tocar GUARDAR.";throw new Error("El bot no respondió")}
-  EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();setDirty(false);render();renderAn();renderEnc();$("estado").textContent="¡Publicado! Ya sale en la web"}
+  setDirty(false);$("estado").textContent="¡Guardado! Sale en la web en unos segundos";aviso("¡Guardado!");
+  sync(v0,j=>{if(dirty)return;EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();render();renderAn();renderEnc();$("estado").textContent="¡Publicado! Ya sale en la web"})}
  catch(err){$("estado").textContent="No se publicó";alert("No se pudo guardar: "+err.message)}
  if(B.isConnected){B.disabled=false;B.textContent=old}}
 $("bSave").onclick=()=>guardar();
@@ -642,9 +641,8 @@ async function gratis(on){const b=$(on?"gOn":"gOff"),t0=b.textContent;
  if(!on&&!confirm("¿Cerrar el radar gratis y quitar el anuncio de la web?"))return;
  b.disabled=true;b.textContent=on?"LANZANDO...":"CERRANDO...";const v0=LASTV;
  try{await enviar({t:"czgratis",on:!!on,txt:on?$("gTxt").value.trim():""},new Blob(["{}"]),"x.json",on?"Lanzar radar gratis":"Cerrar radar gratis");
-  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  if(j){GRATIS=j.gratis;if(!dirty)ANUNCIOS=j.anuncios||[];renderAn();pintarGratis();alert(on?"¡Radar gratis lanzado! El anuncio ya sale en la web.":"Radar gratis cerrado y anuncio quitado.")}
-  else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+  GRATIS=!!on;pintarGratis();aviso(on?"¡Radar gratis lanzado!":"Radar gratis cerrado");
+  sync(v0,j=>{GRATIS=j.gratis;if(!dirty)ANUNCIOS=j.anuncios||[];renderAn();pintarGratis()})}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("gOn").onclick=()=>gratis(true);$("gOff").onclick=()=>gratis(false);
 
@@ -659,8 +657,8 @@ async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={
  else if(!confirm("¿Quitar el contador de la web?"))return;
  b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
  try{await enviar(p,new Blob(["{}"]),"x.json",on?"Contador radar gratis":"Quitar contador");
-  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  if(j){CUENTA=j.cuenta||null;pintarCuentaAdm();alert(on?"Contador guardado: ya sale en la web.":"Contador quitado.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+  CUENTA=on?{ms:p.ms,on:true,auto:p.auto,tit:p.tit}:null;pintarCuentaAdm();aviso(on?"Contador guardado":"Contador quitado");
+  sync(v0,j=>{CUENTA=j.cuenta||null;pintarCuentaAdm()})}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
 
@@ -689,8 +687,8 @@ async function rulAcc(acc){const b=$(acc==="off"?"rOff":acc==="soltar"?"rSoltar"
  const p={t:"czruleta",acc:acc==="off"?"off":"on",n:acc==="soltar"?+$("rN").value:0,premio:$("rPremio").value.trim()||"1 DÍA PREMIUM"};
  b.disabled=true;b.textContent="ENVIANDO...";const v0=LASTV;
  try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+acc);
-  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  if(j){RULA=j.ruleta||null;pintarRul();alert(acc==="soltar"?"Premio soltado: lo gana el próximo que gire.":"Premios quitados: nadie gana hasta que sueltes otro.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+  RULA={on:true,n:p.n,premio:p.premio};pintarRul();aviso(acc==="soltar"?"Premio soltado: lo gana el próximo que gire":"Premios quitados");
+  sync(v0,j=>{RULA=j.ruleta||null;pintarRul()})}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("rSoltar").onclick=()=>rulAcc("soltar");$("rOn").onclick=()=>rulAcc("on");
 
@@ -701,8 +699,8 @@ $("rgList").addEventListener("click",e=>{const b=e.target.closest("[data-rgu]");
 $("rgBox").addEventListener("click",async e=>{const b=e.target.closest("[data-rg]");if(!b)return;const u=$("rgU").value.trim();if(!/^[A-Za-z0-9_]{3,20}$/.test(u))return alert("Escribe un usuario de Roblox válido");
  const v=b.dataset.rg,p={t:"czrulreg",rbx:u};if(v==="del")p.acc="del";else if(v==="f"){p.f=true;p.s=0}else p.s=+v;
  const t0=b.textContent;b.disabled=true;b.textContent="...";const v0=LASTV;
- try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+u+" "+v);let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  alert(j?(v==="del"?`Listo: se quitaron los giros de ${u}.`:v==="f"?`Listo: el próximo giro de ${u} gana el premio. Dile que entre a la ruleta y ponga su usuario.`:`Listo: ${u} tiene +${v} giro${v>1?"s":""}. Dile que entre a la ruleta y ponga su usuario.`):"Enviado, pero el bot todavía no responde.")}
+ try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+u+" "+v);
+  aviso(v==="del"?`Giros de ${u} quitados`:v==="f"?`Premio forzado para ${u}`:`${u}: +${v} giro${v>1?"s":""}`);sync(v0)}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0});
 
 // ===== ganadores de la ruleta =====
@@ -738,6 +736,11 @@ $("chF").onsubmit=async e=>{e.preventDefault();const t=$("chTxt").value.trim();i
 
 $("gwList").addEventListener("click",async e=>{const b=e.target.closest("[data-gini]");if(!b)return;if(!confirm("¿Enviarle un privado por Discord desde el bot avisándole que ganó?"))return;b.disabled=true;b.textContent="ENVIANDO...";
  try{await enviar({t:"czruldm",acc:"iniciar",tt:+b.dataset.gini,rbx:b.dataset.gr},new Blob(["{}"]),"x.json","Iniciar chat ganador");b.textContent="ENVIADO · espera ~1 min"}catch(err){alert("No se pudo: "+err.message);b.disabled=false;b.textContent="ENVIAR PRIVADO"}});
+
+// ===== ⚡ cambios al instante: se aplican en el panel de una y el bot confirma por detrás =====
+function aviso(t,mal){let el=document.getElementById("avisoX");if(!el){el=document.createElement("div");el.id="avisoX";document.body.appendChild(el)}
+ el.className=mal?"mal":"";el.textContent=t;el.style.opacity=1;clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity=0,mal?6000:2600)}
+function sync(v0,cb){let k=0;const iv=setInterval(async()=>{k++;const j=await cargarWeb();if(j&&j.v>v0){clearInterval(iv);try{cb&&cb(j)}catch(_){}}else if(k>=18){clearInterval(iv);aviso("El bot no confirmó el cambio. Revisa que esté prendido.",1)}},5000)}
 </script>
 </body>
 </html>
