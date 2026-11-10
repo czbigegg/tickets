@@ -659,7 +659,7 @@ button.gx{cursor:pointer}
  .ctrl .gbox{padding:8px;border-width:3px;border-radius:12px}.ctrl .gbox:nth-child(1),.ctrl .gbox:nth-child(3){grid-column:1/-1}.ctrl .gbox:nth-child(3){order:5}.ctrl .gbox:nth-child(4){display:flex;flex-direction:column}
  .ctrl .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
  .ctrl .gl{font-size:12px;margin:0 0 6px;-webkit-text-stroke:1.5px #030806}.gin{font-size:16px;padding:6px 8px;border-width:2px;border-radius:9px}.gsm{font-size:8px;margin-top:3px}
- .ctrl .vgrid,.ctrl .mgrid{gap:5px!important}.ctrl .mgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .ctrl .vgrid,.ctrl .mgrid{gap:5px!important}.ctrl .mgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .ctrl .gb{font-size:10px;padding:5px 3px;border-width:2px;border-radius:8px;box-shadow:0 2px 0 #030806;-webkit-text-stroke:1px #030806}.ctrl .gb small{font-size:8px}
  .gpass{font-size:14px!important;padding:10px 4px!important;flex:1}
  .gfinal{padding:8px 10px;gap:6px;flex-wrap:nowrap}.gfinal .gl{font-size:10px}.gfinal .gsm{font-size:8px}
@@ -797,6 +797,45 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  .cdsub{font-size:11px;margin-top:10px}
  .cdsteps{gap:5px;margin:10px 0}.cdsteps span{font-size:10px;padding:5px 6px 3px;gap:5px;border-width:2px}.cdsteps b{width:18px;height:18px;font-size:10px}
  .cdbtns{gap:6px;display:grid;grid-template-columns:1fr 1fr}.cdbtns .btn{font-size:12px!important;padding:10px 4px 8px!important}
+}
+
+/* ===== mutaciones con efectos (estilo juego) ===== */
+.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.gb.mu{position:relative;overflow:hidden;min-height:44px;padding:6px 8px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.gb.mu span{position:relative;z-index:1}
+.gb.mu:before{content:attr(data-fx);position:absolute;inset:-6px -20px;font-size:13px;line-height:22px;letter-spacing:6px;white-space:normal;word-break:break-all;opacity:.35;pointer-events:none;-webkit-text-stroke:0;text-shadow:none}
+.gb.mu:last-child:nth-child(odd){grid-column:1/-1}
+.gb.mu.on{box-shadow:0 1px 0 #030806,0 0 0 3px #fff inset,0 0 14px rgba(255,255,255,.45)}
+.gb.mu.on:after{content:"✓";position:absolute;top:3px;right:6px;z-index:2;font-size:13px;color:#fff}
+.mu-bloom{background:linear-gradient(180deg,#ff9fd6,#e0569f)!important}
+.mu-spiritbloom{background:linear-gradient(180deg,#d63a86,#8e1450)!important}.mu-spiritbloom:before{color:#ffd3ea;opacity:.5!important}
+.mu-fractured{background:repeating-linear-gradient(118deg,transparent 0 16px,rgba(255,255,255,.22) 16px 17px,transparent 17px 30px),repeating-linear-gradient(62deg,transparent 0 22px,rgba(0,0,0,.25) 22px 23px),linear-gradient(180deg,#9b4fe3,#5a1ca0)!important}
+.mu-scrambled{background:radial-gradient(circle at 18% 30%,rgba(255,255,255,.35) 0 5px,transparent 6px),radial-gradient(circle at 62% 70%,rgba(255,255,255,.3) 0 7px,transparent 8px),radial-gradient(circle at 86% 26%,rgba(255,255,255,.28) 0 4px,transparent 5px),radial-gradient(circle at 40% 82%,rgba(255,255,255,.25) 0 3px,transparent 4px),linear-gradient(180deg,#4fd16a,#1f8f3a)!important}
+.mu-nitro{background:linear-gradient(0deg,#b31800,#ff5a00 45%,#ffb52e 80%,#ffe36b)!important;background-size:100% 160%!important;animation:fuego 1.2s ease-in-out infinite alternate}
+.mu-nitro:before{opacity:.45!important;top:auto;bottom:-10px}
+@keyframes fuego{to{background-position:0 60%}}
+.mu-spectral{background:repeating-linear-gradient(180deg,transparent 0 9px,rgba(255,255,255,.12) 9px 11px),linear-gradient(180deg,#5fd3c9,#1e6a6c)!important}
+.mu-enchanted{background:linear-gradient(180deg,#3fbf5a,#16752f)!important}.mu-enchanted:before{opacity:.45!important}
+.mu-parasite{background:radial-gradient(rgba(125,255,58,.35) 1.5px,transparent 2px) 0 0/12px 12px,linear-gradient(180deg,#184d26,#0b2614)!important;color:#b6ff8f}
+.mu-musical{background:linear-gradient(180deg,#3a2a6e,#1d1440)!important}.mu-musical:before{color:#c9b6ff;font-size:15px;opacity:.5!important}
+.mu-alien{background:radial-gradient(circle at 50% 120%,rgba(125,255,58,.35),transparent 60%),linear-gradient(180deg,#1d5a2c,#0b2614)!important;color:#c8ff9e}.mu-alien:before{opacity:.22!important}
+.mu-darkmatter{background:repeating-radial-gradient(circle at 20% 50%,rgba(170,110,255,.35) 0 3px,transparent 4px 12px),repeating-radial-gradient(circle at 75% 50%,rgba(170,110,255,.3) 0 3px,transparent 4px 12px),linear-gradient(180deg,#5b2aa6,#24104d)!important}
+/* ===== calculadora más compacta en PC ===== */
+@media(min-width:901px){
+ #calculadora .gbody{gap:14px;padding:14px}
+ #calculadora .gal{max-height:none;padding:10px;align-self:stretch;min-height:0}#calculadora .galg{flex:1 1 0;min-height:0;max-height:none}
+ #calculadora .gc{height:118px}
+ #calculadora .show{min-height:0}
+ #calculadora .bigegg{width:130px;height:164px}#calculadora .bigegg .crown{top:-34px;font-size:34px}
+ #calculadora .bigimg{max-height:200px}
+ #calculadora .pname{font-size:28px;margin-top:14px}#calculadora .show .pval{font-size:44px}
+ #calculadora .ctrl{gap:10px}#calculadora .ctrl .gbox{padding:10px 12px;border-radius:14px}
+ #calculadora .ctrl .gl{font-size:15px;margin:0 0 6px}
+ #calculadora .gin{font-size:19px;padding:7px 10px}#calculadora .gsm{font-size:10px;margin-top:3px}
+ #calculadora .ctrl .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ #calculadora .ctrl .gb{font-size:13px;padding:6px 8px}#calculadora .ctrl .gb small{font-size:10px}
+ #calculadora .gb.mu{min-height:38px}
+ #calculadora .ctrl .gpass{font-size:18px;padding:9px}#calculadora .ctrl .gb.mu{font-size:14px}
 }
 </style>
 </head>
@@ -1301,7 +1340,8 @@ function esc_(t){return String(t).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;","
 const cVar=document.getElementById("cVar"),cMut=document.getElementById("cMut");
 VARS.forEach(([n,m,k])=>{const b=document.createElement("button");b.type="button";b.className="gb "+k+(n===cv?" on":"");b.innerHTML=`${n}<small>${m}x</small>`;
  b.onclick=()=>{cv=n;[...cVar.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");calc()};cVar.appendChild(b)});
-MUTS.forEach(([n,m,col])=>{const b=document.createElement("button");b.type="button";b.className="gb";b.style.background=col;b.innerHTML=`${n}<small>${m}x</small>`;
+const MUFX={"Bloom":"🌸","Spirit Bloom":"✿","Nitro":"🔥","Enchanted":"🌸 ✨","Musical":"♪ ♫","Alien":"👽"};
+MUTS.forEach(([n,m,col])=>{const b=document.createElement("button");b.type="button";b.className="gb mu mu-"+n.toLowerCase().replace(/\s+/g,"");const fx=MUFX[n]?(MUFX[n]+"  ").repeat(14):"";b.dataset.fx=fx;b.innerHTML=`<span>${n}<small>${m}x</small></span>`;
  b.onclick=()=>{cm.has(n)?cm.delete(n):cm.add(n);b.classList.toggle("on");calc()};cMut.appendChild(b)});
 const b2=document.getElementById("c2x");b2.onclick=()=>{c2=!c2;b2.classList.toggle("on");calc()};
 function calc(){const base=parseV(document.getElementById("cBase").value);const esc=parseFloat((document.getElementById("cEsc").value||"1").replace(",","."))||1;
