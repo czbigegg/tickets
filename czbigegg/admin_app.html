@@ -167,6 +167,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .gst.on{background:#7dff3a;color:#030806}.gst.off{background:#ff3b4f}
 .gratisbox textarea{width:100%;margin:12px 0;border:3px solid #030806;border-radius:12px;padding:10px;font:600 15px Poppins;background:#effff0;color:#030806;resize:vertical}
 .gbtns{display:flex;gap:10px;flex-wrap:wrap}
+.ebloque{margin-top:14px;padding-top:12px;border-top:2px dashed rgba(255,255,255,.12);display:grid;gap:6px}.ebloque b{font:400 17px "Luckiest Guy";color:#fff}.ebloque small{font:600 13px Poppins;color:#9fbfa8}.ebloque textarea{margin:4px 0}
 .cfila{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 8px}.cfila label{display:grid;gap:4px;font:400 13px "Luckiest Guy";color:#9fbfa8}
 .cfila select,.cfila input{border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
 .cchk{display:flex;gap:8px;align-items:center;margin:4px 0 12px;font:600 14px Poppins;color:#cfe8d4}.cchk input{width:18px;height:18px}
@@ -303,6 +304,16 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    </div>
   </div>
   <div data-tab="anuncios" hidden>
+   <div class="box gratisbox" id="eBox" style="box-shadow:0 0 0 3px #ff5a36,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">ESTADO DE LA WEB</h3><p>Controles rápidos: pausar toda la web, poner el aviso de falla del radar gratis o volver a poner el contador.</p></div><span class="gst" id="eSt">…</span></div>
+    <div class="ebloque"><b>1 · PAUSAR LA WEB</b><small>Toda la web se tapa con una pantalla de "Volvemos pronto". El panel de admin sigue funcionando.</small>
+     <textarea id="eTxt" maxlength="300" rows="2" placeholder="Mensaje para la gente">Estamos haciendo mejoras en la web. Vuelve en un rato.</textarea>
+     <div class="gbtns"><button class="btn r" id="ePausa" type="button">PAUSAR WEB</button><button class="btn g" id="eActiva" type="button">ACTIVAR WEB</button></div></div>
+    <div class="ebloque"><b>2 · AVISO DE FALLA</b><small>Cambia el contador por "Estamos arreglando una falla, el radar gratuito vuelve pronto" y cierra el radar gratis.</small>
+     <div class="gbtns"><button class="btn" id="eFalla" type="button">AVISO DE FALLA</button></div></div>
+    <div class="ebloque"><b>3 · PONER CONTADOR</b><small>Quita el aviso de falla y pone la cuenta regresiva. Al llegar a cero se abre el radar gratis solo.</small>
+     <div class="gbtns"><button class="btn y" data-emin="30" type="button">EN 30 MIN</button><button class="btn y" data-emin="60" type="button">EN 1 HORA</button><button class="btn y" data-emin="120" type="button">EN 2 HORAS</button><button class="btn y" data-emin="0" type="button">OTRA HORA</button></div></div>
+   </div>
    <div class="box gratisbox" id="gBox">
     <div class="gtop"><div><h3 class="L">RADAR GRATIS</h3><p>Al lanzarlo, se activa el radar gratis y en la web sale un <b>anuncio emergente</b> para todos con el botón a egg.report/czbigegg. Al cerrarlo, el anuncio se quita solo.</p></div><span class="gst" id="gSt">…</span></div>
     <textarea id="gTxt" maxlength="300" rows="2" placeholder="Mensaje del anuncio"></textarea>
@@ -380,7 +391,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;CUENTA=j.cuenta||null;RULA=j.ruleta||null;setTimeout(()=>typeof pintarRul==="function"&&pintarRul(),0);setTimeout(()=>{typeof pintarGratis==="function"&&pintarGratis();typeof pintarCuentaAdm==="function"&&pintarCuentaAdm()},0)}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;CUENTA=j.cuenta||null;PAUSA=j.pausa||null;RULA=j.ruleta||null;setTimeout(()=>typeof pintarRul==="function"&&pintarRul(),0);setTimeout(()=>{typeof pintarGratis==="function"&&pintarGratis();typeof pintarCuentaAdm==="function"&&pintarCuentaAdm()},0)}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent=""+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -650,11 +661,11 @@ $("gOn").onclick=()=>gratis(true);$("gOff").onclick=()=>gratis(false);
 // ===== contador =====
 var CUENTA=null;
 function fLocal(ms){const d=new Date(ms),z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(d.getHours())}:${z(d.getMinutes())}`}
-function pintarCuentaAdm(){const st=$("cSt");if(!st)return;const c=CUENTA&&CUENTA.on?CUENTA:null;const fb=$("cFalla");if(fb){fb.textContent=c&&c.falla?"QUITAR AVISO DE FALLA":"AVISO DE FALLA";fb.className="btn "+(c&&c.falla?"g":"")}
+function pintarCuentaAdm(){const st=$("cSt");if(!st)return;if(typeof pintarEstado==="function")setTimeout(pintarEstado,0);const c=CUENTA&&CUENTA.on?CUENTA:null;const fb=$("cFalla");if(fb){fb.textContent=c&&c.falla?"QUITAR AVISO DE FALLA":"AVISO DE FALLA";fb.className="btn "+(c&&c.falla?"g":"")}
  if(c&&c.falla){st.className="gst off";st.textContent="EN FALLA";$("cFecha").value=fLocal(c.ms);$("cTit").value=c.tit||"RADAR GRATIS";$("cAuto").checked=!!c.auto;return}
  if(c){const f=c.ms-Date.now();st.className="gst "+(f>0?"on":"off");st.textContent=f>0?"CORRIENDO":"TERMINÓ";$("cFecha").value=fLocal(c.ms);$("cTit").value=c.tit||"RADAR GRATIS";$("cAuto").checked=!!c.auto}
  else{st.className="gst";st.textContent="SIN CONTADOR";if(!$("cFecha").value){const d=new Date();d.setHours(17,0,0,0);if(d<new Date())d.setDate(d.getDate()+1);$("cFecha").value=fLocal(d.getTime())}}}
-async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={t:"czcuenta",on:!!on};
+async function cuentaAcc(on,ya){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={t:"czcuenta",on:!!on};
  if(on){const ms=new Date($("cFecha").value).getTime();if(!ms)return alert("Elige la fecha y hora");if(ms<Date.now())return alert("Esa hora ya pasó");p.ms=ms;p.auto=$("cAuto").checked;p.tit=$("cTit").value.trim()}
  else if(!confirm("¿Quitar el contador de la web?"))return;
  b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
@@ -663,6 +674,23 @@ async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={
   sync(v0,j=>{CUENTA=j.cuenta||null;pintarCuentaAdm()})}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
+// ===== estado de la web =====
+var PAUSA=null;
+function pintarEstado(){const st=$("eSt");if(!st)return;const p=PAUSA&&PAUSA.on,f=CUENTA&&CUENTA.on&&CUENTA.falla,c=CUENTA&&CUENTA.on&&!CUENTA.falla&&CUENTA.ms>Date.now();
+ st.className="gst "+(p||f?"off":"on");st.textContent=p?"WEB EN PAUSA":f?"AVISO DE FALLA":c?"CONTADOR CORRIENDO":"WEB ACTIVA";
+ $("ePausa").disabled=!!p;$("eActiva").disabled=!p;if(p&&PAUSA.txt&&document.activeElement!==$("eTxt"))$("eTxt").value=PAUSA.txt;
+ $("eFalla").textContent=f?"QUITAR AVISO DE FALLA":"AVISO DE FALLA";$("eFalla").className="btn "+(f?"g":"r")}
+async function pausaAcc(on){if(on&&!confirm("¿Pausar toda la web? La gente verá la pantalla de mantenimiento."))return;const b=$(on?"ePausa":"eActiva"),t0=b.textContent;b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
+ try{const txt=$("eTxt").value.trim();await enviar({t:"czpausa",on:!!on,txt},new Blob(["{}"]),"x.json",on?"Pausar web":"Activar web");
+  PAUSA=on?{on:true,txt}:null;pintarEstado();aviso(on?"Web en pausa":"Web activa otra vez");sync(v0,j=>{PAUSA=j.pausa||null;pintarEstado()})}
+ catch(err){alert("No se pudo: "+err.message)}b.textContent=t0;pintarEstado()}
+$("ePausa").onclick=()=>pausaAcc(true);$("eActiva").onclick=()=>pausaAcc(false);
+$("eFalla").onclick=()=>$("cFalla").click();
+document.querySelectorAll("[data-emin]").forEach(b=>b.onclick=()=>{const m=+b.dataset.emin;
+ if(!m){$("cFecha").scrollIntoView({behavior:"smooth",block:"center"});$("cFecha").focus();return}
+ const d=new Date(Date.now()+m*60000);d.setSeconds(0,0);$("cFecha").value=fLocal(d.getTime());$("cAuto").checked=true;
+ if(confirm("¿Poner el contador para las "+d.toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit"})+"? Se quita el aviso de falla."))cuentaAcc(true,true)});
+setInterval(()=>{typeof pintarEstado==="function"&&pintarEstado()},20000);
 $("cFalla").onclick=async()=>{const b=$("cFalla"),v=!(CUENTA&&CUENTA.on&&CUENTA.falla),t0=b.textContent;b.disabled=true;b.textContent="GUARDANDO...";const v0=LASTV;
  try{await enviar({t:"czcuenta",acc:"falla",v},new Blob(["{}"]),"x.json",v?"Aviso de falla":"Quitar aviso de falla");
   CUENTA=Object.assign({ms:Date.now(),tit:"RADAR GRATIS"},CUENTA||{},{on:true,falla:v});pintarCuentaAdm();aviso(v?"Aviso de falla puesto":"Aviso de falla quitado");
