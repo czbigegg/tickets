@@ -1532,7 +1532,7 @@ document.getElementById("eggQ").addEventListener("input",()=>eggs());
 var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
-function pintarSemana(){const w=document.getElementById("semW"),L=(RD&&RD.sem)||[];if(!w)return;if(!L.length){w.hidden=true;return}w.hidden=false;
+function pintarSemana(){const w=document.getElementById("semW"),L=(RD&&RD.sem)||[];if(!w)return;if(!L.length){w.hidden=true;return}w.hidden=false;const key=JSON.stringify(L);if(w.dataset.k===key)return;w.dataset.k=key;
  document.getElementById("semN").textContent=L.length+" huevos";
  if(!w.dataset.obs){w.dataset.obs=1;const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){w.classList.add("in");io2.disconnect()}}),{threshold:.15});io2.observe(w)}
  document.getElementById("semL").innerHTML=L.map((x,i)=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a",d=new Date(x.t*1000);
