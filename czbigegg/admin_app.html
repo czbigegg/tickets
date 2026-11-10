@@ -174,6 +174,15 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .popfila{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.popfila select{flex:1;min-width:200px;border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
 .encpop .hint{margin-top:6px;font:600 12px Poppins;color:#9fbfa8}
 .rgb .btn{min-width:0!important;flex:1}.rglist{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto;margin-top:6px}.rglist button{border:2px solid #030806;border-radius:9px;background:#14361f;color:#fff;font:600 13px Poppins;padding:5px 9px;cursor:pointer}.rglist button:hover{background:#1d5a2c}
+.gwlist{display:grid;gap:8px;margin-top:10px}
+.gw1{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;background:#0b1e12;border:2px solid #1d5a2c;border-left:6px solid #ffd23a;border-radius:12px;padding:8px 10px}
+.gw1.tarde{border-left-color:#7f9c88;opacity:.75}.gw1.ok{border-left-color:#7dff3a}
+.gw1 img,.gw1 .ini{width:44px;height:44px;border-radius:10px;border:2px solid #030806;background:#14361f;object-fit:cover;display:grid;place-items:center;font:400 18px "Luckiest Guy";color:#7dff3a}
+.gw1 b{display:block;font:400 17px "Luckiest Guy";color:#fff}.gw1 small{display:block;font:600 12px Poppins;color:#9fbfa8}
+.gw1 .tg{display:inline-block;font:400 11px "Luckiest Guy";padding:2px 7px 0;border-radius:6px;border:2px solid #030806;margin-left:6px}
+.gw1 .tg.y{background:#ffd23a;color:#030806}.gw1 .tg.g{background:#7dff3a;color:#030806}.gw1 .tg.n{background:#2a4a36;color:#cfe8d4}
+.gw1 .ac{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:560px){.gw1{grid-template-columns:36px minmax(0,1fr)}.gw1 .ac{grid-column:1/-1;justify-content:flex-start}.gw1 img,.gw1 .ini{width:36px;height:36px}}
 </style>
 </head>
 <body>
@@ -198,7 +207,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="streams">DIRECTOS <span class="ct" id="ctLive" hidden style="background:#ff3b4f">EN VIVO</span></button>
    <button data-t="mascotas">MASCOTAS</button>
    <button data-t="huevos">HUEVOS</button>
-   <button data-t="ruleta">RULETA</button>
+   <button data-t="ruleta">RULETA <span class="ct" id="ctRul" hidden></span></button>
    <button data-t="anuncios">ANUNCIOS</button>
    <button data-t="encuesta">ENCUESTA</button>
    <button data-t="owners">OWNERS</button>
@@ -271,6 +280,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <div class="gtop"><div><h3 class="L">RULETA</h3><p>La ruleta sale siempre en la web (botón en la esquina, 1 giro al día por persona). Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire: rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
     <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
     <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn r" id="rOn" type="button">QUITAR PREMIOS</button></div>
+   </div>
+   <div class="box gratisbox" id="gwBox" style="box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">GANADORES</h3><p>Quiénes ganaron en la ruleta. Escríbeles por Discord y marca "Entregado" cuando les des el premio.</p></div><span class="gst" id="gwN">0</span></div>
+    <div class="gwlist" id="gwList"></div>
+    <label class="lb" style="margin-top:12px">GIROS REGALADOS ACTIVOS</label><div class="rglist" id="rgAct"></div>
    </div>
    <div class="box gratisbox" id="rgBox" style="box-shadow:0 0 0 3px #7dff3a,0 6px 0 #030806">
     <div class="gtop"><div><h3 class="L">REGALAR GIROS / FORZAR PREMIO</h3><p>Escribe un usuario de Roblox (o toca uno de tus registrados). Esa persona pone su usuario en la ruleta y le salen sus giros. "Forzar premio" hace que su próximo giro gane.</p></div></div>
@@ -428,7 +442,7 @@ function graficoVisitas(dias){const el=$("chVis"),W=640,H=220,pl=34,pb=26,pt=12,
   tip.textContent=`${DIAS[dt.getDay()]} ${dt.getDate()}/${dt.getMonth()+1}: ${d.v} visita${d.v===1?"":"s"}`;tip.style.left=(e.clientX-r.left)+"px";tip.style.top=(e.clientY-r.top)+"px";tip.style.opacity=1};
  svg.onmouseleave=()=>tip.style.opacity=0}
 function avatar(img,n){return img?`<img class="av" src="${esc(img)}" alt="" loading="lazy">`:`<div class="av">${esc((n||"?").charAt(0).toUpperCase())}</div>`}
-function pintarStats(){const S=ST;if(!S)return;if(typeof pintarRg==="function")setTimeout(pintarRg,0);const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
+function pintarStats(){const S=ST;if(!S)return;if(typeof pintarRg==="function")setTimeout(()=>{pintarRg();pintarGan()},0);const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
  const regs=S.regs||[],nuevos=regs.filter(r=>r.estado==="nuevo").length,E=S.encuesta,cm=(S.ev||{}).comprar||{};
  const delta=(a,b)=>b?`<b class="${a>=b?"":"dn"}">${a>=b?"▲":"▼"} ${Math.abs(Math.round((a-b)/b*100))}%</b>`:"";
  $("kpis").innerHTML=[
@@ -680,6 +694,21 @@ $("rgBox").addEventListener("click",async e=>{const b=e.target.closest("[data-rg
  try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+u+" "+v);let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
   alert(j?(v==="del"?`Listo: se quitaron los giros de ${u}.`:v==="f"?`Listo: el próximo giro de ${u} gana el premio. Dile que entre a la ruleta y ponga su usuario.`:`Listo: ${u} tiene +${v} giro${v>1?"s":""}. Dile que entre a la ruleta y ponga su usuario.`):"Enviado, pero el bot todavía no responde.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0});
+
+// ===== ganadores de la ruleta =====
+function pintarGan(){const L=$("gwList");if(!L)return;const G=(ST&&ST.rul)||[];const pend=G.filter(g=>g.ok&&!g.entregado).length;$("ctRul").hidden=!pend;$("ctRul").textContent=pend;$("gwN").textContent=G.filter(g=>g.ok).length+" ganador"+(G.filter(g=>g.ok).length===1?"":"es");
+ L.innerHTML=G.length?G.map(g=>{const f=new Date(g.t*1000).toLocaleString("es-CL",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});const cls=!g.ok?"tarde":g.entregado?"ok":"";
+  const tag=!g.ok?'<span class="tg n">LLEGÓ TARDE</span>':g.entregado?'<span class="tg g">ENTREGADO</span>':'<span class="tg y">PENDIENTE</span>';
+  return `<div class="gw1 ${cls}"><span class="ini">${esc((g.rbx||"?").charAt(0).toUpperCase())}</span><div><b>${esc(g.rbx)}${tag}</b><small>Discord: <b style="display:inline;font:600 12px Poppins;color:#ffd23a">${esc(g.dc)}</b> · ${esc(g.premio||"")} · ${esc(f)}</small></div>
+   <div class="ac">${g.ok?`<button class="btn sm ${g.entregado?"":"g"}" data-gok="${g.t}" data-gr="${esc(g.rbx)}" data-gv="${g.entregado?0:1}" type="button">${g.entregado?"DESMARCAR":"ENTREGADO"}</button>`:""}<button class="btn sm" data-gcp="${esc(g.dc)}" type="button">COPIAR DISCORD</button><button class="btn sm r" data-gdel="${g.t}" data-gr="${esc(g.rbx)}" type="button">BORRAR</button></div></div>`}).join(""):'<div style="color:#9fbfa8;font:600 13px Poppins">Todavía no gana nadie.</div>';
+ const A=(ST&&ST.rulreg)||[];$("rgAct").innerHTML=A.length?A.map(x=>`<button type="button" data-rgu="${esc(x.n)}">${esc(x.n)} · ${x.s} giro${x.s===1?"":"s"}${x.f?" · PREMIO FORZADO":""}</button>`).join(""):'<span style="color:#9fbfa8;font:600 13px Poppins">Nadie tiene giros regalados.</span>';
+ if(typeof RBXF==="object")L.querySelectorAll(".gw1").forEach(()=>{})}
+$("rgAct").addEventListener("click",e=>{const b=e.target.closest("[data-rgu]");if(b){$("rgU").value=b.dataset.rgu;$("rgU").scrollIntoView({behavior:"smooth",block:"center"})}});
+$("gwList").addEventListener("click",async e=>{const cp=e.target.closest("[data-gcp]");if(cp){try{await navigator.clipboard.writeText(cp.dataset.gcp);cp.textContent="COPIADO"}catch(_){prompt("Copia el usuario:",cp.dataset.gcp)}return}
+ const ok=e.target.closest("[data-gok]"),del=e.target.closest("[data-gdel]");if(!ok&&!del)return;if(del&&!confirm("¿Borrar este ganador de la lista?"))return;
+ const b=ok||del,tt=+(b.dataset.gok||b.dataset.gdel),rbx=b.dataset.gr,g=(ST.rul||[]).find(x=>x.t===tt&&x.rbx===rbx);
+ if(del)ST.rul=ST.rul.filter(x=>x!==g);else if(g)g.entregado=!!+b.dataset.gv;pintarGan();
+ try{await enviar({t:"czrulok",tt,rbx,acc:del?"del":"ok",v:ok?!!+b.dataset.gv:false},new Blob(["{}"]),"x.json","Ruleta ganador")}catch(err){alert("No se pudo guardar: "+err.message)}});
 </script>
 </body>
 </html>
