@@ -1041,6 +1041,25 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 @keyframes rulWin{50%{box-shadow:0 0 0 5px #7dff3a,0 10px 0 #030806,0 0 80px rgba(125,255,58,.8)}}
 #ruleta[hidden]{display:none}
 @media(max-width:560px){.rulb{grid-template-columns:minmax(0,1fr);padding:14px;gap:14px}.rulbox{width:min(300px,86%)}.rulside{text-align:center}.rulh{font-size:22px!important;-webkit-text-stroke:3px #030806}.rulmsg{font-size:13px}.rulleg{font-size:10px}}
+
+/* ===== ruleta flotante (botón en la esquina) ===== */
+#ruleta{position:fixed;right:16px;bottom:86px;z-index:140;width:min(380px,calc(100% - 24px));max-height:calc(100vh - 110px);overflow:auto;padding:0!important;animation:rulAbre .35s cubic-bezier(.2,1.3,.4,1);border-radius:22px}
+#ruleta .wrap{padding:0;max-width:none}
+@keyframes rulAbre{from{transform:translateY(30px) scale(.9);opacity:0}}
+#ruleta .rulw{box-shadow:0 0 0 4px #ffd23a,0 12px 0 #020503,0 20px 60px rgba(0,0,0,.6)}
+#ruleta .gbar{padding:10px 14px}#ruleta .gtit{font-size:20px!important}#ruleta .rdst{font-size:11px}
+.rulx{margin-left:8px;width:30px;height:30px;flex:none;border-radius:9px;border:3px solid #030806;background:#ff3b4f;color:#fff;font:400 15px "Luckiest Guy";cursor:pointer}
+#ruleta .rulb{grid-template-columns:minmax(0,1fr)!important;gap:12px;padding:14px;text-align:center}
+#ruleta .rulbox{width:min(260px,80%)}
+#ruleta .rulh{font-size:22px!important;-webkit-text-stroke:3px #030806}#ruleta .rulmsg{font-size:13px;margin:6px 0 10px}
+#ruleta #rulF{text-align:left}#ruleta .rulleg{margin-top:8px;font-size:10px}
+.rulfab{position:fixed;right:16px;bottom:16px;z-index:141;display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:99px;border:3px solid #030806;background:linear-gradient(180deg,#ffe766,#ffb800);box-shadow:0 5px 0 #030806,0 0 24px rgba(255,210,58,.45);cursor:pointer;animation:rulFab 2.4s ease-in-out infinite}
+.rulfab b{font:400 16px "Luckiest Guy";color:#030806;letter-spacing:.5px}
+.rulfw{width:40px;height:40px;border-radius:50%;border:3px solid #030806;background:conic-gradient(#ffd23a 0 45deg,#1fb45a 0 90deg,#14361f 0 135deg,#2fbf4a 0 180deg,#1fb45a 0 225deg,#14361f 0 270deg,#2fbf4a 0 315deg,#14361f 0);animation:spin 6s linear infinite}
+.rulfab i{position:absolute;top:-8px;right:-6px;min-width:22px;height:22px;display:grid;place-items:center;border-radius:99px;border:2px solid #030806;background:#ff3b4f;color:#fff;font:400 12px "Luckiest Guy";font-style:normal;animation:pls 1.2s infinite}
+.rulfab i[hidden]{display:none}
+@keyframes rulFab{50%{transform:translateY(-4px) rotate(-2deg)}}
+@media(max-width:560px){.rulfab{right:10px;bottom:10px;padding:4px 10px 4px 4px}.rulfw{width:34px;height:34px}.rulfab b{font-size:13px}#ruleta{right:12px;bottom:70px}}
 </style>
 </head>
 <body>
@@ -1132,10 +1151,11 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 
 <a class="livepill" id="livePill" href="#streams" hidden></a>
 
+<button class="rulfab" id="rulFab" type="button" aria-label="Ruleta"><span class="rulfw"></span><b>RULETA</b><i id="rulDot" hidden>1</i></button>
 <section id="ruleta" hidden>
  <div class="wrap">
   <div class="gw rulw">
-   <div class="gbar"><span class="gtit">RULETA CZ BIG EGG</span><span class="rdst" id="rulTag">GIRA GRATIS</span></div>
+   <div class="gbar"><span class="gtit">RULETA CZ BIG EGG</span><span class="rdst" id="rulTag">GIRA GRATIS</span><button class="rulx" id="rulX" type="button" aria-label="Cerrar">✕</button></div>
    <div class="rulb">
     <div class="rulbox">
      <div class="rulptr"></div>
@@ -1798,9 +1818,13 @@ function rulDibujar(premio){const W=document.getElementById("rulW");if(!W||W.dat
   h+=`<path d="M0 0 L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z" fill="${col[i]}" stroke="#030806" stroke-width="2"/>`;
   const am=i*45;h+=`<g transform="rotate(${am})"><text x="0" y="-62" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i]).split(" ").slice(0,2).join(" ")}</text>${etq[i].split(" ").length>2?`<text x="0" y="-50" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i].split(" ").slice(2).join(" "))}</text>`:""}</g>`}
  h+=`<circle r="104" fill="none" stroke="#030806" stroke-width="3"/>`;W.innerHTML=h}
-function rulWeb(j){const sec=document.getElementById("ruleta");RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:null;if(!sec)return;sec.hidden=!RUL;if(!RUL)return;rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulEstado()}
+function rulWeb(j){RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:{on:true,id:"0",n:0,premio:"1 DÍA PREMIUM"};rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulEstado()}
+function rulAbrir(si){const sec=document.getElementById("ruleta");sec.hidden=!si;if(si){if(!RUL)rulWeb(null);rulEstado()}}
+document.getElementById("rulFab").onclick=()=>rulAbrir(document.getElementById("ruleta").hidden);
+document.getElementById("rulX").onclick=()=>rulAbrir(false);
+setTimeout(()=>{if(!RUL)rulWeb(null)},4000);
 function rulGuard(){try{return JSON.parse(localStorage.getItem("czRul")||"{}")}catch(_){return{}}}
-function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;
+function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;{const gg=rulGuard(),libre=(gg.t||0)+86400000<=Date.now()||(gg.gano===RUL.id&&!gg.env);document.getElementById("rulDot").hidden=!libre}
  if(g.gano===RUL.id&&!g.env){document.getElementById("rulF").hidden=false;b.disabled=true;return}
  const falta=(g.t||0)+86400000-Date.now();if(falta>0&&!b.dataset.girando){b.disabled=true;m.innerHTML=`Ya giraste hoy. Vuelve en <b>${falta>3600000?Math.ceil(falta/3600000)+" h":Math.ceil(falta/60000)+" min"}</b>.`}
  else if(!b.dataset.girando){b.disabled=false;m.innerHTML="Toca <b>GIRAR</b>. Tienes 1 giro al día."}}
