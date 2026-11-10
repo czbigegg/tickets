@@ -1386,7 +1386,7 @@ board();
 async function topAvatares(){try{const c=await leerRbx();const pend=[];
  [...new Set(TOP.map(x=>x[0]))].forEach(n=>{const x=c[n.toLowerCase()];if(x){if(!x.nf&&x.img)TOPAV[n.toLowerCase()]=x.img}else pend.push(n)});board();
  for(const n of pend){try{const u=await rbx(n);if(u&&u.img){TOPAV[n.toLowerCase()]=u.img;board()}}catch(_){}}
- setTimeout(async()=>{const c2=await leerRbx();TOP.forEach(([n])=>{const x=c2[n.toLowerCase()];if(x&&!x.nf&&x.img)TOPAV[n.toLowerCase()]=x.img});board()},60000)}catch(_){}}
+ let k=0;const iv=setInterval(async()=>{k++;const c2=await leerRbx();let falta=0;TOP.forEach(([n])=>{const x=c2[n.toLowerCase()];if(x&&!x.nf&&x.img)TOPAV[n.toLowerCase()]=x.img;else if(!x)falta++});board();if(!falta||k>=8)clearInterval(iv)},20000)}catch(_){}}
 setTimeout(topAvatares,1500);
 
 // URL del script de Google (la misma que en admin.html). Vacía = usa la lista de abajo.
