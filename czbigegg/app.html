@@ -1275,7 +1275,7 @@ var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secre
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
 function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
- const vivo=pas<150;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
+ const vivo=pas<420;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
   return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg">🥚</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
   <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`;
