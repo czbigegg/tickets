@@ -154,6 +154,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .pc b{font:400 15px "Luckiest Guy";color:#fff;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc small{font:600 11px Poppins;color:var(--mut)}
 .pc input{padding:7px 9px 5px;font-size:15px}
+.str{display:grid;grid-template-columns:84px minmax(0,1fr) 160px minmax(0,1.3fr) auto;gap:10px;align-items:end;padding:14px;margin-bottom:12px}
+.str .st0{width:62px;height:62px;border-radius:50%;border:3px solid var(--ink);background:#14361f;object-fit:cover;display:grid;place-items:center;font:400 26px "Luckiest Guy";color:var(--g);position:relative}
+.str .lv{font:400 12px "Luckiest Guy";white-space:nowrap;padding:3px 7px 1px;border-radius:7px;border:2px solid var(--ink);display:inline-block;margin-top:6px}
+.str .lv.on{background:#ff3b4f;color:#fff}.str .lv.off{background:#14361f;color:var(--mut)}
+@media(max-width:900px){.str{grid-template-columns:62px minmax(0,1fr)}.str>div:nth-child(n+3){grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -175,6 +180,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="resumen" class="on">📊 RESUMEN</button>
    <button data-t="registros">📝 REGISTROS <span class="ct" id="ctReg" hidden></span></button>
    <button data-t="usuarios">🧑 USUARIOS TOP</button>
+   <button data-t="streams">🎥 DIRECTOS <span class="ct" id="ctLive" hidden style="background:#ff3b4f">EN VIVO</span></button>
    <button data-t="mascotas">🐾 MASCOTAS</button>
    <button data-t="huevos">🥚 HUEVOS</button>
    <button data-t="anuncios">📢 ANUNCIOS</button>
@@ -208,6 +214,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   <div data-tab="usuarios" hidden>
    <div class="top"><div><h2 class="L st">🧑 USUARIOS EN EL TOP</h2><p>Gente que se puso en la tabla "TOP DINERO/S" de la web con su usuario de Roblox.</p></div></div>
    <div class="box card2"><div class="users" id="usrs"></div></div>
+  </div>
+  <div data-tab="streams" hidden>
+   <div class="top"><div><h2 class="L st">🎥 DIRECTOS</h2><p>Pon las cuentas de Kick, TikTok y YouTube de los dueños. En la web sale una sección <b>"Nuestros directos"</b>: cuando alguien prende, el bot lo detecta solo (cada ~1,5 min), aparece <b>🔴 EN VIVO</b> con el reproductor (Kick y YouTube) y un aviso flotante en toda la web.</p></div></div>
+   <div id="stAdm"></div>
+   <button class="addline" id="stAdd" type="button">+ AGREGAR CUENTA</button>
   </div>
   <div data-tab="mascotas" hidden>
    <div class="top"><div><h2 class="L st">🐾 MASCOTAS</h2><p>Salen en la galería de la calculadora de tu web. Las fotos se traen solas desde <b>tu radar</b> (egg.report → Diseño → Imágenes de las mascotas). Ponle a cada una su <b>valor base por segundo</b> y toca GUARDAR.</p></div>
@@ -304,7 +315,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets()}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams()}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -343,7 +354,7 @@ $("grid").addEventListener("click",e=>{const p=e.target.closest(".pic");if(p){pi
 function irA(t){if(t==="salir"){if(dirty&&!confirm("Tienes cambios sin guardar. ¿Salir igual?"))return;dirty=false;try{sessionStorage.removeItem("czAdm");localStorage.removeItem("czOwner")}catch(_){}location.href="./";return}
  [...$("side").querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x.dataset.t===t));
  document.querySelectorAll("[data-tab]").forEach(s=>s.hidden=s.dataset.tab!==t);
- $("saveBar").style.display=["huevos","anuncios","encuesta","mascotas"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
+ $("saveBar").style.display=["huevos","anuncios","encuesta","mascotas","streams"].includes(t)?"block":"none";scrollTo({top:0,behavior:"smooth"})}
 $("side").onclick=e=>{const b=e.target.closest("button");if(b)irA(b.dataset.t)};
 $("verRegs").onclick=e=>{e.preventDefault();irA("registros")};
 
@@ -449,6 +460,24 @@ $("bImp").onclick=async()=>{const b=$("bImp");b.disabled=true;b.textContent="TRA
   let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
   if(j){petsDe(j);renderPets();alert(`✅ Listo: ${PETS.length} mascotas`)}else alert("El bot todavía no responde. Revisa que esté prendido.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent="🔄 TRAER DEL RADAR"};
+
+// ===== 🎥 directos =====
+let STREAMS=[],STLIVE={};
+function streamsDe(j){STREAMS=((j&&j.streamers)||[]).map(x=>({nombre:x.nombre,red:x.red,u:x.u}));STLIVE={};((j&&j.streamers)||[]).forEach(x=>STLIVE[x.red+":"+String(x.u).toLowerCase()]=x);
+ const n=Object.values(STLIVE).filter(x=>x.vivo).length;$("ctLive").hidden=!n;$("ctLive").textContent=n>1?n+" EN VIVO":"EN VIVO"}
+function renderStreams(){const L=$("stAdm");L.innerHTML=STREAMS.length?"":`<div class="box empty">No hay cuentas. Toca <b>+ AGREGAR CUENTA</b> y pon por ejemplo <b>kick.com/caoz</b>.</div>`;
+ STREAMS.forEach((x,i)=>{const st=STLIVE[x.red+":"+String(x.u||"").toLowerCase()]||{},d=document.createElement("div");d.className="box str";
+  d.innerHTML=`<div>${st.avatar?`<img class="st0" src="${esc(st.avatar)}" alt="" referrerpolicy="no-referrer">`:`<div class="st0">${esc((x.nombre||"?").charAt(0).toUpperCase())}</div>`}${st.vivo!=null?`<span class="lv ${st.vivo?"on":"off"}">${st.vivo?"🔴 EN VIVO":"OFFLINE"}</span>`:""}</div>
+  <div><label class="lb">NOMBRE QUE SE MUESTRA</label><input data-sk="nombre" data-i="${i}" value="${esc(x.nombre||"")}" maxlength="30" placeholder="Ej: Caoz"></div>
+  <div><label class="lb">RED</label><select data-sk="red" data-i="${i}">${[["kick","🟢 Kick"],["tiktok","🎵 TikTok"],["youtube","▶️ YouTube"],["twitch","🟣 Twitch"]].map(([k,v])=>`<option value="${k}"${k===x.red?" selected":""}>${v}</option>`).join("")}</select></div>
+  <div><label class="lb">USUARIO O LINK</label><input data-sk="u" data-i="${i}" value="${esc(x.u||"")}" maxlength="80" placeholder="Ej: caoz o kick.com/caoz"></div>
+  <div style="display:flex;gap:6px"><button class="btn sm" data-sa="up" data-i="${i}">⬆</button><button class="btn r sm" data-sa="del" data-i="${i}">🗑</button></div>`;L.appendChild(d)})}
+$("stAdd").onclick=()=>{STREAMS.push({nombre:"",red:"kick",u:""});setDirty(true);renderStreams();$("stAdm").lastChild.querySelector("input").focus()};
+$("stAdm").addEventListener("input",e=>{const t=e.target,k=t.dataset.sk;if(!k)return;const x=STREAMS[+t.dataset.i];let v=t.value;
+ if(k==="u"){const m=/(kick\.com|tiktok\.com|youtube\.com|youtu\.be|twitch\.tv)/i.exec(v);if(m){const red=/kick/i.test(m[1])?"kick":/tiktok/i.test(m[1])?"tiktok":/twitch/i.test(m[1])?"twitch":"youtube";x.red=red;t.closest(".str").querySelector("select").value=red}}
+ x[k]=v;setDirty(true)});
+$("stAdm").addEventListener("click",e=>{const b=e.target.closest("[data-sa]");if(!b)return;const i=+b.dataset.i;
+ if(b.dataset.sa==="up"&&i>0)[STREAMS[i-1],STREAMS[i]]=[STREAMS[i],STREAMS[i-1]];else if(b.dataset.sa==="del"){if(!confirm("¿Quitar esta cuenta?"))return;STREAMS.splice(i,1)}else return;setDirty(true);renderStreams()});
 let ultCarga=0;
 async function refrescar(){$("upd").textContent="Actualizando...";
  try{await leerStats();ultCarga=Date.now();pintarStats();if(!ST)$("upd").textContent="Esperando datos del bot (prende el bot y espera 1 minuto)"}
@@ -523,12 +552,12 @@ $("file").onchange=async()=>{const f=$("file").files[0],i=picking;if(!f||i<0)ret
  catch(err){alert("No se pudo subir la imagen: "+err.message);pic.classList.remove("busy")}};
 
 async function guardar(btn){const B=btn||$("bSave"),old=B.textContent;B.disabled=true;B.textContent="ENVIANDO...";$("viejo").hidden=true;
- try{const estado={eggs:EGGS.filter(x=>x.n.trim()),anuncios:ANUNCIOS.filter(a=>a.txt.trim()),encuesta:ENC?{id:ENC.id,q:ENC.q,ops:ENC.ops,on:ENC.on}:null,pet_v:PETV};
+ try{const estado={eggs:EGGS.filter(x=>x.n.trim()),anuncios:ANUNCIOS.filter(a=>a.txt.trim()),encuesta:ENC?{id:ENC.id,q:ENC.q,ops:ENC.ops,on:ENC.on}:null,pet_v:PETV,streamers:STREAMS.filter(x=>String(x.u||"").trim())};
   const v0=LASTV;await enviar({t:"czsave"},new Blob([JSON.stringify(estado)],{type:"application/json"}),"czweb.json","🥚 Cambios de la web CZ BIG EGG");
   B.textContent="PUBLICANDO...";$("estado").textContent="⏳ El bot está publicando...";
   let j=null;for(let k=0;k<20;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
   if(!j){$("viejo").hidden=false;$("viejoTxt").textContent="Mandé los cambios, pero el bot no los publicó en 1 minuto. Revisa que esté prendido y vuelve a tocar GUARDAR.";throw new Error("El bot no respondió")}
-  EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();setDirty(false);render();renderAn();renderEnc();$("estado").textContent="✅ ¡Publicado! Ya sale en la web"}
+  EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();setDirty(false);render();renderAn();renderEnc();$("estado").textContent="✅ ¡Publicado! Ya sale en la web"}
  catch(err){$("estado").textContent="⚠️ No se publicó";alert("No se pudo guardar: "+err.message)}
  if(B.isConnected){B.disabled=false;B.textContent=old}}
 $("bSave").onclick=()=>guardar();
