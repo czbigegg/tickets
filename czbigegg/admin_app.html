@@ -159,6 +159,14 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .str .lv{font:400 12px "Luckiest Guy";white-space:nowrap;padding:3px 7px 1px;border-radius:7px;border:2px solid var(--ink);display:inline-block;margin-top:6px}
 .str .lv.on{background:#ff3b4f;color:#fff}.str .lv.off{background:#14361f;color:var(--mut)}
 @media(max-width:900px){.str{grid-template-columns:62px minmax(0,1fr)}.str>div:nth-child(n+3){grid-column:1/-1}}
+.gratisbox{padding:18px;margin-bottom:18px;border:4px solid #030806;box-shadow:0 0 0 3px #7dff3a,0 6px 0 #030806}
+.gratisbox .gtop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.gratisbox h3{font-size:24px;color:#fff;-webkit-text-stroke:3px #030806;paint-order:stroke fill;margin-bottom:6px}
+.gratisbox p{color:#cfe8d4;font-size:14px;max-width:620px}
+.gst{font:400 15px "Luckiest Guy";padding:6px 12px 3px;border-radius:10px;border:3px solid #030806;background:#2a4a36;color:#fff;white-space:nowrap}
+.gst.on{background:#7dff3a;color:#030806}.gst.off{background:#ff3b4f}
+.gratisbox textarea{width:100%;margin:12px 0;border:3px solid #030806;border-radius:12px;padding:10px;font:600 15px Poppins;background:#effff0;color:#030806;resize:vertical}
+.gbtns{display:flex;gap:10px;flex-wrap:wrap}.gbtns .btn{flex:1;min-width:200px}
 </style>
 </head>
 <body>
@@ -250,6 +258,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   <div class="grid" id="grid"></div>
   </div>
   <div data-tab="anuncios" hidden>
+   <div class="box gratisbox" id="gBox">
+    <div class="gtop"><div><h3 class="L">🆓 RADAR GRATIS</h3><p>Al lanzarlo, se activa el radar gratis y en la web sale un <b>anuncio emergente</b> para todos con el botón a egg.report/czbigegg. Al cerrarlo, el anuncio se quita solo.</p></div><span class="gst" id="gSt">…</span></div>
+    <textarea id="gTxt" maxlength="300" rows="2" placeholder="Mensaje del anuncio"></textarea>
+    <div class="gbtns"><button class="btn g" id="gOn" type="button">🚀 LANZAR RADAR GRATIS</button><button class="btn r" id="gOff" type="button">⛔ CERRAR RADAR GRATIS</button></div>
+   </div>
    <div class="top"><div><h2 class="L st">📢 ANUNCIOS</h2><p>Los anuncios activos salen en la barra de arriba de la web. Si marcas <b>VENTANA EMERGENTE</b>, también salen en grande al entrar (una vez por persona).</p></div></div>
    <div id="anList"></div>
    <button class="addline" id="anAdd" type="button">+ NUEVO ANUNCIO</button>
@@ -289,7 +302,7 @@ async function probar(pw,D){if(!D||!D.salt||!D.llaves)return null;
  const kk=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(D.salt),iterations:150000,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
  for(const L of D.llaves){const r=b64(L);try{return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:r.slice(0,12)},kk,r.slice(12))))}catch(_){}}
  return null}
-async function abrir(pw){const P=await probar(pw,await leerGH("datos.json").catch(()=>null));if(P)return P;   // Owners de TICKETS LOGS
+async function abrir(pw){if(!(window.crypto&&crypto.subtle))throw new Error(location.protocol==="http:"?"Abre el panel con https:// (el candado del dominio se está activando, prueba en unos minutos)":"Tu navegador no soporta el cifrado del panel");const P=await probar(pw,await leerGH("datos.json").catch(()=>null));if(P)return P;   // Owners de TICKETS LOGS
  return await probar(pw,await leerGH("czowners.json").catch(()=>null))}                                       // Owners de la web
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
 const ordenado=o=>"{"+Object.keys(o).sort().map(k=>JSON.stringify(k)+":"+JSON.stringify(o[k])).join(",")+"}";
@@ -315,7 +328,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams()}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;setTimeout(()=>typeof pintarGratis==="function"&&pintarGratis(),0)}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent="👤 "+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -562,6 +575,20 @@ async function guardar(btn){const B=btn||$("bSave"),old=B.textContent;B.disabled
  if(B.isConnected){B.disabled=false;B.textContent=old}}
 $("bSave").onclick=()=>guardar();
 
+
+// ===== 🆓 radar gratis: lanzar / cerrar con anuncio =====
+var GRATIS=null;const G_TXT="🆓 ¡RADAR GRATIS ABIERTO! Crea tu usuario y entra ahora mismo, antes de que se llene";
+function pintarGratis(){const st=$("gSt");if(!st)return;st.className="gst"+(GRATIS===true?" on":GRATIS===false?" off":"");st.textContent=GRATIS===true?"🟢 ABIERTO":GRATIS===false?"🔴 CERRADO":"…";
+ if(!$("gTxt").value){const a=(ANUNCIOS||[]).find(x=>String(x.id).startsWith("gratis"));$("gTxt").value=a?a.txt:G_TXT}}
+async function gratis(on){const b=$(on?"gOn":"gOff"),t0=b.textContent;
+ if(!on&&!confirm("¿Cerrar el radar gratis y quitar el anuncio de la web?"))return;
+ b.disabled=true;b.textContent=on?"LANZANDO...":"CERRANDO...";const v0=LASTV;
+ try{await enviar({t:"czgratis",on:!!on,txt:on?$("gTxt").value.trim():""},new Blob(["{}"]),"x.json",on?"🆓 Lanzar radar gratis":"⛔ Cerrar radar gratis");
+  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
+  if(j){GRATIS=j.gratis;if(!dirty)ANUNCIOS=j.anuncios||[];renderAn();pintarGratis();alert(on?"✅ ¡Radar gratis lanzado! El anuncio ya sale en la web.":"✅ Radar gratis cerrado y anuncio quitado.")}
+  else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+ catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
+$("gOn").onclick=()=>gratis(true);$("gOff").onclick=()=>gratis(false);
 </script>
 </body>
 </html>
