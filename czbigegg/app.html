@@ -560,6 +560,22 @@ button.gx{cursor:pointer}
 .rdcta span{flex-basis:100%}
 .rdempty{grid-column:1/-1;text-align:center;padding:30px;font:400 17px "Luckiest Guy";color:#9fbfa8}
 @media(max-width:760px){.rdl{grid-template-columns:minmax(0,1fr);max-height:460px}.rdw .gtit{font-size:22px}}
+/* bloque en vivo */
+.shots .rdw{margin:0}
+.shots .rdl{grid-template-columns:minmax(0,1fr);max-height:430px}
+.shots .rdcta{margin-top:10px}
+.tpw{display:flex;flex-direction:column;min-width:0}
+.tpb{padding:12px;background:#06120a;flex:1;display:flex;flex-direction:column;gap:10px}
+.tph{display:flex;align-items:center;gap:10px;font:400 18px "Luckiest Guy";color:#fff}
+.tph img{width:46px;height:46px;object-fit:contain;border-radius:10px;border:2px solid #030806;background:#0b1e12}
+.tph small{display:block;font:600 11px Poppins;color:#9fbfa8}
+.tpl{list-style:none;display:grid;gap:6px;pointer-events:none;user-select:none}
+.tpl li{display:flex;align-items:center;gap:10px;background:#0b1e12;border:2px solid #1d5a2c;border-radius:10px;padding:6px 10px;font:400 16px "Luckiest Guy";color:#56cfff}
+.tpl li b{font-weight:400}
+.tpl li small{font:600 12px Poppins;color:#9fbfa8;flex:1}
+.tpl li span{font:400 12px "Luckiest Guy";border:2px solid #9fbfa8;color:#cfe8d4;border-radius:7px;padding:2px 8px 0}
+.tpl li:first-child{border-color:#ffd23a;color:#ffd23a}
+.recimg img{width:110px;height:110px;object-fit:contain;margin-top:10px;filter:drop-shadow(0 6px 0 rgba(0,0,0,.4));animation:bob 3s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -678,25 +694,28 @@ button.gx{cursor:pointer}
  <div class="wrap">
   <div class="head rv"><div><div class="eyebrow">EN VIVO DESDE EL RADAR</div><h2>Así se ve <span class="grad">por dentro</span></h2></div>
    <p>La lista en vivo de servidores con el multiplicador y el dinero por segundo de cada huevo. Con Premium desbloqueas los más grandes.</p></div>
-  <div class="gw rdw" id="rdw" hidden>
-   <div class="gbar"><span class="gtit">📡 RADAR EN VIVO · AHORA</span><span class="rdst" id="rdSt">conectando...</span></div>
+  <div class="inside">
+   <div class="phone rv"><video src="assets/video.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline></video></div>
+   <div class="shots">
+<div class="gw rdw" id="rdw">
+   <div class="gbar"><span class="gtit" style="font-size:clamp(22px,2.6vw,32px)">📡 RADAR EN VIVO</span><span class="rdst" id="rdSt">conectando...</span></div>
    <div class="rdb">
     <div class="rdsweep"></div>
     <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"></ul>
     <div class="rdcta"><span>👀 Esto es lo que está saliendo <b>ahora mismo</b> en nuestro radar. Para entrar a esos servidores necesitas una cuenta.</span><a class="btn btn-y btn-s" href="#planes">⭐ VER PLANES</a><a class="btn btn-g btn-s" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 RADAR GRATIS</a></div>
    </div>
   </div>
-  <div class="inside">
-   <div class="phone rv"><video src="assets/video.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline></video></div>
-   <div class="shots">
-    <div class="shot rv"><span class="lab">RADAR EN VIVO</span><img src="assets/web.jpg" alt="Radar CZ BIG EGG en vivo" loading="lazy"></div>
     <div class="shotrow">
-     <div class="shot p rv"><span class="lab">PREMIUM · x11.72</span><img src="assets/premium.jpg" alt="Servidores Premium" loading="lazy"></div>
+     <div class="gw tpw">
+      <div class="gbar"><span class="gtit" style="font-size:22px" id="tpT">👑 MEJOR HUEVO</span><span class="rdst" id="tpX">—</span></div>
+      <div class="tpb"><div class="tph" id="tpH"></div><ul class="tpl" id="tpL"><li class="rdempty">📡 Esperando el radar...</li></ul></div>
+     </div>
      <div class="panel rv" style="padding:24px;display:flex;flex-direction:column;justify-content:center">
-      <div class="eyebrow" style="color:var(--gold)">RÉCORD PREMIUM</div>
-      <div style="font:700 30px var(--h);margin-top:10px">CAVE DRAGON</div>
-      <div style="font:700 54px var(--h);color:var(--gold);line-height:1;margin-top:6px">x11.72</div>
-      <div style="color:var(--mut);font:600 15px var(--h);margin-top:6px">8.19 B/s · solo Premium</div>
+      <div class="eyebrow" style="color:var(--gold)">🏆 RÉCORD DE HOY</div>
+      <div class="recimg" id="recI"></div>
+      <div style="font:400 30px 'Luckiest Guy';margin-top:10px;color:#fff;-webkit-text-stroke:4px #030806;paint-order:stroke fill" id="recN">—</div>
+      <div style="font:400 54px 'Luckiest Guy';color:var(--y);line-height:1;margin-top:6px;-webkit-text-stroke:5px #030806;paint-order:stroke fill;text-shadow:0 5px 0 #030806" id="recX">x—</div>
+      <div style="color:var(--mut);font:600 15px Poppins;margin-top:6px" id="recG">El mejor huevo que salió hoy en el radar</div>
       <a class="btn btn-y btn-s" style="margin-top:18px" href="#planes">Quiero Premium</a>
      </div>
     </div>
@@ -1062,11 +1081,16 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
 var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
-function pintarRadar(){if(!RD)return;const w=document.getElementById("rdw");w.hidden=false;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
+function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
  const vivo=pas<240;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
   return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg">🥚</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
-  <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`}
+  <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`;
+ const T=RD.top;if(T&&T.sv){const f=fotoPet(T.a);document.getElementById("tpT").textContent="👑 "+T.a.toUpperCase();document.getElementById("tpX").textContent="x"+(T.sv[0]||{}).x;
+  document.getElementById("tpH").innerHTML=`${f?`<img src="${esc(f)}" alt="">`:""}<div>${esc(T.a)}<small>${esc(T.r||"")} · ${esc(T.z||"")} · ${T.n} servidores</small></div>`;
+  document.getElementById("tpL").innerHTML=T.sv.map(v=>`<li><b>x${v.x}</b><small>${fmtV(v.g)}${v.m&&v.m.length?" · "+esc(v.m.join(", ")):""}</small><span>🔒 PREMIUM</span></li>`).join("")}
+ const R=RD.rec;if(R){const f=fotoPet(R.a);document.getElementById("recI").innerHTML=f?`<img src="${esc(f)}" alt="">`:"";document.getElementById("recN").textContent=R.a.toUpperCase();
+  document.getElementById("recX").textContent="x"+R.x;document.getElementById("recG").textContent=`${fmtV(R.g)} · ${R.r||""} · ${edad(Math.max(0,Math.floor(Date.now()/1000-R.t)))} · solo Premium`}}
 async function cargarRadar(){let t=null;
  try{const h={Accept:"application/vnd.github.raw+json"};if(RDETAG)h["If-None-Match"]=RDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czradar.json`,{headers:h,cache:"no-store"});
   if(r.status===304){pintarRadar();return}if(r.ok){RDETAG=r.headers.get("ETag")||"";t=await r.text()}}catch(_){}
