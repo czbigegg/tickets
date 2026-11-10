@@ -423,6 +423,7 @@ footer .brand b{font-size:20px}
 #pTot{width:auto;min-width:46px;padding:0 10px;font-size:18px}
 .modal{position:fixed;inset:0;z-index:150;background:rgba(2,6,3,.75);display:grid;place-items:center;padding:16px;animation:fin .25s}
 .modal[hidden]{display:none}
+.regLink[hidden],#registro[hidden]{display:none!important}
 @keyframes fin{from{opacity:0}}
 .mbox{width:min(520px,100%);animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
 @keyframes pop{from{transform:scale(.7)}}
@@ -1108,7 +1109,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <nav>
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
-  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
+  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" class="regLink" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar</a>
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>ADMIN</a></div>
@@ -1145,7 +1146,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <div class="ctas">
     <a class="btn btn-y" href="#planes">Ver planes</a>
     <a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener">Radar gratis</a>
-    <a class="btn btn-o" href="#registro">Regístrate</a>
+    <a class="btn btn-o regLink" href="#registro">Regístrate</a>
     <span class="live">Radar activo 24/7</span>
    </div>
    <div class="imagine">
@@ -1557,7 +1558,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N);if(FLOTA)setTimeout(cerrarFlota,3500)}
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
-function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+function pintarWeb(j){if(!j)return;if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
@@ -1565,7 +1566,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
@@ -1604,16 +1605,22 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[href]");if(!a)
  if(/discord\.com\/channels/.test(h))evento("comprar");else if(/discord\.gg/.test(h))evento("discord");else if(/egg\.report/.test(h))evento("radar");
  else if(h==="#planes")evento("planes");else if(/kick\.com/.test(h))evento("kick");else if(h==="#registro")evento("registro")},true);
 let calcOk=false;document.getElementById("calculadora").addEventListener("click",e=>{if(!calcOk&&e.target.closest(".gb")){calcOk=true;evento("calcular")}});
+var REGH=[];
+function regHecho(){const s=document.getElementById("registro");if(s)s.hidden=true;document.querySelectorAll(".regLink").forEach(a=>a.hidden=true)}
+try{if(localStorage.getItem("czReg"))regHecho()}catch(_){}
+async function regHash(u){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("czreg:"+u.trim().toLowerCase()));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,12)}catch(_){return ""}}
 document.getElementById("fReg").onsubmit=async e=>{e.preventDefault();const out=document.getElementById("rMsgOut"),b=e.target.querySelector("button");
  const rbxU=document.getElementById("rRbx").value.trim(),dc=document.getElementById("rDc").value.trim();out.className="regmsg";
  if(!/^[A-Za-z0-9_]{3,20}$/.test(rbxU)){out.className="regmsg err";out.textContent="Tu usuario de Roblox no es válido (3-20 letras, números o _)";return}
  if(dc.length<2){out.className="regmsg err";out.textContent="Escribe tu usuario de Discord";return}
- try{if(localStorage.getItem("czReg")===rbxU.toLowerCase()){out.textContent="¡Ya estabas registrado! Te escribiremos pronto.";return}}catch(_){}
+ try{if(localStorage.getItem("czReg")){out.textContent="¡Ya estás registrado! Te escribiremos pronto.";setTimeout(regHecho,2500);return}}catch(_){}
+ const h1=await regHash(rbxU),h2=await regHash(dc);
+ if(REGH.length&&(REGH.includes(h1)||REGH.includes(h2))){out.className="regmsg err";out.textContent=REGH.includes(h1)?"Esa cuenta de Roblox ya está registrada.":"Ese usuario de Discord ya está registrado.";return}
  b.disabled=true;b.textContent="ENVIANDO...";
  const ok=webhook({t:"reg",vid:voterId(),rbx:rbxU,dc,pais:document.getElementById("rPais").value,plan:document.getElementById("rPlan").value,msg:document.getElementById("rMsg").value.trim(),hp:document.getElementById("rHp").value});
  if(!ok){out.className="regmsg err";out.textContent="No se pudo enviar, intenta en unos segundos";b.disabled=false;b.textContent="¡REGISTRARME!";return}
  try{localStorage.setItem("czReg",rbxU.toLowerCase())}catch(_){}
- out.textContent="¡Listo! Ya estás registrado. Te escribiremos por Discord";b.textContent="¡REGISTRADO!";
+ out.textContent="¡Listo! Ya estás registrado. Te escribiremos por Discord";b.textContent="¡REGISTRADO!";setTimeout(regHecho,9000);
  const av=document.getElementById("regAv");av.hidden=false;av.innerHTML=`<span class="ini">${esc(rbxU.charAt(0).toUpperCase())}</span><div>¡Bienvenido, ${esc(rbxU)}!<br><small style="font:600 13px Poppins">Buscando tu avatar...</small></div>`;
  setTimeout(async()=>{for(let t=0;t<16;t++){const c=await leerRbx(),x=c[rbxU.toLowerCase()];if(x){if(x.img)av.innerHTML=`<img src="${esc(x.img)}" alt=""><div>¡Bienvenido, ${esc(x.n||rbxU)}!<br><small style="font:600 13px Poppins">Registro confirmado</small></div>`;else av.querySelector("small").textContent="Registro confirmado";return}await new Promise(z=>setTimeout(z,3000))}},2500)};
 
