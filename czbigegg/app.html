@@ -424,6 +424,26 @@ footer .brand b{font-size:20px}
 .modal{position:fixed;inset:0;z-index:150;background:rgba(2,6,3,.75);display:grid;place-items:center;padding:16px;animation:fin .25s}
 .modal[hidden]{display:none}
 .regLink[hidden],#registro[hidden]{display:none!important}
+/* ===== tema navideño (se prende desde el panel admin) ===== */
+#nieve{position:fixed;inset:0;pointer-events:none;z-index:70}
+.navluces{display:none}
+body.navidad .navluces{display:block;position:absolute;left:0;right:0;bottom:-16px;height:22px;pointer-events:none;overflow:hidden}
+body.navidad .navluces:before{content:"";position:absolute;left:0;right:0;top:2px;height:8px;border-top:2px solid #0b3d1a;border-radius:50%}
+body.navidad .navluces i{position:absolute;top:6px;width:9px;height:14px;border-radius:50% 50% 45% 45%;animation:luz 1.6s ease-in-out infinite}
+body.navidad .navluces i:nth-child(4n+1){background:#ff3b4f;color:#ff3b4f}body.navidad .navluces i:nth-child(4n+2){background:#ffd23a;color:#ffd23a;animation-delay:.4s}
+body.navidad .navluces i:nth-child(4n+3){background:#3ee06a;color:#3ee06a;animation-delay:.8s}body.navidad .navluces i:nth-child(4n){background:#4fc3ff;color:#4fc3ff;animation-delay:1.2s}
+@keyframes luz{0%,100%{opacity:1;box-shadow:0 0 10px 2px currentColor}50%{opacity:.35;box-shadow:none}}
+body.navidad .bar{background:repeating-linear-gradient(-45deg,#ff3b4f 0 22px,#fff 22px 44px);color:#030806}
+body.navidad .bar .nw{background:#0b3d1a!important;color:#fff!important}
+body.navidad nav{box-shadow:0 4px 0 #b3122a}
+body.navidad .gbar:before{content:"";position:absolute;left:0;right:0;top:-1px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' viewBox='0 0 120 18'%3E%3Cpath d='M0 0h120v6c-6 0-7 9-13 9s-6-7-12-7-5 10-12 10-6-9-12-9-6 6-12 6-6-8-12-8-6 7-13 7S27 6 21 6 15 13 9 13 4 6 0 6z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:120px 12px;z-index:2;pointer-events:none;filter:drop-shadow(0 2px 0 rgba(0,0,0,.15))}
+body.navidad .cdw:before{content:"";position:absolute;left:0;right:0;top:-1px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' viewBox='0 0 120 18'%3E%3Cpath d='M0 0h120v6c-6 0-7 9-13 9s-6-7-12-7-5 10-12 10-6-9-12-9-6 6-12 6-6-8-12-8-6 7-13 7S27 6 21 6 15 13 9 13 4 6 0 6z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:120px 14px;z-index:3;pointer-events:none}
+body.navidad .gw{box-shadow:0 0 0 4px #b3122a,0 18px 0 #020503,0 30px 80px rgba(0,0,0,.6)}
+body.navidad .xtag{display:inline-flex}
+.xtag{display:none;align-items:center;gap:8px;margin:0 0 10px;font:400 15px "Luckiest Guy";letter-spacing:.6px;padding:6px 14px 3px;border-radius:10px;border:3px solid #030806;background:#ff3b4f;color:#fff;box-shadow:0 4px 0 #030806;transform:rotate(-2deg)}
+body.navidad .brand img,body.navidad .logoline img{filter:drop-shadow(0 0 14px rgba(255,210,58,.45))}
+@media(prefers-reduced-motion:reduce){#nieve{display:none}body.navidad .navluces i{animation:none}}
+@media(max-width:560px){body.navidad .xtag{display:none}body.navidad .navluces i{width:7px;height:11px}}
 #pausa{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:24px;text-align:center;background:radial-gradient(800px 500px at 50% 35%,rgba(125,255,58,.18),transparent),#050d08;overflow:hidden}
 #pausa[hidden]{display:none!important}
 #pausa .prays{position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(125,255,58,.05) 0 8deg,transparent 8deg 16deg);animation:spin 50s linear infinite;pointer-events:none}
@@ -1127,7 +1147,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 
 <div class="bar" id="bar" hidden><a href="https://egg.report/czbigegg" target="_blank" rel="noopener"><span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →</a><button aria-label="Cerrar" onclick="document.getElementById('bar').remove()">×</button></div>
 
-<nav>
+<nav><div class="navluces"><i></i></div>
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
   <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" class="regLink" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
@@ -1159,6 +1179,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <header class="hero">
  <div class="wrap cols">
   <div>
+   <span class="xtag">FELIZ NAVIDAD · CZ BIG EGG</span>
    <div class="logoline"><img src="assets/logo.png" alt=""><span class="lg">CZ BIG EGG</span></div>
    <span class="tagline"><i></i> RADAR GRATIS + PREMIUM 24/7</span>
    <h1 class="big"><span class="bl1">¡ROBA EL</span><span class="bl2" id="pal"><span class="pw on">DIVINO</span><span class="pw">SECRET</span><span class="pw">ETERNAL</span><span class="pw">COSMIC</span></span><span class="bl1">ANTES QUE NADIE!</span></h1>
@@ -1580,17 +1601,33 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N);if(FLOTA)setTimeout(cerrarFlota,3500)}
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
+var TEMA="";
+function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA)return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
+ document.querySelectorAll("img").forEach(im=>{const a=im.getAttribute("src")||"";if(on&&/assets\/logo\.png/.test(a))im.setAttribute("src",a.replace("logo.png","logo_navidad.webp"));
+  else if(!on&&/assets\/logo_navidad\.webp/.test(a))im.setAttribute("src",a.replace("logo_navidad.webp","logo.png"))});
+ const L=document.querySelector(".navluces");if(L&&on&&L.children.length<2){L.innerHTML="";const n=Math.ceil(innerWidth/34);for(let i=0;i<n;i++){const b=document.createElement("i");b.style.left=(i*34+12)+"px";b.style.top=(6+Math.round(4*Math.sin(i*1.3)))+"px";L.appendChild(b)}}
+ nieve(on)}
+var NV=null;
+function nieve(on){if(!on){if(NV){cancelAnimationFrame(NV.raf);NV.c.remove();NV=null}return}if(NV)return;
+ if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+ const c=document.createElement("canvas");c.id="nieve";document.body.appendChild(c);const x=c.getContext("2d");let W,H,F=[];
+ const tam=()=>{const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+"px";c.style.height=H+"px";x.setTransform(d,0,0,d,0,0);
+  const n=Math.round(Math.min(90,W*H/14000));while(F.length<n)F.push({x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*2.6,v:.4+Math.random()*1.1,o:Math.random()*6.28,a:.5+Math.random()*.45});F.length=n};
+ tam();addEventListener("resize",tam);
+ const paso=()=>{x.clearRect(0,0,W,H);for(const f of F){f.y+=f.v;f.o+=.012;f.x+=Math.sin(f.o)*.5;if(f.y>H+5){f.y=-5;f.x=Math.random()*W}
+  x.globalAlpha=f.a;x.beginPath();x.arc(f.x,f.y,f.r,0,6.283);x.fillStyle="#fff";x.fill()}NV.raf=requestAnimationFrame(paso)};
+ NV={c,raf:0};paso()}
 function pausaWeb(P){const el=document.getElementById("pausa");if(!el)return;const on=!!(P&&P.on);el.hidden=!on;document.body.classList.toggle("enpausa",on);
  if(on)document.getElementById("pausaTxt").textContent=(P.txt||"Estamos haciendo mejoras en la web. Vuelve en un rato.")}
-function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
-try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
+function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);temaWeb(j.tema);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
   const r=await fetch(GHAPI,{headers:h,cache:"no-store"});if(r.status===304)return ultWeb;if(r.ok){ETAG=r.headers.get("ETag")||"";return await r.text()}}catch(_){}
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){pausaWeb(j.pausa);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){pausaWeb(j.pausa);temaWeb(j.tema);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
