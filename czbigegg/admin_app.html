@@ -615,6 +615,20 @@ async function cuentaAcc(on){const b=$(on?"cOn":"cOff"),t0=b.textContent;let p={
   if(j){CUENTA=j.cuenta||null;pintarCuentaAdm();alert(on?"Contador guardado: ya sale en la web.":"Contador quitado.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
+
+// ===== iPhone/Safari: el borde de las letras se dibuja con sombras (Safari no respeta paint-order y se veía doble) =====
+(function(){const ua=navigator.userAgent;const ios=/iP(hone|ad|od)/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+ const safari=/Safari/.test(ua)&&!/Chrome|Chromium|CriOS|Android|Edg|OPR|FxiOS/.test(ua);
+ if(!(ios||safari||/[?&]ios=1/.test(location.search)))return;
+ const A=[];for(let k=0;k<16;k++)A.push([Math.cos(k*Math.PI/8),Math.sin(k*Math.PI/8)]);
+ function fix(el){if(el.nodeType!==1||el.dataset.sf)return;const cs=getComputedStyle(el),w=parseFloat(cs.webkitTextStrokeWidth)||0;if(w<=0)return;
+  const c=cs.webkitTextStrokeColor||"#030806",r=Math.max(1,w/2+.4),sh=A.map(([x,y])=>`${(x*r).toFixed(1)}px ${(y*r).toFixed(1)}px 0 ${c}`);
+  if(cs.textShadow&&cs.textShadow!=="none")sh.push(cs.textShadow);el.style.setProperty("-webkit-text-stroke","0","important");el.style.setProperty("text-shadow",sh.join(","),"important");el.dataset.sf="1"}
+ function todo(root){fix(root);root.querySelectorAll&&root.querySelectorAll("*").forEach(fix)}
+ let pend=[],tm=null;const mo=new MutationObserver(ms=>{ms.forEach(m=>m.addedNodes.forEach(n=>pend.push(n)));clearTimeout(tm);tm=setTimeout(()=>{const p=pend;pend=[];p.forEach(n=>{if(n.isConnected)todo(n)})},120)});
+ const go=()=>{todo(document.body);mo.observe(document.body,{childList:true,subtree:true})};
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
+ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>todo(document.body))})();
 </script>
 </body>
 </html>
