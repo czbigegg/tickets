@@ -435,6 +435,24 @@ button.gx{cursor:pointer}
 .links{gap:16px;font-size:15px;white-space:nowrap;margin-left:12px}.brand b{white-space:nowrap}.nav-r .btn{white-space:nowrap}
 @media(max-width:1180px){.links{display:none}}
 @media(max-width:560px){.bar{font-size:14px;padding:8px 40px}}
+/* registro */
+.regw{max-width:980px;margin:0 auto}
+.regb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;padding:26px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0 14px,transparent 14px 28px),#0b1e12}
+.regi h3{font:400 clamp(26px,3vw,36px)/1.1 "Luckiest Guy";color:#fff;-webkit-text-stroke:4px #030806;paint-order:stroke fill;text-shadow:0 4px 0 #030806;margin-bottom:10px}
+.regi p{color:#cfe8d4;margin-bottom:14px}.regi b{color:#ffd23a}
+.regi ul{list-style:none;display:grid;gap:8px}
+.regi li{font:400 16px "Luckiest Guy";letter-spacing:.4px;color:#fff;background:#14361f;border:3px solid #030806;border-radius:12px;padding:9px 12px 6px;box-shadow:0 4px 0 #030806}
+.regav{margin-top:16px;display:flex;align-items:center;gap:12px;background:#effff0;border:3px solid #030806;border-radius:14px;padding:10px;box-shadow:0 4px 0 #030806;color:#030806;font:400 18px "Luckiest Guy"}
+.regav img,.regav .ini{width:64px;height:64px;border-radius:12px;border:3px solid #030806;background:#7dff3a;object-fit:cover;display:grid;place-items:center;font-size:28px;color:#fff}
+#fReg{display:grid;gap:12px;position:relative}
+#fReg label{display:grid;gap:5px;font:400 14px "Luckiest Guy";letter-spacing:.6px;color:#9fbfa8}
+#fReg input,#fReg select{width:100%;background:#effff0;color:#030806;border:3px solid #030806;border-radius:12px;padding:11px 12px 9px;font:600 16px Poppins;outline:none;box-shadow:inset 0 3px 0 rgba(0,0,0,.1)}
+#fReg input:focus,#fReg select:focus{box-shadow:0 0 0 3px #7dff3a}
+#fReg .r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#fReg .btn{margin-top:4px}
+.regmsg{min-height:20px;font:400 16px "Luckiest Guy";letter-spacing:.4px;color:#7dff3a}
+.regmsg.err{color:#ff7a88}
+@media(max-width:760px){.regb{grid-template-columns:minmax(0,1fr);padding:16px}#fReg .r2{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -456,7 +474,7 @@ button.gx{cursor:pointer}
 <nav>
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
-  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#planes">Planes</a><a href="#instalar">Instalar</a><a href="#faq">FAQ</a></div>
+  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#instalar">Instalar</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar</a></div>
  </div>
@@ -473,6 +491,7 @@ button.gx{cursor:pointer}
    <div class="ctas">
     <a class="btn btn-y" href="#planes">Ver planes</a>
     <a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 Radar gratis</a>
+    <a class="btn btn-o" href="#registro">📝 Regístrate</a>
     <span class="live">Radar activo 24/7</span>
    </div>
    <div class="imagine">
@@ -592,6 +611,32 @@ button.gx{cursor:pointer}
    <div class="ghist" id="cHist"></div>
   </div>
   <p style="color:var(--mut);font-size:12px;margin-top:14px;text-align:center">Cálculo estimado: valor base × escala × variante × mutaciones (sumadas) × gamepass.</p>
+ </div>
+</section>
+
+<section id="registro">
+ <div class="wrap">
+  <div class="gw regw">
+   <div class="gbar"><span class="gtit">📝 REGÍSTRATE</span><span class="gx">✦</span></div>
+   <div class="regb">
+    <div class="regi">
+     <h3>¡Únete a CZ BIG EGG!</h3>
+     <p>Déjanos tus datos y te escribimos por Discord con <b>ofertas, códigos de descuento</b> y avisos cuando salgan los huevos más grandes.</p>
+     <ul><li>🎁 Promos solo para registrados</li><li>⚡ Te ayudamos a elegir tu plan</li><li>🔔 Avisos de huevos divinos</li></ul>
+     <div class="regav" id="regAv" hidden></div>
+    </div>
+    <form id="fReg" autocomplete="off">
+     <label>USUARIO DE ROBLOX *<input id="rRbx" maxlength="20" placeholder="Ej: Privvmat3oo" required></label>
+     <label>USUARIO DE DISCORD *<input id="rDc" maxlength="40" placeholder="Ej: caoz" required></label>
+     <div class="r2"><label>PAÍS<select id="rPais"><option>Chile</option><option>México</option><option>Perú</option><option>Argentina</option><option>Colombia</option><option>Ecuador</option><option>Bolivia</option><option>Uruguay</option><option>Venezuela</option><option>España</option><option>Estados Unidos</option><option>Otro</option></select></label>
+     <label>¿QUÉ TE INTERESA?<select id="rPlan"><option>Aún no sé</option><option>Solo el radar gratis</option></select></label></div>
+     <label>MENSAJE (OPCIONAL)<input id="rMsg" maxlength="200" placeholder="¿Alguna pregunta?"></label>
+     <input id="rHp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+     <button class="btn btn-y" type="submit">¡REGISTRARME!</button>
+     <p class="regmsg" id="rMsgOut"></p>
+    </form>
+   </div>
+  </div>
  </div>
 </section>
 
@@ -803,6 +848,33 @@ function render(c){const box=document.getElementById("plans");box.innerHTML="";
  document.getElementById("nota").textContent=c==="kicks"?"💚 Kicks solo desde kick.com/caoz en el navegador (en la app cuestan el doble).":"Precios oficiales. Si vienes con código de creador, el descuento se aplica en tu ticket.";}
 document.querySelectorAll("#tg button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(b.dataset.c)});
 render("usd");
+// ===== 📝 registro + 👀 visitas + 🖱️ clics (todo llega a tu bot) =====
+(()=>{const sel=document.getElementById("rPlan");PLANES.forEach(p=>{const o=document.createElement("option");o.textContent=p.n;sel.appendChild(o)})})();
+function webhook(obj,beacon){if(!VOTO)return false;const fd=new FormData();
+ fd.append("payload_json",JSON.stringify({username:"Web CZ BIG EGG",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify(obj)+"\n```"}));
+ if(beacon&&navigator.sendBeacon){try{if(navigator.sendBeacon(VOTO,fd))return true}catch(_){}}
+ fetch(VOTO,{method:"POST",body:fd,keepalive:true}).catch(()=>fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"}).catch(()=>{}));return true}
+const DEV=matchMedia("(max-width:820px)").matches||/Mobi|Android|iPhone/i.test(navigator.userAgent)?"m":"p";
+let hbOk=false;function latido(){if(document.hidden)return;if(webhook({t:"hb",vid:voterId(),dev:DEV,ref:hbOk?"":document.referrer.slice(0,120)}))hbOk=true}
+(function esperar(n){if(VOTO){latido();setInterval(latido,240000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)latido()})}else if(n<40)setTimeout(()=>esperar(n+1),500)})(0);
+const evVistos={};function evento(e){if(evVistos[e]&&Date.now()-evVistos[e]<5000)return;evVistos[e]=Date.now();webhook({t:"ev",e,vid:voterId()},true)}
+document.addEventListener("click",e=>{const a=e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href");
+ if(/discord\.com\/channels/.test(h))evento("comprar");else if(/discord\.gg/.test(h))evento("discord");else if(/egg\.report/.test(h))evento("radar");
+ else if(h==="#planes")evento("planes");else if(/kick\.com/.test(h))evento("kick");else if(h==="#registro")evento("registro")},true);
+let calcOk=false;document.getElementById("calculadora").addEventListener("click",e=>{if(!calcOk&&e.target.closest(".gb")){calcOk=true;evento("calcular")}});
+document.getElementById("fReg").onsubmit=async e=>{e.preventDefault();const out=document.getElementById("rMsgOut"),b=e.target.querySelector("button");
+ const rbxU=document.getElementById("rRbx").value.trim(),dc=document.getElementById("rDc").value.trim();out.className="regmsg";
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(rbxU)){out.className="regmsg err";out.textContent="⚠️ Tu usuario de Roblox no es válido (3-20 letras, números o _)";return}
+ if(dc.length<2){out.className="regmsg err";out.textContent="⚠️ Escribe tu usuario de Discord";return}
+ try{if(localStorage.getItem("czReg")===rbxU.toLowerCase()){out.textContent="✅ ¡Ya estabas registrado! Te escribiremos pronto.";return}}catch(_){}
+ b.disabled=true;b.textContent="ENVIANDO...";
+ const ok=webhook({t:"reg",vid:voterId(),rbx:rbxU,dc,pais:document.getElementById("rPais").value,plan:document.getElementById("rPlan").value,msg:document.getElementById("rMsg").value.trim(),hp:document.getElementById("rHp").value});
+ if(!ok){out.className="regmsg err";out.textContent="⚠️ No se pudo enviar, intenta en unos segundos";b.disabled=false;b.textContent="¡REGISTRARME!";return}
+ try{localStorage.setItem("czReg",rbxU.toLowerCase())}catch(_){}
+ out.textContent="✅ ¡Listo! Ya estás registrado. Te escribiremos por Discord 💚";b.textContent="¡REGISTRADO! ✅";
+ const av=document.getElementById("regAv");av.hidden=false;av.innerHTML=`<span class="ini">${esc(rbxU.charAt(0).toUpperCase())}</span><div>¡Bienvenido, ${esc(rbxU)}!<br><small style="font:600 13px Poppins">Buscando tu avatar...</small></div>`;
+ setTimeout(async()=>{for(let t=0;t<16;t++){const c=await leerRbx(),x=c[rbxU.toLowerCase()];if(x){if(x.img)av.innerHTML=`<img src="${esc(x.img)}" alt=""><div>¡Bienvenido, ${esc(x.n||rbxU)}!<br><small style="font:600 13px Poppins">Registro confirmado 💚</small></div>`;else av.querySelector("small").textContent="Registro confirmado 💚";return}await new Promise(z=>setTimeout(z,3000))}},2500)};
+
 
 // ── CALCULADORA DE VALOR ──
 const VARS=[["None",1,"none","linear-gradient(160deg,#ffffff,#cfd6df)"],["Silver",1.2,"silver","linear-gradient(160deg,#ffffff,#9fb0c0 70%,#6d7f90)"],
