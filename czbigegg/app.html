@@ -1144,7 +1144,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
     </div>
     <div class="rulside">
      <h3 class="rulh" id="rulH">¡Gira y gana radar Premium!</h3>
-     <p class="rulmsg" id="rulMsg">Toca GIRAR. Tienes 1 giro cada hora.</p>
+     <p class="rulmsg" id="rulMsg">Toca GIRAR. Tienes 1 giro al día.</p>
      <form id="rulF" hidden autocomplete="off">
       <label>TU USUARIO DE ROBLOX<input id="rulRbx" maxlength="20" required placeholder="Ej: Privvmat3oo"></label>
       <label>TU USUARIO DE DISCORD<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
@@ -1802,8 +1802,8 @@ function rulWeb(j){const sec=document.getElementById("ruleta");RUL=j&&j.ruleta&&
 function rulGuard(){try{return JSON.parse(localStorage.getItem("czRul")||"{}")}catch(_){return{}}}
 function rulEstado(){const g=rulGuard(),b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");if(!b||!RUL)return;
  if(g.gano===RUL.id&&!g.env){document.getElementById("rulF").hidden=false;b.disabled=true;return}
- const falta=(g.t||0)+3600000-Date.now();if(falta>0&&!b.dataset.girando){b.disabled=true;m.innerHTML=`Ya giraste. Vuelve a intentarlo en <b>${Math.ceil(falta/60000)} min</b>.`}
- else if(!b.dataset.girando){b.disabled=false;m.innerHTML="Toca <b>GIRAR</b>. Tienes 1 giro cada hora."}}
+ const falta=(g.t||0)+86400000-Date.now();if(falta>0&&!b.dataset.girando){b.disabled=true;m.innerHTML=`Ya giraste hoy. Vuelve en <b>${falta>3600000?Math.ceil(falta/3600000)+" h":Math.ceil(falta/60000)+" min"}</b>.`}
+ else if(!b.dataset.girando){b.disabled=false;m.innerHTML="Toca <b>GIRAR</b>. Tienes 1 giro al día."}}
 document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=document.getElementById("rulGo"),m=document.getElementById("rulMsg");b.disabled=true;b.dataset.girando=1;m.textContent="Girando...";
  let gana=false;try{const t=await leerWeb();const j=JSON.parse(t);if(j.ruleta&&j.ruleta.on&&j.ruleta.id===RUL.id&&(j.ruleta.n||0)>0)gana=true}catch(_){}
  let seg=0;if(!gana){seg=1+Math.floor(Math.random()*(RULSEG-1));if(Math.random()<.45)seg=Math.random()<.5?1:RULSEG-1}
@@ -1812,7 +1812,7 @@ document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=docume
  const g=rulGuard();g.t=Date.now();if(gana)g.gano=RUL.id;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
  setTimeout(()=>{delete b.dataset.girando;const w=document.querySelector(".rulw");
   if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";document.getElementById("rulF").hidden=false}
-  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>¡Vuelve a intentarlo más tarde!"}},5200)};
+  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>¡Vuelve mañana por otro giro!"}},5200)};
 document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=document.getElementById("rulRbx").value.trim(),dc=document.getElementById("rulDc").value.trim(),m=document.getElementById("rulMsg");
  if(!/^[A-Za-z0-9_]{3,20}$/.test(rbx))return m.textContent="Escribe un usuario de Roblox válido.";if(dc.length<2)return m.textContent="Escribe tu usuario de Discord.";
  const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="ENVIANDO...";
