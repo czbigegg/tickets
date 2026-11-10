@@ -1879,7 +1879,7 @@ document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=
  try{if(!VOTO)throw 0;const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Ruleta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rulg",id:RUL.id,vid:voterId(),rbx,dc})+"\n```"}));
   try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
   const g=rulGuard();g.env=1;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
-  e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="¡Listo! Te enviamos un <b>mensaje privado por Discord</b> desde el bot de CZ BIG EGG a <b>"+esc(dc)+"</b>. Para recibirlo tienes que estar en nuestro Discord: <a href=\"https://discord.gg/czbigegg\" target=\"_blank\" rel=\"noopener\" style=\"color:#7dff3a\">discord.gg/czbigegg</a>"}
+  e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="¡Listo! Te enviamos un <b>código</b> por <b>mensaje privado de Discord</b> a <b>"+esc(dc)+"</b>. Canjéalo en el canal <b>canjear-spin</b> de nuestro Discord y recibes tu radar Premium al instante. Para recibirlo tienes que estar en nuestro Discord: <a href=\"https://discord.gg/czbigegg\" target=\"_blank\" rel=\"noopener\" style=\"color:#7dff3a\">discord.gg/czbigegg</a>"}
  catch(_){bt.disabled=false;bt.textContent="RECLAMAR PREMIO";m.textContent="No se pudo enviar, intenta de nuevo."}};
 setInterval(()=>{if(RUL)rulEstado()},30000);
 
