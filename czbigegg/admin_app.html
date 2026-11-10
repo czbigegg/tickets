@@ -168,7 +168,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .gratisbox textarea{width:100%;margin:12px 0;border:3px solid #030806;border-radius:12px;padding:10px;font:600 15px Poppins;background:#effff0;color:#030806;resize:vertical}
 .gbtns{display:flex;gap:10px;flex-wrap:wrap}
 .cfila{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 8px}.cfila label{display:grid;gap:4px;font:400 13px "Luckiest Guy";color:#9fbfa8}
-.cfila input{border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
+.cfila select,.cfila input{border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
 .cchk{display:flex;gap:8px;align-items:center;margin:4px 0 12px;font:600 14px Poppins;color:#cfe8d4}.cchk input{width:18px;height:18px}
 @media(max-width:560px){.cfila{grid-template-columns:1fr}}.gbtns .btn{flex:1;min-width:200px}
 .popfila{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.popfila select{flex:1;min-width:200px;border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
@@ -269,6 +269,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <textarea id="gTxt" maxlength="300" rows="2" placeholder="Mensaje del anuncio"></textarea>
     <div class="gbtns"><button class="btn g" id="gOn" type="button">LANZAR RADAR GRATIS</button><button class="btn r" id="gOff" type="button">CERRAR RADAR GRATIS</button></div>
    </div>
+   <div class="box gratisbox" id="rBox" style="box-shadow:0 0 0 3px #ff9de0,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">RULETA</h3><p>Activa la ruleta para que salga en la web. Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire; rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
+    <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
+    <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn y" id="rOn" type="button">ACTIVAR SIN PREMIO</button><button class="btn r" id="rOff" type="button">APAGAR RULETA</button></div>
+   </div>
    <div class="box gratisbox" id="cBox" style="box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806">
     <div class="gtop"><div><h3 class="L">CONTADOR DEL RADAR GRATIS</h3><p>Sale arriba en la web con la cuenta regresiva. Mientras corre, los botones de radar gratis dicen "Abre a las…"; al llegar a cero aparecen los botones para entrar.</p></div><span class="gst" id="cSt">…</span></div>
     <div class="cfila"><label>FECHA Y HORA (tu hora)<input type="datetime-local" id="cFecha"></label><label>TÍTULO<input id="cTit" maxlength="80" value="RADAR GRATIS"></label></div>
@@ -340,7 +345,7 @@ $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.q
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
  try{const P=await abrir(pw);if(!P)throw new Error("Contraseña incorrecta");if(P.rol!=="owner")throw new Error("Solo los Owner pueden editar la web");
   YO=P;const j=await cargarWeb();
-  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;CUENTA=j.cuenta||null;setTimeout(()=>{typeof pintarGratis==="function"&&pintarGratis();typeof pintarCuentaAdm==="function"&&pintarCuentaAdm()},0)}
+  if(j){EGGS=j.eggs||[];ANUNCIOS=j.anuncios||[];ENC=j.encuesta||null;petsDe(j);renderPets();streamsDe(j);renderStreams();if(typeof j.gratis==="boolean")GRATIS=j.gratis;CUENTA=j.cuenta||null;RULA=j.ruleta||null;setTimeout(()=>typeof pintarRul==="function"&&pintarRul(),0);setTimeout(()=>{typeof pintarGratis==="function"&&pintarGratis();typeof pintarCuentaAdm==="function"&&pintarCuentaAdm()},0)}
   else{$("viejo").hidden=false;$("viejoTxt").textContent="Todavía no encuentro czweb.json en GitHub: prende el bot (con los archivos nuevos) y espera 1 minuto."}
   try{sessionStorage.setItem("czAdm",pw);localStorage.setItem("czOwner","1")}catch(_){}
   $("login").style.display="none";$("panel").style.display="block";$("saveBar").style.display="block";$("quien").textContent=""+(P.quien||P.nombre);render();renderAn();renderEnc();irA("resumen");refrescar()}
@@ -640,6 +645,20 @@ $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
  const go=()=>{todo(document.body);mo.observe(document.body,{childList:true,subtree:true})};
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>todo(document.body))})();
+
+// ===== ruleta =====
+var RULA=null;
+function pintarRul(){const st=$("rSt");if(!st)return;const r=RULA;
+ if(r&&r.on){st.className="gst on";st.textContent=(r.n>0?r.n+" PREMIO"+(r.n>1?"S":"")+" SUELTO"+(r.n>1?"S":""):"ACTIVA · SIN PREMIO");if(r.premio)$("rPremio").value=r.premio}
+ else{st.className="gst off";st.textContent="APAGADA"}}
+async function rulAcc(acc){const b=$(acc==="off"?"rOff":acc==="soltar"?"rSoltar":"rOn"),t0=b.textContent;
+ const p={t:"czruleta",acc:acc==="off"?"off":"on",n:acc==="soltar"?+$("rN").value:0,premio:$("rPremio").value.trim()||"1 DÍA PREMIUM"};
+ b.disabled=true;b.textContent="ENVIANDO...";const v0=LASTV;
+ try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+acc);
+  let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
+  if(j){RULA=j.ruleta||null;pintarRul();alert(acc==="soltar"?"Premio soltado: lo gana el próximo que gire.":acc==="off"?"Ruleta apagada.":"Ruleta activa sin premio.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+ catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
+$("rSoltar").onclick=()=>rulAcc("soltar");$("rOn").onclick=()=>rulAcc("on");$("rOff").onclick=()=>{if(confirm("¿Apagar la ruleta? Se quita de la web."))rulAcc("off")};
 </script>
 </body>
 </html>
