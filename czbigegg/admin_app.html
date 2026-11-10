@@ -173,6 +173,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 @media(max-width:560px){.cfila{grid-template-columns:1fr}}.gbtns .btn{flex:1;min-width:200px}
 .popfila{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.popfila select{flex:1;min-width:200px;border:3px solid #030806;border-radius:12px;padding:9px 10px;font:600 15px Poppins;background:#effff0;color:#030806}
 .encpop .hint{margin-top:6px;font:600 12px Poppins;color:#9fbfa8}
+.rgb .btn{min-width:0!important;flex:1}.rglist{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto;margin-top:6px}.rglist button{border:2px solid #030806;border-radius:9px;background:#14361f;color:#fff;font:600 13px Poppins;padding:5px 9px;cursor:pointer}.rglist button:hover{background:#1d5a2c}
 </style>
 </head>
 <body>
@@ -270,6 +271,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <div class="gtop"><div><h3 class="L">RULETA</h3><p>La ruleta sale siempre en la web (botón en la esquina, 1 giro al día por persona). Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire: rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
     <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
     <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn r" id="rOn" type="button">QUITAR PREMIOS</button></div>
+   </div>
+   <div class="box gratisbox" id="rgBox" style="box-shadow:0 0 0 3px #7dff3a,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">REGALAR GIROS / FORZAR PREMIO</h3><p>Escribe un usuario de Roblox (o toca uno de tus registrados). Esa persona pone su usuario en la ruleta y le salen sus giros. "Forzar premio" hace que su próximo giro gane.</p></div></div>
+    <div class="cfila" style="grid-template-columns:1fr"><label>USUARIO DE ROBLOX<input id="rgU" maxlength="20" placeholder="Ej: Privvmat3oo"></label></div><div class="gbtns rgb"><button class="btn sm g" data-rg="1" type="button">+1 GIRO</button><button class="btn sm g" data-rg="3" type="button">+3 GIROS</button><button class="btn sm y" data-rg="f" type="button">FORZAR PREMIO</button><button class="btn sm r" data-rg="del" type="button">QUITAR</button></div>
+    <label class="lb" style="margin-top:6px">REGISTRADOS EN LA WEB</label><div class="rglist" id="rgList"></div>
    </div>
   </div>
   <div data-tab="anuncios" hidden>
@@ -422,7 +428,7 @@ function graficoVisitas(dias){const el=$("chVis"),W=640,H=220,pl=34,pb=26,pt=12,
   tip.textContent=`${DIAS[dt.getDay()]} ${dt.getDate()}/${dt.getMonth()+1}: ${d.v} visita${d.v===1?"":"s"}`;tip.style.left=(e.clientX-r.left)+"px";tip.style.top=(e.clientY-r.top)+"px";tip.style.opacity=1};
  svg.onmouseleave=()=>tip.style.opacity=0}
 function avatar(img,n){return img?`<img class="av" src="${esc(img)}" alt="" loading="lazy">`:`<div class="av">${esc((n||"?").charAt(0).toUpperCase())}</div>`}
-function pintarStats(){const S=ST;if(!S)return;const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
+function pintarStats(){const S=ST;if(!S)return;if(typeof pintarRg==="function")setTimeout(pintarRg,0);const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
  const regs=S.regs||[],nuevos=regs.filter(r=>r.estado==="nuevo").length,E=S.encuesta,cm=(S.ev||{}).comprar||{};
  const delta=(a,b)=>b?`<b class="${a>=b?"":"dn"}">${a>=b?"▲":"▼"} ${Math.abs(Math.round((a-b)/b*100))}%</b>`:"";
  $("kpis").innerHTML=[
@@ -663,6 +669,17 @@ async function rulAcc(acc){const b=$(acc==="off"?"rOff":acc==="soltar"?"rSoltar"
   if(j){RULA=j.ruleta||null;pintarRul();alert(acc==="soltar"?"Premio soltado: lo gana el próximo que gire.":"Premios quitados: nadie gana hasta que sueltes otro.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
 $("rSoltar").onclick=()=>rulAcc("soltar");$("rOn").onclick=()=>rulAcc("on");
+
+// ===== regalar giros =====
+function pintarRg(){const L=$("rgList");if(!L)return;const regs=((ST&&ST.regs)||[]).filter(r=>r.rbx);const vis=new Set();
+ L.innerHTML=regs.filter(r=>{const k=r.rbx.toLowerCase();if(vis.has(k))return false;vis.add(k);return true}).slice(0,80).map(r=>`<button type="button" data-rgu="${esc(r.rbx)}">${esc(r.rbx)}</button>`).join("")||'<span style="color:#9fbfa8;font:600 13px Poppins">Todavía no hay registrados.</span>'}
+$("rgList").addEventListener("click",e=>{const b=e.target.closest("[data-rgu]");if(b){$("rgU").value=b.dataset.rgu;$("rgU").focus()}});
+$("rgBox").addEventListener("click",async e=>{const b=e.target.closest("[data-rg]");if(!b)return;const u=$("rgU").value.trim();if(!/^[A-Za-z0-9_]{3,20}$/.test(u))return alert("Escribe un usuario de Roblox válido");
+ const v=b.dataset.rg,p={t:"czrulreg",rbx:u};if(v==="del")p.acc="del";else if(v==="f"){p.f=true;p.s=0}else p.s=+v;
+ const t0=b.textContent;b.disabled=true;b.textContent="...";const v0=LASTV;
+ try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+u+" "+v);let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
+  alert(j?(v==="del"?`Listo: se quitaron los giros de ${u}.`:v==="f"?`Listo: el próximo giro de ${u} gana el premio. Dile que entre a la ruleta y ponga su usuario.`:`Listo: ${u} tiene +${v} giro${v>1?"s":""}. Dile que entre a la ruleta y ponga su usuario.`):"Enviado, pero el bot todavía no responde.")}
+ catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0});
 </script>
 </body>
 </html>
