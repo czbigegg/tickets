@@ -219,7 +219,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   </div>
   <div data-tab="huevos" hidden>
   <div class="top">
-   <div><h2 class="L st">🥚 HUEVOS DE LA WEB</h2><p>Toca la imagen para subir una foto. Cambia nombre, rareza y zona, ordénalos con las flechas y al final toca <b>GUARDAR</b>. La web se actualiza sola en 1-5 minutos.</p></div>
+   <div><h2 class="L st">🥚 HUEVOS DE LA WEB</h2><p>Estos huevos salen en la web y en la galería de la calculadora (con su valor base). Toca la imagen para subir una foto. Cambia nombre, rareza y zona, ordénalos con las flechas y al final toca <b>GUARDAR</b>. La web se actualiza sola en 1-5 minutos.</p></div>
    <div class="opts"><label class="chk"><input type="checkbox" id="quitarFondo" checked> QUITAR FONDO AUTOMÁTICO</label></div>
   </div>
   <div class="grid" id="grid"></div>
@@ -308,6 +308,7 @@ function render(){const g=$("grid");g.innerHTML="";
   <label class="lb">NOMBRE</label><input data-k="n" data-i="${i}" value="${esc(x.n)}" maxlength="40">
   <div class="row2"><div><label class="lb">RAREZA</label><select data-k="r" data-i="${i}">${[...new Set([...RAREZAS,x.r].filter(Boolean))].map(r=>`<option${r===x.r?" selected":""}>${esc(r)}</option>`).join("")}</select></div>
   <div><label class="lb">ZONA</label><input data-k="z" data-i="${i}" value="${esc(x.z)}" maxlength="40"></div></div>
+  <label class="lb">VALOR BASE POR SEGUNDO (OPCIONAL)</label><input data-k="v" data-i="${i}" value="${esc(x.v||"")}" maxlength="12" placeholder="Ej: 25B · 800M · 1.2T">
   <div class="acts"><button class="btn sm" data-a="up" data-i="${i}" title="Subir">⬆</button><button class="btn sm" data-a="dn" data-i="${i}" title="Bajar">⬇</button>
   ${x.img?`<button class="btn sm" data-a="noimg" data-i="${i}" title="Quitar foto">🚫📷</button>`:""}<button class="btn r sm" data-a="del" data-i="${i}">🗑 BORRAR</button></div>`;
   g.appendChild(d)});
