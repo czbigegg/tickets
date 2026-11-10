@@ -636,7 +636,7 @@ button.gx{cursor:pointer}
  .tpw .gbar{padding:8px 10px}.tpw .gtit{font-size:13px!important}.tpw .rdst{font-size:10px}
  .tpb{padding:8px;gap:6px}.tph{font-size:12px;gap:6px}.tph img{width:30px;height:30px}.tph small{font-size:8px}
  .tpl{gap:4px}.tpl li{padding:4px 6px;font-size:11px;gap:5px;border-radius:8px}.tpl li small{font-size:9px}.tpl li span{font-size:8px;padding:1px 4px 0}
- .tpl li:nth-child(n+6){display:none}.tpl li span{white-space:nowrap;font-size:0!important;padding:2px 4px!important}.tpl li span::before{content:"🔒";font-size:10px}
+ .tpl li:nth-child(n+6){display:none}.tpl li span{white-space:nowrap;font-size:0!important;padding:2px 4px!important}.tpl li span::before{content:"VIP";font-size:8px}
  .feed li{font-size:13px;gap:8px;padding:7px 9px 5px}.feed li .ic{width:30px;height:30px;font-size:15px}.feed li span{white-space:normal;line-height:1.15}
  .shotrow>.panel{padding:12px!important}.shotrow .eyebrow{font-size:10px}
  #recN{font-size:16px!important;-webkit-text-stroke:3px #030806!important}#recX{font-size:32px!important;-webkit-text-stroke:4px #030806!important}#recG{font-size:10px!important}
@@ -767,7 +767,7 @@ button.gx{cursor:pointer}
  .ticker{margin-top:22px!important}
 }
 
-/* ===== ⏰ contador radar gratis ===== */
+/* ===== contador radar gratis ===== */
 #cuenta{padding:26px 0 6px}
 .cdw{position:relative;overflow:hidden;border:4px solid #030806;border-radius:26px;box-shadow:0 0 0 4px #ffd23a,0 12px 0 #020503,0 0 60px rgba(255,210,58,.25);background:radial-gradient(700px 300px at 50% 0,rgba(255,210,58,.28),transparent),#0b1e12;text-align:center}
 .cdw.abierto{box-shadow:0 0 0 4px #7dff3a,0 12px 0 #020503,0 0 70px rgba(125,255,58,.35);background:radial-gradient(700px 300px at 50% 0,rgba(125,255,58,.3),transparent),#0b1e12}
@@ -901,6 +901,13 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 #calculadora .gpass.on{box-shadow:0 0 0 3px #fff inset,0 0 22px rgba(255,214,58,.8)}
 
 .bar[hidden]{display:none!important}
+
+/* sin emojis: reemplazos visuales */
+.orbit span.odot{width:18px;height:18px;border-radius:50%;border:3px solid #030806;box-shadow:0 3px 0 #030806}
+.plan .pe:empty{display:none}
+.feed li .ic:before{font:400 20px "Luckiest Guy";color:#030806}.feed li.f-reg .ic:before{content:"+"}.feed li.f-radar .ic:before{content:"✓"}.feed li.f-venta .ic:before{content:"$"}
+.rdl li .eg:empty:before{content:"?";font:400 18px "Luckiest Guy";color:#7dff3a}
+.nw:empty,.eyebrow:empty{display:none}
 </style>
 </head>
 <body>
@@ -921,10 +928,10 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <nav>
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
-  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>🔴 En vivo</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
+  <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
-   <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar</a>
-   <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>⚙️ ADMIN</a></div>
+   <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar</a>
+   <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>ADMIN</a></div>
  </div>
 </nav>
 
@@ -933,13 +940,13 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
   <div class="cdw">
    <div class="cdrays"></div>
    <div class="cdin">
-    <div class="cdtag" id="cdTag">⏰ MUY PRONTO</div>
-    <h2 class="cdh" id="cdH">🆓 RADAR GRATIS ABRE EN</h2>
+    <div class="cdtag" id="cdTag">MUY PRONTO</div>
+    <h2 class="cdh" id="cdH">RADAR GRATIS ABRE EN</h2>
     <div class="cdclock" id="cdClock"><div><b id="cdHh">00</b><small>HORAS</small></div><i>:</i><div><b id="cdMm">00</b><small>MIN</small></div><i>:</i><div><b id="cdSs">00</b><small>SEG</small></div></div>
     <p class="cdsub" id="cdSub"></p>
     <div class="cdopen" id="cdOpen" hidden>
      <div class="cdsteps"><span><b>1</b>Entra a egg.report/czbigegg</span><span><b>2</b>Crea tu usuario y contraseña</span><span><b>3</b>¡Listo, ya estás en el radar!</span></div>
-     <div class="cdbtns"><a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener" data-free="1">🆓 ¡ENTRAR GRATIS!</a><a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">💬 Únete al Discord</a></div>
+     <div class="cdbtns"><a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener" data-free="1">¡ENTRAR GRATIS!</a><a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Únete al Discord</a></div>
     </div>
    </div>
   </div>
@@ -950,24 +957,24 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  <div class="wrap cols">
   <div>
    <div class="logoline"><img src="assets/logo.png" alt=""><span class="lg">CZ BIG EGG</span></div>
-   <span class="tagline"><i>👽</i> RADAR GRATIS + PREMIUM 24/7</span>
+   <span class="tagline"><i></i> RADAR GRATIS + PREMIUM 24/7</span>
    <h1 class="big"><span class="bl1">¡ROBA EL</span><span class="bl2" id="pal"><span class="pw on">DIVINO</span><span class="pw">SECRET</span><span class="pw">ETERNAL</span><span class="pw">COSMIC</span></span><span class="bl1">ANTES QUE NADIE!</span></h1>
    <p class="sub">Los huevos aparecen.<br><span>Que el siguiente sea el tuyo.</span></p>
    <p class="desc">Mira en vivo dónde salen los huevos más grandes de Steal an Egg, entra a servidores exclusivos y roba antes que nadie.</p>
    <div class="ctas">
     <a class="btn btn-y" href="#planes">Ver planes</a>
-    <a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 Radar gratis</a>
-    <a class="btn btn-o" href="#registro">📝 Regístrate</a>
+    <a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener">Radar gratis</a>
+    <a class="btn btn-o" href="#registro">Regístrate</a>
     <span class="live">Radar activo 24/7</span>
    </div>
    <div class="imagine">
-    <label>🏆 PONTE EN LA TABLA</label>
+    <label>PONTE EN LA TABLA</label>
     <form id="fTop"><input id="iTop" maxlength="20" placeholder="Tu usuario de Roblox" autocomplete="off"><button class="btn btn-y btn-s" type="submit">¡VAMOS!</button></form><div id="topMsg" class="topmsg"></div>
    </div>
   </div>
   <div>
    <div class="monitor">
-    <div class="top">🏆 TOP DINERO/S</div>
+    <div class="top">TOP DINERO/S</div>
     <div class="screen" id="board"></div>
     <div class="ex">TABLA DE EJEMPLO</div>
    </div>
@@ -978,7 +985,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 
 <section id="streams" hidden>
  <div class="wrap">
-  <div class="head"><div><div class="eyebrow" style="background:#ff3b4f;color:#fff!important">🎥 EN VIVO</div><h2>Nuestros <span class="grad">directos</span></h2></div>
+  <div class="head"><div><div class="eyebrow" style="background:#ff3b4f;color:#fff!important">EN VIVO</div><h2>Nuestros <span class="grad">directos</span></h2></div>
    <p id="stSub">Síguenos en Kick, TikTok y YouTube: cuando estamos en vivo regalamos radar y mostramos huevos gigantes en directo.</p></div>
   <div id="stPlayer"></div>
   <div class="sts" id="stList"></div>
@@ -995,7 +1002,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
     <div class="eyebrow" style="color:var(--g)">EN VIVO AHORITA</div>
     <h3 style="margin-top:14px">Radar <span class="grad">GRATIS</span></h3>
     <p>Crea tu usuario y una contraseña, y ya estás dentro. Abierto para quien quiera.</p>
-    <div class="tags"><span class="tg g">— gratis ahora</span><span class="tg y">⚡ por turnos</span><span class="tg">📱 Android · iPhone · PC</span></div>
+    <div class="tags"><span class="tg g">— gratis ahora</span><span class="tg y">por turnos</span><span class="tg">Android · iPhone · PC</span></div>
    </div>
    <div class="steps-mini">
     <div class="sm"><b>1</b>Entra a egg.report/czbigegg</div>
@@ -1010,19 +1017,19 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <section id="encuesta" hidden style="padding-top:10px">
  <div class="wrap">
   <div class="gw poll">
-   <div class="gbar"><span class="gtit">📊 ENCUESTA</span><span class="gx" id="pTot">0</span></div>
+   <div class="gbar"><span class="gtit">ENCUESTA</span><span class="gx" id="pTot">0</span></div>
    <div class="pbody"><h3 class="pq" id="pQ"></h3><div class="pops" id="pOps"></div><p class="pnote" id="pNote">Toca una opción para votar · 1 voto por persona</p></div>
   </div>
  </div>
 </section>
 
-<div class="modal" id="modal" hidden><div class="gw mbox"><div class="gbar"><span class="gtit">📢 ANUNCIO</span><button class="gx" id="mX" aria-label="Cerrar">✕</button></div>
+<div class="modal" id="modal" hidden><div class="gw mbox"><div class="gbar"><span class="gtit">ANUNCIO</span><button class="gx" id="mX" aria-label="Cerrar">✕</button></div>
  <div class="mbody"><img src="assets/logo.png" alt=""><p id="mTxt"></p><div class="mact"><a class="btn btn-y" id="mBtn" target="_blank" rel="noopener" hidden></a><button class="btn btn-o" id="mOk">¡ENTENDIDO!</button></div></div></div></div>
 
 <section id="actividad" hidden style="padding-top:10px">
  <div class="wrap">
   <div class="gw actw">
-   <div class="gbar"><span class="gtit">📡 ACTIVIDAD EN VIVO</span><span class="gx livedot" title="Datos reales"></span></div>
+   <div class="gbar"><span class="gtit">ACTIVIDAD EN VIVO</span><span class="gx livedot" title="Datos reales"></span></div>
    <div class="actb">
     <div class="feedw"><ul class="feed" id="feed"></ul></div>
     <p class="feedn">Actividad real de CZ BIG EGG · sin nombres, para cuidar la privacidad de nuestros jugadores</p>
@@ -1041,20 +1048,20 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <div class="phone rv"><video src="assets/video.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline></video></div>
    <div class="shots">
 <div class="gw rdw" id="rdw">
-   <div class="gbar"><span class="gtit" style="font-size:clamp(22px,2.6vw,32px)">📡 RADAR EN VIVO</span><span class="rdst" id="rdSt">conectando...</span></div>
+   <div class="gbar"><span class="gtit" style="font-size:clamp(22px,2.6vw,32px)">RADAR EN VIVO</span><span class="rdst" id="rdSt">conectando...</span></div>
    <div class="rdb">
     <div class="rdsweep"></div>
-    <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"><li class="rdempty">📡 Conectando con el radar...</li></ul>
-    <div class="rdcta"><span>👀 Esto es lo que está saliendo <b>ahora mismo</b> en nuestro radar. Para entrar a esos servidores necesitas una cuenta.</span><a class="btn btn-y btn-s" href="#planes">⭐ VER PLANES</a><a class="btn btn-g btn-s" href="https://egg.report/czbigegg" target="_blank" rel="noopener">🆓 RADAR GRATIS</a></div>
+    <ul class="rdl" id="rdL" aria-label="Huevos en el radar ahora mismo"><li class="rdempty">Conectando con el radar...</li></ul>
+    <div class="rdcta"><span>Esto es lo que está saliendo <b>ahora mismo</b> en nuestro radar. Para entrar a esos servidores necesitas una cuenta.</span><a class="btn btn-y btn-s" href="#planes">VER PLANES</a><a class="btn btn-g btn-s" href="https://egg.report/czbigegg" target="_blank" rel="noopener">RADAR GRATIS</a></div>
    </div>
   </div>
     <div class="shotrow">
      <div class="gw tpw">
-      <div class="gbar"><span class="gtit" style="font-size:22px" id="tpT">👑 MEJOR HUEVO</span><span class="rdst" id="tpX">—</span></div>
-      <div class="tpb"><div class="tph" id="tpH"></div><ul class="tpl" id="tpL"><li class="rdempty">📡 Esperando el radar...</li></ul></div>
+      <div class="gbar"><span class="gtit" style="font-size:22px" id="tpT">MEJOR HUEVO</span><span class="rdst" id="tpX">—</span></div>
+      <div class="tpb"><div class="tph" id="tpH"></div><ul class="tpl" id="tpL"><li class="rdempty">Esperando el radar...</li></ul></div>
      </div>
      <div class="panel rv" style="padding:24px;display:flex;flex-direction:column;justify-content:center">
-      <div class="eyebrow" style="color:var(--gold)">🏆 RÉCORD DE HOY</div>
+      <div class="eyebrow" style="color:var(--gold)">RÉCORD DE HOY</div>
       <div class="recimg" id="recI"></div>
       <div style="font:400 30px 'Luckiest Guy';margin-top:10px;color:#fff;-webkit-text-stroke:4px #030806;paint-order:stroke fill" id="recN">—</div>
       <div style="font:400 54px 'Luckiest Guy';color:var(--y);line-height:1;margin-top:6px;-webkit-text-stroke:5px #030806;paint-order:stroke fill;text-shadow:0 5px 0 #030806" id="recX">x—</div>
@@ -1073,7 +1080,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <div class="eyebrow">LOS HUEVOS</div>
    <h2 class="h" style="font-size:clamp(32px,4vw,48px);margin:10px 0 6px">Cada huevo, <span class="grad">su rareza</span></h2>
    <p style="color:var(--mut);margin-bottom:22px">Los que más buscan nuestros clientes. El radar te muestra en qué servidor salen.</p>
-   <div class="eggtop"><input id="eggQ" placeholder="🔎 Buscar huevo o zona..." autocomplete="off"><span id="eggN"></span></div>
+   <div class="eggtop"><input id="eggQ" placeholder="Buscar huevo o zona..." autocomplete="off"><span id="eggN"></span></div>
    <div class="filters" id="fil"></div>
    <div class="eggbox"><div class="eggs" id="eggs"></div></div>
   </div>
@@ -1088,13 +1095,13 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <div class="gbar"><span class="gtit">VALORES</span><span class="gx">✦</span></div>
    <div class="gbody">
     <div class="gal">
-     <div class="galtop"><input id="galQ" placeholder="🔎 Buscar huevo..." autocomplete="off"><span id="galN"></span></div>
+     <div class="galtop"><input id="galQ" placeholder="Buscar huevo..." autocomplete="off"><span id="galN"></span></div>
      <div class="galg" id="galG"></div>
     </div>
     <div class="show">
      <div class="rays"></div>
      <span class="tagL" id="sEsc">x1</span><span class="tagR">CZ BIG EGG</span>
-     <div class="bigegg" id="sEgg"><span class="crown">👑</span></div><img class="bigimg" id="sImg" alt="" hidden>
+     <div class="bigegg" id="sEgg"><span class="crown"></span></div><img class="bigimg" id="sImg" alt="" hidden>
      <div class="orbit" id="sOrb"></div>
      <div class="x2" id="sX2">2X!</div>
      <div class="pname" id="sName">Tu huevo</div>
@@ -1108,13 +1115,13 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
      </div></div>
      <div class="gbox"><div class="gl">VARIANTES</div><div class="vgrid" id="cVar"></div></div>
      <div class="gbox"><div class="gl">MUTACIONES — SE SUMAN</div><div class="mgrid" id="cMut"></div></div>
-     <div class="gbox"><div class="gl">GAMEPASSES</div><button class="gb gpass" id="c2x" type="button">💰 2X MONEY <small>2x valor final</small></button></div>
+     <div class="gbox"><div class="gl">GAMEPASSES</div><button class="gb gpass" id="c2x" type="button">2X MONEY <small>2x valor final</small></button></div>
     </div>
    </div>
    <div class="gfinal">
     <div><div class="gl">TASA DE INGRESO FINAL</div><div class="gsm" id="cMul">x6.16 en total</div></div>
     <div class="pval" id="cOut2">$154B/s</div>
-    <div class="gact"><button class="gb" id="cCopy" type="button">📋 COPIAR</button><button class="gb y" id="cSave" type="button">📜 GUARDAR</button><button class="gb r" id="cReset" type="button">↺ LIMPIAR</button></div>
+    <div class="gact"><button class="gb" id="cCopy" type="button">COPIAR</button><button class="gb y" id="cSave" type="button">GUARDAR</button><button class="gb r" id="cReset" type="button">↺ LIMPIAR</button></div>
    </div>
    <div class="ghist" id="cHist"></div>
   </div>
@@ -1125,12 +1132,12 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <section id="registro">
  <div class="wrap">
   <div class="gw regw">
-   <div class="gbar"><span class="gtit">📝 REGÍSTRATE</span><span class="gx">✦</span></div>
+   <div class="gbar"><span class="gtit">REGÍSTRATE</span><span class="gx">✦</span></div>
    <div class="regb">
     <div class="regi">
      <h3>¡Únete a CZ BIG EGG!</h3>
      <p>Déjanos tus datos y te escribimos por Discord con <b>ofertas, códigos de descuento</b> y avisos cuando salgan los huevos más grandes.</p>
-     <ul><li>🎁 Promos solo para registrados</li><li>⚡ Te ayudamos a elegir tu plan</li><li>🔔 Avisos de huevos divinos</li></ul>
+     <ul><li>Promos solo para registrados</li><li>Te ayudamos a elegir tu plan</li><li>Avisos de huevos divinos</li></ul>
      <div class="regav" id="regAv" hidden></div>
     </div>
     <form id="fReg" autocomplete="off">
@@ -1151,7 +1158,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <section id="planes">
  <div class="wrap">
   <div class="head rv"><div><div class="eyebrow" style="color:var(--gold)">PLANES</div><h2>Elige tu <span class="grad">plan</span></h2></div>
-   <div class="toggle" id="tg"><button data-c="usd" class="on">🇺🇸 USD</button><button data-c="mxn">🇲🇽 MXN</button><button data-c="clp">🇨🇱 CLP</button><button data-c="kicks">🟢 Kicks</button></div></div>
+   <div class="toggle" id="tg"><button data-c="usd" class="on">USD</button><button data-c="mxn">MXN</button><button data-c="clp">CLP</button><button data-c="kicks">Kicks</button></div></div>
   <div class="plans" id="plans"></div>
   <div class="payrow rv">Pagas con:
    <span class="pay"><i style="background:#53fc18;color:#000">K</i>Kicks</span><span class="pay"><i style="background:#f3ba2f;color:#000">B</i>Binance</span>
@@ -1167,9 +1174,9 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
   <div class="cards3">
    <div class="panel card rv"><span class="nb">NUEVO</span><h3>Entrega automática</h3><p>Apenas se confirma tu pago, el bot crea tu cuenta y te manda tu usuario y clave en el ticket.</p>
     <ul><li>Cuenta propia con tu clave</li><li>Aviso el último día para renovar</li><li>Soporte en el mismo ticket</li></ul>
-    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar ahora</a></div>
+    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar ahora</a></div>
    <div class="panel card rv"><h3>Windows, iPhone y Android</h3><p>Funciona en el navegador de cualquier equipo. En iPhone ábrelo en Safari → Compartir → <b>Agregar a inicio</b> y úsalo como app.</p>
-    <div class="dev"><span>💻 Windows</span><span>📱 iPhone / iPad</span><span>🤖 Android</span></div></div>
+    <div class="dev"><span>Windows</span><span>iPhone / iPad</span><span>Android</span></div></div>
    <div class="panel card rv"><span class="nb" style="background:var(--cy)">EN VIVO</span><h3>Alerta de divino</h3><p>El panel suena cuando aparece un huevo divino, y en nuestro Discord avisamos los mejores spawns al instante.</p>
     <a class="lnk" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Ver en Discord ↗</a></div>
   </div>
@@ -1180,7 +1187,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  <div class="wrap">
   <div class="head rv"><div><div class="eyebrow">CÓMO COMPRAR</div><h2>Compra en <span class="grad">4 pasos</span></h2></div><p>Todo se hace en nuestro Discord: rápido, seguro y con el equipo de CZ BIG EGG.</p></div>
   <div class="steps">
-   <div class="panel step rv"><h3>Abre un ticket</h3><p>Toca 🛒 <b>Comprar radar</b> en el canal de tickets.</p></div>
+   <div class="panel step rv"><h3>Abre un ticket</h3><p>Toca <b>Comprar radar</b> en el canal de tickets.</p></div>
    <div class="panel step rv"><h3>Elige tu plan</h3><p>Escoge los días en el menú del ticket.</p></div>
    <div class="panel step rv"><h3>Paga</h3><p>Elige tu método y manda la foto del comprobante.</p></div>
    <div class="panel step rv"><h3>¡Listo!</h3><p>Recibes tu <b>usuario y clave</b> en minutos.</p></div>
@@ -1198,9 +1205,9 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <details class="rv"><summary>¿Es seguro? ¿Me pueden banear?</summary><p>El radar es una web aparte: no modifica el juego ni toca tu cuenta de Roblox. Solo te muestra dónde están los mejores huevos.</p></details>
    <details class="rv"><summary>¿Qué diferencia hay entre gratis y Premium?</summary><p>El gratis te muestra servidores por turnos. Premium te da acceso 24/7 a los servidores exclusivos, donde salen los huevos más grandes.</p></details>
    <details class="rv"><summary>¿Cómo pago con Kicks?</summary><p>En el canal de Caoz en kick.com, siempre desde el navegador (en la app de Kick cuestan el doble). 1.500 = 3 días · 2.500 = 7 días · 5.000 = 1 mes.</p></details>
-   <details class="rv"><summary>¿Tienen código de creador?</summary><p>Sí. Al abrir tu ticket toca "🎁 Vengo de un creador" y usa el código de tu creador favorito. Algunos te dan descuento.</p></details>
+   <details class="rv"><summary>¿Tienen código de creador?</summary><p>Sí. Al abrir tu ticket toca "Vengo de un creador" y usa el código de tu creador favorito. Algunos te dan descuento.</p></details>
   </div>
-  <div class="warn rv"><span>🔒 Tu cuenta es personal. Las cuentas compartidas o revendidas se cancelan. Compra solo en el Discord oficial de CZ BIG EGG.</span>
+  <div class="warn rv"><span>Tu cuenta es personal. Las cuentas compartidas o revendidas se cancelan. Compra solo en el Discord oficial de CZ BIG EGG.</span>
    <a class="btn btn-o btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord oficial ↗</a></div>
  </div>
 </section>
@@ -1212,8 +1219,8 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <h2>¡El próximo huevo <span class="grad">es tuyo!</span></h2>
    <p>Compra tu radar, únete a la comunidad y entérate primero de los huevos más grandes.</p>
    <div class="ctas" style="justify-content:center">
-    <a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">💬 Entrar al Discord</a>
-    <a class="btn btn-y" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar Premium</a>
+    <a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Entrar al Discord</a>
+    <a class="btn btn-y" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar Premium</a>
    </div>
   </div>
  </div>
@@ -1233,8 +1240,8 @@ const FR=[];
 let fi=0,ri=0;const ty=document.getElementById("typed");
 (()=>{const w=[...document.querySelectorAll("#pal .pw")];let i=0;setInterval(()=>{w[i].classList.remove("on");i=(i+1)%w.length;w[i].classList.add("on")},2600)})();
 function ticker(){const t=document.getElementById("tk");if(!t)return;
- const extra=['<span>💰 +500 BILLONES</span>','<span>⚡ RADAR 24/7</span>','<span>🆓 RADAR GRATIS</span>'];
- const eg=(typeof EGGS!=="undefined"?[...EGGS].sort((x,y)=>((y.img||fotoPet(y.n))?1:0)-((x.img||fotoPet(x.n))?1:0)).slice(0,24):[]).map(e=>{const fi=e.img?src(e.img):fotoPet(e.n);return `<span class="ti">${fi?`<img src="${esc(fi)}" alt="">`:"🥚 "}${esc(e.n.toUpperCase())}</span>`});
+ const extra=['<span>+500 BILLONES</span>','<span>RADAR 24/7</span>','<span>RADAR GRATIS</span>'];
+ const eg=(typeof EGGS!=="undefined"?[...EGGS].sort((x,y)=>((y.img||fotoPet(y.n))?1:0)-((x.img||fotoPet(x.n))?1:0)).slice(0,24):[]).map(e=>{const fi=e.img?src(e.img):fotoPet(e.n);return `<span class="ti">${fi?`<img src="${esc(fi)}" alt="">`:""}${esc(e.n.toUpperCase())}</span>`});
  const it=[];eg.forEach((x,k)=>{it.push(x);if(k%3===2&&extra.length)it.push(extra.shift())});it.push(...extra);
  const h=it.map(x=>x+"<b>✦</b>").join("");t.innerHTML=h+h}
 
@@ -1259,19 +1266,19 @@ async function rbx(name){const k=name.toLowerCase(),res=x=>x.nf?null:{n:x.n||nam
  try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"}).catch(()=>{})}
  for(let t=0;t<12;t++){await new Promise(z=>setTimeout(z,2500));c=await leerRbx();if(c[k])return res(c[k])}
  let n=0;const iv=setInterval(async()=>{n++;const cc=await leerRbx();       // sigue esperando la foto en segundo plano
-  if(cc[k]){clearInterval(iv);const u=res(cc[k]);if(u&&tuNombre&&tuNombre.n.toLowerCase()===k){tuNombre=u;board();document.getElementById("topMsg").textContent="✅ ¡Ahí estás en el #1!"}}
+  if(cc[k]){clearInterval(iv);const u=res(cc[k]);if(u&&tuNombre&&tuNombre.n.toLowerCase()===k){tuNombre=u;board();document.getElementById("topMsg").textContent="¡Ahí estás en el #1!"}}
   else if(n>=24)clearInterval(iv)},10000);
  return{n:name,img:null,pend:true}}
 document.getElementById("fTop").onsubmit=async e=>{e.preventDefault();const inp=document.getElementById("iTop"),btn=e.target.querySelector("button"),msg=document.getElementById("topMsg"),v=inp.value.trim();
  if(!/^[A-Za-z0-9_]{3,20}$/.test(v)){msg.textContent="Escribe un usuario de Roblox válido (3-20 letras, números o _).";return}
- btn.disabled=true;btn.textContent="BUSCANDO...";msg.textContent="🔎 Buscando tu avatar en Roblox... (unos segundos)";
- try{const u=await rbx(v);if(u){tuNombre=u;msg.textContent=u.img?"✅ ¡Ahí estás en el #1!":u.pend?"⏳ ¡Ya estás en el #1! Tu foto aparece en un momento...":"✅ Encontrado (sin foto disponible)."}else{tuNombre={n:v,img:null};msg.textContent="⚠️ No encontré ese usuario en Roblox."}}
- catch(err){tuNombre={n:v,img:null};msg.textContent="⚠️ No se pudo cargar la foto ahora, intenta de nuevo."}
+ btn.disabled=true;btn.textContent="BUSCANDO...";msg.textContent="Buscando tu avatar en Roblox... (unos segundos)";
+ try{const u=await rbx(v);if(u){tuNombre=u;msg.textContent=u.img?"¡Ahí estás en el #1!":u.pend?"¡Ya estás en el #1! Tu foto aparece en un momento...":"Encontrado (sin foto disponible)."}else{tuNombre={n:v,img:null};msg.textContent="No encontré ese usuario en Roblox."}}
+ catch(err){tuNombre={n:v,img:null};msg.textContent="No se pudo cargar la foto ahora, intenta de nuevo."}
  btn.disabled=false;btn.textContent="¡VAMOS!";board()};
 board();
 setInterval(()=>{TOP=TOP.map(([n,v])=>[n,Math.max(150,v+Math.round((Math.random()-.45)*12))]).sort((a,b)=>b[1]-a[1]);board()},2500);
 
-// ⬇⬇ URL del script de Google (la misma que en admin.html). Vacía = usa la lista de abajo.
+// URL del script de Google (la misma que en admin.html). Vacía = usa la lista de abajo.
 const REPO="czbigegg/tickets",GHAPI=`https://api.github.com/repos/${REPO}/contents/czweb.json`,GHRAW=`https://raw.githubusercontent.com/${REPO}/HEAD/czweb.json`;
 let BASE=`https://raw.githubusercontent.com/${REPO}/HEAD/`,VOTO="";
 const src=img=>!img?"":/^https?:/.test(img)?img:/^mascotas\//.test(img)?BASE+"czbigegg/"+img:BASE+img;
@@ -1296,14 +1303,14 @@ pintarHuevos(null);
 let anT=null;
 function barSinAnuncios(bar){clearInterval(anT);const el=bar.querySelector("a");if(!el)return;bar.className="bar";el.className="";
  if(typeof CD!=="undefined"&&CD&&CD.ms>Date.now()){const h=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
-  el.href="#cuenta";el.removeAttribute("target");el.innerHTML=`<span class="nw">⏰ PRONTO</span> Radar GRATIS abre hoy a las ${h} (hora Chile) →`;bar.hidden=false}
+  el.href="#cuenta";el.removeAttribute("target");el.innerHTML=`<span class="nw">PRONTO</span> Radar GRATIS abre hoy a las ${h} (hora Chile) →`;bar.hidden=false}
  else if(typeof CDG!=="undefined"&&CDG){el.href="https://egg.report/czbigegg";el.target="_blank";el.innerHTML=`<span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →`;bar.hidden=false}
  else bar.hidden=true}
 function anuncios(L){const bar=document.getElementById("bar");L=(L||[]).filter(a=>a.on!==false);if(!bar)return;if(!L.length)return barSinAnuncios(bar);bar.hidden=false;clearInterval(anT);
  let k=0;const show=()=>{const a=L[k%L.length],link=a.link?` <span class="go">${esc(a.btn||"VER")} →</span>`:"";
   bar.className="bar"+(a.col&&a.col!=="y"?" c-"+a.col:"");
   const el=bar.querySelector("a");el.className="atx";el.removeAttribute("href");if(a.link){el.href=a.link}
-  el.innerHTML=`<span class="nw">📢</span> ${esc(a.txt)}${link}`;k++};
+  el.innerHTML=`<span class="nw"></span> ${esc(a.txt)}${link}`;k++};
  show();if(L.length>1)anT=setInterval(()=>{const el=bar.querySelector("a");if(!el)return clearInterval(anT);el.classList.add("fade");setTimeout(show,350)},6000);
  let vistos=[];try{vistos=JSON.parse(localStorage.getItem("czVistos")||"[]")}catch(e){}
  const p=L.find(a=>a.pop&&!vistos.includes(a.id));if(!p)return;
@@ -1320,10 +1327,10 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
  if(!E||!E.ops||E.on===false){sec.hidden=true;nav.hidden=true;return}sec.hidden=false;nav.hidden=false;
  document.getElementById("pQ").textContent=E.q;const mio=miVoto(E.id),ya=mio!=null,tot=E.total||0;
  document.getElementById("pTot").textContent=tot+(tot===1?" voto":" votos");
- document.getElementById("pNote").textContent=ya?"✅ ¡Gracias por votar! Así va la encuesta":"Toca una opción para votar · 1 voto por persona";
+ document.getElementById("pNote").textContent=ya?"¡Gracias por votar! Así va la encuesta":"Toca una opción para votar · 1 voto por persona";
  const box=document.getElementById("pOps");box.innerHTML="";
  E.ops.forEach((o,i)=>{const v=(E.votos||[])[i]||0,pc=tot?Math.round(v/tot*100):0,b=document.createElement("button");
-  b.className="pop"+(ya&&mio===i?" me":"");b.disabled=ya;b.innerHTML=`<i></i><span><b>${ya&&mio===i?"⭐ ":""}${esc(o)}</b>${ya?`<b>${pc}%</b>`:""}</span>`;
+  b.className="pop"+(ya&&mio===i?" me":"");b.disabled=ya;b.innerHTML=`<i></i><span><b>${ya&&mio===i?"":""}${esc(o)}</b>${ya?`<b>${pc}%</b>`:""}</span>`;
   if(ya)requestAnimationFrame(()=>requestAnimationFrame(()=>{b.querySelector("i").style.width=pc+"%"}));
   b.onclick=async()=>{[...box.children].forEach(x=>x.disabled=true);document.getElementById("pNote").textContent="Enviando tu voto...";
    try{if(!VOTO)throw new Error("la encuesta no está lista");
@@ -1331,7 +1338,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     try{const r=await fetch(VOTO,{method:"POST",body:fd});if(!r.ok&&r.status!==204)throw new Error("intenta de nuevo")}catch(e){if(e.message==="intenta de nuevo")throw e;await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
     try{const o=JSON.parse(localStorage.getItem("czVotos")||"{}");o[E.id]=i;localStorage.setItem("czVotos",JSON.stringify(o))}catch(e){}
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N)}
-   catch(err){document.getElementById("pNote").textContent="⚠️ No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
+   catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
 function pintarWeb(j){if(!j)return;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
@@ -1346,10 +1353,10 @@ cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
 
 // ── PLANES (edita los precios aquí) ──
 const PLANES=[
- {em:"⏱️",n:"1 DÍA",d:1,usd:6,mxn:109,clp:6000,kicks:null},{em:"⏱️",n:"3 DÍAS",d:3,usd:15,mxn:279,clp:15000,kicks:1500},
- {em:"📅",n:"7 DÍAS",d:7,usd:25,mxn:459,clp:25000,kicks:2500},{em:"📅",n:"15 DÍAS",d:15,usd:38,mxn:699,clp:38000,kicks:null},
- {em:"⭐",n:"1 MES",d:30,usd:50,mxn:899,clp:50000,kicks:5000,tag:"🔥 MÁS VENDIDO",cls:"best"},{em:"🗓️",n:"3 MESES",d:90,usd:130,mxn:2399,clp:130000,kicks:null},
- {em:"🗓️",n:"6 MESES",d:180,usd:240,mxn:4399,clp:240000,kicks:null},{em:"👑",n:"1 AÑO",d:365,usd:420,mxn:7699,clp:420000,kicks:null,tag:"💎 MÁS AHORRO",cls:"year"}];
+ {em:"",n:"1 DÍA",d:1,usd:6,mxn:109,clp:6000,kicks:null},{em:"",n:"3 DÍAS",d:3,usd:15,mxn:279,clp:15000,kicks:1500},
+ {em:"",n:"7 DÍAS",d:7,usd:25,mxn:459,clp:25000,kicks:2500},{em:"",n:"15 DÍAS",d:15,usd:38,mxn:699,clp:38000,kicks:null},
+ {em:"",n:"1 MES",d:30,usd:50,mxn:899,clp:50000,kicks:5000,tag:"MÁS VENDIDO",cls:"best"},{em:"",n:"3 MESES",d:90,usd:130,mxn:2399,clp:130000,kicks:null},
+ {em:"",n:"6 MESES",d:180,usd:240,mxn:4399,clp:240000,kicks:null},{em:"",n:"1 AÑO",d:365,usd:420,mxn:7699,clp:420000,kicks:null,tag:"MÁS AHORRO",cls:"year"}];
 const CUR={usd:["$","USD"],mxn:["$","MXN"],clp:["$","CLP"],kicks:["","Kicks"]};
 const fmt=(v,c)=>v.toLocaleString(c==="usd"||c==="mxn"?"es-MX":"es-CL",{maximumFractionDigits:2});
 function render(c){const box=document.getElementById("plans");box.innerHTML="";
@@ -1358,14 +1365,14 @@ function render(c){const box=document.getElementById("plans");box.innerHTML="";
    (v?`<div class="pr">${CUR[c][0]}${fmt(v,c)}</div><div class="cu">${CUR[c][1]}</div>`+(c==="kicks"?`<div style="height:18px"></div>`:`<div class="dy">≈ ${CUR[c][0]}${fmt(Math.round(v/p.d*100)/100,c)} al día</div>`)
      :`<div class="na">No disponible con Kicks</div>`)+
    `<a class="btn ${p.cls==="best"?"btn-g":"btn-o"} btn-s" href="${TICKET}" target="_blank" rel="noopener">Comprar</a>`;box.appendChild(el)});
- document.getElementById("nota").textContent=c==="kicks"?"💚 Kicks solo desde kick.com/caoz en el navegador (en la app cuestan el doble).":"Precios oficiales. Si vienes con código de creador, el descuento se aplica en tu ticket.";}
+ document.getElementById("nota").textContent=c==="kicks"?"Kicks solo desde kick.com/caoz en el navegador (en la app cuestan el doble).":"Precios oficiales. Si vienes con código de creador, el descuento se aplica en tu ticket.";}
 document.querySelectorAll("#tg button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(b.dataset.c)});
 render("usd");
-// ⚙️ botón ADMIN: solo aparece en los equipos donde entró un Owner
+// botón ADMIN: solo aparece en los equipos donde entró un Owner
 try{if(localStorage.getItem("czOwner")==="1")document.getElementById("btnAdm").hidden=false}catch(_){}
 (()=>{let n=0,t=0;document.getElementById("pieLogo").addEventListener("click",e=>{e.preventDefault();if(Date.now()-t>1500)n=0;t=Date.now();if(++n>=5)location.href="admin.html"})})();
 
-// ===== 📝 registro + 👀 visitas + 🖱️ clics (todo llega a tu bot) =====
+// ===== registro + visitas + clics (todo llega a tu bot) =====
 (()=>{const sel=document.getElementById("rPlan");PLANES.forEach(p=>{const o=document.createElement("option");o.textContent=p.n;sel.appendChild(o)})})();
 function webhook(obj,beacon){if(!VOTO)return false;const fd=new FormData();
  fd.append("payload_json",JSON.stringify({username:"Web CZ BIG EGG",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify(obj)+"\n```"}));
@@ -1382,24 +1389,24 @@ document.addEventListener("click",e=>{const a=e.target.closest("a[href]");if(!a)
 let calcOk=false;document.getElementById("calculadora").addEventListener("click",e=>{if(!calcOk&&e.target.closest(".gb")){calcOk=true;evento("calcular")}});
 document.getElementById("fReg").onsubmit=async e=>{e.preventDefault();const out=document.getElementById("rMsgOut"),b=e.target.querySelector("button");
  const rbxU=document.getElementById("rRbx").value.trim(),dc=document.getElementById("rDc").value.trim();out.className="regmsg";
- if(!/^[A-Za-z0-9_]{3,20}$/.test(rbxU)){out.className="regmsg err";out.textContent="⚠️ Tu usuario de Roblox no es válido (3-20 letras, números o _)";return}
- if(dc.length<2){out.className="regmsg err";out.textContent="⚠️ Escribe tu usuario de Discord";return}
- try{if(localStorage.getItem("czReg")===rbxU.toLowerCase()){out.textContent="✅ ¡Ya estabas registrado! Te escribiremos pronto.";return}}catch(_){}
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(rbxU)){out.className="regmsg err";out.textContent="Tu usuario de Roblox no es válido (3-20 letras, números o _)";return}
+ if(dc.length<2){out.className="regmsg err";out.textContent="Escribe tu usuario de Discord";return}
+ try{if(localStorage.getItem("czReg")===rbxU.toLowerCase()){out.textContent="¡Ya estabas registrado! Te escribiremos pronto.";return}}catch(_){}
  b.disabled=true;b.textContent="ENVIANDO...";
  const ok=webhook({t:"reg",vid:voterId(),rbx:rbxU,dc,pais:document.getElementById("rPais").value,plan:document.getElementById("rPlan").value,msg:document.getElementById("rMsg").value.trim(),hp:document.getElementById("rHp").value});
- if(!ok){out.className="regmsg err";out.textContent="⚠️ No se pudo enviar, intenta en unos segundos";b.disabled=false;b.textContent="¡REGISTRARME!";return}
+ if(!ok){out.className="regmsg err";out.textContent="No se pudo enviar, intenta en unos segundos";b.disabled=false;b.textContent="¡REGISTRARME!";return}
  try{localStorage.setItem("czReg",rbxU.toLowerCase())}catch(_){}
- out.textContent="✅ ¡Listo! Ya estás registrado. Te escribiremos por Discord 💚";b.textContent="¡REGISTRADO! ✅";
+ out.textContent="¡Listo! Ya estás registrado. Te escribiremos por Discord";b.textContent="¡REGISTRADO!";
  const av=document.getElementById("regAv");av.hidden=false;av.innerHTML=`<span class="ini">${esc(rbxU.charAt(0).toUpperCase())}</span><div>¡Bienvenido, ${esc(rbxU)}!<br><small style="font:600 13px Poppins">Buscando tu avatar...</small></div>`;
- setTimeout(async()=>{for(let t=0;t<16;t++){const c=await leerRbx(),x=c[rbxU.toLowerCase()];if(x){if(x.img)av.innerHTML=`<img src="${esc(x.img)}" alt=""><div>¡Bienvenido, ${esc(x.n||rbxU)}!<br><small style="font:600 13px Poppins">Registro confirmado 💚</small></div>`;else av.querySelector("small").textContent="Registro confirmado 💚";return}await new Promise(z=>setTimeout(z,3000))}},2500)};
+ setTimeout(async()=>{for(let t=0;t<16;t++){const c=await leerRbx(),x=c[rbxU.toLowerCase()];if(x){if(x.img)av.innerHTML=`<img src="${esc(x.img)}" alt=""><div>¡Bienvenido, ${esc(x.n||rbxU)}!<br><small style="font:600 13px Poppins">Registro confirmado</small></div>`;else av.querySelector("small").textContent="Registro confirmado";return}await new Promise(z=>setTimeout(z,3000))}},2500)};
 
 
 // ── CALCULADORA DE VALOR ──
 const VARS=[["None",1,"none","linear-gradient(160deg,#ffffff,#cfd6df)"],["Silver",1.2,"silver","linear-gradient(160deg,#ffffff,#9fb0c0 70%,#6d7f90)"],
  ["Golden",2.5,"golden","linear-gradient(160deg,#fff4a8,#ffcf3a 50%,#d18a00)"],["Rainbow",3.5,"rainbow","linear-gradient(160deg,#ff4d6d,#ffb13b,#ffe93b,#5be35b,#38c6ff,#9b6bff)"]];
-const MUTS=[["Bloom",1.25,"#ff7ac8","🌸"],["Spirit Bloom",2.5,"#c48bff","🌺"],["Fractured",2.75,"#7b8aa0","💎"],["Scrambled",2.75,"#ffb13b","🍳"],
- ["Nitro",2.75,"#ff5a36","🔥"],["Spectral",2.75,"#7fe7ff","👻"],["Enchanted",2.85,"#9b6bff","✨"],["Parasite",3,"#6bd13a","🦠"],
- ["Musical",2.5,"#ff4d9a","🎵"],["Alien",2.5,"#3ee06a","👽"],["Dark Matter",2.5,"#3a2a6b","🌌"]];
+const MUTS=[["Bloom",1.25,"#ff7ac8",""],["Spirit Bloom",2.5,"#c48bff",""],["Fractured",2.75,"#7b8aa0",""],["Scrambled",2.75,"#ffb13b",""],
+ ["Nitro",2.75,"#ff5a36",""],["Spectral",2.75,"#7fe7ff",""],["Enchanted",2.85,"#9b6bff",""],["Parasite",3,"#6bd13a",""],
+ ["Musical",2.5,"#ff4d9a",""],["Alien",2.5,"#3ee06a",""],["Dark Matter",2.5,"#3a2a6b",""]];
 const SUF=[["Qa",1e15],["T",1e12],["B",1e9],["M",1e6],["K",1e3]];
 let cv="None",cm=new Set(),c2=false,ultimo="";
 function parseV(t){t=(t||"").replace(/\$|\/s|\s/gi,"").replace(",",".");const m=t.match(/^([\d.]+)(qa|t|b|m|k)?$/i);if(!m)return NaN;
@@ -1409,7 +1416,7 @@ function esc_(t){return String(t).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;","
 const cVar=document.getElementById("cVar"),cMut=document.getElementById("cMut");
 VARS.forEach(([n,m,k])=>{const b=document.createElement("button");b.type="button";b.className="gb "+k+(n===cv?" on":"");b.innerHTML=`${n}<small>${m}x</small>`;
  b.onclick=()=>{cv=n;[...cVar.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");calc()};cVar.appendChild(b)});
-const MUFX={"Bloom":"🌸","Spirit Bloom":"✿","Nitro":"🔥","Enchanted":"🌸 ✨","Musical":"♪ ♫","Alien":"👽","Scrambled":"○ ° ◦","Spectral":"👻","Parasite":"• ·"};
+const MUFX={"Bloom":"✿","Spirit Bloom":"❀","Nitro":"▲","Enchanted":"✿ ✦","Musical":"♪ ♫","Alien":"◉","Scrambled":"○ ° ◦","Spectral":"≈","Parasite":"• ·"};
 MUTS.forEach(([n,m,col])=>{const b=document.createElement("button");b.type="button";b.className="gb mu mu-"+n.toLowerCase().replace(/\s+/g,"");const fx=MUFX[n]?(MUFX[n]+"  ").repeat(14):"";b.dataset.fx=fx;b.innerHTML=`<span>${n}<small>${m}x</small></span>`;
  b.onclick=()=>{cm.has(n)?cm.delete(n):cm.add(n);b.classList.toggle("on");calc()};cMut.appendChild(b)});
 const b2=document.getElementById("c2x");b2.onclick=()=>{c2=!c2;b2.classList.toggle("on");calc()};
@@ -1423,24 +1430,24 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
  document.getElementById("sName").textContent=(cv==="None"?"":cv+" ")+(SEL?SEL.n:"Huevo");
  document.getElementById("sRar").textContent=cm.size?[...cm].join(" · "):"Sin mutación";
  const orb=document.getElementById("sOrb");orb.innerHTML="";[...cm].forEach((n,i)=>{const m=MUTS.find(x=>x[0]===n),a=i/Math.max(1,cm.size)*6.283-1.4,sp=document.createElement("span");
-  sp.textContent=m[3];sp.style.left=`calc(50% + ${Math.cos(a)*Math.min(125,orb.clientWidth*.36)}px - 15px)`;sp.style.top=`calc(36% + ${Math.sin(a)*100}px - 15px)`;sp.style.animationDelay=`-${i*.3}s`;orb.appendChild(sp)});
+  sp.className="odot";sp.style.background=m[2];sp.style.left=`calc(50% + ${Math.cos(a)*Math.min(125,orb.clientWidth*.36)}px - 15px)`;sp.style.top=`calc(36% + ${Math.sin(a)*100}px - 15px)`;sp.style.animationDelay=`-${i*.3}s`;orb.appendChild(sp)});
  document.getElementById("sX2").classList.toggle("on",c2);
  ultimo=`${fmtV(base)} × x${esc} · ${cv}${cm.size?" · "+[...cm].join("+"):""}${c2?" · 2X":""} = ${fmtV(fin)}`}
 ["cBase","cEsc"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
 document.getElementById("eggQ").addEventListener("input",()=>eggs());
 
-// ===== 📡 radar en vivo (solo lectura) =====
+// ===== radar en vivo (solo lectura) =====
 var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
 function pintarRadar(){if(!RD)return;const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
- const vivo=pas<420;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"🔴 EN VIVO":"⏸ en pausa";
+ const vivo=pas<420;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"EN VIVO":"en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
-  return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg">🥚</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
-  <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">🔒 ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">📡 Buscando huevos... vuelve en un momento</li>`;
- const T=RD.top;if(T&&T.sv){const f=fotoPet(T.a);document.getElementById("tpT").textContent="👑 "+T.a.toUpperCase();document.getElementById("tpX").textContent="x"+(T.sv[0]||{}).x;
+  return `<li style="--rc:${c}">${f?`<img src="${esc(f)}" alt="">`:`<span class="eg"></span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small><small>${x.s} servidor${x.s===1?"":"es"} · ${edad((x.age||0)+pas)}</small></div>
+  <div class="vl"><b>${fmtV(x.g)}</b><small class="x">x${x.x}</small><span class="lk">ENTRAR</span></div></li>`}).join(""):`<li class="rdempty">Buscando huevos... vuelve en un momento</li>`;
+ const T=RD.top;if(T&&T.sv){const f=fotoPet(T.a);document.getElementById("tpT").textContent=""+T.a.toUpperCase();document.getElementById("tpX").textContent="x"+(T.sv[0]||{}).x;
   document.getElementById("tpH").innerHTML=`${f?`<img src="${esc(f)}" alt="">`:""}<div>${esc(T.a)}<small>${esc(T.r||"")} · ${esc(T.z||"")} · ${T.n} servidores</small></div>`;
-  document.getElementById("tpL").innerHTML=T.sv.map(v=>`<li><b>x${v.x}</b><small>${fmtV(v.g)}${v.m&&v.m.length?" · "+esc(v.m.join(", ")):""}</small><span>🔒 PREMIUM</span></li>`).join("")}
+  document.getElementById("tpL").innerHTML=T.sv.map(v=>`<li><b>x${v.x}</b><small>${fmtV(v.g)}${v.m&&v.m.length?" · "+esc(v.m.join(", ")):""}</small><span>PREMIUM</span></li>`).join("")}
  const R=RD.rec;if(R){const f=fotoPet(R.a);document.getElementById("recI").innerHTML=f?`<img src="${esc(f)}" alt="">`:"";document.getElementById("recN").textContent=R.a.toUpperCase();
   document.getElementById("recX").textContent="x"+R.x;document.getElementById("recG").textContent=`${fmtV(R.g)} · ${R.r||""} · ${edad(Math.max(0,Math.floor(Date.now()/1000-R.t)))} · solo Premium`}}
 async function cargarRadar(){let t=null;const RR="radar-en-vivo";
@@ -1452,11 +1459,11 @@ async function cargarRadar(){let t=null;const RR="radar-en-vivo";
 cargarRadar();setInterval(()=>{if(!document.hidden)cargarRadar()},15000);setInterval(()=>{if(RD&&!document.hidden)pintarRadar()},5000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarRadar()});
 
-// ===== 📡 actividad en vivo (datos reales del bot) =====
+// ===== actividad en vivo (datos reales del bot) =====
 var FEEDK="",FEEDETAG="",FEEDVISTOS=null;
 function haceTxt(t){const s=Math.max(0,Date.now()/1000-t);return s<90?"ahora":s<3600?`hace ${Math.round(s/60)} min`:s<86400?`hace ${Math.round(s/3600)} h`:`hace ${Math.round(s/86400)} d`}
-const PAISB={"Chile":"🇨🇱","México":"🇲🇽","Perú":"🇵🇪","Argentina":"🇦🇷","Colombia":"🇨🇴","Ecuador":"🇪🇨","Bolivia":"🇧🇴","Uruguay":"🇺🇾","Venezuela":"🇻🇪","España":"🇪🇸","Estados Unidos":"🇺🇸"};
-function feedTxt(x){return x.k==="reg"?["📝",`Alguien${x.p&&PAISB[x.p]?" de "+PAISB[x.p]:""} se registró en la web`]:["🆓","Nuevo jugador creó su cuenta del radar"]}
+const PAISB={"Chile":"","México":"","Perú":"","Argentina":"","Colombia":"","Ecuador":"","Bolivia":"","Uruguay":"","Venezuela":"","España":"","Estados Unidos":""};
+function feedTxt(x){return x.k==="reg"?["",`Alguien${x.p?" de "+esc(x.p):""} se registró en la web`]:["","Nuevo jugador creó su cuenta del radar"]}
 function contar(id,n){const el=document.getElementById(id),de=+el.dataset.n||0;el.dataset.n=n;const t0=performance.now();
  (function f(t){const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(de+(n-de)*k).toLocaleString("es-CL");if(k<1)requestAnimationFrame(f)})(t0)}
 function pintarFeed(F){if(!F)return;const sec=document.getElementById("actividad");
@@ -1465,7 +1472,7 @@ function pintarFeed(F){if(!F)return;const sec=document.getElementById("actividad
  const L=(F.items||[]).slice(0,20),fe=document.getElementById("feed");
  const filas=L.map((x,i)=>{const [ic,tx]=feedTxt(x);return `<li class="f-${x.k}" data-i="${i}"><span class="ic">${ic}</span><span>${tx}</span><em>${haceTxt(x.t)}</em></li>`}).join("");
  if(L.length>=5){fe.innerHTML=filas+filas;fe.classList.add("loop");fe.style.setProperty("--dur",(L.length*3.2)+"s")}
- else{fe.classList.remove("loop");fe.innerHTML=filas||`<li class="f-reg"><span class="ic">📡</span><span>Esperando la próxima actividad...</span></li>`}
+ else{fe.classList.remove("loop");fe.innerHTML=filas||`<li class="f-reg"><span class="ic"></span><span>Esperando la próxima actividad...</span></li>`}
  const nuevos=(F.items||[]).filter(x=>Date.now()/1000-x.t<1800);const k=x=>x.k+x.t;
  if(FEEDVISTOS){const n=nuevos.find(x=>!FEEDVISTOS.has(k(x)));if(n)toast(n)}FEEDVISTOS=new Set((F.items||[]).map(k))}
 let toastT=null;function toast(x){const el=document.getElementById("toastV"),[ic,tx]=feedTxt(x);el.innerHTML=`<span style="font-size:22px">${ic}</span><div>${tx}<small>${haceTxt(x.t)} · CZ BIG EGG</small></div>`;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,6000)}
@@ -1479,8 +1486,8 @@ setInterval(()=>{if(FEEDK)try{const F=JSON.parse(FEEDK);document.querySelectorAl
 let rotI=0;setInterval(()=>{if(document.hidden||!FEEDK)return;try{const F=JSON.parse(FEEDK),R=(F.items||[]).filter(x=>Date.now()/1000-x.t<86400);   // avisos rotando: solo actividad real de las últimas 24 h
  if(!R.length||!document.getElementById("toastV").hidden)return;toast(R[rotI++%R.length])}catch(_){}},22000);
 
-// ===== 🎥 directos de los dueños =====
-var RED={kick:"🟢 KICK",tiktok:"🎵 TIKTOK",youtube:"▶️ YOUTUBE",twitch:"🟣 TWITCH"};
+// ===== directos de los dueños =====
+var RED={kick:"KICK",tiktok:"TIKTOK",youtube:"▶YOUTUBE",twitch:"TWITCH"};
 function directos(L){const sec=document.getElementById("streams"),nav=document.getElementById("navSt"),pill=document.getElementById("livePill");
  L=Array.isArray(L)?L:[];if(!L.length){sec.hidden=true;nav.hidden=true;pill.hidden=true;return}
  sec.hidden=false;const vivos=L.filter(x=>x.vivo);nav.hidden=!vivos.length;
@@ -1488,25 +1495,25 @@ function directos(L){const sec=document.getElementById("streams"),nav=document.g
  document.getElementById("stList").innerHTML=L.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
   const av=x.avatar?`<img src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="ini">${ini}</span>`;
   const th=x.vivo&&x.img?`<img class="cv" src="${esc(x.img)}" alt="" referrerpolicy="no-referrer">`:(x.avatar?`<img class="av" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${ini}</span>`);
-  return `<div class="stc${x.vivo?" on":""}"><div class="th">${th}<span class="bd ${x.vivo?"vivo":"off"}">${x.vivo?"🔴 EN VIVO":"OFFLINE"}</span><span class="red ${esc(x.red)}">${RED[x.red]||esc(x.red)}</span>${x.vivo&&x.vistas!=null?`<span class="vw">👀 ${Number(x.vistas).toLocaleString("es-CL")} viendo</span>`:""}</div>
+  return `<div class="stc${x.vivo?" on":""}"><div class="th">${th}<span class="bd ${x.vivo?"vivo":"off"}">${x.vivo?"EN VIVO":"OFFLINE"}</span><span class="red ${esc(x.red)}">${RED[x.red]||esc(x.red)}</span>${x.vivo&&x.vistas!=null?`<span class="vw">${Number(x.vistas).toLocaleString("es-CL")} viendo</span>`:""}</div>
    <div class="nm">${av}<div><b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small></div></div>
    <div class="tt">${x.vivo?esc(x.titulo||"¡Estamos en vivo!"):"Síguelo para enterarte cuando prenda"}</div>
-   <a class="btn ${x.vivo?"btn-adm":"btn-o"} btn-s" href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${x.vivo?"🔴 VER DIRECTO":"➕ SEGUIR"}</a></div>`}).join("");
+   <a class="btn ${x.vivo?"btn-adm":"btn-o"} btn-s" href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${x.vivo?"VER DIRECTO":"SEGUIR"}</a></div>`}).join("");
  const orden=["kick","tiktok","youtube","twitch"],grupos={};L.forEach(x=>{(grupos[x.red]=grupos[x.red]||[]).push(x)});
  document.getElementById("stGroups").innerHTML=Object.keys(grupos).sort((a,b)=>{const i=orden.indexOf(a),j=orden.indexOf(b);return (i<0?99:i)-(j<0?99:j)}).map(r=>{const G=grupos[r];
   return `<div class="stp"><h3><span class="red ${esc(r)}">${RED[r]||esc(r)}</span><small>${G.length} cuenta${G.length===1?"":"s"}</small></h3><ul>${G.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
    const av=x.avatar?`<img class="ava" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer" loading="lazy">`:`<span class="ava">${ini}</span>`;
-   return `<li class="${x.vivo?"on":""}"><a href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${av}<b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small><span class="go">${x.vivo?"🔴 EN VIVO":"SEGUIR"}</span></a></li>`}).join("")}</ul></div>`}).join("");
+   return `<li class="${x.vivo?"on":""}"><a href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${av}<b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small><span class="go">${x.vivo?"EN VIVO":"SEGUIR"}</span></a></li>`}).join("")}</ul></div>`}).join("");
  const pl=document.getElementById("stPlayer"),emb=vivos.find(x=>x.red==="kick")||vivos.find(x=>x.red==="youtube"&&x.vid)||vivos.find(x=>x.red==="twitch");
  const urlE=emb?(emb.red==="kick"?`https://player.kick.com/${encodeURIComponent(emb.u)}?muted=true&autoplay=true`:emb.red==="youtube"?`https://www.youtube.com/embed/${encodeURIComponent(emb.vid)}?autoplay=1&mute=1`:`https://player.twitch.tv/?channel=${encodeURIComponent(emb.u)}&parent=${location.hostname}&muted=true`):"";
  if(pl.dataset.u!==urlE){pl.dataset.u=urlE;pl.innerHTML=urlE?`<div class="player"><iframe src="${esc(urlE)}" allow="autoplay; fullscreen" allowfullscreen title="Directo"></iframe></div>`:""}
- if(vivos.length){const v=vivos[0];pill.hidden=false;pill.innerHTML=`${v.avatar?`<img src="${esc(v.avatar)}" alt="" referrerpolicy="no-referrer">`:""}<span>🔴 ${esc(v.nombre)} está EN VIVO en ${esc((RED[v.red]||v.red).replace(/^\S+\s/,""))}${vivos.length>1?` +${vivos.length-1}`:""}</span>`}else pill.hidden=true}
+ if(vivos.length){const v=vivos[0];pill.hidden=false;pill.innerHTML=`${v.avatar?`<img src="${esc(v.avatar)}" alt="" referrerpolicy="no-referrer">`:""}<span>${esc(v.nombre)} está EN VIVO en ${esc((RED[v.red]||v.red).replace(/^\S+\s/,""))}${vivos.length>1?` +${vivos.length-1}`:""}</span>`}else pill.hidden=true}
 document.addEventListener("click",e=>{if(e.target.closest("[data-live]")&&typeof evento==="function")evento("live")},true);
 
 // ===== galería de huevos en la calculadora =====
 var SEL=null;
 function galeria(){const g=document.getElementById("galG");if(!g)return;const q=(document.getElementById("galQ").value||"").trim().toLowerCase();
- const FUENTE=PETS.length?PETS:EGGS;document.getElementById("galQ").placeholder=PETS.length?"🔎 Buscar mascota...":"🔎 Buscar huevo...";
+ const FUENTE=PETS.length?PETS:EGGS;document.getElementById("galQ").placeholder=PETS.length?"Buscar mascota...":"Buscar huevo...";
  const L=FUENTE.filter(e=>!q||e.n.toLowerCase().includes(q)||String(e.r||"").toLowerCase().includes(q));
  document.getElementById("galN").textContent=L.length+(PETS.length?" mascotas":" huevos");g.innerHTML="";
  L.forEach(e=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="gc"+(SEL&&SEL.n===e.n?" on":"");d.style.cssText=`--c:${c[0]};--c3:${c[2]}`;
@@ -1520,9 +1527,9 @@ function elegir(e){SEL=e;const im=document.getElementById("sImg"),sh=document.qu
  calc();if(matchMedia("(max-width:900px) and (min-width:561px)").matches)document.querySelector("#calculadora .show").scrollIntoView({behavior:"smooth",block:"center"})}
 document.getElementById("galQ").addEventListener("input",galeria);
 
-document.getElementById("cCopy").onclick=async e=>{const t=e.currentTarget;try{await navigator.clipboard.writeText(ultimo+" · CZ BIG EGG");t.textContent="✅ LISTO"}catch(x){t.textContent="NO SE PUDO"}setTimeout(()=>t.textContent="📋 COPIAR",1500)};
+document.getElementById("cCopy").onclick=async e=>{const t=e.currentTarget;try{await navigator.clipboard.writeText(ultimo+" · CZ BIG EGG");t.textContent="LISTO"}catch(x){t.textContent="NO SE PUDO"}setTimeout(()=>t.textContent="COPIAR",1500)};
 let HIST=[];try{HIST=JSON.parse(localStorage.getItem("czCalc")||"[]")}catch(e){}
-function hist(){document.getElementById("cHist").innerHTML=HIST.slice(0,5).map(h=>`<span>📜 ${esc_(h)}</span>`).join("")}
+function hist(){document.getElementById("cHist").innerHTML=HIST.slice(0,5).map(h=>`<span>${esc_(h)}</span>`).join("")}
 document.getElementById("cSave").onclick=()=>{HIST.unshift(ultimo);HIST=HIST.slice(0,5);try{localStorage.setItem("czCalc",JSON.stringify(HIST))}catch(e){}hist()};
 document.getElementById("cReset").onclick=()=>{document.getElementById("cBase").value="";document.getElementById("cEsc").value="1";cv="None";cm.clear();c2=false;
  [...cVar.children].forEach((x,i)=>x.classList.toggle("on",i===0));[...cMut.children].forEach(x=>x.classList.remove("on"));b2.classList.remove("on");calc()};
@@ -1531,7 +1538,7 @@ document.getElementById("y").textContent=new Date().getFullYear();
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 
-// ===== ⏰ contador del radar gratis =====
+// ===== contador del radar gratis =====
 var CD=null,CDG=false,CDT=null;
 function dos(n){return String(n).padStart(2,"0")}
 function cuentaWeb(j){CD=j&&j.cuenta&&j.cuenta.on?j.cuenta:null;CDG=!!(j&&j.gratis);pintarCuenta();if(!CDT)CDT=setInterval(pintarCuenta,1000)}
@@ -1546,15 +1553,15 @@ function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)retu
  const tit=(CD.tit||"RADAR GRATIS").toUpperCase();
  if(!abierto){const s=Math.floor(falta/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);
   document.getElementById("cdHh").textContent=dos(h);document.getElementById("cdMm").textContent=dos(m);document.getElementById("cdSs").textContent=dos(s%60);
-  document.getElementById("cdTag").textContent=h<1?"🔥 ¡YA CASI!":"⏰ MUY PRONTO";document.getElementById("cdH").textContent="🆓 "+tit+" ABRE EN";
+  document.getElementById("cdTag").textContent=h<1?"¡YA CASI!":"MUY PRONTO";document.getElementById("cdH").textContent=""+tit+" ABRE EN";
   const chile=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
   document.getElementById("cdSub").innerHTML=`Se abre a las <b>${chile} hrs (hora Chile)</b>${hora!==chile?` · en tu hora: <b>${hora} hrs</b>`:""}. Cuando llegue a cero aparecen los botones para entrar gratis.`;
   document.getElementById("cdClock").hidden=false;document.getElementById("cdOpen").hidden=true;libres.forEach(a=>bloq(a,true,chile))}
- else{document.getElementById("cdTag").textContent="🟢 ¡ABIERTO AHORA!";document.getElementById("cdH").textContent="🆓 ¡"+tit+" ABIERTO!";
+ else{document.getElementById("cdTag").textContent="¡ABIERTO AHORA!";document.getElementById("cdH").textContent="¡"+tit+" ABIERTO!";
   document.getElementById("cdClock").hidden=true;document.getElementById("cdOpen").hidden=false;
   document.getElementById("cdSub").innerHTML="Entra ya y crea tu cuenta gratis. <b>¡Corre que se llena!</b>";libres.forEach(a=>bloq(a,false))}}
 function bloq(a,si,hora){if(si){if(!a.dataset.orig){a.dataset.orig=a.innerHTML;a.dataset.oh=a.getAttribute("href");a.dataset.ot=a.getAttribute("target")||""}
-  a.innerHTML="⏰ Abre "+(hora||"pronto");a.setAttribute("href","#cuenta");a.removeAttribute("target");a.classList.add("lockfree")}
+  a.innerHTML="Abre "+(hora||"pronto");a.setAttribute("href","#cuenta");a.removeAttribute("target");a.classList.add("lockfree")}
  else if(a.dataset.orig){a.innerHTML=a.dataset.orig;a.setAttribute("href",a.dataset.oh);if(a.dataset.ot)a.setAttribute("target",a.dataset.ot);a.classList.remove("lockfree");delete a.dataset.orig}}
 </script>
 </body>
