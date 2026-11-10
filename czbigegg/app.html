@@ -641,11 +641,6 @@ button.gx{cursor:pointer}
   <div class="gw actw">
    <div class="gbar"><span class="gtit">📡 ACTIVIDAD EN VIVO</span><span class="gx livedot" title="Datos reales"></span></div>
    <div class="actb">
-    <div class="acts3">
-     <div class="ak"><b id="akU">0</b><span>jugadores ya usan el radar</span></div>
-     <div class="ak"><b id="akO">0</b><span>viendo la web ahora</span></div>
-     <div class="ak"><b id="akR">0</b><span>cuentas nuevas esta semana</span></div>
-    </div>
     <ul class="feed" id="feed"></ul>
     <p class="feedn">Datos reales de CZ BIG EGG · los nombres van tapados para cuidar la privacidad</p>
    </div>
@@ -1038,8 +1033,8 @@ function feedTxt(x){return x.k==="reg"?["📝",`${esc(x.n)} se registró en la w
 function contar(id,n){const el=document.getElementById(id),de=+el.dataset.n||0;el.dataset.n=n;const t0=performance.now();
  (function f(t){const k=Math.min(1,(t-t0)/900);el.textContent=Math.round(de+(n-de)*k).toLocaleString("es-CL");if(k<1)requestAnimationFrame(f)})(t0)}
 function pintarFeed(F){if(!F)return;const sec=document.getElementById("actividad");
- if(!(F.items||[]).length&&!F.usuarios){sec.hidden=true;return}sec.hidden=false;
- contar("akU",F.usuarios||0);contar("akO",Math.max(1,F.online||0));contar("akR",F.radar_7d||0);
+ if(!(F.items||[]).length){sec.hidden=true;return}sec.hidden=false;
+ 
  document.getElementById("feed").innerHTML=(F.items||[]).slice(0,12).map((x,i)=>{const [ic,tx]=feedTxt(x);return `<li class="f-${x.k}" style="animation-delay:${i*.06}s"><span class="ic">${ic}</span><span>${tx}</span><em>${haceTxt(x.t)}</em></li>`}).join("")||`<li class="f-reg"><span class="ic">📡</span><span>Esperando la próxima actividad...</span></li>`;
  const nuevos=(F.items||[]).filter(x=>Date.now()/1000-x.t<1800);const k=x=>x.k+x.t+(x.n||x.plan||"");
  if(FEEDVISTOS){const n=nuevos.find(x=>!FEEDVISTOS.has(k(x)));if(n)toast(n)}FEEDVISTOS=new Set((F.items||[]).map(k))}
