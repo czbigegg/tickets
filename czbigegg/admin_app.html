@@ -292,7 +292,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
     <div class="gtop"><div><h3 class="L">GANADORES</h3><p>Quiénes ganaron en la ruleta. Escríbeles por Discord y marca "Entregado" cuando les des el premio.</p></div><span class="gst" id="gwN">0</span></div>
     <div class="gwlist" id="gwList"></div>
     <div class="chatbox" id="chBox" hidden><div class="chtop"><b id="chT">Chat</b><button class="btn sm r" id="chX" type="button">CERRAR</button></div><div class="chmsgs" id="chM"></div>
-     <form id="chF"><textarea id="chTxt" rows="2" maxlength="1500" placeholder="Escribe tu mensaje (le llega por privado de Discord desde el bot)"></textarea><button class="btn g" type="submit">ENVIAR</button></form><p class="hint" style="margin-top:6px;font:600 11px Poppins;color:#9fbfa8">Los mensajes nuevos aparecen en ~1 minuto.</p></div>
+     <form id="chF"><textarea id="chTxt" rows="2" maxlength="1500" placeholder="Escribe tu mensaje (le llega por privado de Discord desde el bot)"></textarea><button class="btn g" type="submit">ENVIAR</button></form><p class="hint" style="margin-top:6px;font:600 11px Poppins;color:#9fbfa8">Los mensajes nuevos aparecen en unos segundos.</p></div>
     <label class="lb" style="margin-top:12px">GIROS REGALADOS ACTIVOS</label><div class="rglist" id="rgAct"></div>
    </div>
    <div class="box gratisbox" id="rgBox" style="box-shadow:0 0 0 3px #7dff3a,0 6px 0 #030806">
@@ -547,6 +547,7 @@ async function refrescar(){$("upd").textContent="Actualizando...";
  catch(err){$("upd").textContent=""+err.message}}
 setInterval(()=>{if(!ultCarga||!ST)return;const s=Math.round((Date.now()-ultCarga)/1000),g=Math.round(Date.now()/1000-ST.gen);const t=`Datos del bot ${hace(ST.gen)}`;$("upd").textContent=t;$("sideUpd").textContent=t},5000);
 setInterval(()=>{if(YO&&!document.hidden)refrescar()},90000);
+setInterval(()=>{if(YO&&!document.hidden&&typeof CHUID!=="undefined"&&CHUID)refrescar()},12000);
 $("bRef").onclick=refrescar;
 // ---- anuncios ----
 const COLS={g:"Verde",y:"Amarillo",r:"Rojo",b:"Azul",p:"Morado"};
