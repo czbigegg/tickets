@@ -1150,7 +1150,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
       <label>TU USUARIO DE DISCORD<input id="rulDc" maxlength="40" required placeholder="Ej: caoz"></label>
       <button class="btn btn-y" type="submit">RECLAMAR PREMIO</button>
      </form>
-     <p class="rulleg">Premios limitados: solo se pueden ganar cuando CZ BIG EGG libera uno. Si no hay premio liberado, ningún giro gana.</p>
+     <p class="rulleg">Premios sujetos a disponibilidad.</p>
     </div>
    </div>
   </div>
@@ -1812,7 +1812,7 @@ document.getElementById("rulGo").onclick=async()=>{if(!RUL)return;const b=docume
  const g=rulGuard();g.t=Date.now();if(gana)g.gano=RUL.id;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
  setTimeout(()=>{delete b.dataset.girando;const w=document.querySelector(".rulw");
   if(gana){w.classList.add("gano");document.getElementById("rulH").textContent="¡GANASTE "+(RUL.premio||"1 DÍA PREMIUM").toUpperCase()+"!";m.innerHTML="Pon tus datos para que te entreguemos el premio por Discord.";document.getElementById("rulF").hidden=false}
-  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>Sigue atento: cuando liberemos un premio podrías ser tú."}},5200)};
+  else{document.getElementById("rulH").textContent="¡Uy, casi!";rulEstado();m.innerHTML+=" <br>¡Vuelve a intentarlo más tarde!"}},5200)};
 document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=document.getElementById("rulRbx").value.trim(),dc=document.getElementById("rulDc").value.trim(),m=document.getElementById("rulMsg");
  if(!/^[A-Za-z0-9_]{3,20}$/.test(rbx))return m.textContent="Escribe un usuario de Roblox válido.";if(dc.length<2)return m.textContent="Escribe tu usuario de Discord.";
  const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="ENVIANDO...";
