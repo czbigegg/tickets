@@ -621,9 +621,11 @@ $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
  const safari=/Safari/.test(ua)&&!/Chrome|Chromium|CriOS|Android|Edg|OPR|FxiOS/.test(ua);
  if(!(ios||safari||/[?&]ios=1/.test(location.search)))return;
  const A=[];for(let k=0;k<16;k++)A.push([Math.cos(k*Math.PI/8),Math.sin(k*Math.PI/8)]);
- function fix(el){if(el.nodeType!==1||el.dataset.sf)return;const cs=getComputedStyle(el),w=parseFloat(cs.webkitTextStrokeWidth)||0;if(w<=0)return;
-  const c=cs.webkitTextStrokeColor||"#030806",r=Math.max(1,w/2+.4),sh=A.map(([x,y])=>`${(x*r).toFixed(1)}px ${(y*r).toFixed(1)}px 0 ${c}`);
-  if(cs.textShadow&&cs.textShadow!=="none")sh.push(cs.textShadow);el.style.setProperty("-webkit-text-stroke","0","important");el.style.setProperty("text-shadow",sh.join(","),"important");el.dataset.sf="1"}
+ function fix(el){if(el.nodeType!==1||el.dataset.sf)return;const cs=getComputedStyle(el),w=parseFloat(cs.webkitTextStrokeWidth||cs.getPropertyValue("-webkit-text-stroke-width"))||0;if(w<=0)return;
+  const r=Math.max(1,Math.round(w/2+.4)),h=Math.max(1,Math.round(r*.7)),C="#030806";
+  const sh=[`${r}px 0 0 ${C}`,`-${r}px 0 0 ${C}`,`0 ${r}px 0 ${C}`,`0 -${r}px 0 ${C}`,`${h}px ${h}px 0 ${C}`,`-${h}px ${h}px 0 ${C}`,`${h}px -${h}px 0 ${C}`,`-${h}px -${h}px 0 ${C}`];
+  const t=cs.textShadow;if(t&&t!=="none"){const m=t.match(/(-?[\d.]+)px\s+(-?[\d.]+)px/g);const off=m&&m[0]?m[0].split(/\s+/).map(parseFloat):null;if(off&&(off[0]||off[1]))sh.push(`${off[0]}px ${off[1]+r}px 0 ${C}`)}
+  el.style.setProperty("-webkit-text-stroke",(w*.35).toFixed(1)+"px "+C,"important");el.style.setProperty("text-shadow",sh.join(", "),"important");el.dataset.sf="1"}
  function todo(root){fix(root);root.querySelectorAll&&root.querySelectorAll("*").forEach(fix)}
  let pend=[],tm=null;const mo=new MutationObserver(ms=>{ms.forEach(m=>m.addedNodes.forEach(n=>pend.push(n)));clearTimeout(tm);tm=setTimeout(()=>{const p=pend;pend=[];p.forEach(n=>{if(n.isConnected)todo(n)})},120)});
  const go=()=>{todo(document.body);mo.observe(document.body,{childList:true,subtree:true})};
