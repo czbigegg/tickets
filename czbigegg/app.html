@@ -1069,6 +1069,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .rulgift .btn{width:auto!important;padding:7px 12px 5px!important;font-size:13px!important}
 #rulGift[hidden],.rulyo[hidden]{display:none}
 .rulyo{margin-top:8px;font:600 12px Poppins;color:#cfe8d4}.rulyo b{color:#7dff3a}.rulyo a{color:#9fbfa8;text-decoration:underline}
+.toastv{display:none!important}
 </style>
 </head>
 <body>
@@ -1682,7 +1683,7 @@ function pintarFeed(F){if(!F)return;const sec=document.getElementById("actividad
  else{fe.classList.remove("loop");fe.innerHTML=filas||`<li class="f-reg"><span class="ic"></span><span>Esperando la próxima actividad...</span></li>`}
  const nuevos=(F.items||[]).filter(x=>Date.now()/1000-x.t<1800);const k=x=>x.k+x.t;
  if(FEEDVISTOS){const n=nuevos.find(x=>!FEEDVISTOS.has(k(x)));if(n)toast(n)}FEEDVISTOS=new Set((F.items||[]).map(k))}
-let toastT=null;function toast(x){const el=document.getElementById("toastV"),[ic,tx]=feedTxt(x);el.innerHTML=`<span style="font-size:22px">${ic}</span><div>${tx}<small>${haceTxt(x.t)} · CZ BIG EGG</small></div>`;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,6000)}
+let toastT=null;function toast(x){return;const el=document.getElementById("toastV"),[ic,tx]=feedTxt(x);el.innerHTML=`<span style="font-size:22px">${ic}</span><div>${tx}<small>${haceTxt(x.t)} · CZ BIG EGG</small></div>`;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,6000)}
 async function cargarFeed(){let t=null;
  try{const h={Accept:"application/vnd.github.raw+json"};if(FEEDETAG)h["If-None-Match"]=FEEDETAG;const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czfeed.json`,{headers:h,cache:"no-store"});
   if(r.status===304)return;if(r.ok){FEEDETAG=r.headers.get("ETag")||"";t=await r.text()}}catch(_){}
