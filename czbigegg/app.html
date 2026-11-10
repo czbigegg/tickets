@@ -1427,7 +1427,7 @@ var CD=null,CDG=false,CDT=null;
 function dos(n){return String(n).padStart(2,"0")}
 function cuentaWeb(j){CD=j&&j.cuenta&&j.cuenta.on?j.cuenta:null;CDG=!!(j&&j.gratis);pintarCuenta();if(!CDT)CDT=setInterval(pintarCuenta,1000)}
 function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)return;
- const libres=[...document.querySelectorAll('a[href*="egg.report/czbigegg"]:not([data-free])')];
+ const libres=[...document.querySelectorAll('a[href*="egg.report/czbigegg"]:not([data-free]),a.lockfree')].filter(a=>!a.closest("#bar,.mbody")&&a.id!=="mBtn");
  if(!CD){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
  const falta=CD.ms-Date.now(),abierto=falta<=0;
  // terminado hace rato y el radar gratis ya se cerró → se esconde
