@@ -265,11 +265,11 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   <div class="grid" id="grid"></div>
   </div>
   <div data-tab="ruleta" hidden>
-   <div class="top"><div><h2 class="L st">RULETA</h2><p>Actívala para que salga en la web. Tú decides cuándo alguien puede ganar.</p></div></div>
+   <div class="top"><div><h2 class="L st">RULETA</h2><p>Siempre está en la web. Tú decides cuándo alguien puede ganar.</p></div></div>
    <div class="box gratisbox" id="rBox" style="box-shadow:0 0 0 3px #ff9de0,0 6px 0 #030806">
-    <div class="gtop"><div><h3 class="L">RULETA</h3><p>Activa la ruleta para que salga en la web. Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire; rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
+    <div class="gtop"><div><h3 class="L">RULETA</h3><p>La ruleta sale siempre en la web (botón en la esquina, 1 giro al día por persona). Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire: rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
     <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
-    <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn y" id="rOn" type="button">ACTIVAR SIN PREMIO</button><button class="btn r" id="rOff" type="button">APAGAR RULETA</button></div>
+    <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn r" id="rOn" type="button">QUITAR PREMIOS</button></div>
    </div>
   </div>
   <div data-tab="anuncios" hidden>
@@ -653,16 +653,16 @@ $("cOn").onclick=()=>cuentaAcc(true);$("cOff").onclick=()=>cuentaAcc(false);
 // ===== ruleta =====
 var RULA=null;
 function pintarRul(){const st=$("rSt");if(!st)return;const r=RULA;
- if(r&&r.on){st.className="gst on";st.textContent=(r.n>0?r.n+" PREMIO"+(r.n>1?"S":"")+" SUELTO"+(r.n>1?"S":""):"ACTIVA · SIN PREMIO");if(r.premio)$("rPremio").value=r.premio}
- else{st.className="gst off";st.textContent="APAGADA"}}
+ if(r&&r.on){st.className="gst on";st.textContent=(r.n>0?r.n+" PREMIO"+(r.n>1?"S":"")+" SUELTO"+(r.n>1?"S":""):"SIN PREMIO SUELTO");if(r.premio)$("rPremio").value=r.premio}
+ else{st.className="gst off";st.textContent="SIN PREMIO SUELTO"}}
 async function rulAcc(acc){const b=$(acc==="off"?"rOff":acc==="soltar"?"rSoltar":"rOn"),t0=b.textContent;
  const p={t:"czruleta",acc:acc==="off"?"off":"on",n:acc==="soltar"?+$("rN").value:0,premio:$("rPremio").value.trim()||"1 DÍA PREMIUM"};
  b.disabled=true;b.textContent="ENVIANDO...";const v0=LASTV;
  try{await enviar(p,new Blob(["{}"]),"x.json","Ruleta: "+acc);
   let j=null;for(let k=0;k<25;k++){await new Promise(z=>setTimeout(z,3000));j=await cargarWeb();if(j&&j.v>v0)break;j=null}
-  if(j){RULA=j.ruleta||null;pintarRul();alert(acc==="soltar"?"Premio soltado: lo gana el próximo que gire.":acc==="off"?"Ruleta apagada.":"Ruleta activa sin premio.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
+  if(j){RULA=j.ruleta||null;pintarRul();alert(acc==="soltar"?"Premio soltado: lo gana el próximo que gire.":"Premios quitados: nadie gana hasta que sueltes otro.")}else alert("Enviado, pero el bot todavía no responde. Revisa que esté prendido.")}
  catch(err){alert("No se pudo: "+err.message)}b.disabled=false;b.textContent=t0}
-$("rSoltar").onclick=()=>rulAcc("soltar");$("rOn").onclick=()=>rulAcc("on");$("rOff").onclick=()=>{if(confirm("¿Apagar la ruleta? Se quita de la web."))rulAcc("off")};
+$("rSoltar").onclick=()=>rulAcc("soltar");$("rOn").onclick=()=>rulAcc("on");
 </script>
 </body>
 </html>
