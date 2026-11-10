@@ -961,6 +961,38 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  .seml .pos{width:24px;height:24px;font-size:12px;border-width:2px;border-radius:7px}.seml img,.seml .eg{width:32px;height:32px;border-radius:7px}
  .seml b{font-size:12px}.seml small{font-size:9px}.seml .rz{font-size:8px}.seml .vl b{font-size:12px}.seml .vl small{font-size:10px}.semp{font-size:10px}}
 .semw[hidden]{display:none!important}
+
+/* ===== top 10 semana: animaciones ===== */
+.seml{pointer-events:auto}
+.seml li{position:relative;overflow:hidden;opacity:0;transform:translateX(-30px) scale(.97);transition:transform .2s,box-shadow .2s,border-color .2s}
+.semw.in .seml li{animation:semIn .55s cubic-bezier(.2,1.3,.4,1) forwards;animation-delay:calc(var(--i)*90ms)}
+@keyframes semIn{to{opacity:1;transform:none}}
+.seml li:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%);background-size:280% 100%;background-position:160% 0;animation:fxshine 5s ease-in-out infinite;animation-delay:calc(var(--i)*.35s + 1s)}
+@media(hover:hover){.seml li:hover{transform:translateY(-3px) scale(1.015)!important;border-color:var(--rc,#7dff3a);box-shadow:0 6px 0 #030806,0 0 18px color-mix(in srgb,var(--rc,#7dff3a) 45%,transparent)}}
+.seml img{animation:semImg 2.6s ease-in-out infinite;animation-delay:calc(var(--i)*-.3s)}@keyframes semImg{50%{transform:scale(1.1) rotate(-4deg)}}
+.seml .rz{box-shadow:0 0 8px var(--rc,#7dff3a)}
+.seml .vl b{animation:semVal 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+@keyframes semVal{50%{text-shadow:0 0 10px rgba(125,255,58,.8)}}
+/* oro, plata y bronce */
+.seml li:nth-child(1){background:radial-gradient(260px 80px at 0 50%,rgba(255,210,58,.22),transparent),#0b1e12;animation:semIn .55s cubic-bezier(.2,1.3,.4,1) forwards,semGold 2s 1s ease-in-out infinite!important}
+@keyframes semGold{50%{box-shadow:0 0 26px rgba(255,210,58,.55),inset 0 0 14px rgba(255,210,58,.18)}}
+.seml li:nth-child(1) .pos{position:relative;animation:semPos 1.6s ease-in-out infinite}
+.seml li:nth-child(1) .pos:before{content:"✦";position:absolute;top:-11px;right:-8px;font-size:14px;color:#ffd23a;animation:semSpark 1.4s ease-in-out infinite}
+.seml li:nth-child(1) .pos:after{content:"✦";position:absolute;bottom:-9px;left:-7px;font-size:10px;color:#fff6b8;animation:semSpark 1.4s .7s ease-in-out infinite}
+@keyframes semPos{50%{transform:scale(1.12) rotate(-6deg)}}
+@keyframes semSpark{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(90deg)}}
+.seml li:nth-child(-n+3) .pos{background-size:220% 100%!important;animation:fxgold 2.4s ease-in-out infinite alternate}
+.seml li:nth-child(1) .pos{background:linear-gradient(110deg,#e2a10a,#ffe766 35%,#fff6b8 50%,#ffe766 65%,#e2a10a)!important;animation:fxgold 2.4s ease-in-out infinite alternate,semPos 1.6s ease-in-out infinite}
+.seml li:nth-child(2) .pos{background:linear-gradient(110deg,#8496a8,#f2f6fa 40%,#fff 50%,#c9d4de 65%,#8496a8)!important}
+.seml li:nth-child(3) .pos{background:linear-gradient(110deg,#a0521a,#ffb879 40%,#ffe0c2 50%,#ffb879 60%,#a0521a)!important}
+.seml li:nth-child(1) img{filter:drop-shadow(0 0 8px rgba(255,210,58,.8))}
+.seml li:nth-child(1) .vl b{color:#ffd23a}
+/* barra del título */
+.semw .gbar{position:relative;overflow:hidden}
+.semw .gbar:before{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:300% 100%;background-position:180% 0;animation:fxshine 4s ease-in-out infinite;z-index:1;pointer-events:none}
+.semw .gtit{position:relative;z-index:2}.semw #semN{position:relative;z-index:2;animation:pls 1.6s infinite}
+.semw{animation:semBorde 3s ease-in-out infinite}
+@keyframes semBorde{50%{box-shadow:0 0 0 3px #1d5a2c,0 8px 0 #020503,0 0 34px rgba(125,255,58,.25)}}
 </style>
 </head>
 <body>
@@ -1502,9 +1534,10 @@ function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"")
 function edad(s){return s<60?`hace ${s}s`:s<3600?`hace ${Math.floor(s/60)} min`:`hace ${Math.floor(s/3600)} h`}
 function pintarSemana(){const w=document.getElementById("semW"),L=(RD&&RD.sem)||[];if(!w)return;if(!L.length){w.hidden=true;return}w.hidden=false;
  document.getElementById("semN").textContent=L.length+" huevos";
+ if(!w.dataset.obs){w.dataset.obs=1;const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){w.classList.add("in");io2.disconnect()}}),{threshold:.15});io2.observe(w)}
  document.getElementById("semL").innerHTML=L.map((x,i)=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a",d=new Date(x.t*1000);
   const cu=d.toLocaleDateString("es-CL",{weekday:"short",day:"numeric",timeZone:"America/Santiago"});
-  return `<li style="--rc:${c}"><span class="pos">${i+1}</span>${f?`<img src="${esc(f)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=eg>?</span>'">`:`<span class="eg">?</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")} · ${esc(cu)}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small></div><div class="vl"><b>${fmtV(x.g)}</b><small>x${x.x}</small></div></li>`}).join("")}
+  return `<li style="--rc:${c};--i:${i}"><span class="pos">${i+1}</span>${f?`<img src="${esc(f)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=eg>?</span>'">`:`<span class="eg">?</span>`}<div><b>${esc(x.a)}</b><small><span class="rz">${esc(x.r||"")}</span>${esc(x.z||"")} · ${esc(cu)}${x.m&&x.m.length?" · "+esc(x.m.join(", ")):""}</small></div><div class="vl"><b>${fmtV(x.g)}</b><small>x${x.x}</small></div></li>`}).join("")}
 function pintarRadar(){if(!RD)return;pintarSemana();const pas=Math.max(0,Math.floor(Date.now()/1000-RD.gen)),st=document.getElementById("rdSt");
  const vivo=pas<420;st.className="rdst"+(vivo?"":" off");st.textContent=vivo?"EN VIVO":"en pausa";
  const L=RD.eggs||[];document.getElementById("rdL").innerHTML=L.length?L.map(x=>{const f=fotoPet(x.a),c=RCOL[String(x.r).toLowerCase()]||"#7dff3a";
