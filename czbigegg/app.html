@@ -957,7 +957,7 @@ function galeria(){const g=document.getElementById("galG");if(!g)return;const q=
  const L=FUENTE.filter(e=>!q||e.n.toLowerCase().includes(q)||String(e.r||"").toLowerCase().includes(q));
  document.getElementById("galN").textContent=L.length+(PETS.length?" mascotas":" huevos");g.innerHTML="";
  L.forEach(e=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="gc"+(SEL&&SEL.n===e.n?" on":"");d.style.cssText=`--c:${c[0]};--c3:${c[2]}`;
-  d.innerHTML=`<b>${esc(e.n)}</b>${e.img?`<img src="${esc(src(e.img))}" alt="" loading="lazy">`:`<span class="mini"></span>`}${e.v?`<i>${esc(e.v)}/s</i>`:""}`;
+  d.innerHTML=`<b>${esc(e.n)}</b>${e.img?`<img src="${esc(src(e.img))}" alt="">`:`<span class="mini"></span>`}${e.v?`<i>${esc(e.v)}/s</i>`:""}`;
   d.onclick=()=>elegir(e);g.appendChild(d)});
  if(!L.length)g.innerHTML=`<p style="grid-column:1/-1;color:#9fbfa8;text-align:center;font:400 14px 'Luckiest Guy'">No hay huevos con ese nombre</p>`}
 function elegir(e){SEL=e;const im=document.getElementById("sImg"),sh=document.querySelector("#calculadora .show");
