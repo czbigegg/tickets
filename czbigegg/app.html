@@ -1556,7 +1556,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
  if(solo){if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
-cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},120000);
+cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
 const PLANES=[
