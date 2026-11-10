@@ -424,6 +424,18 @@ footer .brand b{font-size:20px}
 .modal{position:fixed;inset:0;z-index:150;background:rgba(2,6,3,.75);display:grid;place-items:center;padding:16px;animation:fin .25s}
 .modal[hidden]{display:none}
 .regLink[hidden],#registro[hidden]{display:none!important}
+#pausa{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:24px;text-align:center;background:radial-gradient(800px 500px at 50% 35%,rgba(125,255,58,.18),transparent),#050d08;overflow:hidden}
+#pausa[hidden]{display:none!important}
+#pausa .prays{position:absolute;inset:-50%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(125,255,58,.05) 0 8deg,transparent 8deg 16deg);animation:spin 50s linear infinite;pointer-events:none}
+#pausa .pin{position:relative;max-width:560px}
+#pausa img{display:block;margin:0 auto;width:150px;animation:pflo 2.4s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(125,255,58,.5))}
+@keyframes pflo{50%{transform:translateY(-10px) scale(1.04)}}
+#pausa .ptag{display:inline-block;margin:16px 0 10px;font:400 15px "Luckiest Guy";letter-spacing:.6px;padding:6px 14px 3px;border-radius:10px;border:3px solid #030806;background:#ffd23a;color:#030806;box-shadow:0 4px 0 #030806;transform:rotate(-2deg)}
+#pausa h2{font:400 clamp(30px,7vw,54px)/1.05 "Luckiest Guy";color:#fff;-webkit-text-stroke:5px #030806;paint-order:stroke fill;text-shadow:0 6px 0 #030806;margin:6px 0 14px}
+#pausa h2 span{color:#7dff3a}
+#pausa p{font:600 16px/1.5 Poppins;color:#cfe8d4;margin:0 0 20px;white-space:pre-line}
+#pausa .btn{display:inline-block;width:auto!important;padding-left:28px!important;padding-right:28px!important}
+body.enpausa{overflow:hidden!important}
 .cdw.falla{box-shadow:0 0 0 4px #ff5a36,0 12px 0 #020503,0 0 60px rgba(255,90,54,.3);background:radial-gradient(700px 300px at 50% 0,rgba(255,90,54,.25),transparent),#0b1e12}
 .cdw.falla .cdtag{background:#ff5a36;color:#fff;animation:pls 1.6s infinite}
 @media(max-width:560px){.cdw.falla{box-shadow:0 0 0 3px #ff5a36,0 6px 0 #020503,0 0 30px rgba(255,90,54,.25)}}
@@ -1097,6 +1109,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 </style>
 </head>
 <body>
+<div id="pausa" hidden><div class="prays"></div><div class="pin"><img src="assets/logo.png" alt="CZ BIG EGG"><br><span class="ptag">EN MANTENIMIENTO</span><h2>VOLVEMOS <span>PRONTO</span></h2><p id="pausaTxt">Estamos haciendo mejoras en la web. Vuelve en un rato.</p><a class="btn btn-g" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Únete al Discord</a></div></div>
 <div class="bg"></div><div class="grid-bg"></div>
 
 <div id="intro">
@@ -1567,15 +1580,17 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
     const N=Object.assign({},E,{votos:(E.votos||E.ops.map(()=>0)).slice(),total:(E.total||0)+1});N.votos[i]=(N.votos[i]||0)+1;encuesta(N);if(FLOTA)setTimeout(cerrarFlota,3500)}
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
-function pintarWeb(j){if(!j)return;if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
-try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
+function pausaWeb(P){const el=document.getElementById("pausa");if(!el)return;const on=!!(P&&P.on);el.hidden=!on;document.body.classList.toggle("enpausa",on);
+ if(on)document.getElementById("pausaTxt").textContent=(P.txt||"Estamos haciendo mejoras en la web. Vuelve en un rato.")}
+function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
   const r=await fetch(GHAPI,{headers:h,cache:"no-store"});if(r.status===304)return ultWeb;if(r.ok){ETAG=r.headers.get("ETag")||"";return await r.text()}}catch(_){}
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){pausaWeb(j.pausa);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
