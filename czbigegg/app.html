@@ -453,6 +453,8 @@ button.gx{cursor:pointer}
 .regmsg{min-height:20px;font:400 16px "Luckiest Guy";letter-spacing:.4px;color:#7dff3a}
 .regmsg.err{color:#ff7a88}
 @media(max-width:760px){.regb{grid-template-columns:minmax(0,1fr);padding:16px}#fReg .r2{grid-template-columns:1fr}}
+.btn-adm{background:linear-gradient(180deg,#ff6b7a,#ff3b4f)}
+.nav-r .btn-adm[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -476,7 +478,8 @@ button.gx{cursor:pointer}
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
   <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#registro" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#instalar">Instalar</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
-   <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar</a></div>
+   <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">🛒 Comprar</a>
+   <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>⚙️ ADMIN</a></div>
  </div>
 </nav>
 
@@ -712,7 +715,7 @@ button.gx{cursor:pointer}
 </section>
 
 <footer><div class="wrap">
- <a class="brand" href="#"><img src="assets/logo.png" alt="" style="width:36px;height:36px"><b style="font-size:20px">CZ BIG EGG</b></a>
+ <a class="brand" href="#" id="pieLogo"><img src="assets/logo.png" alt="" style="width:36px;height:36px"><b style="font-size:20px">CZ BIG EGG</b></a>
  <div>© <span id="y"></span> CZ BIG EGG · Radar 24/7 para Steal an Egg<i>"No buscamos arruinar la experiencia de los demás jugadores, solo mejorar la de nuestros clientes."</i></div>
 </div></footer>
 
@@ -848,6 +851,10 @@ function render(c){const box=document.getElementById("plans");box.innerHTML="";
  document.getElementById("nota").textContent=c==="kicks"?"💚 Kicks solo desde kick.com/caoz en el navegador (en la app cuestan el doble).":"Precios oficiales. Si vienes con código de creador, el descuento se aplica en tu ticket.";}
 document.querySelectorAll("#tg button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(b.dataset.c)});
 render("usd");
+// ⚙️ botón ADMIN: solo aparece en los equipos donde entró un Owner
+try{if(localStorage.getItem("czOwner")==="1")document.getElementById("btnAdm").hidden=false}catch(_){}
+(()=>{let n=0,t=0;document.getElementById("pieLogo").addEventListener("click",e=>{e.preventDefault();if(Date.now()-t>1500)n=0;t=Date.now();if(++n>=5)location.href="admin.html"})})();
+
 // ===== 📝 registro + 👀 visitas + 🖱️ clics (todo llega a tu bot) =====
 (()=>{const sel=document.getElementById("rPlan");PLANES.forEach(p=>{const o=document.createElement("option");o.textContent=p.n;sel.appendChild(o)})})();
 function webhook(obj,beacon){if(!VOTO)return false;const fd=new FormData();
