@@ -576,6 +576,21 @@ button.gx{cursor:pointer}
 .tpl li span{font:400 12px "Luckiest Guy";border:2px solid #9fbfa8;color:#cfe8d4;border-radius:7px;padding:2px 8px 0}
 .tpl li:first-child{border-color:#ffd23a;color:#ffd23a}
 .recimg img{width:110px;height:110px;object-fit:contain;margin-top:10px;filter:drop-shadow(0 6px 0 rgba(0,0,0,.4));animation:bob 3s ease-in-out infinite}
+/* huevos compactos */
+.eggtop{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.eggtop input{flex:1;min-width:0;max-width:420px;background:#effff0;border:3px solid #030806;border-radius:12px;padding:10px 12px 8px;font:400 16px "Luckiest Guy";color:#030806;outline:none;box-shadow:0 3px 0 #030806}
+.eggtop span{font:400 14px "Luckiest Guy";color:#9fbfa8;white-space:nowrap}
+.filters{flex-wrap:nowrap!important;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.filters button{flex:none}
+.eggbox{max-height:540px;overflow-y:auto;padding:6px 6px 6px 2px;border-radius:14px;scrollbar-width:thin;scrollbar-color:#7dff3a #0b1e12}
+.eggs{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))!important;gap:10px!important}
+.ecard{padding:10px 8px 10px!important;border-width:3px!important;box-shadow:0 4px 0 #030806!important;border-radius:14px!important}
+.ecard .eimg{width:72px!important;height:66px!important;margin-bottom:6px!important}
+.ecard .egg{width:46px!important;height:58px!important;margin-bottom:8px!important;border-width:3px!important}
+.ecard .n{font-size:13px!important;-webkit-text-stroke:2px #030806!important;line-height:1.1;min-height:2.2em;display:flex;align-items:center;justify-content:center}
+.ecard .r{font-size:10px!important;padding:2px 5px 0!important}
+.ecard .z{display:block;margin:4px 0 0!important;font-size:10.5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:560px){.eggs{grid-template-columns:repeat(3,minmax(0,1fr))!important}.eggbox{max-height:460px}.ecard .eimg{width:56px!important;height:52px!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -730,8 +745,9 @@ button.gx{cursor:pointer}
    <div class="eyebrow">LOS HUEVOS</div>
    <h2 class="h" style="font-size:clamp(32px,4vw,48px);margin:10px 0 6px">Cada huevo, <span class="grad">su rareza</span></h2>
    <p style="color:var(--mut);margin-bottom:22px">Los que más buscan nuestros clientes. El radar te muestra en qué servidor salen.</p>
+   <div class="eggtop"><input id="eggQ" placeholder="🔎 Buscar huevo o zona..." autocomplete="off"><span id="eggN"></span></div>
    <div class="filters" id="fil"></div>
-   <div class="eggs" id="eggs"></div>
+   <div class="eggbox"><div class="eggs" id="eggs"></div></div>
   </div>
  </div>
 </section>
@@ -941,11 +957,11 @@ const fil=document.getElementById("fil");let cur="Todas";
 function filtros(){fil.innerHTML="";const rs=["Todas",...new Set(EGGS.map(e=>e.r))];if(!rs.includes(cur))cur="Todas";
  rs.forEach(f=>{const b=document.createElement("button");b.textContent=f==="Todas"?f:f.charAt(0)+f.slice(1).toLowerCase();
  if(f===cur)b.className="on";b.onclick=()=>{cur=f;[...fil.children].forEach(x=>x.classList.remove("on"));b.classList.add("on");eggs()};fil.appendChild(b)})}
-function eggs(){const g=document.getElementById("eggs");g.innerHTML="";
- EGGS.filter(e=>cur==="Todas"||e.r===cur).forEach((e,i)=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="ecard";
+function eggs(){const g=document.getElementById("eggs");g.innerHTML="";const q=((document.getElementById("eggQ")||{}).value||"").trim().toLowerCase();
+ EGGS.filter(e=>(cur==="Todas"||e.r===cur)&&(!q||e.n.toLowerCase().includes(q)||String(e.z||"").toLowerCase().includes(q))).forEach((e,i)=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="ecard";
   d.style.cssText=`--c:${c[0]};--c2:${c[1]};--c3:${c[2]}`;
   const pic=e.img?`<img class="eimg" src="${esc(src(e.img))}" alt="${esc(e.n)}" loading="lazy" style="animation-delay:-${i*.4}s" onerror="this.outerHTML='<div class=&quot;egg&quot;></div>'">`:`<div class="egg" style="animation-delay:-${i*.4}s"></div>`;
-  d.innerHTML=`${pic}<div class="n">${esc(e.n.toUpperCase())}</div><span class="r">${esc(e.r)}</span><span class="z">${esc(e.z)}</span>`;g.appendChild(d)})}
+  d.innerHTML=`${pic}<div class="n">${esc(e.n.toUpperCase())}</div><span class="r">${esc(e.r)}</span><span class="z">${esc(e.z)}</span>`;g.appendChild(d)});const en=document.getElementById("eggN");if(en)en.textContent=g.children.length+" huevos";if(!g.children.length)g.innerHTML=`<p style="grid-column:1/-1;text-align:center;color:#9fbfa8;font:400 15px 'Luckiest Guy'">No hay huevos con ese nombre</p>`}
 function pintarHuevos(l){if(Array.isArray(l)&&l.length){EGGS=l}filtros();eggs();ticker();if(typeof galeria==="function")galeria()}
 pintarHuevos(null);
 // ---- anuncios ----
@@ -1077,6 +1093,8 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
  document.getElementById("sX2").classList.toggle("on",c2);
  ultimo=`${fmtV(base)} × x${esc} · ${cv}${cm.size?" · "+[...cm].join("+"):""}${c2?" · 2X":""} = ${fmtV(fin)}`}
 ["cBase","cEsc"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+document.getElementById("eggQ").addEventListener("input",()=>eggs());
+
 // ===== 📡 radar en vivo (solo lectura) =====
 var RD=null,RDETAG="",RDT=0;const RCOL={divine:"#ff9de0",eternal:"#38d3ff",secret:"#b48cff",cosmic:"#ffcf3a",mythic:"#ff6b6b",legendary:"#ffb347",epic:"#c77dff",rare:"#5ab0ff"};
 function fotoPet(n){const k=String(n||"").toLowerCase().replace(/[^a-z0-9]/g,"");const p=(PETS||[]).find(x=>String(x.a||x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k||String(x.n).toLowerCase().replace(/[^a-z0-9]/g,"")===k);return p&&p.img?src(p.img):""}
