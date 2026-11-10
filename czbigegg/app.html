@@ -856,7 +856,8 @@ function webhook(obj,beacon){if(!VOTO)return false;const fd=new FormData();
  fetch(VOTO,{method:"POST",body:fd,keepalive:true}).catch(()=>fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"}).catch(()=>{}));return true}
 const DEV=matchMedia("(max-width:820px)").matches||/Mobi|Android|iPhone/i.test(navigator.userAgent)?"m":"p";
 let hbOk=false;function latido(){if(document.hidden)return;if(webhook({t:"hb",vid:voterId(),dev:DEV,ref:hbOk?"":document.referrer.slice(0,120)}))hbOk=true}
-(function esperar(n){if(VOTO){latido();setInterval(latido,240000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)latido()})}else if(n<40)setTimeout(()=>esperar(n+1),500)})(0);
+let hbIni=false;function iniLatido(){if(hbIni||!VOTO)return;hbIni=true;latido();setInterval(latido,240000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)latido()})}
+(function esperar(n){if(VOTO)iniLatido();else if(n<600)setTimeout(()=>esperar(n+1),500)})(0);
 const evVistos={};function evento(e){if(evVistos[e]&&Date.now()-evVistos[e]<5000)return;evVistos[e]=Date.now();webhook({t:"ev",e,vid:voterId()},true)}
 document.addEventListener("click",e=>{const a=e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href");
  if(/discord\.com\/channels/.test(h))evento("comprar");else if(/discord\.gg/.test(h))evento("discord");else if(/egg\.report/.test(h))evento("radar");
