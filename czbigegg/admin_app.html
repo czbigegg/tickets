@@ -183,6 +183,13 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .gw1 .tg.y{background:#ffd23a;color:#030806}.gw1 .tg.g{background:#7dff3a;color:#030806}.gw1 .tg.n{background:#2a4a36;color:#cfe8d4}
 .gw1 .ac{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 @media(max-width:560px){.gw1{grid-template-columns:36px minmax(0,1fr)}.gw1 .ac{grid-column:1/-1;justify-content:flex-start}.gw1 img,.gw1 .ini{width:36px;height:36px}}
+.chatbox{margin-top:12px;border:3px solid #030806;border-radius:14px;background:#06120a;padding:10px}.chatbox[hidden]{display:none}
+.chtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.chtop b{font:400 17px "Luckiest Guy";color:#fff}
+.chmsgs{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow:auto;padding:4px}
+.chm{max-width:80%;padding:7px 10px;border-radius:12px;font:600 14px Poppins;white-space:pre-wrap;word-break:break-word}
+.chm small{display:block;font:600 10px Poppins;opacity:.7;margin-top:3px}
+.chm.user{align-self:flex-start;background:#effff0;color:#030806}.chm.admin,.chm.bot{align-self:flex-end;background:#1fb45a;color:#fff}.chm.bot{background:#2a4a36}.chm.sys{align-self:center;background:#3a1a1a;color:#ffb3b3;font-size:12px}
+#chF{display:flex;gap:8px;margin-top:8px}#chF textarea{flex:1;border:3px solid #030806;border-radius:12px;padding:8px;font:600 14px Poppins;background:#effff0;color:#030806;resize:vertical}
 </style>
 </head>
 <body>
@@ -284,6 +291,8 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <div class="box gratisbox" id="gwBox" style="box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806">
     <div class="gtop"><div><h3 class="L">GANADORES</h3><p>Quiénes ganaron en la ruleta. Escríbeles por Discord y marca "Entregado" cuando les des el premio.</p></div><span class="gst" id="gwN">0</span></div>
     <div class="gwlist" id="gwList"></div>
+    <div class="chatbox" id="chBox" hidden><div class="chtop"><b id="chT">Chat</b><button class="btn sm r" id="chX" type="button">CERRAR</button></div><div class="chmsgs" id="chM"></div>
+     <form id="chF"><textarea id="chTxt" rows="2" maxlength="1500" placeholder="Escribe tu mensaje (le llega por privado de Discord desde el bot)"></textarea><button class="btn g" type="submit">ENVIAR</button></form><p class="hint" style="margin-top:6px;font:600 11px Poppins;color:#9fbfa8">Los mensajes nuevos aparecen en ~1 minuto.</p></div>
     <label class="lb" style="margin-top:12px">GIROS REGALADOS ACTIVOS</label><div class="rglist" id="rgAct"></div>
    </div>
    <div class="box gratisbox" id="rgBox" style="box-shadow:0 0 0 3px #7dff3a,0 6px 0 #030806">
@@ -442,7 +451,7 @@ function graficoVisitas(dias){const el=$("chVis"),W=640,H=220,pl=34,pb=26,pt=12,
   tip.textContent=`${DIAS[dt.getDay()]} ${dt.getDate()}/${dt.getMonth()+1}: ${d.v} visita${d.v===1?"":"s"}`;tip.style.left=(e.clientX-r.left)+"px";tip.style.top=(e.clientY-r.top)+"px";tip.style.opacity=1};
  svg.onmouseleave=()=>tip.style.opacity=0}
 function avatar(img,n){return img?`<img class="av" src="${esc(img)}" alt="" loading="lazy">`:`<div class="av">${esc((n||"?").charAt(0).toUpperCase())}</div>`}
-function pintarStats(){const S=ST;if(!S)return;if(typeof pintarRg==="function")setTimeout(()=>{pintarRg();pintarGan()},0);const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
+function pintarStats(){const S=ST;if(!S)return;if(typeof pintarRg==="function")setTimeout(()=>{pintarRg();pintarGan();pintarChat()},0);const d=S.dias||[],hoy=(d[d.length-1]||{}).v||0,ayer=(d[d.length-2]||{}).v||0,s7=d.slice(-7).reduce((a,x)=>a+x.v,0),p7=d.slice(-14,-7).reduce((a,x)=>a+x.v,0);
  const regs=S.regs||[],nuevos=regs.filter(r=>r.estado==="nuevo").length,E=S.encuesta,cm=(S.ev||{}).comprar||{};
  const delta=(a,b)=>b?`<b class="${a>=b?"":"dn"}">${a>=b?"▲":"▼"} ${Math.abs(Math.round((a-b)/b*100))}%</b>`:"";
  $("kpis").innerHTML=[
@@ -699,8 +708,10 @@ $("rgBox").addEventListener("click",async e=>{const b=e.target.closest("[data-rg
 function pintarGan(){const L=$("gwList");if(!L)return;const G=(ST&&ST.rul)||[];const pend=G.filter(g=>g.ok&&!g.entregado).length;$("ctRul").hidden=!pend;$("ctRul").textContent=pend;$("gwN").textContent=G.filter(g=>g.ok).length+" ganador"+(G.filter(g=>g.ok).length===1?"":"es");
  L.innerHTML=G.length?G.map(g=>{const f=new Date(g.t*1000).toLocaleString("es-CL",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});const cls=!g.ok?"tarde":g.entregado?"ok":"";
   const tag=!g.ok?'<span class="tg n">LLEGÓ TARDE</span>':g.entregado?'<span class="tg g">ENTREGADO</span>':'<span class="tg y">PENDIENTE</span>';
-  return `<div class="gw1 ${cls}"><span class="ini">${esc((g.rbx||"?").charAt(0).toUpperCase())}</span><div><b>${esc(g.rbx)}${tag}</b><small>Discord: <b style="display:inline;font:600 12px Poppins;color:#ffd23a">${esc(g.dc)}</b> · ${esc(g.premio||"")} · ${esc(f)}</small></div>
-   <div class="ac">${g.ok?`<button class="btn sm ${g.entregado?"":"g"}" data-gok="${g.t}" data-gr="${esc(g.rbx)}" data-gv="${g.entregado?0:1}" type="button">${g.entregado?"DESMARCAR":"ENTREGADO"}</button>`:""}<button class="btn sm" data-gcp="${esc(g.dc)}" type="button">COPIAR DISCORD</button><button class="btn sm r" data-gdel="${g.t}" data-gr="${esc(g.rbx)}" type="button">BORRAR</button></div></div>`}).join(""):'<div style="color:#9fbfa8;font:600 13px Poppins">Todavía no gana nadie.</div>';
+  const C=g.uid&&ST.rulchat?ST.rulchat[g.uid]:null,nuevos=C?C.msgs.filter((m,i)=>m.de==="user"&&i>=(C.msgs.map(x=>x.de).lastIndexOf("admin"))).length:0;
+  const dmt=!g.ok?"":g.dm==="ok"?'<span class="tg g">PRIVADO ENVIADO</span>':g.dm==="no_server"?'<span class="tg n">NO ESTÁ EN EL DISCORD</span>':g.dm==="cerrado"?'<span class="tg n">PRIVADOS CERRADOS</span>':"";
+  return `<div class="gw1 ${cls}"><span class="ini">${esc((g.rbx||"?").charAt(0).toUpperCase())}</span><div><b>${esc(g.rbx)}${tag}${dmt}</b><small>Discord: <b style="display:inline;font:600 12px Poppins;color:#ffd23a">${esc(g.dc)}</b> · ${esc(g.premio||"")} · ${esc(f)}</small></div>
+   <div class="ac">${g.ok?`<button class="btn sm ${g.entregado?"":"g"}" data-gok="${g.t}" data-gr="${esc(g.rbx)}" data-gv="${g.entregado?0:1}" type="button">${g.entregado?"DESMARCAR":"ENTREGADO"}</button>`:""}${g.uid?`<button class="btn sm b" data-gchat="${esc(g.uid)}" type="button">CHAT${nuevos?` (${nuevos})`:""}</button>`:g.ok?`<button class="btn sm b" data-gini="${g.t}" data-gr="${esc(g.rbx)}" type="button">ENVIAR PRIVADO</button>`:""}<button class="btn sm" data-gcp="${esc(g.dc)}" type="button">COPIAR DISCORD</button><button class="btn sm r" data-gdel="${g.t}" data-gr="${esc(g.rbx)}" type="button">BORRAR</button></div></div>`}).join(""):'<div style="color:#9fbfa8;font:600 13px Poppins">Todavía no gana nadie.</div>';
  const A=(ST&&ST.rulreg)||[];$("rgAct").innerHTML=A.length?A.map(x=>`<button type="button" data-rgu="${esc(x.n)}">${esc(x.n)} · ${x.s} giro${x.s===1?"":"s"}${x.f?" · PREMIO FORZADO":""}</button>`).join(""):'<span style="color:#9fbfa8;font:600 13px Poppins">Nadie tiene giros regalados.</span>';
  if(typeof RBXF==="object")L.querySelectorAll(".gw1").forEach(()=>{})}
 $("rgAct").addEventListener("click",e=>{const b=e.target.closest("[data-rgu]");if(b){$("rgU").value=b.dataset.rgu;$("rgU").scrollIntoView({behavior:"smooth",block:"center"})}});
@@ -709,6 +720,23 @@ $("gwList").addEventListener("click",async e=>{const cp=e.target.closest("[data-
  const b=ok||del,tt=+(b.dataset.gok||b.dataset.gdel),rbx=b.dataset.gr,g=(ST.rul||[]).find(x=>x.t===tt&&x.rbx===rbx);
  if(del)ST.rul=ST.rul.filter(x=>x!==g);else if(g)g.entregado=!!+b.dataset.gv;pintarGan();
  try{await enviar({t:"czrulok",tt,rbx,acc:del?"del":"ok",v:ok?!!+b.dataset.gv:false},new Blob(["{}"]),"x.json","Ruleta ganador")}catch(err){alert("No se pudo guardar: "+err.message)}});
+
+// ===== chat con ganadores =====
+var CHUID=null;
+function pintarChat(){if(!CHUID)return;const C=(ST.rulchat||{})[CHUID];if(!C){$("chM").innerHTML='<div class="chm sys">Sin mensajes todavía.</div>';return}
+ $("chT").textContent="Chat con "+(C.tag||C.dc)+" · Roblox: "+C.rbx;
+ const M=$("chM"),abajo=M.scrollTop+M.clientHeight>=M.scrollHeight-20;
+ M.innerHTML=C.msgs.map(m=>`<div class="chm ${m.de}">${esc(m.txt)}<small>${m.de==="user"?esc(C.dc):m.de==="bot"?"Bot (automático)":m.de==="sys"?"Aviso":esc(m.por||"Tú")} · ${new Date(m.t*1000).toLocaleString("es-CL",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</small></div>`).join("");
+ if(abajo)M.scrollTop=M.scrollHeight}
+$("gwList").addEventListener("click",e=>{const b=e.target.closest("[data-gchat]");if(!b)return;CHUID=b.dataset.gchat;$("chBox").hidden=false;pintarChat();$("chM").scrollTop=1e9;$("chBox").scrollIntoView({behavior:"smooth",block:"center"})},true);
+$("chX").onclick=()=>{CHUID=null;$("chBox").hidden=true};
+$("chF").onsubmit=async e=>{e.preventDefault();const t=$("chTxt").value.trim();if(!t||!CHUID)return;const bt=e.target.querySelector("button");bt.disabled=true;
+ try{await enviar({t:"czruldm",uid:CHUID,txt:t},new Blob(["{}"]),"x.json","Mensaje a ganador");$("chTxt").value="";
+  const C=(ST.rulchat=ST.rulchat||{})[CHUID];if(C){C.msgs.push({t:Math.floor(Date.now()/1000),de:"admin",txt:t,por:YO.nombre});pintarChat();$("chM").scrollTop=1e9}}
+ catch(err){alert("No se pudo enviar: "+err.message)}bt.disabled=false};
+
+$("gwList").addEventListener("click",async e=>{const b=e.target.closest("[data-gini]");if(!b)return;if(!confirm("¿Enviarle un privado por Discord desde el bot avisándole que ganó?"))return;b.disabled=true;b.textContent="ENVIANDO...";
+ try{await enviar({t:"czruldm",acc:"iniciar",tt:+b.dataset.gini,rbx:b.dataset.gr},new Blob(["{}"]),"x.json","Iniciar chat ganador");b.textContent="ENVIADO · espera ~1 min"}catch(err){alert("No se pudo: "+err.message);b.disabled=false;b.textContent="ENVIAR PRIVADO"}});
 </script>
 </body>
 </html>
