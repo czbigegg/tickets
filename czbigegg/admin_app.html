@@ -197,6 +197,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="streams">DIRECTOS <span class="ct" id="ctLive" hidden style="background:#ff3b4f">EN VIVO</span></button>
    <button data-t="mascotas">MASCOTAS</button>
    <button data-t="huevos">HUEVOS</button>
+   <button data-t="ruleta">RULETA</button>
    <button data-t="anuncios">ANUNCIOS</button>
    <button data-t="encuesta">ENCUESTA</button>
    <button data-t="owners">OWNERS</button>
@@ -263,16 +264,19 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   </div>
   <div class="grid" id="grid"></div>
   </div>
+  <div data-tab="ruleta" hidden>
+   <div class="top"><div><h2 class="L st">RULETA</h2><p>Actívala para que salga en la web. Tú decides cuándo alguien puede ganar.</p></div></div>
+   <div class="box gratisbox" id="rBox" style="box-shadow:0 0 0 3px #ff9de0,0 6px 0 #030806">
+    <div class="gtop"><div><h3 class="L">RULETA</h3><p>Activa la ruleta para que salga en la web. Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire; rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
+    <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
+    <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn y" id="rOn" type="button">ACTIVAR SIN PREMIO</button><button class="btn r" id="rOff" type="button">APAGAR RULETA</button></div>
+   </div>
+  </div>
   <div data-tab="anuncios" hidden>
    <div class="box gratisbox" id="gBox">
     <div class="gtop"><div><h3 class="L">RADAR GRATIS</h3><p>Al lanzarlo, se activa el radar gratis y en la web sale un <b>anuncio emergente</b> para todos con el botón a egg.report/czbigegg. Al cerrarlo, el anuncio se quita solo.</p></div><span class="gst" id="gSt">…</span></div>
     <textarea id="gTxt" maxlength="300" rows="2" placeholder="Mensaje del anuncio"></textarea>
     <div class="gbtns"><button class="btn g" id="gOn" type="button">LANZAR RADAR GRATIS</button><button class="btn r" id="gOff" type="button">CERRAR RADAR GRATIS</button></div>
-   </div>
-   <div class="box gratisbox" id="rBox" style="box-shadow:0 0 0 3px #ff9de0,0 6px 0 #030806">
-    <div class="gtop"><div><h3 class="L">RULETA</h3><p>Activa la ruleta para que salga en la web. Nadie gana mientras no sueltes un premio. Cuando sueltas uno, lo gana el próximo que gire; rellena sus datos y te llega a Discord y a Registros.</p></div><span class="gst" id="rSt">…</span></div>
-    <div class="cfila"><label>PREMIO<input id="rPremio" maxlength="40" value="1 DÍA PREMIUM"></label><label>CUÁNTOS PREMIOS SOLTAR<select id="rN"><option>1</option><option>2</option><option>3</option><option>5</option></select></label></div>
-    <div class="gbtns"><button class="btn g" id="rSoltar" type="button">SOLTAR PREMIO</button><button class="btn y" id="rOn" type="button">ACTIVAR SIN PREMIO</button><button class="btn r" id="rOff" type="button">APAGAR RULETA</button></div>
    </div>
    <div class="box gratisbox" id="cBox" style="box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806">
     <div class="gtop"><div><h3 class="L">CONTADOR DEL RADAR GRATIS</h3><p>Sale arriba en la web con la cuenta regresiva. Mientras corre, los botones de radar gratis dicen "Abre a las…"; al llegar a cero aparecen los botones para entrar.</p></div><span class="gst" id="cSt">…</span></div>
