@@ -510,6 +510,22 @@ button.gx{cursor:pointer}
 #stPlayer{margin-bottom:18px}
 .player{border:4px solid #030806;border-radius:20px;overflow:hidden;box-shadow:0 0 0 3px #ff3b4f,0 10px 0 #020503;background:#000;aspect-ratio:16/9;max-width:980px;margin:0 auto}
 .player iframe{width:100%;height:100%;border:0;display:block}
+/* directos agrupados por red */
+.stg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;margin-top:16px}
+.stp{padding:16px;border:4px solid #030806;border-radius:20px;background:#0b1e12;box-shadow:0 0 0 3px #1d5a2c,0 8px 0 #020503}
+.stp h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font:400 20px "Luckiest Guy";letter-spacing:.5px;color:#fff;-webkit-text-stroke:3px #030806;paint-order:stroke fill}
+.stp h3 small{font:600 13px Poppins;color:#9fbfa8;-webkit-text-stroke:0;margin-left:auto}
+.stp .red{position:static;display:inline-block;font:400 13px "Luckiest Guy";padding:5px 9px 2px;border-radius:8px;border:2px solid #030806;color:#030806;-webkit-text-stroke:0}
+.stp ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px}
+.stp li a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px 10px;border-radius:14px;background:#0f2a18;border:3px solid #030806;text-align:center;color:#fff;text-decoration:none;transition:transform .15s,background .15s;height:100%}
+.stp li a:hover{transform:translateY(-3px);background:#14361f}
+.stp .ava{position:relative;width:64px;height:64px;border-radius:50%;border:3px solid #030806;box-shadow:0 0 0 3px #1d5a2c;object-fit:cover;background:#14361f;display:grid;place-items:center;font:400 28px "Luckiest Guy";color:#7dff3a}
+.stp li.on .ava{box-shadow:0 0 0 3px #ff3b4f,0 0 18px rgba(255,59,79,.6)}
+.stp li b{font:400 16px "Luckiest Guy";letter-spacing:.5px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;-webkit-text-stroke:3px #030806;paint-order:stroke fill}
+.stp li small{font:600 11px Poppins;color:#9fbfa8;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:-4px}
+.stp li .go{font:400 12px "Luckiest Guy";padding:4px 10px 2px;border-radius:999px;background:#7dff3a;color:#030806;border:2px solid #030806}
+.stp li.on .go{background:#ff3b4f;color:#fff;animation:pls 1.4s infinite}
+@media(max-width:560px){.stp{padding:12px}.stp ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stp .ava{width:56px;height:56px}}
 .livepill{position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:10px;background:#ff3b4f;color:#fff;border:3px solid #030806;border-radius:99px;padding:8px 16px 6px 10px;box-shadow:0 5px 0 #030806;font:400 15px "Luckiest Guy";letter-spacing:.4px;max-width:calc(100vw - 32px);animation:entra .5s cubic-bezier(.2,1.4,.4,1)}
 .livepill[hidden]{display:none}
 .livepill img{width:32px;height:32px;border-radius:50%;border:2px solid #030806;object-fit:cover}
@@ -592,6 +608,18 @@ button.gx{cursor:pointer}
 .ecard .z{display:block;margin:4px 0 0!important;font-size:10.5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:560px){.eggs{grid-template-columns:repeat(3,minmax(0,1fr))!important}.eggbox{max-height:460px}.ecard .eimg{width:56px!important;height:52px!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* ===== ajustes celular ===== */
+@media(max-width:560px){
+ section{padding:46px 0}#streams{padding-top:24px}
+ .head{margin-bottom:22px;gap:12px}.head p{font-size:14px}
+ .phone{width:min(210px,58vw)}
+ .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}.step{padding:16px}.step h3{font-size:18px!important}.step p{font-size:13px}
+ .plans{gap:10px}
+ .card{padding:18px}
+ h2{font-size:clamp(28px,8vw,38px)}
+ #board>*:nth-child(n+6){display:none}
+}
 </style>
 </head>
 <body>
@@ -655,6 +683,7 @@ button.gx{cursor:pointer}
    <p id="stSub">Síguenos en Kick, TikTok y YouTube: cuando estamos en vivo regalamos radar y mostramos huevos gigantes en directo.</p></div>
   <div id="stPlayer"></div>
   <div class="sts" id="stList"></div>
+  <div class="stg" id="stGroups"></div>
  </div>
 </section>
 
@@ -1151,13 +1180,18 @@ function directos(L){const sec=document.getElementById("streams"),nav=document.g
  L=Array.isArray(L)?L:[];if(!L.length){sec.hidden=true;nav.hidden=true;pill.hidden=true;return}
  sec.hidden=false;const vivos=L.filter(x=>x.vivo);nav.hidden=!vivos.length;
  L=[...L].sort((a,b)=>(b.vivo?1:0)-(a.vivo?1:0));
- document.getElementById("stList").innerHTML=L.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
+ document.getElementById("stList").innerHTML=vivos.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
   const av=x.avatar?`<img src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="ini">${ini}</span>`;
-  const th=x.vivo&&x.img?`<img class="cv" src="${esc(x.img)}" alt="" referrerpolicy="no-referrer">`:(x.avatar?`<img class="av" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${ini}</span>`);
-  return `<div class="stc${x.vivo?" on":""}"><div class="th">${th}<span class="bd ${x.vivo?"vivo":"off"}">${x.vivo?"🔴 EN VIVO":"OFFLINE"}</span><span class="red ${esc(x.red)}">${RED[x.red]||esc(x.red)}</span>${x.vivo&&x.vistas!=null?`<span class="vw">👀 ${Number(x.vistas).toLocaleString("es-CL")} viendo</span>`:""}</div>
+  const th=x.img?`<img class="cv" src="${esc(x.img)}" alt="" referrerpolicy="no-referrer">`:(x.avatar?`<img class="av" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer">`:`<span class="av">${ini}</span>`);
+  return `<div class="stc on"><div class="th">${th}<span class="bd vivo">🔴 EN VIVO</span><span class="red ${esc(x.red)}">${RED[x.red]||esc(x.red)}</span>${x.vistas!=null?`<span class="vw">👀 ${Number(x.vistas).toLocaleString("es-CL")} viendo</span>`:""}</div>
    <div class="nm">${av}<div><b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small></div></div>
-   <div class="tt">${x.vivo?esc(x.titulo||"¡Estamos en vivo!"):"Síguelo para enterarte cuando prenda"}</div>
-   <a class="btn ${x.vivo?"btn-adm":"btn-o"} btn-s" href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${x.vivo?"🔴 VER DIRECTO":"➕ SEGUIR"}</a></div>`}).join("");
+   <div class="tt">${esc(x.titulo||"¡Estamos en vivo!")}</div>
+   <a class="btn btn-adm btn-s" href="${esc(x.url||x.link)}" target="_blank" rel="noopener" data-live="1">🔴 VER DIRECTO</a></div>`}).join("");
+ const orden=["kick","tiktok","youtube","twitch"],grupos={};L.forEach(x=>{(grupos[x.red]=grupos[x.red]||[]).push(x)});
+ document.getElementById("stGroups").innerHTML=Object.keys(grupos).sort((a,b)=>{const i=orden.indexOf(a),j=orden.indexOf(b);return (i<0?99:i)-(j<0?99:j)}).map(r=>{const G=grupos[r];
+  return `<div class="stp"><h3><span class="red ${esc(r)}">${RED[r]||esc(r)}</span><small>${G.length} cuenta${G.length===1?"":"s"}</small></h3><ul>${G.map(x=>{const ini=esc((x.nombre||"?").charAt(0).toUpperCase());
+   const av=x.avatar?`<img class="ava" src="${esc(x.avatar)}" alt="" referrerpolicy="no-referrer" loading="lazy">`:`<span class="ava">${ini}</span>`;
+   return `<li class="${x.vivo?"on":""}"><a href="${esc(x.vivo&&x.url?x.url:x.link)}" target="_blank" rel="noopener" data-live="1">${av}<b>${esc(x.nombre)}</b><small>@${esc(x.u)}</small><span class="go">${x.vivo?"🔴 EN VIVO":"SEGUIR"}</span></a></li>`}).join("")}</ul></div>`}).join("");
  const pl=document.getElementById("stPlayer"),emb=vivos.find(x=>x.red==="kick")||vivos.find(x=>x.red==="youtube"&&x.vid)||vivos.find(x=>x.red==="twitch");
  const urlE=emb?(emb.red==="kick"?`https://player.kick.com/${encodeURIComponent(emb.u)}?muted=true&autoplay=true`:emb.red==="youtube"?`https://www.youtube.com/embed/${encodeURIComponent(emb.vid)}?autoplay=1&mute=1`:`https://player.twitch.tv/?channel=${encodeURIComponent(emb.u)}&parent=${location.hostname}&muted=true`):"";
  if(pl.dataset.u!==urlE){pl.dataset.u=urlE;pl.innerHTML=urlE?`<div class="player"><iframe src="${esc(urlE)}" allow="autoplay; fullscreen" allowfullscreen title="Directo"></iframe></div>`:""}
