@@ -993,6 +993,18 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .semw .gtit{position:relative;z-index:2}.semw #semN{position:relative;z-index:2;animation:pls 1.6s infinite}
 .semw{animation:semBorde 3s ease-in-out infinite}
 @keyframes semBorde{50%{box-shadow:0 0 0 3px #1d5a2c,0 8px 0 #020503,0 0 34px rgba(125,255,58,.25)}}
+
+/* recordatorio del contador */
+.cdrec{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:14px}
+.cdrec[hidden]{display:none!important}
+.cdrec span{font:400 14px "Luckiest Guy";letter-spacing:1px;color:#ffd23a}
+.cdrec .btn{width:auto!important;font-size:14px;padding:9px 14px 7px;-webkit-text-stroke:0!important;text-shadow:none!important;paint-order:normal!important}
+.cdrec .cdg{background:linear-gradient(180deg,#ffffff,#dfe7ef);color:#1a73e8}
+.cdrec .cdi{background:linear-gradient(180deg,#6fd8ff,#22a8e6);color:#fff}
+.cdrec .cdn{background:linear-gradient(180deg,#ffe766,#ffb800);color:#030806}
+.cdrec .cdn.ok{background:linear-gradient(180deg,#9dff5a,#3ee06a)}
+@media(max-width:560px){.cdrec{gap:5px;margin-top:10px}.cdrec span{flex-basis:100%;text-align:center;font-size:11px}
+ .cdrec .btn{font-size:11px!important;padding:8px 8px 6px!important;flex:1}}
 </style>
 </head>
 <body>
@@ -1032,6 +1044,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
     <h2 class="cdh" id="cdH">RADAR GRATIS ABRE EN</h2>
     <div class="cdclock" id="cdClock"><div><b id="cdHh">00</b><small>HORAS</small></div><i>:</i><div><b id="cdMm">00</b><small>MIN</small></div><i>:</i><div><b id="cdSs">00</b><small>SEG</small></div></div>
     <p class="cdsub" id="cdSub"></p>
+    <div class="cdrec" id="cdRec"><span>RECORDARME:</span><a class="btn btn-s cdg" id="cdGcal" target="_blank" rel="noopener">Google Calendar</a><button class="btn btn-s cdi" id="cdIcs" type="button">iPhone / Outlook</button><button class="btn btn-s cdn" id="cdNot" type="button">Aviso en esta página</button></div>
     <div class="cdopen" id="cdOpen" hidden>
      <div class="cdsteps"><span><b>1</b>Entra a egg.report/czbigegg</span><span><b>2</b>Crea tu usuario y contraseña</span><span><b>3</b>¡Listo, ya estás en el radar!</span></div>
      <div class="cdbtns"><a class="btn btn-g" href="https://egg.report/czbigegg" target="_blank" rel="noopener" data-free="1">¡ENTRAR GRATIS!</a><a class="btn btn-d" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Únete al Discord</a></div>
@@ -1640,7 +1653,7 @@ document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 var CD=null,CDG=false,CDT=null;
 function dos(n){return String(n).padStart(2,"0")}
 function cuentaWeb(j){CD=j&&j.cuenta&&j.cuenta.on?j.cuenta:null;CDG=!!(j&&j.gratis);pintarCuenta();if(!CDT)CDT=setInterval(pintarCuenta,1000)}
-function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)return;
+function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)return;if(typeof cdRecPintar==="function")cdRecPintar();
  const libres=[...document.querySelectorAll('a[href*="egg.report/czbigegg"]:not([data-free]),a.lockfree')].filter(a=>!a.closest("#bar,.mbody")&&a.id!=="mBtn");
  if(!CD){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
  const falta=CD.ms-Date.now(),abierto=falta<=0;
@@ -1677,6 +1690,26 @@ function bloq(a,si,hora){if(si){if(!a.dataset.orig){a.dataset.orig=a.innerHTML;a
  const go=()=>{todo(document.body);mo.observe(document.body,{childList:true,subtree:true})};
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();
  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>todo(document.body))})();
+
+// ===== recordatorio del contador (Google Calendar, .ics para iPhone/Outlook y aviso en la página) =====
+function cdFecha(ms){return new Date(ms).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"")}
+function cdRecPintar(){const r=document.getElementById("cdRec");if(!r||!CD)return;const falta=CD.ms-Date.now();r.hidden=falta<=0;if(falta<=0)return;
+ const tit=`Radar GRATIS CZ BIG EGG`,det=`El radar gratis de CZ BIG EGG abre ahora. Entra en https://czbigegg.com`,ini=cdFecha(CD.ms),fin=cdFecha(CD.ms+3600000);
+ const g=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(tit)}&dates=${ini}/${fin}&details=${encodeURIComponent(det)}&location=${encodeURIComponent("https://czbigegg.com")}`;
+ const a=document.getElementById("cdGcal");if(a.href!==g)a.href=g;
+ const n=document.getElementById("cdNot");if(!("Notification" in window))n.hidden=true;else if(n.dataset.ok){n.classList.add("ok");n.textContent="Te avisaremos aquí"}}
+document.getElementById("cdIcs").onclick=()=>{if(!CD)return;const ini=cdFecha(CD.ms),fin=cdFecha(CD.ms+3600000),now=cdFecha(Date.now());
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//CZ BIG EGG//Radar//ES","CALSCALE:GREGORIAN","BEGIN:VEVENT",`UID:czradar-${CD.ms}@czbigegg.com`,`DTSTAMP:${now}`,`DTSTART:${ini}`,`DTEND:${fin}`,
+  "SUMMARY:Radar GRATIS CZ BIG EGG","DESCRIPTION:El radar gratis de CZ BIG EGG abre ahora. Entra en https://czbigegg.com","URL:https://czbigegg.com",
+  "BEGIN:VALARM","TRIGGER:-PT10M","ACTION:DISPLAY","DESCRIPTION:Radar gratis en 10 minutos","END:VALARM",
+  "BEGIN:VALARM","TRIGGER:PT0M","ACTION:DISPLAY","DESCRIPTION:Radar gratis abierto","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));const l=document.createElement("a");l.href=url;l.download="radar-gratis-czbigegg.ics";document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)};
+var cdAvisoT=null;
+document.getElementById("cdNot").onclick=async()=>{const n=document.getElementById("cdNot");
+ try{const p=await Notification.requestPermission();if(p!=="granted")return alert("Activa las notificaciones para esta página en tu navegador.");
+  n.dataset.ok=1;n.classList.add("ok");n.textContent="Te avisaremos aquí";
+  clearTimeout(cdAvisoT);const f=CD.ms-Date.now();if(f>0&&f<2147483000)cdAvisoT=setTimeout(()=>{try{new Notification("Radar GRATIS abierto",{body:"Entra ahora en czbigegg.com",icon:"assets/logo.png"})}catch(_){}},f);
+  alert("Listo. Deja esta pestaña abierta y te avisaremos cuando abra el radar gratis. Para que te avise aunque cierres la página, usa Google Calendar o iPhone / Outlook.")}catch(_){alert("Tu navegador no permite avisos. Usa Google Calendar o iPhone / Outlook.")}};
 </script>
 </body>
 </html>
