@@ -1005,6 +1005,8 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .cdrec .cdn.ok{background:linear-gradient(180deg,#9dff5a,#3ee06a)}
 @media(max-width:560px){.cdrec{gap:5px;margin-top:10px}.cdrec span{flex-basis:100%;text-align:center;font-size:11px}
  .cdrec .btn{font-size:11px!important;padding:8px 8px 6px!important;flex:1}}
+.row .ds{flex:none;white-space:nowrap}.row{min-width:0;overflow:hidden}.screen{min-width:0}
+@media(max-width:560px){.row .ds{font-size:8.5px!important;padding:1px 3px!important;letter-spacing:0}.row{gap:3px!important}.row .nm{font-size:8px!important}}
 </style>
 </head>
 <body>
@@ -1077,7 +1079,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <div class="monitor">
     <div class="top">TOP DINERO/S</div>
     <div class="screen" id="board"></div>
-    <div class="ex">TABLA DE EJEMPLO</div>
+    <div class="ex">TOP DEL JUEGO</div>
    </div>
   </div>
  </div>
@@ -1350,14 +1352,14 @@ function ticker(){const t=document.getElementById("tk");if(!t)return;
  const it=[];eg.forEach((x,k)=>{it.push(x);if(k%3===2&&extra.length)it.push(extra.shift())});it.push(...extra);
  const h=it.map(x=>x+"<b>✦</b>").join("");t.innerHTML=h+h}
 
-let TOP=[["NestHunter",873],["SkyWhale_CZ",750],["OniTigerPro",643],["EggThief22",525],["KitsuneCZ",423],["ZonaDivina",367],["HuevoLoco",324],["CZ_Farmer",286]];
+let TOP=[["HulkGam","131.5T"],["privvmat3oo","128T"],["privvmat3oo","109.4T"],["SoyCath","106T"],["spydersammy","100.3T"],["NOTRR1DER","90.9T"],["misfitsbsthree","87.2T"],["OhCAOZ","85.8T"]];var TOPAV={};
 let tuNombre=null;
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function board(){const b=document.getElementById("board");b.innerHTML="";
- const lista=TOP.map(x=>({n:x[0],v:x[1]}));if(tuNombre)lista.unshift({n:tuNombre.n,img:tuNombre.img,v:995,you:1});
+ const lista=TOP.map(x=>({n:x[0],v:x[1],img:TOPAV[x[0].toLowerCase()]||null}));if(tuNombre)lista.unshift({n:tuNombre.n,img:tuNombre.img,v:"140T",you:1});
  lista.slice(0,8).forEach((r,i)=>{const d=document.createElement("div");d.className="row"+(r.you?" you":"");
   const av=r.img?`<span class="av"><img src="${esc(r.img)}" alt=""></span>`:(r.you?`<span class="av ini">${esc(r.n.charAt(0).toUpperCase())}</span>`:`<span class="av"></span>`);
-  d.innerHTML=`<span class="pos">${i+1}</span>${av}<span class="nm">${esc(r.n)}</span><span class="ds"><small>Dinero/s:</small>${r.v}B</span>`;b.appendChild(d)})}
+  d.innerHTML=`<span class="pos">${i+1}</span>${av}<span class="nm">${esc(r.n)}</span><span class="ds"><small>Dinero/s:</small>${r.v}</span>`;b.appendChild(d)})}
 let RBXC={},RBXETAG="";
 async function leerRbx(){try{const h={Accept:"application/vnd.github.raw+json"};if(RBXETAG)h["If-None-Match"]=RBXETAG;
   const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czrbx.json`,{headers:h,cache:"no-store"});
@@ -1381,7 +1383,11 @@ document.getElementById("fTop").onsubmit=async e=>{e.preventDefault();const inp=
  catch(err){tuNombre={n:v,img:null};msg.textContent="No se pudo cargar la foto ahora, intenta de nuevo."}
  btn.disabled=false;btn.textContent="¡VAMOS!";board()};
 board();
-setInterval(()=>{TOP=TOP.map(([n,v])=>[n,Math.max(150,v+Math.round((Math.random()-.45)*12))]).sort((a,b)=>b[1]-a[1]);board()},2500);
+async function topAvatares(){try{const c=await leerRbx();const pend=[];
+ [...new Set(TOP.map(x=>x[0]))].forEach(n=>{const x=c[n.toLowerCase()];if(x){if(!x.nf&&x.img)TOPAV[n.toLowerCase()]=x.img}else pend.push(n)});board();
+ for(const n of pend){try{const u=await rbx(n);if(u&&u.img){TOPAV[n.toLowerCase()]=u.img;board()}}catch(_){}}
+ setTimeout(async()=>{const c2=await leerRbx();TOP.forEach(([n])=>{const x=c2[n.toLowerCase()];if(x&&!x.nf&&x.img)TOPAV[n.toLowerCase()]=x.img});board()},60000)}catch(_){}}
+setTimeout(topAvatares,1500);
 
 // URL del script de Google (la misma que en admin.html). Vacía = usa la lista de abajo.
 const REPO="czbigegg/tickets",GHAPI=`https://api.github.com/repos/${REPO}/contents/czweb.json`,GHRAW=`https://raw.githubusercontent.com/${REPO}/HEAD/czweb.json`;
