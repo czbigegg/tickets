@@ -424,6 +424,9 @@ footer .brand b{font-size:20px}
 .modal{position:fixed;inset:0;z-index:150;background:rgba(2,6,3,.75);display:grid;place-items:center;padding:16px;animation:fin .25s}
 .modal[hidden]{display:none}
 .regLink[hidden],#registro[hidden]{display:none!important}
+.cdw.falla{box-shadow:0 0 0 4px #ff5a36,0 12px 0 #020503,0 0 60px rgba(255,90,54,.3);background:radial-gradient(700px 300px at 50% 0,rgba(255,90,54,.25),transparent),#0b1e12}
+.cdw.falla .cdtag{background:#ff5a36;color:#fff;animation:pls 1.6s infinite}
+@media(max-width:560px){.cdw.falla{box-shadow:0 0 0 3px #ff5a36,0 6px 0 #020503,0 0 30px rgba(255,90,54,.25)}}
 @media(max-width:560px){#faq .head h2{font-size:25px!important}#faq .eyebrow{font-size:10px}.faq{gap:7px}
  #faq details{padding:9px 11px!important;border-width:3px;border-radius:12px;box-shadow:0 3px 0 var(--ink)}
  #faq details[open]{box-shadow:0 0 0 2px #7dff3a,0 3px 0 var(--ink)}
@@ -1525,7 +1528,8 @@ pintarHuevos(null);
 // ---- anuncios ----
 let anT=null;
 function barSinAnuncios(bar){clearInterval(anT);const el=bar.querySelector("a");if(!el)return;bar.className="bar";el.className="";
- if(typeof CD!=="undefined"&&CD&&CD.ms>Date.now()){const h=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
+ if(typeof CD!=="undefined"&&CD&&CD.falla){el.href="#cuenta";el.removeAttribute("target");el.innerHTML=`<span class="nw">AVISO</span> Radar GRATIS en mantenimiento · vuelve pronto →`;bar.hidden=false}
+ else if(typeof CD!=="undefined"&&CD&&CD.ms>Date.now()){const h=new Date(CD.ms).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
   el.href="#cuenta";el.removeAttribute("target");el.innerHTML=`<span class="nw">PRONTO</span> Radar GRATIS abre hoy a las ${h} (hora Chile) →`;bar.hidden=false}
  else if(typeof CDG!=="undefined"&&CDG){el.href="https://egg.report/czbigegg";el.target="_blank";el.innerHTML=`<span class="nw">NUEVO</span> Ya hay Radar GRATIS · en vivo →`;bar.hidden=false}
  else bar.hidden=true}
@@ -1780,6 +1784,12 @@ function cuentaWeb(j){CD=j&&j.cuenta&&j.cuenta.on?j.cuenta:null;CDG=!!(j&&j.grat
 function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)return;if(typeof cdRecPintar==="function")cdRecPintar();
  const libres=[...document.querySelectorAll('a[href*="egg.report/czbigegg"]:not([data-free]),a.lockfree')].filter(a=>!a.closest("#bar,.mbody")&&a.id!=="mBtn");
  if(!CD){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
+ const cw=sec.querySelector(".cdw"),rec=document.getElementById("cdRec");cw.classList.toggle("falla",!!CD.falla);
+ if(CD.falla){sec.hidden=false;cw.classList.remove("abierto");document.getElementById("cdTag").textContent="EN MANTENIMIENTO";
+  document.getElementById("cdH").textContent="ESTAMOS ARREGLANDO UNA FALLA";document.getElementById("cdClock").hidden=true;document.getElementById("cdOpen").hidden=true;if(rec)rec.style.display="none";
+  document.getElementById("cdSub").innerHTML="El <b>radar gratuito vuelve pronto</b>. Te avisaremos en nuestro Discord apenas esté listo: <a href=\"https://discord.gg/czbigegg\" target=\"_blank\" rel=\"noopener\" style=\"color:#7dff3a\">discord.gg/czbigegg</a>";
+  libres.forEach(a=>bloq(a,true,null,"Vuelve pronto"));return}
+ if(rec)rec.style.display="";
  const falta=CD.ms-Date.now(),abierto=falta<=0;
  // terminado hace rato y el radar gratis ya se cerró → se esconde
  if(abierto&&!CDG&&falta<-30*60*1000){sec.hidden=true;libres.forEach(a=>bloq(a,false));return}
@@ -1795,8 +1805,8 @@ function pintarCuenta(){const sec=document.getElementById("cuenta");if(!sec)retu
  else{document.getElementById("cdTag").textContent="¡ABIERTO AHORA!";document.getElementById("cdH").textContent="¡"+tit+" ABIERTO!";
   document.getElementById("cdClock").hidden=true;document.getElementById("cdOpen").hidden=false;
   document.getElementById("cdSub").innerHTML="Entra ya y crea tu cuenta gratis. <b>¡Corre que se llena!</b>";libres.forEach(a=>bloq(a,false))}}
-function bloq(a,si,hora){if(si){if(!a.dataset.orig){a.dataset.orig=a.innerHTML;a.dataset.oh=a.getAttribute("href");a.dataset.ot=a.getAttribute("target")||""}
-  a.innerHTML="Abre "+(hora||"pronto");a.setAttribute("href","#cuenta");a.removeAttribute("target");a.classList.add("lockfree")}
+function bloq(a,si,hora,txt){if(si){if(!a.dataset.orig){a.dataset.orig=a.innerHTML;a.dataset.oh=a.getAttribute("href");a.dataset.ot=a.getAttribute("target")||""}
+  a.innerHTML=txt||("Abre "+(hora||"pronto"));a.setAttribute("href","#cuenta");a.removeAttribute("target");a.classList.add("lockfree")}
  else if(a.dataset.orig){a.innerHTML=a.dataset.orig;a.setAttribute("href",a.dataset.oh);if(a.dataset.ot)a.setAttribute("target",a.dataset.ot);a.classList.remove("lockfree");delete a.dataset.orig}}
 
 // ===== iPhone/Safari: el borde de las letras se dibuja con sombras (Safari no respeta paint-order y se veía doble) =====
