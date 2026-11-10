@@ -463,6 +463,28 @@ button.gx{cursor:pointer}
 .big .bl2 .pw.on{opacity:1;transform:none}
 .big .bl1{font-size:clamp(28px,4.2vw,56px)!important;overflow-wrap:break-word;max-width:100%}
 .hero .cols>div:first-child{min-width:0;overflow:visible}
+/* galería de huevos (calculadora) */
+.gbody{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1fr)!important;grid-template-areas:"gal show ctrl"}
+.gal{grid-area:gal;display:flex;flex-direction:column;gap:10px;min-width:0;background:#081a0e;border:4px solid #030806;border-radius:20px;padding:12px;max-height:860px}
+.show{grid-area:show}.ctrl{grid-area:ctrl}
+.galtop{display:flex;gap:8px;align-items:center}
+.galtop input{flex:1;min-width:0;background:#effff0;border:3px solid #030806;border-radius:12px;padding:9px 11px 7px;font:400 15px "Luckiest Guy";color:#030806;outline:none}
+.galtop span{font:400 13px "Luckiest Guy";color:#9fbfa8;white-space:nowrap}
+.galg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;overflow-y:auto;padding:2px 4px 4px 2px;scrollbar-width:thin;scrollbar-color:#7dff3a #081a0e}
+.gc{position:relative;aspect-ratio:1;border:4px solid #030806;border-radius:14px;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:6px;
+ background:repeating-conic-gradient(from 0deg at 50% 60%,rgba(255,255,255,.12) 0 10deg,transparent 10deg 20deg),linear-gradient(180deg,#ffe766,#ffb800);box-shadow:0 4px 0 #030806;transition:transform .12s}
+.gc:hover{transform:translateY(-3px) rotate(-1deg)}
+.gc.on{outline:4px solid #fff;outline-offset:-8px;box-shadow:0 0 0 3px #7dff3a,0 4px 0 #030806}
+.gc b{font:400 clamp(12px,1.1vw,15px)/1.05 "Luckiest Guy";color:#fff;-webkit-text-stroke:3px #030806;paint-order:stroke fill;text-align:center;z-index:1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc img{flex:1;min-height:0;width:100%;object-fit:contain;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35))}
+.gc .mini{flex:1;width:46%;margin:6px auto;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;border:3px solid #030806;background:linear-gradient(160deg,var(--c),var(--c3))}
+.gc i{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font:400 11px "Luckiest Guy";font-style:normal;background:#030806;color:#7dff3a;border-radius:7px;padding:2px 6px 0;white-space:nowrap}
+.bigimg{position:relative;z-index:1;width:min(260px,70%);max-height:260px;object-fit:contain;filter:drop-shadow(0 8px 0 rgba(0,0,0,.35));animation:bob 3.5s ease-in-out infinite}
+.show.conimg .bigegg{display:none}
+.ctrl .vgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.galg{grid-auto-rows:max-content}.gc{aspect-ratio:auto;height:clamp(130px,11vw,160px)}
+@media(max-width:1180px){.gbody{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-areas:"gal show" "gal ctrl"}}
+@media(max-width:900px){.gbody{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"show" "gal" "ctrl"}.gal{max-height:none}.galg{grid-template-columns:repeat(3,minmax(0,1fr));max-height:420px}}
+@media(max-width:560px){.galg{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
@@ -590,14 +612,18 @@ button.gx{cursor:pointer}
 <section id="calculadora">
  <div class="wrap">
   <div class="head rv"><div><div class="eyebrow" style="color:var(--g)">CALCULADORA DE VALOR</div><h2>¿Cuánto genera <span class="grad">tu huevo?</span></h2></div>
-   <p>Pon el valor base y la escala que viste en el radar, elige variante, mutaciones y 2X Money, y mira cuánto te genera por segundo.</p></div>
+   <p>Elige tu huevo, pon la escala que viste en el radar, marca variante, mutaciones y 2X Money, y mira cuánto te genera por segundo.</p></div>
   <div class="gw rv">
    <div class="gbar"><span class="gtit">VALORES</span><span class="gx">✦</span></div>
    <div class="gbody">
+    <div class="gal">
+     <div class="galtop"><input id="galQ" placeholder="🔎 Buscar huevo..." autocomplete="off"><span id="galN"></span></div>
+     <div class="galg" id="galG"></div>
+    </div>
     <div class="show">
      <div class="rays"></div>
      <span class="tagL" id="sEsc">x1</span><span class="tagR">CZ BIG EGG</span>
-     <div class="bigegg" id="sEgg"><span class="crown">👑</span></div>
+     <div class="bigegg" id="sEgg"><span class="crown">👑</span></div><img class="bigimg" id="sImg" alt="" hidden>
      <div class="orbit" id="sOrb"></div>
      <div class="x2" id="sX2">2X!</div>
      <div class="pname" id="sName">Tu huevo</div>
@@ -792,7 +818,7 @@ function eggs(){const g=document.getElementById("eggs");g.innerHTML="";
   d.style.cssText=`--c:${c[0]};--c2:${c[1]};--c3:${c[2]}`;
   const pic=e.img?`<img class="eimg" src="${esc(src(e.img))}" alt="${esc(e.n)}" loading="lazy" style="animation-delay:-${i*.4}s" onerror="this.outerHTML='<div class=&quot;egg&quot;></div>'">`:`<div class="egg" style="animation-delay:-${i*.4}s"></div>`;
   d.innerHTML=`${pic}<div class="n">${esc(e.n.toUpperCase())}</div><span class="r">${esc(e.r)}</span><span class="z">${esc(e.z)}</span>`;g.appendChild(d)})}
-function pintarHuevos(l){if(Array.isArray(l)&&l.length){EGGS=l}filtros();eggs();ticker()}
+function pintarHuevos(l){if(Array.isArray(l)&&l.length){EGGS=l}filtros();eggs();ticker();if(typeof galeria==="function")galeria()}
 pintarHuevos(null);
 // ---- anuncios ----
 let anT=null;
@@ -916,13 +942,29 @@ function calc(){const base=parseV(document.getElementById("cBase").value);const 
  document.getElementById("cMul").textContent=isFinite(fin)?`x${(Math.round(tot*100)/100).toLocaleString("es")} en total · ${fmtV(base)} base`:"Escribe un valor como 25B, 800M o 1.2T";
  document.getElementById("sEsc").textContent="x"+esc;
  document.getElementById("sEgg").style.setProperty("--eg",V[3]);
- document.getElementById("sName").textContent=(cv==="None"?"":cv+" ")+"Huevo";
+ document.getElementById("sName").textContent=(cv==="None"?"":cv+" ")+(SEL?SEL.n:"Huevo");
  document.getElementById("sRar").textContent=cm.size?[...cm].join(" · "):"Sin mutación";
  const orb=document.getElementById("sOrb");orb.innerHTML="";[...cm].forEach((n,i)=>{const m=MUTS.find(x=>x[0]===n),a=i/Math.max(1,cm.size)*6.283-1.4,sp=document.createElement("span");
   sp.textContent=m[3];sp.style.left=`calc(50% + ${Math.cos(a)*Math.min(125,orb.clientWidth*.36)}px - 15px)`;sp.style.top=`calc(36% + ${Math.sin(a)*100}px - 15px)`;sp.style.animationDelay=`-${i*.3}s`;orb.appendChild(sp)});
  document.getElementById("sX2").classList.toggle("on",c2);
  ultimo=`${fmtV(base)} × x${esc} · ${cv}${cm.size?" · "+[...cm].join("+"):""}${c2?" · 2X":""} = ${fmtV(fin)}`}
 ["cBase","cEsc"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
+// ===== galería de huevos en la calculadora =====
+var SEL=null;
+function galeria(){const g=document.getElementById("galG");if(!g)return;const q=(document.getElementById("galQ").value||"").trim().toLowerCase();
+ const L=EGGS.filter(e=>!q||e.n.toLowerCase().includes(q)||String(e.r||"").toLowerCase().includes(q));
+ document.getElementById("galN").textContent=L.length+" huevos";g.innerHTML="";
+ L.forEach(e=>{const c=COL[e.r]||COL.COMMON,d=document.createElement("div");d.className="gc"+(SEL&&SEL.n===e.n?" on":"");d.style.cssText=`--c:${c[0]};--c3:${c[2]}`;
+  d.innerHTML=`<b>${esc(e.n)}</b>${e.img?`<img src="${esc(src(e.img))}" alt="" loading="lazy">`:`<span class="mini"></span>`}${e.v?`<i>${esc(e.v)}/s</i>`:""}`;
+  d.onclick=()=>elegir(e);g.appendChild(d)});
+ if(!L.length)g.innerHTML=`<p style="grid-column:1/-1;color:#9fbfa8;text-align:center;font:400 14px 'Luckiest Guy'">No hay huevos con ese nombre</p>`}
+function elegir(e){SEL=e;const im=document.getElementById("sImg"),sh=document.querySelector("#calculadora .show");
+ if(e.img){im.src=src(e.img);im.hidden=false;sh.classList.add("conimg")}else{im.hidden=true;sh.classList.remove("conimg")}
+ if(e.v){document.getElementById("cBase").value=e.v}
+ document.querySelectorAll("#galG .gc").forEach(x=>x.classList.toggle("on",x.querySelector("b").textContent===e.n));
+ calc();if(matchMedia("(max-width:900px)").matches)document.querySelector("#calculadora .show").scrollIntoView({behavior:"smooth",block:"center"})}
+document.getElementById("galQ").addEventListener("input",galeria);
+
 document.getElementById("cCopy").onclick=async e=>{const t=e.currentTarget;try{await navigator.clipboard.writeText(ultimo+" · CZ BIG EGG");t.textContent="✅ LISTO"}catch(x){t.textContent="NO SE PUDO"}setTimeout(()=>t.textContent="📋 COPIAR",1500)};
 let HIST=[];try{HIST=JSON.parse(localStorage.getItem("czCalc")||"[]")}catch(e){}
 function hist(){document.getElementById("cHist").innerHTML=HIST.slice(0,5).map(h=>`<span>📜 ${esc_(h)}</span>`).join("")}
