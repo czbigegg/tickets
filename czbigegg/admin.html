@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Panel Admin · CZ BIG EGG</title><link rel="icon" href="assets/favicon.png"><meta name="theme-color" content="#050d08">
+<title>Panel Admin · CZ BIG EGG</title><link rel="icon" href="/tickets/czbigegg/assets/favicon.png"><meta name="theme-color" content="#050d08">
 <meta name="robots" content="noindex,nofollow">
 <style>body{margin:0;background:#050d08;display:grid;place-items:center;min-height:100vh}img{width:110px;animation:b 1.2s ease-in-out infinite}@keyframes b{50%{transform:translateY(-10px) scale(1.05)}}</style>
-</head><body><img src="assets/logo.png" alt="CZ BIG EGG">
+</head><body><img src="/tickets/czbigegg/assets/logo.png" alt="CZ BIG EGG">
 <script>
 // Carga siempre la versión más nueva de la página (sin esperar a que GitHub Pages publique)
 (async()=>{const F="admin_app.html",R="czbigegg/tickets",P="czbigegg/"+F;let h=null;
  try{const r=await fetch(`https://api.github.com/repos/${R}/contents/${P}`,{headers:{Accept:"application/vnd.github.raw+json"},cache:"no-store"});if(r.ok)h=await r.text()}catch(_){}
  if(!h)try{const r=await fetch(`https://raw.githubusercontent.com/${R}/HEAD/${P}`,{cache:"no-store"});if(r.ok)h=await r.text()}catch(_){}
- if(!h){location.replace(F+location.search+location.hash);return}
- document.open();document.write(h);document.close()})();
+ if(!h){location.replace("/tickets/czbigegg/"+F+location.search+location.hash);return}
+ h=h.replace(/(["'(])assets\//g,"$1/tickets/czbigegg/assets/");document.open();document.write(h);document.close()})();
 </script></body></html>
