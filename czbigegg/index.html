@@ -694,18 +694,21 @@ function board(){const b=document.getElementById("board");b.innerHTML="";
  lista.slice(0,8).forEach((r,i)=>{const d=document.createElement("div");d.className="row"+(r.you?" you":"");
   const av=r.img?`<span class="av"><img src="${esc(r.img)}" alt=""></span>`:(r.you?`<span class="av ini">${esc(r.n.charAt(0).toUpperCase())}</span>`:`<span class="av"></span>`);
   d.innerHTML=`<span class="pos">${i+1}</span>${av}<span class="nm">${esc(r.n)}</span><span class="ds"><small>Dinero/s:</small>${r.v}B</span>`;b.appendChild(d)})}
-async function rbx(name){
- const body=JSON.stringify({usernames:[name],excludeBannedUsers:true});let j=null;
- for(const h of [{"Content-Type":"application/json"},{}]){try{const r=await fetch("https://users.roproxy.com/v1/usernames/users",{method:"POST",headers:h,body});if(r.ok){j=await r.json();break}}catch(_){}}
- if(!j)throw new Error("sin conexión con Roblox");
- const u=(j.data||[])[0];if(!u)return null;
- let img=null;for(let k=0;k<3&&!img;k++){if(k)await new Promise(z=>setTimeout(z,1200));
-  const t=await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${u.id}&size=150x150&format=Png&isCircular=false`).then(x=>x.ok?x.json():null).catch(()=>null);
-  const d=t&&t.data&&t.data[0];if(d&&d.state==="Completed")img=d.imageUrl}
- return{n:u.name,img}}
+let RBXC={},RBXETAG="";
+async function leerRbx(){try{const h={Accept:"application/vnd.github.raw+json"};if(RBXETAG)h["If-None-Match"]=RBXETAG;
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/czrbx.json`,{headers:h,cache:"no-store"});
+  if(r.status===304)return RBXC;if(r.ok){RBXETAG=r.headers.get("ETag")||"";RBXC=await r.json()}}catch(_){}return RBXC}
+async function rbx(name){const k=name.toLowerCase(),res=x=>x.nf?null:{n:x.n||name,img:x.img||null};
+ let c=await leerRbx();if(c[k])return res(c[k]);
+ for(let w=0;w<10&&!VOTO;w++)await new Promise(z=>setTimeout(z,500));
+ if(!VOTO)throw new Error("sin conexión");
+ const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Web CZ BIG EGG",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rbx",u:name})+"\n```"}));
+ try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"}).catch(()=>{})}
+ for(let t=0;t<14;t++){await new Promise(z=>setTimeout(z,2500));c=await leerRbx();if(c[k])return res(c[k])}
+ throw new Error("tardó mucho")}
 document.getElementById("fTop").onsubmit=async e=>{e.preventDefault();const inp=document.getElementById("iTop"),btn=e.target.querySelector("button"),msg=document.getElementById("topMsg"),v=inp.value.trim();
  if(!/^[A-Za-z0-9_]{3,20}$/.test(v)){msg.textContent="Escribe un usuario de Roblox válido (3-20 letras, números o _).";return}
- btn.disabled=true;btn.textContent="BUSCANDO...";msg.textContent="";
+ btn.disabled=true;btn.textContent="BUSCANDO...";msg.textContent="🔎 Buscando tu avatar en Roblox... (unos segundos)";
  try{const u=await rbx(v);if(u){tuNombre=u;msg.textContent=u.img?"✅ ¡Ahí estás en el #1!":"✅ Encontrado (sin foto disponible)."}else{tuNombre={n:v,img:null};msg.textContent="⚠️ No encontré ese usuario en Roblox."}}
  catch(err){tuNombre={n:v,img:null};msg.textContent="⚠️ No se pudo cargar la foto ahora, intenta de nuevo."}
  btn.disabled=false;btn.textContent="¡VAMOS!";board()};
