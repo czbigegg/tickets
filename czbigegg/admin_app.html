@@ -280,7 +280,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button class="addline" id="anAdd" type="button">+ NUEVO ANUNCIO</button>
   </div>
   <div data-tab="encuesta" hidden>
-   <div class="top"><div><h2 class="L st">ENCUESTA</h2><p>La encuesta activa sale en la web y cada persona puede votar una vez. Aquí ves los resultados.</p></div></div>
+   <div class="top"><div><h2 class="L st">ENCUESTA</h2><p>La encuesta sale flotando en pantalla el tiempo que elijas y cada persona puede votar una vez. Aquí ves los resultados.</p></div></div>
    <div id="encBox"></div>
   </div>
   </div></div>
@@ -539,15 +539,15 @@ function renderEnc(){const B=$("encBox");
   <label class="lb" style="margin-top:14px">OPCIONES (2 A 8)</label><div id="encOps">${ENC.ops.map((o,i)=>`<div class="op"><input data-o="${i}" value="${esc(o)}" maxlength="60" placeholder="Opción ${i+1}">${ENC.ops.length>2?`<button class="btn r sm" data-od="${i}" type="button">✕</button>`:""}</div>`).join("")}</div>
   ${ENC.ops.length<8?`<button class="btn sm" id="encAddOp" type="button" style="margin-top:10px">+ OPCIÓN</button>`:""}
   <div class="flags"><label class="chk"><input type="checkbox" id="encOn"${ENC.on?" checked":""}> MOSTRAR EN LA WEB</label></div>
-  <div class="encpop"><label class="lb" style="margin-top:14px">SALIR EN PANTALLA (VENTANA FLOTANTE)</label>
-   <div class="popfila"><select id="encPop"><option value="0">No, solo en su sección</option><option value="15">15 segundos</option><option value="30">30 segundos</option><option value="60">1 minuto</option><option value="120">2 minutos</option><option value="300">5 minutos</option></select>
+  <div class="encpop"><label class="lb" style="margin-top:14px">TIEMPO EN PANTALLA</label>
+   <div class="popfila"><select id="encPop"><option value="15">15 segundos</option><option value="30">30 segundos</option><option value="60">1 minuto</option><option value="120">2 minutos</option><option value="300">5 minutos</option></select>
    <button class="btn y sm" id="encPopYa" type="button">MOSTRAR AHORA A TODOS</button></div>
-   <p class="hint">Al entrar a la web, la encuesta aparece flotando en pantalla ese tiempo (una vez por persona). "Mostrar ahora" la vuelve a lanzar a todos al guardar.</p></div>
+   <p class="hint">La encuesta no es una sección de la web: aparece flotando en pantalla ese tiempo al entrar (una vez por persona) y luego se va. "Mostrar ahora" la vuelve a lanzar a todos al guardar.</p></div>
   ${ENC.votos?`<label class="lb" style="margin-top:18px">RESULTADOS · ${tot} VOTO${tot===1?"":"S"}</label>${ENC.ops.map((o,i)=>{const v=ENC.votos[i]||0,p=tot?Math.round(v/tot*100):0;return `<div class="bar"><i style="width:${p}%"></i><span><b>${esc(o)}</b><b>${v} · ${p}%</b></span></div>`}).join("")}`:`<p class="lb" style="margin-top:16px">Los resultados aparecen después de guardar.</p>`}
   <div class="flags" style="margin-top:18px"><button class="btn y sm" id="encReset" type="button">NUEVA ENCUESTA (BORRA VOTOS)</button><button class="btn r sm" id="encDel" type="button">QUITAR ENCUESTA</button></div></div>`;
  $("encQ").oninput=e=>{ENC.q=e.target.value;setDirty(true)};
  $("encOn").onchange=e=>{ENC.on=e.target.checked;setDirty(true)};
- $("encPop").value=String(ENC.pop||0);if(!$("encPop").value)$("encPop").value="0";
+ if(!ENC.pop)ENC.pop=60;$("encPop").value=String(ENC.pop);if(!$("encPop").value){ENC.pop=60;$("encPop").value="60"}
  $("encPop").onchange=e=>{ENC.pop=+e.target.value;setDirty(true)};
  $("encPopYa").onclick=()=>{if(!ENC.pop){ENC.pop=60;$("encPop").value="60"}ENC.pv=String(Date.now());ENC.on=true;$("encOn").checked=true;setDirty(true);$("encPopYa").textContent="LISTO: TOCA GUARDAR"};
  $("encOps").oninput=e=>{const i=e.target.dataset.o;if(i==null)return;ENC.ops[+i]=e.target.value;setDirty(true)};
