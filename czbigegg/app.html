@@ -594,6 +594,124 @@ body.navidad .resver{color:#ffd23a}
 .dcok small{margin-left:auto;font:700 10px Poppins;background:#23a55a;padding:3px 6px;border-radius:6px}
 .dcpide svg{width:18px;height:18px}.dcpide{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;border:3px solid #030806;border-radius:12px;background:#5865f2;color:#fff;font:400 15px "Luckiest Guy";cursor:pointer;box-shadow:0 4px 0 #030806}
 @media(max-width:560px){.dclog .btn span{display:none}.dclog .btn{padding:7px 9px!important}.dcuser span{display:none}}
+/* ===== cuentas, top y en vivo ===== */
+.cuBtn[hidden],#vBtn[hidden]{display:none!important}
+.cuBtn{background:linear-gradient(180deg,#9dff5a,#3ee06a)!important;color:#030806!important}
+.cuChip{display:none;align-items:center;gap:8px;padding:4px 12px 4px 4px;border:3px solid #030806;border-radius:99px;background:#0f2717;color:#fff;cursor:pointer;position:relative;box-shadow:0 3px 0 #030806}
+.cuChip.on{display:inline-flex}
+.cuAv{width:30px;height:30px;border-radius:50%;border:2px solid #030806;display:grid;place-items:center;font:400 15px "Luckiest Guy";color:#030806;background:linear-gradient(135deg,#ffe766,#ffb800);flex:none}
+.cuChip b{font:400 14px "Luckiest Guy";letter-spacing:.4px}
+.cuChip i{font:700 11px Poppins;font-style:normal;background:#7dff3a;color:#030806;border-radius:8px;padding:2px 6px}
+.cuMenu{position:absolute;right:0;top:calc(100% + 8px);background:#0c120e;border:3px solid #030806;border-radius:14px;padding:6px;min-width:190px;display:none;z-index:90;box-shadow:0 6px 0 #030806}
+.cuMenu.on{display:block}
+.cuMenu button{width:100%;text-align:left;background:none;border:0;color:#fff;font:600 14px Poppins;padding:9px 10px;border-radius:9px;cursor:pointer}
+.cuMenu button:hover{background:#1d3324}
+.velo{position:fixed;inset:0;z-index:340;background:rgba(2,6,4,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;animation:veloIn .25s}
+.velo[hidden]{display:none!important}
+.fcu[hidden]{display:none!important}
+.venc .vh{padding-right:30px}
+@keyframes veloIn{from{opacity:0}}
+.caja{position:relative;width:min(460px,100%);max-height:calc(100vh - 32px);overflow:auto;background:linear-gradient(180deg,#10291a,#0b1e12);border:4px solid #030806;border-radius:22px;box-shadow:0 0 0 3px #7dff3a,0 12px 0 #020503,0 30px 80px rgba(0,0,0,.7);padding:26px 22px 22px;animation:cajaIn .35s cubic-bezier(.2,1.3,.4,1)}
+@keyframes cajaIn{from{transform:translateY(20px) scale(.94);opacity:0}}
+.caja .cx{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:10px;border:3px solid #030806;background:#ff3b4f;color:#fff;font:400 16px "Luckiest Guy";cursor:pointer}
+.caja .tag{display:inline-flex;align-items:center;gap:6px;font:700 11px Poppins;letter-spacing:2px;color:#7dff3a;border:2px solid #1d5a2c;border-radius:8px;padding:4px 10px;background:#08150c}
+.caja h3{font:400 30px/1.05 "Luckiest Guy";color:#fff;margin:12px 0 6px;-webkit-text-stroke:4px #030806;paint-order:stroke fill;text-shadow:0 4px 0 #030806}
+.caja h3 span{color:#7dff3a}
+.caja p.sub{font:500 14px/1.45 Poppins;color:#bfd8c5;margin:0 0 14px}
+.tabs2{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#08150c;border:3px solid #030806;border-radius:14px;padding:5px;margin-bottom:14px}
+.tabs2 button{border:0;border-radius:10px;padding:10px 6px 8px;font:400 15px "Luckiest Guy";letter-spacing:.5px;color:#9fbfa8;background:none;cursor:pointer}
+.tabs2 button.on{background:#7dff3a;color:#030806;box-shadow:0 3px 0 #030806}
+.fcu{display:grid;gap:10px}
+.fcu label{display:grid;gap:4px;font:400 13px "Luckiest Guy";letter-spacing:.5px;color:#9fbfa8}
+.fcu input,.fcu select{width:100%;border:3px solid #030806;border-radius:12px;padding:11px 12px 9px;font:600 16px Poppins;background:#effff0;color:#030806;outline:none}
+.fcu input:focus{box-shadow:0 0 0 3px #7dff3a}
+.fcu .r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fcu .btn{margin-top:4px;width:100%}
+.fmsg{min-height:18px;font:600 13px Poppins;color:#ff6b7a;margin:0}
+.fmsg.ok{color:#7dff3a}
+.nota{font:500 12px/1.4 Poppins;color:#8fae98;margin:6px 0 0}
+.mc-head{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.mc-head .cuAv{width:58px;height:58px;font-size:28px;border-width:3px}
+.mc-head b{display:block;font:400 24px "Luckiest Guy";color:#fff}
+.mc-head small{font:600 13px Poppins;color:#9fbfa8}
+.mc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.mc-st{border:3px solid #030806;border-radius:14px;background:#08150c;padding:10px 12px}
+.mc-st span{display:block;font:700 11px Poppins;letter-spacing:1px;color:#8fae98;text-transform:uppercase}
+.mc-st b{font:400 26px "Luckiest Guy";color:#ffd23a}
+.mc-bar{height:10px;border-radius:99px;background:#1a2b20;overflow:hidden;border:2px solid #030806;margin-top:6px}
+.mc-bar i{display:block;height:100%;background:linear-gradient(90deg,#3ee06a,#9dff5a)}
+.mc-sec{border-top:2px dashed rgba(255,255,255,.1);padding-top:12px;margin-top:12px}
+.mc-sec h4{font:400 16px "Luckiest Guy";color:#fff;margin:0 0 6px;letter-spacing:.5px}
+.mc-sec ul{margin:0;padding-left:18px;font:500 13px/1.6 Poppins;color:#cfe8d4}
+.mc-cod{font:400 26px "Luckiest Guy";letter-spacing:3px;color:#7dff3a;background:#08150c;border:3px dashed #1d5a2c;border-radius:12px;text-align:center;padding:8px;margin:8px 0}
+/* top web */
+#topweb{padding:60px 0 30px}
+.tw{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;margin-top:20px;align-items:start}
+.twl{display:grid;gap:8px}
+.twr{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;background:#0b1e12;border:3px solid #030806;border-radius:14px;padding:8px 12px;box-shadow:0 4px 0 #020503;animation:twIn .45s both}
+@keyframes twIn{from{opacity:0;transform:translateX(-20px)}}
+.twr .ps{width:40px;height:40px;border-radius:12px;border:3px solid #030806;display:grid;place-items:center;font:400 20px "Luckiest Guy";color:#030806;background:#2a4a36;color:#fff}
+.twr:nth-child(1) .ps{background:linear-gradient(180deg,#ffe766,#ffb800);color:#030806}
+.twr:nth-child(2) .ps{background:linear-gradient(180deg,#f2f4f7,#b8c0cc);color:#030806}
+.twr:nth-child(3) .ps{background:linear-gradient(180deg,#ffb27a,#d6762f);color:#030806}
+.twr:nth-child(1){box-shadow:0 0 0 3px #ffd23a,0 4px 0 #020503,0 0 30px rgba(255,210,58,.3)}
+.twr b{font:400 18px "Luckiest Guy";color:#fff;letter-spacing:.4px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.twr small{font:600 12px Poppins;color:#8fae98}
+.twr .pt{font:400 20px "Luckiest Guy";color:#7dff3a;text-align:right}
+.twr .pt small{display:block;font:700 10px Poppins;color:#8fae98}
+.twr.yo{box-shadow:0 0 0 3px #7dff3a,0 4px 0 #020503}
+.twv{border:4px solid #030806;border-radius:20px;background:linear-gradient(180deg,#10291a,#0b1e12);box-shadow:0 0 0 3px #1d5a2c,0 8px 0 #020503;padding:18px}
+.twv h4{font:400 22px "Luckiest Guy";color:#fff;margin:0 0 8px}
+.twv ul{margin:0 0 12px;padding-left:18px;font:500 13px/1.7 Poppins;color:#cfe8d4}
+.twv .vivoN{display:flex;align-items:center;gap:8px;font:600 13px Poppins;color:#cfe8d4;margin-top:10px}
+.twv .vivoN i{width:10px;height:10px;border-radius:50%;background:#3ee06a;box-shadow:0 0 0 0 rgba(62,224,106,.6);animation:latir 1.6s infinite}
+@keyframes latir{70%{box-shadow:0 0 0 10px rgba(62,224,106,0)}100%{box-shadow:0 0 0 0 rgba(62,224,106,0)}}
+.twvacio{font:600 14px Poppins;color:#9fbfa8;padding:16px;border:3px dashed #1d5a2c;border-radius:14px;text-align:center}
+/* en vivo: mensaje */
+.vmsg{position:fixed;inset:0;z-index:320;display:grid;place-items:center;padding:16px;background:rgba(2,6,4,.45);animation:veloIn .3s}
+.vmsg[hidden]{display:none!important}
+.vcard{position:relative;width:min(440px,100%);border:4px solid #030806;border-radius:24px;padding:22px 20px 20px;text-align:center;background:linear-gradient(180deg,#10291a,#0b1e12);box-shadow:0 0 0 4px #7dff3a,0 14px 0 #020503,0 0 80px rgba(125,255,58,.35);animation:cajaIn .45s cubic-bezier(.2,1.4,.4,1);overflow:hidden}
+.vcard.promo{box-shadow:0 0 0 4px #ffd23a,0 14px 0 #020503,0 0 80px rgba(255,210,58,.4)}
+.vcard.alerta{box-shadow:0 0 0 4px #ff3b4f,0 14px 0 #020503,0 0 80px rgba(255,59,79,.4)}
+.vcard.navidad{box-shadow:0 0 0 4px #c8102e,0 0 0 8px #ffd23a,0 14px 0 #020503,0 0 80px rgba(255,59,79,.4);background:linear-gradient(180deg,#2a1020,#17111f)}
+.vcard img.vlogo{width:76px;height:76px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(125,255,58,.5))}
+.vcard .vtag{display:inline-block;font:400 12px "Luckiest Guy";letter-spacing:1px;background:#ff3b4f;color:#fff;border:2px solid #030806;border-radius:8px;padding:4px 10px 2px;margin:6px 0 4px;animation:pls 1.4s infinite}
+.vcard h3{font:400 30px/1.05 "Luckiest Guy";color:#fff;margin:6px 0;-webkit-text-stroke:4px #030806;paint-order:stroke fill;text-shadow:0 4px 0 #030806}
+.vcard p{font:500 16px/1.5 Poppins;color:#e6f5ea;margin:6px 0 14px;white-space:pre-line}
+.vcard .vt{position:absolute;left:0;bottom:0;height:5px;background:#7dff3a}
+.vcard .cx{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:10px;border:3px solid #030806;background:#ff3b4f;color:#fff;font:400 15px "Luckiest Guy";cursor:pointer}
+/* en vivo: encuesta */
+.venc{position:fixed;right:18px;bottom:90px;z-index:310;width:min(360px,calc(100% - 24px));border:4px solid #030806;border-radius:20px;background:linear-gradient(180deg,#10291a,#0b1e12);box-shadow:0 0 0 3px #ffd23a,0 10px 0 #020503,0 20px 60px rgba(0,0,0,.6);padding:16px;animation:cajaIn .4s cubic-bezier(.2,1.3,.4,1)}
+.venc[hidden]{display:none!important}
+.venc .vh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.venc .vh span{font:400 12px "Luckiest Guy";letter-spacing:1px;background:#ff3b4f;color:#fff;border:2px solid #030806;border-radius:8px;padding:3px 8px 1px}
+.venc .vh b{font:400 18px "Luckiest Guy";color:#ffd23a;font-variant-numeric:tabular-nums}
+.venc h4{font:400 20px/1.15 "Luckiest Guy";color:#fff;margin:4px 0 10px}
+.vop{position:relative;width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;border:3px solid #030806;border-radius:12px;background:#08150c;color:#fff;font:600 14px Poppins;padding:9px 12px;margin-bottom:7px;cursor:pointer;overflow:hidden;text-align:left}
+.vop i{position:absolute;left:0;top:0;bottom:0;background:rgba(125,255,58,.25);transition:width .5s;z-index:0}
+.vop span,.vop em{position:relative;z-index:1;font-style:normal}
+.vop em{font:400 15px "Luckiest Guy";color:#7dff3a}
+.vop.mio{box-shadow:0 0 0 2px #7dff3a}
+.vop:disabled{cursor:default}
+.venc small{display:block;font:600 12px Poppins;color:#8fae98;margin-top:2px}
+.venc .cx{position:absolute;right:8px;top:8px;width:26px;height:26px;border-radius:8px;border:2px solid #030806;background:#2a4a36;color:#fff;font:400 12px "Luckiest Guy";cursor:pointer}
+/* en vivo: drop */
+.vdrop .vcard{box-shadow:0 0 0 4px #ffd23a,0 14px 0 #020503,0 0 100px rgba(255,210,58,.55)}
+.vdrop .dprem{font:400 34px "Luckiest Guy";color:#ffd23a;-webkit-text-stroke:4px #030806;paint-order:stroke fill;margin:4px 0}
+.vdrop .btn{font-size:24px!important;padding:16px 30px 13px!important;animation:pls 1s infinite}
+.vtoast{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:330;background:#0b1e12;border:3px solid #030806;box-shadow:0 0 0 3px #7dff3a,0 6px 0 #020503;border-radius:14px;padding:10px 16px;font:600 14px Poppins;color:#fff;animation:cajaIn .3s}
+body.navidad .caja,body.navidad .twv,body.navidad .venc{background:linear-gradient(180deg,#22162c,#17111f)}
+body.navidad .twr{background:#1a1222}
+@media(max-width:860px){.tw{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){
+ .cuBtn span{display:none}.cuChip b{display:none}.cuChip{padding:3px 8px 3px 3px}
+ .caja{padding:20px 14px 16px;border-radius:18px}.caja h3{font-size:24px}
+ .fcu .r2{grid-template-columns:1fr}
+ #topweb{padding:34px 0 16px}.twr{grid-template-columns:34px minmax(0,1fr) auto;padding:6px 9px;border-radius:11px;gap:8px}.twr .ps{width:32px;height:32px;font-size:15px;border-radius:9px}.twr b{font-size:14px}.twr .pt{font-size:15px}
+ .twv{padding:14px}.twv h4{font-size:18px}
+ .vcard h3{font-size:24px}.vcard p{font-size:14px}
+ .venc{right:12px;left:12px;width:auto;bottom:70px;padding:12px}.venc h4{font-size:17px}.vop{font-size:13px;padding:8px 10px}
+}
 /* ruleta navideña */
 body.navidad .rulfab{background:repeating-linear-gradient(-45deg,#ff3b4f 0 12px,#fff 12px 24px);box-shadow:0 5px 0 #030806,0 0 26px rgba(255,59,79,.55)}
 body.navidad .rulfab b{background:#030806;color:#fff;padding:3px 8px 1px;border-radius:8px}
@@ -1320,6 +1438,8 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
   <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" class="regLink" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
   <div class="nav-r"><span class="dclog" id="dcLog" hidden><button class="btn btn-s" type="button" id="dcEntrar"><svg viewBox="0 0 24 24"><path fill="#fff" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span>Entrar</span></button></span>
    <span class="dcuser" id="dcUser"><img id="dcAv" alt=""><span id="dcNom"></span><div class="dcmenu" id="dcMenu"><button type="button" id="dcSalir">Cerrar sesión</button></div></span>
+   <button class="btn btn-s cuBtn" type="button" id="cuEntrar" hidden><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="#030806"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="#030806"/></svg><span>Iniciar sesión</span></button>
+   <span class="cuChip" id="cuChip"><span class="cuAv" id="cuAv">?</span><b id="cuNom"></b><i id="cuPts">0</i><div class="cuMenu" id="cuMenu"><button type="button" data-cu="cuenta">Mi cuenta</button><button type="button" data-cu="top">Ver el top</button><button type="button" data-cu="salir">Cerrar sesión</button></div></span>
    <a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar</a>
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>ADMIN</a></div>
@@ -1389,6 +1509,51 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 <a class="livepill" id="livePill" href="#streams" hidden></a>
 
 <div class="musica off" id="musica"><button type="button" id="muBtn" aria-label="Música de fondo"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13" fill="none" stroke="#030806" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="3" fill="#030806"/><circle cx="17.5" cy="16" r="3" fill="#030806"/></svg></button><span class="eq"><i></i><i></i><i></i></span><input type="range" id="muVol" min="0" max="100" value="35" aria-label="Volumen"><span id="muTxt">MÚSICA</span></div>
+
+<div class="velo" id="cuAuth" hidden><div class="caja">
+ <button class="cx" type="button" data-cerrar="cuAuth">✕</button>
+ <span class="tag">ACCESO</span>
+ <h3 id="cuTit">INICIA SESIÓN <span>EN CZ BIG EGG</span></h3>
+ <p class="sub" id="cuSub">Con tu cuenta sumas puntos para el top, votas en las encuestas en vivo y participas en los drops.</p>
+ <div class="tabs2"><button type="button" class="on" data-tab2="login">Iniciar sesión</button><button type="button" data-tab2="reg">Crear cuenta</button></div>
+ <form class="fcu" id="fLogin2" autocomplete="on">
+  <label>USUARIO<input id="lgU" maxlength="20" autocomplete="username" required></label>
+  <label>CONTRASEÑA<input id="lgC" type="password" maxlength="100" autocomplete="current-password" required></label>
+  <p class="fmsg" id="lgM"></p>
+  <button class="btn btn-g" type="submit">Entrar</button>
+ </form>
+ <form class="fcu" id="fReg2" hidden autocomplete="off">
+  <label>ELIGE TU USUARIO<input id="rgU" maxlength="20" placeholder="3 a 20 letras o números" autocomplete="username" required></label>
+  <div class="r2"><label>CONTRASEÑA<input id="rgC" type="password" maxlength="100" autocomplete="new-password" required></label>
+  <label>REPÍTELA<input id="rgC2" type="password" maxlength="100" autocomplete="new-password" required></label></div>
+  <div class="r2"><label>USUARIO DE ROBLOX<input id="rgR" maxlength="20" placeholder="Opcional"></label>
+  <label>PAÍS<select id="rgP"><option>Chile</option><option>México</option><option>Perú</option><option>Argentina</option><option>Colombia</option><option>Ecuador</option><option>Bolivia</option><option>Uruguay</option><option>Venezuela</option><option>España</option><option>Estados Unidos</option><option>Otro</option></select></label></div>
+  <p class="fmsg" id="rgM"></p>
+  <button class="btn btn-y" type="submit">Crear mi cuenta</button>
+  <p class="nota">Tu contraseña se guarda cifrada. Nunca te la vamos a pedir por Discord.</p>
+ </form>
+</div></div>
+
+<div class="velo" id="cuCuenta" hidden><div class="caja">
+ <button class="cx" type="button" data-cerrar="cuCuenta">✕</button>
+ <span class="tag">MI CUENTA</span>
+ <div class="mc-head"><span class="cuAv" id="mcAv">?</span><div><b id="mcNom"></b><small id="mcInfo"></small></div></div>
+ <div class="mc-grid">
+  <div class="mc-st"><span>Puntos de la semana</span><b id="mcSem">0</b></div>
+  <div class="mc-st"><span>Puesto en el top</span><b id="mcPuesto">—</b></div>
+  <div class="mc-st"><span>Racha</span><b id="mcRacha">0</b></div>
+  <div class="mc-st"><span>Puntos totales</span><b id="mcTot">0</b></div>
+ </div>
+ <div class="mc-st"><span>Minutos que suman hoy</span><b id="mcMin" style="font-size:18px">0 / 180</b><div class="mc-bar"><i id="mcBar" style="width:0"></i></div></div>
+ <div class="mc-sec"><h4>Mi radar Premium</h4><div id="mcPlan"></div></div>
+ <div class="mc-sec"><h4>Cambiar contraseña</h4>
+  <form class="fcu" id="fClave2"><div class="r2"><label>ACTUAL<input id="ccA" type="password" maxlength="100" autocomplete="current-password" required></label><label>NUEVA<input id="ccN" type="password" maxlength="100" autocomplete="new-password" required></label></div><p class="fmsg" id="ccM"></p><button class="btn btn-s" type="submit">Guardar</button></form></div>
+ <div class="mc-sec"><button class="btn btn-o" type="button" id="mcSalir" style="width:100%">Cerrar sesión</button></div>
+</div></div>
+
+<div class="vmsg" id="vMsg" hidden><div class="vcard" id="vCard"><button class="cx" type="button" id="vMsgX">✕</button><img class="vlogo" src="assets/logo.png" alt=""><br><span class="vtag">EN VIVO</span><h3 id="vTit"></h3><p id="vTxt"></p><a class="btn btn-y" id="vBtn" target="_blank" rel="noopener" hidden></a><i class="vt" id="vTime"></i></div></div>
+<div class="venc" id="vEnc" hidden><button class="cx" type="button" id="vEncX">✕</button><div class="vh"><span>ENCUESTA EN VIVO</span><b id="vEncT">0:00</b></div><h4 id="vEncQ"></h4><div id="vEncO"></div><small id="vEncN"></small></div>
+<div class="vmsg vdrop" id="vDrop" hidden><div class="vcard"><button class="cx" type="button" id="vDropX">✕</button><span class="vtag">DROP EN VIVO</span><h3>¡LOS PRIMEROS GANAN!</h3><div class="dprem" id="vDropP"></div><p id="vDropN"></p><button class="btn btn-y" type="button" id="vDropB">¡LO QUIERO!</button><i class="vt" id="vDropT"></i></div></div>
 <button class="rulfab" id="rulFab" type="button" aria-label="Ruleta"><span class="rulfw"></span><b>RULETA</b><i id="rulDot" hidden>1</i></button>
 <section id="ruleta" hidden>
  <div class="wrap">
@@ -1576,6 +1741,22 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
      <button class="btn btn-y" type="submit">¡REGISTRARME!</button>
      <p class="regmsg" id="rMsgOut"></p>
     </form>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="topweb" hidden>
+ <div class="wrap">
+  <div class="head rv"><div><div class="eyebrow">TOP DE LA SEMANA</div><h2>Los más <span class="grad">activos</span></h2></div></div>
+  <div class="tw">
+   <div class="twl" id="twL"><div class="twvacio">Todavía nadie suma puntos esta semana. ¡Crea tu cuenta y sé el primero!</div></div>
+   <div class="twv">
+    <h4>¿Cómo subir en el top?</h4>
+    <ul><li>Entra cada día: +10 y más con tu racha de días seguidos</li><li>Cada minuto en la web: +1 (hasta 180 al día)</li><li>Vota en las encuestas en vivo: +5</li><li>Participa en los drops: +3</li></ul>
+    <button class="btn btn-y" type="button" id="twCta" style="width:100%">Crear mi cuenta</button>
+    <div class="vivoN"><i></i><span id="twVivo">Conectando…</span></div>
+    <p class="nota">El top se reinicia cada lunes.</p>
    </div>
   </div>
  </div>
@@ -1909,7 +2090,7 @@ dcVolvio();setTimeout(dcPintar,0);
 
 function pausaWeb(P){const el=document.getElementById("pausa");if(!el)return;const on=!!(P&&P.on);el.hidden=!on;document.body.classList.toggle("enpausa",on);
  if(on)document.getElementById("pausaTxt").textContent=(P.txt||"Estamos haciendo mejoras en la web. Vuelve en un rato.")}
-function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+function pintarWeb(j){if(!j)return;if(j.api&&typeof cuIniciar==="function")cuIniciar(j.api);pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
 try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);dcWeb(c);resenasWeb(c.resenas);if(c.base)BASE=c.base;VOTO=vkDec(c.vk)||c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
@@ -1917,7 +2098,7 @@ async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=vkDec(j.vk)||j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){if(j.api&&typeof cuIniciar==="function")cuIniciar(j.api);pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
@@ -2280,6 +2461,152 @@ function confeti(){const cv=document.createElement("canvas");cv.style.cssText="p
 (function(){const bar=document.querySelector("#ruleta .gbar"),b=document.createElement("button");b.type="button";b.className="rulsnd";b.id="rulSnd";
  const pint=()=>{b.textContent=RSON?"SONIDO ON":"SONIDO OFF";b.classList.toggle("off",!RSON)};pint();b.onclick=()=>{RSON=!RSON;try{localStorage.setItem("czRulMute",RSON?"0":"1")}catch(_){}pint();if(RSON)rTick()};
  bar.insertBefore(b,document.getElementById("rulX"))})();
+
+// ===== cuentas, top y en vivo =====
+var CU={api:"",tok:"",p:null,ws:null,wsT:null,pingT:null,topT:null,rec:1000,enc:null,encT:null,mio:{},drop:null,dropT:null,msgT:null,vivo:false,sec:"inicio"};
+(function(){try{const q=new URLSearchParams(location.search).get("api");if(q){localStorage.setItem("czApi",q)}CU.api=(localStorage.getItem("czApi")||(JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).api||"").replace(/\/+$/,"");CU.tok=localStorage.getItem("czCu")||"";const p=localStorage.getItem("czCuP");if(p)CU.p=JSON.parse(p)}catch(_){}})();
+function cuEl(i){return document.getElementById(i)}
+function cuApi(ruta,body){const h={"Content-Type":"application/json"};if(CU.tok)h.Authorization="Bearer "+CU.tok;
+ return fetch(CU.api+ruta,{method:body?"POST":"GET",headers:h,body:body?JSON.stringify(body):undefined}).then(r=>r.json().catch(()=>({ok:false,error:"Error de conexión"}))).catch(()=>({ok:false,error:"No se pudo conectar, intenta de nuevo"}))}
+function cuGuardar(tok,p){if(tok!==undefined)CU.tok=tok||"";if(p!==undefined)CU.p=p;try{if(CU.tok){localStorage.setItem("czCu",CU.tok);localStorage.setItem("czCuP",JSON.stringify(CU.p))}else{localStorage.removeItem("czCu");localStorage.removeItem("czCuP")}}catch(_){}cuPintar()}
+function cuNum(n){return Number(n||0).toLocaleString("es-CL")}
+function cuToast(t,ms){const d=document.createElement("div");d.className="vtoast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>{d.style.transition="opacity .3s";d.style.opacity="0";setTimeout(()=>d.remove(),350)},ms||3200)}
+function cuPintar(){const on=!!(CU.tok&&CU.p),ch=cuEl("cuChip"),en=cuEl("cuEntrar");
+ en.hidden=!CU.vivo||on;ch.classList.toggle("on",CU.vivo&&on);
+ if(on){const p=CU.p;cuEl("cuAv").textContent=(p.usuario||"?")[0].toUpperCase();cuEl("cuNom").textContent=p.usuario;cuEl("cuPts").textContent=cuNum(p.psem);
+  cuEl("mcAv").textContent=(p.usuario||"?")[0].toUpperCase();cuEl("mcNom").textContent=p.usuario;
+  const d=new Date(p.creado||Date.now());cuEl("mcInfo").textContent=[p.roblox?"Roblox: "+p.roblox:"",p.pais||"","desde "+d.toLocaleDateString("es-CL",{month:"short",year:"numeric"})].filter(Boolean).join(" · ");
+  cuEl("mcSem").textContent=cuNum(p.psem);cuEl("mcPuesto").textContent=p.puesto?"#"+p.puesto:"—";cuEl("mcRacha").textContent=(p.racha||0)+(p.racha==1?" día":" días");cuEl("mcTot").textContent=cuNum(p.puntos);
+  cuEl("mcMin").textContent=(p.minHoy||0)+" / "+(p.topeMin||180);cuEl("mcBar").style.width=Math.min(100,(p.minHoy||0)/(p.topeMin||180)*100)+"%";
+  const L=p.licencia,pl=cuEl("mcPlan");
+  if(L){pl.innerHTML="<ul>"+["Plan: "+esc(L.plan||"Premium"),L.vence?"Vence: "+esc(L.vence):"",L.dias!=null?"Días restantes: "+esc(L.dias):""].filter(Boolean).map(x=>"<li>"+x+"</li>").join("")+"</ul>"}
+  else if(p.discord){pl.innerHTML='<p class="nota">Tu Discord está vinculado, pero no encontramos un plan activo. Mira los <a href="#planes" data-cerrar="cuCuenta" style="color:#ffd23a">planes</a>.</p>'}
+  else if(CU.vinc){pl.innerHTML='<p class="nota" style="margin:0 0 8px">Vincula tu Discord para ver aquí tu plan y los días que te quedan.</p><button class="btn btn-s" type="button" id="mcVinc">Vincular Discord</button><div id="mcCod"></div>'}
+  else{pl.innerHTML='<p class="nota" style="margin:0">Muy pronto vas a poder ver aquí tu plan y los días que te quedan. Por ahora revísalo en nuestro Discord.</p>'}
+ }
+ cuEl("twCta").textContent=on?"Ver mi cuenta":"Crear mi cuenta";
+ document.querySelectorAll("#twL .twr").forEach(r=>r.classList.toggle("yo",on&&r.dataset.u&&r.dataset.u.toLowerCase()===CU.p.usuario.toLowerCase()))}
+function cuAbrir(id){["cuAuth","cuCuenta"].forEach(x=>cuEl(x).hidden=x!==id);document.body.style.overflow=id?"hidden":""}
+function cuAuth(tab,sub){cuTab(tab||"login");if(sub)cuEl("cuSub").textContent=sub;cuAbrir("cuAuth");setTimeout(()=>{const i=cuEl(tab==="reg"?"rgU":"lgU");if(i&&innerWidth>700)i.focus()},80)}
+function cuTab(t){document.querySelectorAll("[data-tab2]").forEach(b=>b.classList.toggle("on",b.dataset.tab2===t));cuEl("fLogin2").hidden=t!=="login";cuEl("fReg2").hidden=t!=="reg";
+ cuEl("cuTit").innerHTML=t==="login"?"INICIA SESIÓN <span>EN CZ BIG EGG</span>":"CREA TU CUENTA <span>GRATIS</span>";cuEl("lgM").textContent="";cuEl("rgM").textContent=""}
+function cuEntro(r,msgEl){if(!r.ok){msgEl.className="fmsg";msgEl.textContent=r.error||"Algo salió mal";return}
+ cuGuardar(r.tok,r.perfil);cuAbrir(null);cuToast(r.bono?"¡Hola "+r.perfil.usuario+"! +"+r.bono+" puntos por entrar hoy":"¡Hola "+r.perfil.usuario+"!");vivoConectar(true);topCargar()}
+document.querySelectorAll("[data-tab2]").forEach(b=>b.onclick=()=>cuTab(b.dataset.tab2));
+document.querySelectorAll("[data-cerrar]").forEach(b=>b.addEventListener("click",()=>cuAbrir(null)));
+document.addEventListener("click",e=>{const c=e.target.closest&&e.target.closest("[data-cerrar]");if(c&&!c.classList.contains("cx"))cuAbrir(null)});
+["cuAuth","cuCuenta"].forEach(id=>cuEl(id).addEventListener("click",e=>{if(e.target.id===id)cuAbrir(null)}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){cuAbrir(null);cuEl("cuMenu").classList.remove("on")}});
+cuEl("cuEntrar").onclick=()=>cuAuth("login");
+cuEl("twCta").onclick=()=>CU.p&&CU.tok?cuAbrir("cuCuenta"):cuAuth("reg");
+cuEl("cuChip").addEventListener("click",e=>{const b=e.target.closest("[data-cu]");const m=cuEl("cuMenu");
+ if(!b){m.classList.toggle("on");return}m.classList.remove("on");const a=b.dataset.cu;
+ if(a==="cuenta"){cuAbrir("cuCuenta");cuApi("/yo").then(r=>{if(r.ok)cuGuardar(undefined,r.perfil)})}
+ else if(a==="top"){const s=cuEl("topweb");if(s)s.scrollIntoView({behavior:"smooth"})}
+ else if(a==="salir")cuSalir()});
+document.addEventListener("click",e=>{if(!e.target.closest||!e.target.closest("#cuChip"))cuEl("cuMenu").classList.remove("on")});
+function cuSalir(){cuApi("/salir",{});cuGuardar("",null);cuAbrir(null);vivoConectar(true);cuToast("Cerraste sesión")}
+cuEl("mcSalir").onclick=cuSalir;
+cuEl("fLogin2").onsubmit=e=>{e.preventDefault();const m=cuEl("lgM"),b=e.target.querySelector("button[type=submit]");m.className="fmsg";m.textContent="Entrando…";b.disabled=true;
+ cuApi("/login",{usuario:cuEl("lgU").value.trim(),clave:cuEl("lgC").value}).then(r=>{b.disabled=false;if(r.ok)cuEl("lgC").value="";cuEntro(r,m)})};
+cuEl("fReg2").onsubmit=e=>{e.preventDefault();const m=cuEl("rgM"),b=e.target.querySelector("button[type=submit]");m.className="fmsg";
+ const u=cuEl("rgU").value.trim(),c=cuEl("rgC").value,c2=cuEl("rgC2").value,r=cuEl("rgR").value.trim();
+ if(!/^[A-Za-z0-9_]{3,20}$/.test(u)){m.textContent="El usuario debe tener 3 a 20 letras, números o _";return}
+ if(c.length<6){m.textContent="La contraseña debe tener al menos 6 caracteres";return}
+ if(c!==c2){m.textContent="Las contraseñas no coinciden";return}
+ if(r&&!/^[A-Za-z0-9_]{3,20}$/.test(r)){m.textContent="Tu usuario de Roblox no es válido";return}
+ m.textContent="Creando tu cuenta…";b.disabled=true;
+ cuApi("/registro",{usuario:u,clave:c,roblox:r,pais:cuEl("rgP").value}).then(x=>{b.disabled=false;if(x.ok){cuEl("rgC").value="";cuEl("rgC2").value=""}cuEntro(x,m)})};
+cuEl("fClave2").onsubmit=e=>{e.preventDefault();const m=cuEl("ccM");m.className="fmsg";
+ if(cuEl("ccN").value.length<6){m.textContent="La nueva debe tener al menos 6 caracteres";return}m.textContent="Guardando…";
+ cuApi("/clave",{actual:cuEl("ccA").value,nueva:cuEl("ccN").value}).then(r=>{if(!r.ok){m.textContent=r.error;return}cuGuardar(r.tok);cuEl("ccA").value="";cuEl("ccN").value="";m.className="fmsg ok";m.textContent="Contraseña cambiada. Se cerraron tus otras sesiones.";vivoConectar(true)})};
+cuEl("cuCuenta").addEventListener("click",e=>{if(e.target.id!=="mcVinc")return;e.target.disabled=true;
+ cuApi("/vincular",{}).then(r=>{e.target.disabled=false;const d=cuEl("mcCod");if(!r.ok){d.innerHTML='<p class="fmsg">'+esc(r.error)+"</p>";return}
+  d.innerHTML='<div class="mc-cod">'+esc(r.codigo)+'</div><p class="nota" style="margin:0">Escribe <b>/vincular '+esc(r.codigo)+"</b> en nuestro Discord. El código dura 15 minutos.</p>"})});
+
+// ----- top
+function topPintar(L){const W=cuEl("twL");if(!W)return;if(!L||!L.length){W.innerHTML='<div class="twvacio">Todavía nadie suma puntos esta semana. ¡Crea tu cuenta y sé el primero!</div>';return}
+ const yo=CU.p&&CU.tok?CU.p.usuario.toLowerCase():"";
+ W.innerHTML=L.slice(0,10).map((r,i)=>`<div class="twr${yo&&r.u.toLowerCase()===yo?" yo":""}" data-u="${esc(r.u)}" style="animation-delay:${i*.05}s"><span class="ps">${r.p}</span><div style="min-width:0"><b>${esc(r.u)}</b><small>${r.racha>1?"Racha de "+r.racha+" días":"Activo esta semana"}</small></div><span class="pt">${cuNum(r.pts)}<small>PUNTOS</small></span></div>`).join("")}
+function topCargar(){if(!CU.api)return;fetch(CU.api+"/top").then(r=>r.json()).then(j=>{if(j&&j.ok){CU.vivo=true;cuEl("topweb").hidden=false;topPintar(j.top);cuPintar()}}).catch(()=>{})}
+
+// ----- en vivo
+function vivoSec(){const S=["gratis","dentro","huevos","calculadora","topweb","resenas","planes","faq","registro","ruleta"];let mej="inicio";
+ for(const s of S){const el=document.getElementById(s);if(!el||el.hidden)continue;const r=el.getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.3){mej=s;break}}return mej}
+function vivoEnviar(m){if(CU.ws&&CU.ws.readyState===1)CU.ws.send(JSON.stringify(m))}
+function vivoConectar(forzar){if(!CU.api)return;if(CU.ws){if(!forzar)return;try{CU.ws.onclose=null;CU.ws.close()}catch(_){}CU.ws=null}
+ let ws;try{ws=new WebSocket(CU.api.replace(/^http/,"ws")+"/vivo")}catch(_){return}CU.ws=ws;
+ ws.onopen=()=>{CU.rec=1000;let pais="";try{pais=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(_){}vivoEnviar({t:"hola",tok:CU.tok||"",sec:vivoSec(),pais})};
+ ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(_){return}vivoMsg(m)};
+ ws.onclose=()=>{if(CU.ws!==ws)return;CU.ws=null;cuEl("twVivo").textContent="Reconectando…";clearTimeout(CU.wsT);CU.wsT=setTimeout(()=>vivoConectar(),CU.rec);CU.rec=Math.min(CU.rec*2,30000)}}
+function vivoMsg(m){
+ if(m.t==="estado"){vivoConectados(m.conectados);vivoAnuncio(m.anuncio,true);vivoEncuesta(m.encuesta,false);vivoDrop(m.drop,false)}
+ else if(m.t==="conectados")vivoConectados(m.n);
+ else if(m.t==="yo"){if(m.perfil){cuGuardar(undefined,m.perfil)}if(m.bono)cuToast("+"+m.bono+" puntos por entrar hoy · racha de "+m.perfil.racha+(m.perfil.racha==1?" día":" días"))}
+ else if(m.t==="anuncio")vivoAnuncio(m.anuncio,false);
+ else if(m.t==="encuesta")vivoEncuesta(m.encuesta,m.nueva);
+ else if(m.t==="votaste"){CU.mio[m.id]=m.op;if(CU.enc)vivoEncPintar()}
+ else if(m.t==="drop")vivoDrop(m.drop,m.nuevo);
+ else if(m.t==="ganaste"){cuEl("vDropB").disabled=true;cuEl("vDropB").textContent="¡ES TUYO!";cuEl("vDropN").textContent="Ganaste "+m.premio+". Te contactaremos por Discord para entregarlo.";if(typeof rGana==="function")rGana();if(typeof confeti==="function")confeti()}
+ else if(m.t==="aviso"){cuToast(m.txt);if(/sesión/i.test(m.txt||""))cuAuth("login","Inicia sesión o crea tu cuenta para participar en lo que pasa en vivo.")}
+ else if(m.t==="efecto")vivoEfecto(m.efecto)}
+function vivoConectados(n){const t=n>1?n+" personas conectadas ahora":"Conectado en vivo";cuEl("twVivo").textContent=t}
+function vivoCuenta(hasta,el,barra,total){const f=()=>{const q=Math.max(0,hasta-Date.now());if(el)el.textContent=Math.floor(q/60000)+":"+String(Math.floor(q/1000)%60).padStart(2,"0");if(barra)barra.style.width=Math.max(0,q/total*100)+"%";return q};return f}
+// mensaje en pantalla
+function vivoAnuncio(a,inicial){const M=cuEl("vMsg");clearInterval(CU.msgT);
+ if(!a||a.hasta<=Date.now()){M.hidden=true;return}
+ let vistos=[];try{vistos=JSON.parse(sessionStorage.getItem("czVisto")||"[]")}catch(_){}if(inicial&&vistos.includes(a.id))return;
+ cuEl("vCard").className="vcard "+(a.estilo||"info");cuEl("vTit").textContent=a.titulo||"";cuEl("vTit").hidden=!a.titulo;cuEl("vTxt").textContent=a.txt||"";
+ const B=cuEl("vBtn");B.hidden=!(a.btn&&a.link);if(a.btn&&a.link){B.textContent=a.btn;B.href=a.link}
+ M.hidden=false;if(a.sonido&&!inicial&&typeof rTono==="function"){rTono(880,.12,"triangle",.09);rTono(1320,.25,"triangle",.09,.12)}
+ const f=vivoCuenta(a.hasta,null,cuEl("vTime"),a.seg*1000);f();CU.msgT=setInterval(()=>{if(f()<=0){clearInterval(CU.msgT);M.hidden=true}},200);
+ const cerrar=()=>{M.hidden=true;clearInterval(CU.msgT);try{vistos.push(a.id);sessionStorage.setItem("czVisto",JSON.stringify(vistos.slice(-20)))}catch(_){}};
+ cuEl("vMsgX").onclick=cerrar;M.onclick=e=>{if(e.target===M)cerrar()}}
+// encuesta
+function vivoEncuesta(e,nueva){CU.enc=e;const V=cuEl("vEnc");clearInterval(CU.encT);
+ if(!e){V.hidden=true;return}
+ let ce=[];try{ce=JSON.parse(sessionStorage.getItem("czEncX")||"[]")}catch(_){}
+ if(ce.includes(e.id)&&!nueva){V.hidden=true;return}
+ V.hidden=false;vivoEncPintar();
+ if(nueva&&typeof rTono==="function"){rTono(660,.1,"square",.05);rTono(990,.16,"square",.05,.1)}
+ const ocultar=()=>setTimeout(()=>{if(CU.enc&&CU.enc.id===e.id&&CU.enc.cerrada)V.hidden=true},15000);
+ if(!e.cerrada){const f=vivoCuenta(e.hasta,cuEl("vEncT"));f();CU.encT=setInterval(()=>{if(f()<=0){clearInterval(CU.encT);CU.enc.cerrada=true;vivoEncPintar();ocultar()}},500)}else ocultar()
+ cuEl("vEncX").onclick=()=>{V.hidden=true;clearInterval(CU.encT);try{ce.push(e.id);sessionStorage.setItem("czEncX",JSON.stringify(ce.slice(-20)))}catch(_){}}}
+function vivoEncPintar(){const e=CU.enc;if(!e)return;const mio=CU.mio[e.id],ver=mio!=null||e.cerrada,tot=e.total||0;
+ cuEl("vEncQ").textContent=e.q;if(e.cerrada)cuEl("vEncT").textContent="CERRADA";
+ const mx=Math.max(...e.votos);
+ cuEl("vEncO").innerHTML=e.ops.map((o,i)=>{const pc=tot?Math.round(e.votos[i]/tot*100):0;return `<button type="button" class="vop${mio===i?" mio":""}" data-op="${i}"${ver?" disabled":""}><i style="width:${ver?pc:0}%"></i><span>${esc(o)}${e.cerrada&&tot&&e.votos[i]===mx?" · ganó":""}</span>${ver?"<em>"+pc+"%</em>":""}</button>`}).join("");
+ cuEl("vEncN").textContent=e.cerrada?"Resultado final · "+tot+(tot==1?" voto":" votos"):mio!=null?"Gracias por votar · "+tot+(tot==1?" voto":" votos"):CU.tok?"Vota y gana +5 puntos para el top":"Inicia sesión para votar y ganar +5 puntos"}
+cuEl("vEncO").addEventListener("click",ev=>{const b=ev.target.closest("[data-op]");if(!b||b.disabled||!CU.enc)return;
+ if(!CU.tok){cuAuth("login","Inicia sesión o crea tu cuenta para votar en la encuesta en vivo.");return}
+ vivoEnviar({t:"voto",id:CU.enc.id,op:+b.dataset.op})});
+// drop
+function vivoDrop(d,nuevo){const D=cuEl("vDrop");clearInterval(CU.dropT);const ant=CU.drop;CU.drop=d;
+ if(!d||d.quedan<=0||d.hasta<=Date.now()){if(!D.hidden&&ant&&d&&d.quedan<=0&&!cuEl("vDropB").disabled){cuEl("vDropN").textContent="Se acabaron los cupos. ¡Atento al próximo drop!";cuEl("vDropB").disabled=true;cuEl("vDropB").textContent="AGOTADO";setTimeout(()=>{D.hidden=true},3500)}else if(!d||d.hasta<=Date.now())D.hidden=true;return}
+ if(!ant||ant.id!==d.id){cuEl("vDropB").disabled=false;cuEl("vDropB").textContent="¡LO QUIERO!"}
+ cuEl("vDropP").textContent=d.premio;if(!cuEl("vDropB").disabled)cuEl("vDropN").textContent="Quedan "+d.quedan+" de "+d.cupos+(d.quedan==1?" cupo":" cupos")+(CU.tok?"":" · necesitas iniciar sesión");
+ if(nuevo||D.hidden){D.hidden=false;if(nuevo&&typeof rTono==="function")[523,784,1047].forEach((f,i)=>rTono(f,.14,"square",.06,i*.09))}
+ const tot=d.hasta-Date.now(),f=vivoCuenta(d.hasta,null,cuEl("vDropT"),Math.max(tot,1));f();CU.dropT=setInterval(()=>{if(f()<=0){clearInterval(CU.dropT);D.hidden=true}},200)}
+cuEl("vDropB").onclick=()=>{if(!CU.drop)return;if(!CU.tok){cuAuth("login","Inicia sesión o crea tu cuenta para participar en los drops en vivo.");return}cuEl("vDropB").disabled=true;cuEl("vDropB").textContent="…";vivoEnviar({t:"drop",id:CU.drop.id});setTimeout(()=>{if(cuEl("vDropB").textContent==="…"){cuEl("vDropB").disabled=false;cuEl("vDropB").textContent="¡LO QUIERO!"}},4000)};
+cuEl("vDropX").onclick=()=>{cuEl("vDrop").hidden=true;clearInterval(CU.dropT)};
+// efectos
+function vivoEfecto(ef){if(ef==="confeti"&&typeof confeti==="function"){confeti();setTimeout(confeti,700)}
+ else if(ef==="nieve"&&typeof nieve==="function"){const ya=typeof NV!=="undefined"&&NV;if(!ya){nieve(true);setTimeout(()=>{if(!(typeof TEMA!=="undefined"&&TEMA==="navidad"))nieve(false)},12000)}}
+ else if(ef==="fuegos")vivoFuegos()}
+function vivoFuegos(){const cv=document.createElement("canvas");cv.style.cssText="position:fixed;inset:0;z-index:9999;pointer-events:none";document.body.appendChild(cv);
+ const x=cv.getContext("2d"),W=cv.width=innerWidth,H=cv.height=innerHeight,C=["#ffd23a","#ff3b4f","#7dff3a","#38d3ff","#b48cff","#fff"],P=[];let n=0;
+ const boom=()=>{const cx=W*(.15+Math.random()*.7),cy=H*(.15+Math.random()*.35),c=C[Math.floor(Math.random()*C.length)];for(let i=0;i<70;i++){const a=Math.random()*Math.PI*2,v=2+Math.random()*5;P.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,c})}if(typeof rTono==="function")rTono(120+Math.random()*80,.25,"sawtooth",.04)};
+ const it=setInterval(()=>{boom();if(++n>=8)clearInterval(it)},380);boom();
+ (function f(){x.globalCompositeOperation="destination-out";x.fillStyle="rgba(0,0,0,.25)";x.fillRect(0,0,W,H);x.globalCompositeOperation="lighter";
+  for(let i=P.length-1;i>=0;i--){const p=P[i];p.vy+=.06;p.vx*=.985;p.vy*=.985;p.x+=p.vx;p.y+=p.vy;p.l-=.012;if(p.l<=0){P.splice(i,1);continue}x.globalAlpha=p.l;x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y,2.4,0,7);x.fill()}
+  if(P.length||n<8)requestAnimationFrame(f);else cv.remove()})()}
+// ping cada minuto mientras la pestaña está visible
+setInterval(()=>{vivoEnviar({t:"ping",visible:document.visibilityState==="visible",sec:vivoSec()})},60000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&CU.api&&!CU.ws)vivoConectar()});
+function cuIniciar(api){if(api)api=String(api).replace(/\/+$/,"");if(api&&!CU.api){CU.api=api}else if(!CU.api)return;
+ if(CU._ini)return;CU._ini=true;cuPintar();topCargar();vivoConectar();CU.topT=setInterval(topCargar,60000);
+ if(CU.tok)cuApi("/yo").then(r=>{if(r.ok)cuGuardar(undefined,r.perfil);else if(r.error==="Sesión vencida"){cuGuardar("",null)}})}
+cuIniciar();
 </script>
 </body>
 </html>
