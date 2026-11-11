@@ -506,6 +506,20 @@ body.navidad .hero .sub span,body.navidad .sub span{color:#ff6b7a!important}
 body.navidad .plan .pr,body.navidad .pval{color:#ffd23a!important}
 body.navidad .links a.free{color:#ff6b7a!important}
 body.navidad #pausa h2 span{color:#ff4d5e}
+/* intro navideña */
+body.navidad #intro{background:radial-gradient(circle at 50% 45%,#5a0f1c,#03060a 72%)}
+body.navidad .itr-rays{background:repeating-conic-gradient(rgba(255,59,79,.13) 0 9deg,transparent 9deg 18deg,rgba(255,210,58,.11) 18deg 27deg,transparent 27deg 36deg)}
+body.navidad #intro:after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2.5px 2.5px at 20px 30px,#fff 98%,transparent),radial-gradient(2px 2px at 90px 80px,#fff 98%,transparent),radial-gradient(3px 3px at 150px 20px,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 60px 140px,#fff 98%,transparent),radial-gradient(2.5px 2.5px at 170px 120px,#fff 98%,transparent);background-size:200px 200px;animation:itrNieve 6s linear infinite;opacity:.8}
+@keyframes itrNieve{to{background-position:0 200px}}
+body.navidad .itr-top,body.navidad .itr-bot{background:radial-gradient(circle at 34% 24%,rgba(255,255,255,.9) 0 7%,transparent 8%),repeating-linear-gradient(-45deg,rgba(200,16,46,.85) 0 12px,transparent 12px 26px),linear-gradient(160deg,#ffe98a,#ffbf1f 55%,#b8860b)}
+body.navidad .itr-egg:before{content:"";position:absolute;left:8%;top:-34%;width:86%;aspect-ratio:64/50;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 50'%3E%3Cpath d='M8 38 C10 18 22 6 38 6 C52 6 60 16 58 30 L50 30 C50 22 46 17 40 18 C44 24 44 32 44 38 Z' fill='%23e01b38' stroke='%23030806' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 30 C18 18 28 10 38 10' stroke='%23fff' stroke-opacity='.35' stroke-width='3' fill='none'/%3E%3Crect x='3' y='35' width='46' height='12' rx='6' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3Ccircle cx='55' cy='33' r='7' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3C/svg%3E") no-repeat center/contain;z-index:3;transform:rotate(-12deg);animation:itrTop .55s .9s cubic-bezier(.3,.6,.4,1) forwards}
+body.navidad .itr-sh i:nth-child(3n+1){--c:#ff3b4f!important}body.navidad .itr-sh i:nth-child(3n+2){--c:#ffd23a!important}body.navidad .itr-sh i:nth-child(3n){--c:#2fd36b!important}
+body.navidad .itr-sh i:nth-child(4n){--c:#ffffff!important}
+body.navidad .itr-logo{filter:drop-shadow(0 0 30px rgba(255,210,58,.75))}
+body.navidad .itr-name{color:#ffd23a;text-shadow:0 7px 0 #c8102e,0 11px 0 #030806}
+body.navidad .itr-load i{background:repeating-linear-gradient(-45deg,#ff3b4f 0 10px,#fff 10px 20px)}
+body.navidad .itr-load span{color:#ffd23a}
+body.navidad #intro .skip{border-color:#c8102e}
 /* ruleta navideña */
 body.navidad .rulfab{background:repeating-linear-gradient(-45deg,#ff3b4f 0 12px,#fff 12px 24px);box-shadow:0 5px 0 #030806,0 0 26px rgba(255,59,79,.55)}
 body.navidad .rulfab b{background:#030806;color:#fff;padding:3px 8px 1px;border-radius:8px}
@@ -1207,7 +1221,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 @media(max-width:560px){.rulsnd{font-size:9px;padding:5px 6px 3px}#ruleta #rulTag{display:none}}
 </style>
 </head>
-<body>
+<body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script>
 <div id="pausa" hidden><div class="prays"></div><div class="pin"><img src="assets/logo.png" alt="CZ BIG EGG"><br><span class="ptag">EN MANTENIMIENTO</span><h2>VOLVEMOS <span>PRONTO</span></h2><p id="pausaTxt">Estamos haciendo mejoras en la web. Vuelve en un rato.</p><a class="btn btn-g" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Únete al Discord</a></div></div>
 <div class="bg"></div><div class="grid-bg"></div>
 
@@ -1682,7 +1696,7 @@ function encuesta(E){const sec=document.getElementById("encuesta"),nav=document.
    catch(err){document.getElementById("pNote").textContent="No se pudo votar: "+(err.message||"intenta de nuevo");[...box.children].forEach(x=>x.disabled=false)}};
   box.appendChild(b)})}
 var TEMA="";
-function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA)return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
+function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA&&document.body.classList.contains("navidad")===(t==="navidad"))return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
  document.querySelectorAll("img").forEach(im=>{const a=im.getAttribute("src")||"";if(on&&/assets\/logo\.png/.test(a))im.setAttribute("src",a.replace("logo.png","logo_navidad.webp"));
   else if(!on&&/assets\/logo_navidad\.webp/.test(a))im.setAttribute("src",a.replace("logo_navidad.webp","logo.png"))});
   const fav=document.querySelector('link[rel="icon"]');if(fav){const h=fav.getAttribute("href")||"";if(on&&/favicon\.png/.test(h))fav.setAttribute("href",h.replace("favicon.png","favicon_navidad.png"));else if(!on&&/favicon_navidad\.png/.test(h))fav.setAttribute("href",h.replace("favicon_navidad.png","favicon.png"))}
