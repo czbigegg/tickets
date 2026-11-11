@@ -481,6 +481,22 @@ body.navidad .pieNav svg{position:absolute;left:0;bottom:0;width:100%;height:120
 @media(max-width:560px){body.navidad .trineo{width:170px;top:90px}body.navidad .pieNav{height:80px}body.navidad .pieNav svg{height:80px}
  body.navidad .btn-g:before,body.navidad .btn-y:before{height:7px;background-size:42px 7px;top:-3px}}
 @media(prefers-reduced-motion:reduce){body.navidad .bolas span{animation:none}body.navidad .trineo{display:none}}
+/* ruleta navideña */
+body.navidad .rulfab{background:repeating-linear-gradient(-45deg,#ff3b4f 0 12px,#fff 12px 24px);box-shadow:0 5px 0 #030806,0 0 26px rgba(255,59,79,.55)}
+body.navidad .rulfab b{background:#030806;color:#fff;padding:3px 8px 1px;border-radius:8px}
+body.navidad .rulfab:before{content:"";position:absolute;left:-4px;top:-20px;width:40px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 50'%3E%3Cpath d='M8 38 C10 18 22 6 38 6 C52 6 60 16 58 30 L50 30 C50 22 46 17 40 18 C44 24 44 32 44 38 Z' fill='%23e01b38' stroke='%23030806' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 30 C18 18 28 10 38 10' stroke='%23fff' stroke-opacity='.35' stroke-width='3' fill='none'/%3E%3Crect x='3' y='35' width='46' height='12' rx='6' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3Ccircle cx='55' cy='33' r='7' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3C/svg%3E") no-repeat center/contain;transform:rotate(-18deg);z-index:2;pointer-events:none}
+body.navidad .rulfab{position:fixed}
+body.navidad .rulfw{background:conic-gradient(#ffd23a 0 45deg,#d7263d 0 90deg,#178a3c 0 135deg,#d7263d 0 180deg,#178a3c 0 225deg,#d7263d 0 270deg,#178a3c 0 315deg,#d7263d 0)}
+body.navidad .rulfab i{background:#178a3c}
+body.navidad #ruleta .rulw{box-shadow:0 0 0 4px #c8102e,0 0 0 8px #ffd23a,0 12px 0 #020503,0 20px 60px rgba(0,0,0,.6)!important}
+body.navidad #ruleta .gbar{background:linear-gradient(180deg,#ff5a6a,#c8102e)}
+body.navidad #ruleta .gtit{color:#fff}
+body.navidad .rulwheel{box-shadow:0 0 0 5px #fff,0 0 0 10px #c8102e,0 12px 0 #030806,0 0 50px rgba(255,59,79,.4)}
+body.navidad .rulptr{border-top-color:#ffd23a}
+body.navidad .rulbtn{background:radial-gradient(circle at 35% 30%,#ff7a86,#c8102e 70%);color:#fff;-webkit-text-stroke:3px #030806;paint-order:stroke fill}
+body.navidad .rulbtn:before{content:"";position:absolute;left:8%;right:8%;top:-6px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' viewBox='0 0 120 18'%3E%3Cpath d='M0 0h120v6c-6 0-7 9-13 9s-6-7-12-7-5 10-12 10-6-9-12-9-6 6-12 6-6-8-12-8-6 7-13 7S27 6 21 6 15 13 9 13 4 6 0 6z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:40px 12px;pointer-events:none}
+body.navidad .rulbox{position:relative}
+body.navidad .rulbox:after{content:"";position:absolute;right:-6%;top:-10%;width:30%;aspect-ratio:64/50;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 50'%3E%3Cpath d='M8 38 C10 18 22 6 38 6 C52 6 60 16 58 30 L50 30 C50 22 46 17 40 18 C44 24 44 32 44 38 Z' fill='%23e01b38' stroke='%23030806' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 30 C18 18 28 10 38 10' stroke='%23fff' stroke-opacity='.35' stroke-width='3' fill='none'/%3E%3Crect x='3' y='35' width='46' height='12' rx='6' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3Ccircle cx='55' cy='33' r='7' fill='%23fff' stroke='%23030806' stroke-width='3'/%3E%3C/svg%3E") no-repeat center/contain;transform:rotate(22deg);pointer-events:none;z-index:4}
 @media(max-width:560px){body.navidad .xtag{display:none}body.navidad .navluces i{width:7px;height:11px}}
 #pausa{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:24px;text-align:center;background:radial-gradient(800px 500px at 50% 35%,rgba(125,255,58,.18),transparent),#050d08;overflow:hidden}
 #pausa[hidden]{display:none!important}
@@ -1643,7 +1659,9 @@ var TEMA="";
 function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA)return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
  document.querySelectorAll("img").forEach(im=>{const a=im.getAttribute("src")||"";if(on&&/assets\/logo\.png/.test(a))im.setAttribute("src",a.replace("logo.png","logo_navidad.webp"));
   else if(!on&&/assets\/logo_navidad\.webp/.test(a))im.setAttribute("src",a.replace("logo_navidad.webp","logo.png"))});
-  nieve(on);if(on)adornos();else{clearInterval(TRT)}}
+  nieve(on);if(on)adornos();else{clearInterval(TRT)}
+ if(typeof rulDibujar==="function"&&typeof RUL!=="undefined"&&RUL)rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());
+ const rt=document.querySelector("#ruleta .gtit");if(rt)rt.textContent=on?"RULETA NAVIDEÑA":"RULETA CZ BIG EGG"}
 var TRT=null;
 function bolaSVG(c1,c2){return `<svg viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg"><rect x="22" y="0" width="16" height="10" rx="3" fill="#d4a017" stroke="#030806" stroke-width="2"/><circle cx="30" cy="40" r="27" fill="${c1}" stroke="#030806" stroke-width="3"/><path d="M5 40q25 12 50 0" stroke="${c2}" stroke-width="5" fill="none"/><path d="M8 30q22 10 44 0" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"/><circle cx="20" cy="28" r="6" fill="#fff" fill-opacity=".55"/></svg>`}
 function adornos(){
@@ -1975,13 +1993,16 @@ document.getElementById("pFx").onclick=cerrarFlota;
 
 // ===== ruleta =====
 var RUL=null,RULGIRO=0;const RULSEG=8;
-function rulDibujar(premio){const W=document.getElementById("rulW");if(!W||W.dataset.p===premio)return;W.dataset.p=premio;
+function rulDibujar(premio){const W=document.getElementById("rulW");const nav=typeof TEMA!=="undefined"&&TEMA==="navidad";if(!W||W.dataset.p===premio+nav)return;W.dataset.p=premio+nav;
  const etq=[premio,"SUERTE LA PRÓXIMA","CASI...","OTRA VEZ","SUERTE LA PRÓXIMA","CASI...","OTRA VEZ","SUERTE LA PRÓXIMA"];
- const col=["#ffd23a","#1fb45a","#14361f","#2fbf4a","#1fb45a","#14361f","#2fbf4a","#14361f"];let h="";
+ const col=nav?["#ffd23a","#d7263d","#178a3c","#d7263d","#178a3c","#d7263d","#178a3c","#d7263d"]:["#ffd23a","#1fb45a","#14361f","#2fbf4a","#1fb45a","#14361f","#2fbf4a","#14361f"];let h="";
  for(let i=0;i<RULSEG;i++){const a0=(i*45-90-22.5)*Math.PI/180,a1=((i+1)*45-90-22.5)*Math.PI/180,r=104;
   h+=`<path d="M0 0 L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z" fill="${col[i]}" stroke="#030806" stroke-width="2"/>`;
   const am=i*45;h+=`<g transform="rotate(${am})"><text x="0" y="-62" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i]).split(" ").slice(0,2).join(" ")}</text>${etq[i].split(" ").length>2?`<text x="0" y="-50" text-anchor="middle" ${i===0?'style="fill:#030806;stroke:#fff6b8"':''}>${esc(etq[i].split(" ").slice(2).join(" "))}</text>`:""}</g>`}
- h+=`<circle r="104" fill="none" stroke="#030806" stroke-width="3"/>`;W.innerHTML=h}
+ h+=`<circle r="104" fill="none" stroke="#030806" stroke-width="3"/>`;
+ if(nav){for(let i=0;i<16;i++){const a=(i*22.5-90)*Math.PI/180,c=["#ffd23a","#fff","#4fc3ff","#ff7ad9"][i%4];h+=`<circle cx="${(98*Math.cos(a)).toFixed(1)}" cy="${(98*Math.sin(a)).toFixed(1)}" r="3.6" fill="${c}" stroke="#030806" stroke-width="1.2"/>`}
+  for(let i=0;i<8;i++){const a=(i*45-90+22.5)*Math.PI/180;h+=`<text x="${(84*Math.cos(a)).toFixed(1)}" y="${(84*Math.sin(a)+3).toFixed(1)}" text-anchor="middle" style="font-size:9px;fill:#fff;stroke:none">✻</text>`}}
+ W.innerHTML=h}
 function rulWeb(j){RUL=j&&j.ruleta&&j.ruleta.on?j.ruleta:{on:true,id:"0",n:0,premio:"1 DÍA PREMIUM",reg:{}};rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());rulMio(RUL).then(rulEstado)}
 function rulAbrir(si){const sec=document.getElementById("ruleta");sec.hidden=!si;if(si){if(!RUL)rulWeb(null);rulEstado()}}
 document.getElementById("rulFab").onclick=()=>rulAbrir(document.getElementById("ruleta").hidden);
@@ -2042,7 +2063,7 @@ function rAngulo(el){const m=getComputedStyle(el).transform;if(!m||m==="none")re
 function rTicks(ms){const W=document.getElementById("rulW");let ult=null,acc=0,prev=rAngulo(W);const fin=performance.now()+ms;
  (function f(){const a=rAngulo(W);let d=a-prev;if(d<-180)d+=360;if(d>180)d-=360;acc+=d;prev=a;const sec=Math.floor(acc/45);if(ult===null)ult=sec;if(sec!==ult){ult=sec;rTick()}if(performance.now()<fin)requestAnimationFrame(f)})()}
 function confeti(){const cv=document.createElement("canvas");cv.style.cssText="position:fixed;inset:0;z-index:9999;pointer-events:none";document.body.appendChild(cv);
- const x=cv.getContext("2d"),W=cv.width=innerWidth,H=cv.height=innerHeight,C=["#7dff3a","#ffd23a","#ff3b4f","#38d3ff","#b48cff","#fff"];
+ const x=cv.getContext("2d"),W=cv.width=innerWidth,H=cv.height=innerHeight,C=(typeof TEMA!=="undefined"&&TEMA==="navidad")?["#ff3b4f","#2fd36b","#ffd23a","#fff","#fff","#c8102e"]:["#7dff3a","#ffd23a","#ff3b4f","#38d3ff","#b48cff","#fff"];
  const P=Array.from({length:180},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.55,vx:(Math.random()-.5)*16,vy:-Math.random()*18-6,s:6+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:C[Math.floor(Math.random()*C.length)]}));
  const t0=performance.now();(function f(t){x.clearRect(0,0,W,H);const k=(t-t0)/3500;P.forEach(p=>{p.vy+=.45;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.globalAlpha=Math.max(0,1-k);x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66);x.restore()});
   if(k<1)requestAnimationFrame(f);else cv.remove()})(t0)}
