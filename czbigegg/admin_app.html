@@ -215,6 +215,30 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 @media(max-width:560px){#cuT td[data-l]{display:flex;justify-content:space-between;padding:6px 10px}#cuT td[data-l]:before{content:attr(data-l);font:400 12px "Luckiest Guy";letter-spacing:.6px;color:var(--mut)}}
 @media(max-width:1000px){.vkpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.vrow,.estilos{grid-template-columns:1fr 1fr}.vkpis b{font-size:26px}.hbv .r{grid-template-columns:86px minmax(0,1fr) 34px}}
+
+/* apariencia */
+.apg{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.aplogo{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:center;margin-bottom:12px}
+.aplogo .pv{width:96px;height:96px;border:3px solid var(--ink);border-radius:16px;background:#08150c url() center/contain no-repeat;display:grid;place-items:center}
+.aplogo .pv img{max-width:84px;max-height:84px}.aplogo .bts{display:flex;gap:6px;flex-wrap:wrap}
+.apcol{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.apcol input[type=color]{width:52px;height:42px;padding:2px;border-radius:11px;cursor:pointer}
+.apcol .sw{width:34px;height:34px;border-radius:10px;border:3px solid var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.apcol .sw.on{outline:3px solid #fff}
+.appv{border:4px solid var(--ink);border-radius:20px;overflow:hidden;background:#06080a}
+.appv .nv{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:3px solid var(--ink)}
+.appv .nv img{width:34px;height:34px}.appv .nv b{font:400 18px "Luckiest Guy";color:#fff}
+.appv .nv i{margin-left:auto;font:400 12px "Luckiest Guy";padding:6px 10px 4px;border:2px solid var(--ink);border-radius:9px;font-style:normal;color:#030806}
+.appv .hr{padding:16px 14px 18px}.appv .hr .lg{display:flex;align-items:center;gap:8px}.appv .hr .lg img{width:54px}.appv .hr .lg b{font:400 30px "Luckiest Guy";-webkit-text-stroke:4px #030806;paint-order:stroke fill}
+.appv .tg{display:inline-block;margin:8px 0;font:400 11px "Luckiest Guy";letter-spacing:.6px;color:#fff;border:2px solid #030806;border-radius:8px;padding:4px 8px 2px}
+.appv .bt{display:inline-block;margin-top:8px;font:400 16px "Luckiest Guy";padding:10px 16px 7px;border:3px solid #030806;border-radius:12px;box-shadow:0 4px 0 #030806;color:#030806}
+.appv .row9{margin-top:10px;display:grid;gap:5px}.appv .row9 div{height:22px;border-radius:8px;border:2px solid #030806}
+@media(max-width:1000px){.apg{grid-template-columns:minmax(0,1fr)}}
+/* panel en modo navidad */
+body.navidad header{background:linear-gradient(180deg,#ff6b7a,#d7263d 55%,#a50f25)!important;box-shadow:0 4px 0 #6b0f1c!important}
+body.navidad{--bg:#0c0a14}body.navidad .side button.on,body.navidad .tabs button.on{background:linear-gradient(180deg,#ff6b7a,#d7263d)!important;color:#fff}
+body.navidad .box{background:repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0 14px,transparent 14px 28px),linear-gradient(180deg,#22162c,#17111f)!important;box-shadow:0 0 0 3px #6b1d2e,0 6px 0 #030806!important}
+body.navidad .btn.g{background:linear-gradient(180deg,#ff6b7a,#d7263d)}body.navidad .side button{background:#1f1629}body.navidad .side .live{border-color:#6b1d2e}body.navidad .tbl td{background:#1f1629;border-color:#6b1d2e!important}
 </style>
 </head>
 <body>
@@ -236,6 +260,7 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <button data-t="resumen" class="on">RESUMEN</button>
    <button data-t="envivo">EN VIVO <span class="ct" id="ctVivo" hidden style="background:#ff3b4f">0</span></button>
    <button data-t="cuentas">CUENTAS</button>
+   <button data-t="apariencia">APARIENCIA</button>
    <button data-t="registros">REGISTROS <span class="ct" id="ctReg" hidden></span></button>
    <button data-t="usuarios">USUARIOS TOP</button>
    <button data-t="streams">DIRECTOS <span class="ct" id="ctLive" hidden style="background:#ff3b4f">EN VIVO</span></button>
@@ -307,6 +332,35 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
    <div id="cuCuerpo" hidden>
     <div class="tools" style="display:flex;gap:8px;margin-bottom:10px"><input id="cuQ" placeholder="Buscar por usuario o Roblox"><button class="btn sm" type="button" id="cuBus">BUSCAR</button></div>
     <div class="box card2"><table class="tbl"><thead><tr><th>USUARIO</th><th>ROBLOX</th><th>PAÍS</th><th>SEMANA</th><th>TOTAL</th><th>RACHA</th><th>ÚLTIMA VEZ</th><th></th></tr></thead><tbody id="cuT"></tbody></table><div class="empty2" id="cuVac" hidden>Todavía nadie crea su cuenta.</div></div>
+   </div>
+  </div>
+  <div data-tab="apariencia" hidden>
+   <div class="top"><div><h2 class="L st">APARIENCIA</h2><p>Cambia el logo, los colores y los textos de tu web. Se aplica <b>al instante</b> a todos los que estén conectados. El modo navideño tiene sus propios colores y se maneja en <b>ANUNCIOS → ESTADO DE LA WEB</b>.</p></div></div>
+   <div class="box card2" id="apSinKey" hidden><p style="font:500 14px Poppins;color:#cfe8d4">Primero conecta el servidor en la pestaña <b>EN VIVO</b>.</p></div>
+   <div class="apg" id="apCuerpo" hidden>
+    <div>
+     <div class="box card2"><h3>LOGO</h3>
+      <div class="aplogo"><div class="pv"><img id="apL1" alt=""></div><div><label class="lb">LOGO NORMAL</label><div class="bts"><button class="btn sm" type="button" data-apsub="logo">SUBIR IMAGEN</button><button class="btn r sm" type="button" data-apq="logo">USAR EL ORIGINAL</button></div><small style="font:500 12px Poppins;color:var(--mut)">PNG o WEBP con fondo transparente queda mejor. También cambia el ícono de la pestaña.</small></div></div>
+      <div class="aplogo"><div class="pv"><img id="apL2" alt=""></div><div><label class="lb">LOGO NAVIDEÑO</label><div class="bts"><button class="btn sm" type="button" data-apsub="logoNav">SUBIR IMAGEN</button><button class="btn r sm" type="button" data-apq="logoNav">USAR EL ORIGINAL</button></div><small style="font:500 12px Poppins;color:var(--mut)">Se usa solo cuando la web está en modo navideño.</small></div></div>
+     </div>
+     <div class="box card2" style="margin-top:14px"><h3>COLORES</h3>
+      <label class="lb">COLOR PRINCIPAL</label><div class="apcol" id="apC1"></div>
+      <label class="lb">COLOR DE ACENTO <small style="font:500 11px Poppins;letter-spacing:0">(botones amarillos, títulos)</small></label><div class="apcol" id="apC2"></div>
+     </div>
+     <div class="box card2" style="margin-top:14px"><h3>TEXTOS</h3>
+      <label class="lb">NOMBRE DE LA WEB</label><input id="apNom" maxlength="24" placeholder="CZ BIG EGG">
+      <label class="lb">FRASE DEBAJO DEL LOGO</label><input id="apTag" maxlength="40" placeholder="RADAR GRATIS + PREMIUM 24/7">
+      <label class="lb">TÍTULO DE LA PESTAÑA</label><input id="apTit" maxlength="70" placeholder="CZ BIG EGG · Radar de Steal an Egg">
+     </div>
+    </div>
+    <div>
+     <div class="box card2" style="position:sticky;top:12px"><h3>VISTA PREVIA</h3>
+      <div class="appv" id="apPv"><div class="nv"><img class="pvl" alt=""><b class="pvn">CZ BIG EGG</b><i class="pvb">COMPRAR</i></div>
+       <div class="hr"><div class="lg"><img class="pvl" alt=""><b class="pvn">CZ BIG EGG</b></div><span class="tg pvt">RADAR GRATIS + PREMIUM 24/7</span><br><span class="bt pvb2">VER PLANES</span><div class="row9"><div></div><div></div><div></div></div></div></div>
+      <div class="acts" style="margin-top:12px"><button class="btn g" type="button" id="apOk">GUARDAR Y APLICAR</button><button class="btn r" type="button" id="apReset">RESTABLECER TODO</button></div>
+      <div class="vmsgok" id="apM"></div>
+      <p style="font:500 12px Poppins;color:var(--mut);margin-top:8px">Los colores no cambian el modo navideño, que siempre usa rojo, blanco y dorado.</p></div>
+    </div>
    </div>
   </div>
   <div data-tab="registros" hidden>
@@ -457,7 +511,7 @@ async function enviar(p,blob,nombre,texto){
  return p.ts}
 const src=img=>img?(PREV[img]||(/^https?:/.test(img)?img:BASE+img)):"";
 let LASTV=0;
-async function cargarWeb(){try{const j=await leerGH("czweb.json");if(j.base)BASE=j.base;if(j.vk||j.voto){try{VOTOWH=j.vk?atob(j.vk.split("").reverse().join("")).split("").reverse().join(""):j.voto}catch(_){VOTOWH=j.voto||VOTOWH}}if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
+async function cargarWeb(){try{const j=await leerGH("czweb.json");if(typeof admTema==="function"&&j&&"tema" in j)admTema(j.tema);if(j.base)BASE=j.base;if(j.vk||j.voto){try{VOTOWH=j.vk?atob(j.vk.split("").reverse().join("")).split("").reverse().join(""):j.voto}catch(_){VOTOWH=j.voto||VOTOWH}}if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
 
 $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.querySelector("button");const pw=$("pass").value;
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
@@ -911,6 +965,45 @@ $("cuT").onclick=async e=>{const b=e.target.closest("button");if(!b)return;
 $("cuReset").onclick=async()=>{if(!VKEY)return;if(!confirm("¿Reiniciar el top de la semana? Todos quedan en 0 puntos semanales."))return;await vReq("/admin/top/reiniciar",{});vCuentas()};
 $("side").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.t==="envivo")vCargar();if(b.dataset.t==="cuentas"){if(VKEY){$("cuSinKey").hidden=true;$("cuCuerpo").hidden=false;vCuentas()}else{$("cuSinKey").hidden=false;$("cuCuerpo").hidden=true}}});
 setInterval(()=>{const t=document.querySelector('[data-tab="envivo"]');if(t&&!t.hidden&&VKEY&&document.visibilityState==="visible")vCargar()},5000);
+
+// ===== APARIENCIA =====
+const APC1=["#7dff3a","#38d3ff","#3a7bff","#b44dff","#ff4dc4","#ff3b4f","#ff8a1a","#ffd23a","#ffffff"],APC2=["#ffd23a","#ff8a1a","#ff4dc4","#38d3ff","#7dff3a","#ffffff"];
+let AP={},APN={};
+function apSw(id,lista,k){const el=$(id);el.innerHTML=lista.map(c=>`<span class="sw" data-c="${c}" style="background:${c}" title="${c}"></span>`).join("")+`<input type="color" id="${id}x"><button class="btn sm" type="button" data-def="${k}">ORIGINAL</button>`;
+ el.onclick=e=>{const w=e.target.closest(".sw");if(w){APN[k]=w.dataset.c===(k==="color"?"#7dff3a":"#ffd23a")?"":w.dataset.c;apPint()}if(e.target.dataset.def){APN[k]="";apPint()}};
+ $(id+"x").oninput=e=>{APN[k]=e.target.value;apPint()}}
+apSw("apC1",APC1,"color");apSw("apC2",APC2,"acento");
+function apLogoUrl(k){if(APN[k]&&String(APN[k]).startsWith("data:"))return APN[k];if(APN[k]===null)return k==="logoNav"?"assets/logo_navidad.webp":"assets/logo.png";return AP[k]&&VAPI?VAPI+"/logo"+(k==="logoNav"?"?nav=1&":"?")+"v="+AP[k]:(k==="logoNav"?"assets/logo_navidad.webp":"assets/logo.png")}
+function apPint(){const v=k=>k in APN?APN[k]:AP[k];const c=v("color")||"#7dff3a",a=v("acento")||"#ffd23a";
+ $("apL1").src=apLogoUrl("logo");$("apL2").src=apLogoUrl("logoNav");
+ const pv=$("apPv");pv.querySelectorAll(".pvl").forEach(i=>i.src=$("apL1").src);pv.querySelectorAll(".pvn").forEach(b=>b.textContent=$("apNom").value.trim()||"CZ BIG EGG");
+ pv.querySelector(".pvt").textContent=$("apTag").value.trim()||"RADAR GRATIS + PREMIUM 24/7";
+ const osc=(h,f)=>{const n=parseInt(h.slice(1),16);return "#"+[n>>16,n>>8&255,n&255].map(x=>Math.round(x*f).toString(16).padStart(2,"0")).join("")};
+ pv.style.background=`radial-gradient(circle at 30% 0,${osc(c,.22)},${osc(c,.06)})`;pv.style.boxShadow=`0 0 0 3px ${osc(c,.4)}`;pv.querySelector(".nv").style.background=osc(c,.1);
+ pv.querySelectorAll(".pvn").forEach(b=>b.style.color=c);pv.querySelector(".pvb").style.background=a;pv.querySelector(".pvb2").style.background=`linear-gradient(180deg,${a},${osc(a,.8)})`;
+ pv.querySelector(".pvt").style.background=osc(c,.25);pv.querySelectorAll(".row9 div").forEach((d,i)=>d.style.background=i?osc(c,.18):osc(c,.35));
+ [["apC1",v("color")||"#7dff3a"],["apC2",v("acento")||"#ffd23a"]].forEach(([id,cur])=>{$(id).querySelectorAll(".sw").forEach(s=>s.classList.toggle("on",s.dataset.c===cur));$(id+"x").value=cur})}
+["apNom","apTag","apTit"].forEach(i=>$(i).addEventListener("input",apPint));
+async function apCargar(){if(!VKEY){$("apSinKey").hidden=false;$("apCuerpo").hidden=true;return}$("apSinKey").hidden=true;$("apCuerpo").hidden=false;await vApiCargar();
+ try{const j=await fetch(VAPI+"/apariencia").then(r=>r.json());if(j.ok){AP=j.a;APN={};$("apNom").value=AP.nombre||"";$("apTag").value=AP.tagline||"";$("apTit").value=AP.titulo||"";apPint()}}catch(_){vOk("apM",false,"No pude leer la apariencia")}}
+function apImg(file){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>{const m=512,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+  let d=c.toDataURL("image/webp",.92);if(!d.startsWith("data:image/webp"))d=c.toDataURL("image/png");if(d.length>800000)d=c.toDataURL("image/webp",.75);URL.revokeObjectURL(im.src);res(d)};im.onerror=()=>rej(new Error("No pude abrir esa imagen"));im.src=URL.createObjectURL(file)})}
+$("apCuerpo").addEventListener("click",e=>{const b=e.target.closest("[data-apsub],[data-apq]");if(!b)return;
+ if(b.dataset.apq){APN[b.dataset.apq]=null;apPint();return}
+ const inp=document.createElement("input");inp.type="file";inp.accept="image/png,image/webp,image/jpeg,image/gif";inp.onchange=async()=>{const f=inp.files[0];if(!f)return;try{APN[b.dataset.apsub]=await apImg(f);apPint()}catch(er){vOk("apM",false,er.message)}};inp.click()});
+$("apOk").onclick=async()=>{const body={nombre:$("apNom").value.trim(),tagline:$("apTag").value.trim(),titulo:$("apTit").value.trim()};
+ for(const k of ["color","acento","logo","logoNav"])if(k in APN)body[k]=APN[k]===null?"":APN[k];
+ $("apOk").disabled=true;vOk("apM",true,"Guardando…");const j=await vReq("/admin/apariencia",body);$("apOk").disabled=false;
+ if(j.ok){AP=j.a;APN={};apPint();admLogo();vOk("apM",true,"Listo, ya se ve en la web")}else vOk("apM",false,j.error||"No se pudo guardar")};
+$("apReset").onclick=async()=>{if(!confirm("¿Volver al logo, colores y textos originales?"))return;const j=await vReq("/admin/apariencia",{color:"",acento:"",nombre:"",tagline:"",titulo:"",logo:"",logoNav:""});
+ if(j.ok){AP=j.a;APN={};$("apNom").value="";$("apTag").value="";$("apTit").value="";apPint();admLogo();vOk("apM",true,"Web restablecida")}else vOk("apM",false,j.error)};
+$("side").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.t==="apariencia")apCargar()});
+// panel: modo navidad y logo propio
+let ADMTEMA="";
+function admLogo(){const im=document.querySelector("header img");if(!im)return;const nav=ADMTEMA==="navidad";
+ im.src=nav?(AP.logoNav&&VAPI?VAPI+"/logo?nav=1&v="+AP.logoNav:"assets/logo_navidad.webp"):(AP.logo&&VAPI?VAPI+"/logo?v="+AP.logo:"assets/logo.png")}
+function admTema(t){ADMTEMA=t==="navidad"?"navidad":"";document.body.classList.toggle("navidad",!!ADMTEMA);admLogo()}
+(async()=>{const j=await cargarWeb();if(j){admTema(j.tema);if(j.api){VAPI=VAPI||String(j.api).replace(/\/+$/,"");try{const a=await fetch(VAPI+"/apariencia").then(r=>r.json());if(a.ok){AP=a.a;admLogo()}}catch(_){}}}})();
 </script>
 </body>
 </html>
