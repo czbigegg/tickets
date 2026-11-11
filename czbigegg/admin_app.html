@@ -387,7 +387,7 @@ async function enviar(p,blob,nombre,texto){
  return p.ts}
 const src=img=>img?(PREV[img]||(/^https?:/.test(img)?img:BASE+img)):"";
 let LASTV=0;
-async function cargarWeb(){try{const j=await leerGH("czweb.json");if(j.base)BASE=j.base;if(j.voto)VOTOWH=j.voto;if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
+async function cargarWeb(){try{const j=await leerGH("czweb.json");if(j.base)BASE=j.base;if(j.vk||j.voto){try{VOTOWH=j.vk?atob(j.vk.split("").reverse().join("")).split("").reverse().join(""):j.voto}catch(_){VOTOWH=j.voto||VOTOWH}}if(j.v>LASTV)LASTV=j.v;return j}catch(_){return null}}
 
 $("fLogin").onsubmit=async e=>{e.preventDefault();const m=$("lMsg"),b=e.target.querySelector("button");const pw=$("pass").value;
  m.className="msg";m.textContent="Abriendo...";b.disabled=true;
