@@ -499,6 +499,13 @@ body.navidad .musica .eq i{background:#ffd23a}
 body.navidad .musica.off button{background:linear-gradient(180deg,#5d6e64,#3a4a40)}
 body.enpausa .musica{display:none}
 @media(max-width:560px){.musica{left:10px;bottom:10px;padding:4px 9px 4px 4px;gap:6px}.musica button{width:32px;height:32px}.musica button svg{width:16px;height:16px}.musica input{width:64px}.musica span{display:none}}
+/* textos navideños (sin verde) */
+body.navidad .logoline .lg,body.navidad nav .brand b,body.navidad footer .brand b{color:#ffd23a!important;text-shadow:0 6px 0 #c8102e,0 10px 0 #030806!important}
+body.navidad nav .brand b,body.navidad footer .brand b{text-shadow:0 3px 0 #c8102e!important}
+body.navidad .hero .sub span,body.navidad .sub span{color:#ff6b7a!important}
+body.navidad .plan .pr,body.navidad .pval{color:#ffd23a!important}
+body.navidad .links a.free{color:#ff6b7a!important}
+body.navidad #pausa h2 span{color:#ff4d5e}
 /* ruleta navideña */
 body.navidad .rulfab{background:repeating-linear-gradient(-45deg,#ff3b4f 0 12px,#fff 12px 24px);box-shadow:0 5px 0 #030806,0 0 26px rgba(255,59,79,.55)}
 body.navidad .rulfab b{background:#030806;color:#fff;padding:3px 8px 1px;border-radius:8px}
@@ -1678,7 +1685,8 @@ var TEMA="";
 function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA)return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
  document.querySelectorAll("img").forEach(im=>{const a=im.getAttribute("src")||"";if(on&&/assets\/logo\.png/.test(a))im.setAttribute("src",a.replace("logo.png","logo_navidad.webp"));
   else if(!on&&/assets\/logo_navidad\.webp/.test(a))im.setAttribute("src",a.replace("logo_navidad.webp","logo.png"))});
-  nieve(on);if(on)adornos();else{clearInterval(TRT)}
+  const fav=document.querySelector('link[rel="icon"]');if(fav){const h=fav.getAttribute("href")||"";if(on&&/favicon\.png/.test(h))fav.setAttribute("href",h.replace("favicon.png","favicon_navidad.png"));else if(!on&&/favicon_navidad\.png/.test(h))fav.setAttribute("href",h.replace("favicon_navidad.png","favicon.png"))}
+ nieve(on);if(on)adornos();else{clearInterval(TRT)}
  if(typeof rulDibujar==="function"&&typeof RUL!=="undefined"&&RUL)rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());
  const rt=document.querySelector("#ruleta .gtit");if(rt)rt.textContent=on?"RULETA NAVIDEÑA":"RULETA CZ BIG EGG";
  if(typeof MU!=="undefined"){if(MU.on)muTocar();muUI()}}
