@@ -239,10 +239,14 @@ body.navidad header{background:linear-gradient(180deg,#ff6b7a,#d7263d 55%,#a50f2
 body.navidad{--bg:#0c0a14}body.navidad .side button.on,body.navidad .tabs button.on{background:linear-gradient(180deg,#ff6b7a,#d7263d)!important;color:#fff}
 body.navidad .box{background:repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0 14px,transparent 14px 28px),linear-gradient(180deg,#22162c,#17111f)!important;box-shadow:0 0 0 3px #6b1d2e,0 6px 0 #030806!important}
 body.navidad .btn.g{background:linear-gradient(180deg,#ff6b7a,#d7263d)}body.navidad .side button{background:#1f1629}body.navidad .side .live{border-color:#6b1d2e}body.navidad .tbl td{background:#1f1629;border-color:#6b1d2e!important}
+
+.qk{margin-top:0;margin-bottom:0}.qlive{box-shadow:0 0 0 3px #ff3b4f,0 6px 0 #030806!important}.qinv{box-shadow:0 0 0 3px #ffd23a,0 6px 0 #030806!important}
+.qdot{display:inline-block;width:11px;height:11px;border-radius:50%;background:#ff3b4f;margin-right:8px;vertical-align:1px;animation:qdB 1s infinite}@keyframes qdB{50%{opacity:.3}}
+.qst span{cursor:pointer}.qst span:hover{background:#1d5a2c}.qst span.on{box-shadow:0 0 0 2px #ffd23a}.qst span b{color:#ff3b4f;font-size:11px;margin-left:4px}
 </style>
 </head>
 <body>
-<header><div class="wrap"><img src="assets/logo.png" alt=""><h1 class="L st">PANEL ADMIN</h1><span id="quien" class="L" style="margin-left:auto;color:#052008;font-size:15px"></span><a class="btn y sm" href="./" target="_blank" rel="noopener" style="margin-left:12px"><span>Ver la web</span></a></div></header>
+<header><div class="wrap"><img src="assets/logo.png" alt=""><h1 class="L st">PANEL ADMIN</h1><span id="quien" class="L" style="margin-left:auto;color:#052008;font-size:15px"></span><button class="btn r sm hdVivo" type="button" id="hdVivo" style="margin-left:12px"><i class="qdot" style="background:#fff;width:9px;height:9px;margin-right:2px"></i>EN VIVO</button><a class="btn y sm" href="./" target="_blank" rel="noopener" style="margin-left:8px"><span>Ver la web</span></a></div></header>
 
 <div class="wrap">
  <div id="login" class="box">
@@ -296,6 +300,22 @@ body.navidad .btn.g{background:linear-gradient(180deg,#ff6b7a,#d7263d)}body.navi
     <div class="vkey"><input id="vKey" type="password" placeholder="Clave de admin del servidor" autocomplete="off"><button class="btn g" type="button" id="vKeyOk">CONECTAR</button></div><div class="vmsgok" id="vKeyM"></div></div>
    <div id="vCuerpo" hidden>
    <div class="vkpis"><div class="box on"><small>CONECTADOS AHORA</small><b id="vkCon">0</b></div><div class="box"><small>CON SESIÓN</small><b id="vkSes">0</b></div><div class="box"><small>CUENTAS CREADAS</small><b id="vkCu">0</b></div><div class="box"><small>CUENTAS HOY</small><b id="vkHoy">0</b></div></div>
+   <div class="grid2 qk">
+    <div class="box card2 qlive"><h3><span><i class="qdot"></i>PROMOCIONAR UN LIVE</span><small>sale en grande a todos</small></h3>
+     <label class="lb">ELIGE UN STREAMER (DE TUS DIRECTOS)</label><div class="vcon qst" id="qlSt"></div>
+     <div class="vrow"><div><label class="lb">PLATAFORMA</label><select id="qlP"><option value="kick">Kick</option><option value="tiktok">TikTok</option><option value="youtube">YouTube</option><option value="twitch">Twitch</option></select></div><div><label class="lb">NOMBRE</label><input id="qlN" maxlength="40" placeholder="Ej: CAOZ"></div></div>
+     <label class="lb">LINK DEL LIVE</label><input id="qlL" maxlength="300" placeholder="https://kick.com/...">
+     <label class="lb">MENSAJE (OPCIONAL)</label><input id="qlX" maxlength="200" placeholder="Ej: Estamos regalando radares en el live, entra ya">
+     <label class="lb">CUÁNTO DURA EN PANTALLA</label><select id="qlS"><option value="30">30 segundos</option><option value="60" selected>1 minuto</option><option value="120">2 minutos</option><option value="300">5 minutos</option><option value="600">10 minutos</option></select>
+     <div class="acts" style="margin-top:10px"><button class="btn r" type="button" id="qlOk">PROMOCIONAR LIVE AHORA</button></div><div class="vmsgok" id="qlM"></div></div>
+    <div class="box card2 qinv"><h3>INVITAR A CREAR CUENTA <small>solo lo ven quienes no tienen sesión</small></h3>
+     <div class="estilos" style="grid-template-columns:1fr 1fr"><label><input type="radio" name="qiA" value="registro" checked><span>CREAR CUENTA</span></label><label><input type="radio" name="qiA" value="login"><span>INICIAR SESIÓN</span></label></div>
+     <label class="lb">TÍTULO</label><input id="qiT" maxlength="80" value="¡Crea tu cuenta gratis!">
+     <label class="lb">MENSAJE</label><textarea id="qiX" maxlength="400" rows="2">Suma puntos para el top de la semana, vota en las encuestas en vivo y participa en los drops de premios.</textarea>
+     <div class="vrow"><div><label class="lb">TEXTO DEL BOTÓN</label><input id="qiB" maxlength="30" placeholder="Crear mi cuenta"></div><div><label class="lb">DURA</label><select id="qiS"><option value="20">20 segundos</option><option value="45" selected>45 segundos</option><option value="90">1 minuto y medio</option><option value="300">5 minutos</option></select></div></div>
+     <div class="acts" style="margin-top:10px"><button class="btn y" type="button" id="qiOk">ENVIAR INVITACIÓN</button></div><div class="vmsgok" id="qiM"></div>
+     <p style="font:500 12px Poppins;color:var(--mut);margin-top:8px">El botón les abre directo la ventana para crear su cuenta o entrar.</p></div>
+   </div>
    <div class="grid2">
     <div class="box card2"><h3>MENSAJE EN PANTALLA <small>sale en grande al centro</small></h3>
      <label class="lb">TÍTULO</label><input id="vaT" maxlength="80" placeholder="Ej: Radar gratis abierto">
@@ -1004,6 +1024,24 @@ function admLogo(){const im=document.querySelector("header img");if(!im)return;c
  im.src=nav?(AP.logoNav&&VAPI?VAPI+"/logo?nav=1&v="+AP.logoNav:"assets/logo_navidad.webp"):(AP.logo&&VAPI?VAPI+"/logo?v="+AP.logo:"assets/logo.png")}
 function admTema(t){ADMTEMA=t==="navidad"?"navidad":"";document.body.classList.toggle("navidad",!!ADMTEMA);admLogo()}
 (async()=>{const j=await cargarWeb();if(j){admTema(j.tema);if(j.api){VAPI=VAPI||String(j.api).replace(/\/+$/,"");try{const a=await fetch(VAPI+"/apariencia").then(r=>r.json());if(a.ok){AP=a.a;admLogo()}}catch(_){}}}})();
+
+$("hdVivo").onclick=()=>{irA("envivo");vCargar();qlPintar()};
+// ===== acciones rápidas: promocionar live / invitar a crear cuenta =====
+const QLURL={kick:u=>"https://kick.com/"+u,tiktok:u=>"https://www.tiktok.com/@"+u+"/live",youtube:u=>/^UC[\w-]{20,}$/.test(u)?"https://www.youtube.com/channel/"+u+"/live":"https://www.youtube.com/@"+u.replace(/^@/,"")+"/live",twitch:u=>"https://www.twitch.tv/"+u};
+function qlPintar(){const L=(typeof STREAMS!=="undefined"?STREAMS:[]).filter(x=>String(x.u||"").trim());
+ $("qlSt").innerHTML=L.length?L.map((x,i)=>{const st=(typeof STLIVE!=="undefined"&&STLIVE[x.red+":"+String(x.u).toLowerCase()])||{};return `<span data-qi="${i}">${esc(x.nombre||x.u)} <small>· ${esc(x.red)}</small>${st.live?"<b>EN VIVO</b>":""}</span>`}).join(""):`<div class="empty2" style="padding:6px">Agrega cuentas en la pestaña DIRECTOS para elegirlas aquí, o escribe el link abajo.</div>`;
+ $("qlSt").onclick=e=>{const b=e.target.closest("[data-qi]");if(!b)return;const x=L[+b.dataset.qi];$("qlSt").querySelectorAll("span").forEach(s=>s.classList.toggle("on",s===b));
+  $("qlP").value=QLURL[x.red]?x.red:"kick";$("qlN").value=x.nombre||x.u;$("qlL").value=(QLURL[x.red]||QLURL.kick)(String(x.u).trim())}}
+$("qlP").onchange=()=>{const u=$("qlL").value.match(/(?:kick\.com\/|tiktok\.com\/@|youtube\.com\/@|twitch\.tv\/)([\w.-]+)/);if(u)$("qlL").value=QLURL[$("qlP").value](u[1])};
+$("qlOk").onclick=async()=>{const link=$("qlL").value.trim(),quien=$("qlN").value.trim();
+ if(!/^https:\/\//.test(link))return vOk("qlM",false,"Pon el link del live (empieza con https://)");
+ const j=await vReq("/admin/anuncio",{estilo:"live",plat:$("qlP").value,quien,titulo:quien?quien+" está en vivo":"¡Estamos en vivo!",txt:$("qlX").value.trim(),btn:"Ver el live",link,seg:+$("qlS").value,sonido:true});
+ vOk("qlM",j.ok,j.ok?"Live promocionado a "+j.llego+(j.llego==1?" persona":" personas"):j.error);if(j.ok)vCargar()};
+$("qiOk").onclick=async()=>{const accion=(document.querySelector("[name=qiA]:checked")||{}).value||"registro";
+ const j=await vReq("/admin/anuncio",{estilo:"promo",accion,titulo:$("qiT").value.trim(),txt:$("qiX").value.trim(),btn:$("qiB").value.trim()||(accion==="registro"?"Crear mi cuenta":"Iniciar sesión"),seg:+$("qiS").value,sonido:true});
+ vOk("qiM",j.ok,j.ok?"Invitación enviada (la ven los que no tienen sesión)":j.error);if(j.ok)vCargar()};
+document.querySelectorAll("[name=qiA]").forEach(r=>r.onchange=()=>{const reg=r.value==="registro";if(!r.checked)return;$("qiT").value=reg?"¡Crea tu cuenta gratis!":"¿Ya tienes cuenta? Inicia sesión";$("qiB").placeholder=reg?"Crear mi cuenta":"Iniciar sesión"});
+$("side").addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.t==="envivo")qlPintar()});
 </script>
 </body>
 </html>
