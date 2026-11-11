@@ -1456,14 +1456,14 @@ body.navidad .musica input{accent-color:#ff3b4f}body.navidad .musica.off button{
 .vcard.pl-tiktok{box-shadow:-4px 0 0 #25f4ee,4px 0 0 #fe2c55,0 0 0 4px #030806,0 14px 0 #020503,0 0 90px rgba(254,44,85,.4)}.vcard.pl-tiktok .vtag{background:#fe2c55}.vcard.pl-tiktok .btn{background:linear-gradient(90deg,#25f4ee,#fe2c55)!important;color:#fff!important;-webkit-text-stroke:0}
 .vcard.invita{box-shadow:0 0 0 4px #ffd23a,0 14px 0 #020503,0 0 90px rgba(255,210,58,.4)}.vcard.invita .vtag{background:#ffd23a;color:#030806}
 .vcard.invita .btn{font-size:20px!important;padding:13px 26px 10px!important}
-/* ===== juego: carreras CZ ===== */
+/* ===== juego: la cuncuna CZ ===== */
 #juego{padding:60px 0 30px}
 .jgw{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;margin-top:20px;align-items:start}
 .jgcard{display:grid;grid-template-columns:260px minmax(0,1fr);border:4px solid #030806;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#1b0d33,#0d0820 60%,#10291a);box-shadow:0 0 0 3px #8b3dff,0 10px 0 #020503,0 30px 80px rgba(139,61,255,.25)}
 .jgarte{position:relative;min-height:330px;overflow:hidden;background:radial-gradient(circle at 50% 70%,#5b1fd6 0,#2a0d66 45%,transparent 70%)}
-.jgarte:before{content:"";position:absolute;inset:auto -20px 18px -20px;height:46px;background:repeating-linear-gradient(90deg,#fff 0 18px,#030806 18px 36px);transform:perspective(200px) rotateX(55deg);opacity:.55}
+.jgdemo{position:absolute;inset:0;width:100%;height:100%}
 .jgarena{position:absolute;left:50%;bottom:-70px;width:300px;height:150px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#3d2a6e,#1a0f38 70%);box-shadow:0 0 0 6px #8b3dff,0 0 60px rgba(139,61,255,.8)}
-.jgpj{position:absolute;left:50%;bottom:6px;height:310px;transform:translateX(-50%);filter:drop-shadow(0 10px 18px rgba(0,0,0,.6));animation:jgFlota 3s ease-in-out infinite}
+.jgpj{position:absolute;left:50%;bottom:6px;height:300px;transform:translateX(-50%);filter:drop-shadow(0 10px 18px rgba(0,0,0,.6));animation:jgFlota 3s ease-in-out infinite}
 @keyframes jgFlota{50%{transform:translateX(-50%) translateY(-8px)}}
 .jgin{padding:22px 22px 20px}
 .jgtag{display:inline-flex;align-items:center;gap:7px;font:400 12px "Luckiest Guy";letter-spacing:1px;color:#fff;background:#8b3dff;border:2px solid #030806;border-radius:8px;padding:4px 10px 2px}
@@ -1471,8 +1471,7 @@ body.navidad .musica input{accent-color:#ff3b4f}body.navidad .musica.off button{
 .jgin h3{font:400 30px/1.05 "Luckiest Guy";color:#fff;margin:10px 0 6px;-webkit-text-stroke:4px #030806;paint-order:stroke fill;text-shadow:0 4px 0 #030806}
 .jgin p{font:500 14px/1.5 Poppins;color:#d9cff2;margin:0 0 12px}
 .jgdos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.jgnom{display:block;font:400 12px "Luckiest Guy";letter-spacing:.6px;color:#bfa8ef;margin-bottom:10px}
-.jgnom[hidden]{display:none}
+.jgnom{display:block;font:400 12px "Luckiest Guy";letter-spacing:.6px;color:#bfa8ef;margin-bottom:10px}.jgnom[hidden]{display:none}
 .jgnom input,#jgCod{display:block;width:100%;margin-top:4px;border:3px solid #030806;border-radius:12px;padding:10px 12px 8px;font:400 17px "Luckiest Guy";letter-spacing:.5px;background:#f4efff;color:#030806;outline:none}
 .jgbig{width:100%;font-size:22px!important;padding:16px 10px 13px!important;margin-bottom:10px}
 .jgrow{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px}
@@ -1480,51 +1479,46 @@ body.navidad .musica input{accent-color:#ff3b4f}body.navidad .musica.off button{
 .jgmsg{min-height:18px;font:600 13px Poppins!important;color:#ffd23a!important;margin:8px 0 0!important}
 .jgtop{display:grid;gap:6px}.jgtop .r{display:flex;align-items:center;gap:8px;background:#08150c;border:3px solid #030806;border-radius:11px;padding:6px 10px;font:600 14px Poppins;color:#fff}
 .jgtop .r b{font:400 16px "Luckiest Guy";color:#ffd23a;width:22px}.jgtop .r em{margin-left:auto;font:400 15px "Luckiest Guy";color:#c9a8ff;font-style:normal}
-.jg{position:fixed;inset:0;z-index:400;background:#1d5a2c;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.jg{position:fixed;inset:0;z-index:400;background:#120a22;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:crosshair}
 .jg[hidden]{display:none!important}
 .jg>canvas#jgC{position:absolute;inset:0;width:100%;height:100%;display:block}
 .jghud{position:absolute;left:12px;right:12px;top:calc(10px + env(safe-area-inset-top));display:flex;gap:8px;align-items:center;flex-wrap:wrap;pointer-events:none}
 .jghud>*{pointer-events:auto}
 .jgx,.jgchip{font:400 15px "Luckiest Guy";letter-spacing:.5px;border:3px solid #030806;border-radius:12px;padding:8px 12px 5px;box-shadow:0 4px 0 #030806;color:#fff;background:#2a1a4a}
-.jgx{background:linear-gradient(180deg,#ff6b7a,#d7263d);cursor:pointer}
-.jgcod{cursor:pointer;background:linear-gradient(180deg,#a66bff,#7a2ff0)}
-.jgpos{background:#ffd23a;color:#030806;font-size:20px;padding:6px 12px 3px}
-.jgt{margin-left:auto;background:#0b0b10;min-width:74px;text-align:center;font-variant-numeric:tabular-nums}
-.jgmini{position:absolute;right:12px;top:calc(62px + env(safe-area-inset-top));width:180px;height:140px;border:3px solid #030806;border-radius:14px;background:rgba(8,6,16,.55);pointer-events:none}
+.jgx{background:linear-gradient(180deg,#ff6b7a,#d7263d);cursor:pointer}.jgcod{cursor:pointer;background:linear-gradient(180deg,#a66bff,#7a2ff0)}
+.jgpos{background:#ffd23a;color:#030806}
+.jglb{position:absolute;right:12px;top:calc(10px + env(safe-area-inset-top));width:200px;background:rgba(10,6,20,.72);border:3px solid #030806;border-radius:14px;padding:8px 10px;pointer-events:none}
+.jglb h5{font:400 13px "Luckiest Guy";letter-spacing:1px;color:#ffd23a;margin:0 0 4px}
+.jglb div{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:6px;font:600 12px Poppins;color:#fff;padding:1px 0}
+.jglb div span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.jglb div.yo{color:#ffd23a}.jglb b{color:#c9a8ff}
+.jgmini{position:absolute;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));width:120px;height:120px;border-radius:50%;border:3px solid #030806;background:rgba(10,6,20,.6);pointer-events:none}
 .jgfeed{position:absolute;left:12px;top:calc(64px + env(safe-area-inset-top));display:grid;gap:5px;justify-items:start;pointer-events:none}
 .jgfeed div{font:600 13px Poppins;color:#fff;background:rgba(10,6,20,.8);border:2px solid #030806;border-radius:9px;padding:4px 9px;animation:cajaIn .3s}
-.jgcen{position:absolute;left:50%;top:24%;transform:translateX(-50%);text-align:center;pointer-events:none;width:min(92%,560px)}
-.jgcen h2{font:400 clamp(38px,8vw,76px)/1 "Luckiest Guy";color:#fff;-webkit-text-stroke:6px #030806;paint-order:stroke fill;text-shadow:0 6px 0 #030806;margin:0;animation:cajaIn .35s}
+.jgcen{position:absolute;left:50%;top:26%;transform:translateX(-50%);text-align:center;pointer-events:none;width:min(92%,560px)}
+.jgcen h2{font:400 clamp(34px,7vw,64px)/1 "Luckiest Guy";color:#fff;-webkit-text-stroke:6px #030806;paint-order:stroke fill;text-shadow:0 6px 0 #030806;margin:0;animation:cajaIn .35s}
 .jgcen p{font:600 15px Poppins;color:#fff;background:rgba(10,6,20,.8);display:inline-block;border-radius:12px;padding:7px 14px;margin:10px 0 0;border:2px solid #030806}
-.jgsem{display:flex;gap:10px;justify-content:center;margin-bottom:10px}.jgsem i{width:34px;height:34px;border-radius:50%;background:#2a2a2a;border:4px solid #030806}.jgsem i.r{background:#ff3b4f;box-shadow:0 0 24px #ff3b4f}.jgsem i.v{background:#3ee06a;box-shadow:0 0 24px #3ee06a}
-.jgres{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100% - 24px));max-height:calc(100% - 140px);overflow:auto;border:4px solid #030806;border-radius:22px;background:linear-gradient(180deg,#1f1238,#120a22);box-shadow:0 0 0 3px #ffd23a,0 12px 0 #020503;padding:16px;animation:cajaIn .4s}
+.jgres{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(380px,calc(100% - 24px));border:4px solid #030806;border-radius:22px;background:linear-gradient(180deg,#1f1238,#120a22);box-shadow:0 0 0 3px #ff3b4f,0 12px 0 #020503;padding:18px;text-align:center;animation:cajaIn .4s;cursor:default}
 .jgres[hidden]{display:none}
-.jgres h3{font:400 28px "Luckiest Guy";color:#fff;text-align:center;margin:0 0 10px;-webkit-text-stroke:4px #030806;paint-order:stroke fill}
-.jgres .r{display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto;gap:8px;align-items:center;background:#0b0718;border:3px solid #030806;border-radius:12px;padding:6px 10px;margin-bottom:6px;color:#fff;font:600 14px Poppins}
-.jgres .r b{font:400 20px "Luckiest Guy";color:#ffd23a}.jgres .r img{width:38px;height:38px;border-radius:50%;border:3px solid;background:#2a1a4a;object-fit:cover}
-.jgres .r span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.jgres .r em{font:400 14px "Luckiest Guy";font-style:normal;color:#c9a8ff;text-align:right}.jgres .r em small{display:block;color:#7dff3a;font-size:12px}
-.jgres .r.yo{box-shadow:0 0 0 2px #ffd23a}.jgres p{font:500 13px Poppins;color:#bfa8ef;text-align:center;margin:8px 0 0}
-.jgctl{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));display:none;gap:12px;align-items:flex-end}
-.jgizq{left:calc(16px + env(safe-area-inset-left))}.jgder{right:calc(16px + env(safe-area-inset-right))}
-.jg.tactil .jgctl{display:flex}
-.jgb{width:86px;height:86px;border-radius:24px;border:4px solid #030806;background:linear-gradient(180deg,#f4efff,#c9b8f0);box-shadow:0 6px 0 #030806;display:grid;place-items:center;font:400 15px "Luckiest Guy";color:#030806;touch-action:none}
-.jgb svg{width:44px;height:44px}.jgb.on{transform:translateY(4px);box-shadow:0 2px 0 #030806;filter:brightness(.9)}
-.jgturbo{width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe766,#ffb800 70%);font-size:17px}
-.jgturbo.cd{filter:grayscale(.85) brightness(.7)}
-.jgfreno{width:70px;height:70px;border-radius:50%;background:linear-gradient(180deg,#ff6b7a,#d7263d);color:#fff;font-size:12px}
+.jgres img{width:84px;height:84px;border-radius:50%;border:4px solid;background:#2a1a4a;object-fit:cover}
+.jgres h3{font:400 30px "Luckiest Guy";color:#fff;margin:8px 0 2px;-webkit-text-stroke:4px #030806;paint-order:stroke fill}
+.jgres .big{font:400 46px "Luckiest Guy";color:#ffd23a;-webkit-text-stroke:4px #030806;paint-order:stroke fill;line-height:1}
+.jgres p{font:500 13px Poppins;color:#cdbdf0;margin:6px 0 12px}.jgres .pts{color:#7dff3a;font:400 18px "Luckiest Guy"}
+.jgres .btn{width:100%;margin-top:8px}
+.jgturbo{position:absolute;right:calc(18px + env(safe-area-inset-right));bottom:calc(24px + env(safe-area-inset-bottom));width:100px;height:100px;border-radius:50%;border:4px solid #030806;background:radial-gradient(circle at 35% 30%,#ffe766,#ffb800 70%);box-shadow:0 6px 0 #030806;font:400 17px "Luckiest Guy";color:#030806;display:none;touch-action:none}
+.jgturbo.on{transform:translateY(4px);box-shadow:0 2px 0 #030806}
+.jg.tactil .jgturbo{display:block}
 body.navidad .jgcard{box-shadow:0 0 0 3px #c8102e,0 10px 0 #020503,0 30px 80px rgba(200,16,46,.25)}
 @media(max-width:860px){.jgw{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){
  #juego{padding:34px 0 16px}
- .jgcard{grid-template-columns:minmax(0,1fr);border-radius:18px}.jgarte{min-height:220px}.jgpj{height:210px}.jgarena{width:240px;height:110px;bottom:-56px}
+ .jgcard{grid-template-columns:minmax(0,1fr);border-radius:18px}.jgarte{min-height:220px}.jgpj{height:200px}.jgarena{width:240px;height:110px;bottom:-56px}
  .jgin{padding:14px 14px 16px}.jgin h3{font-size:24px}.jgin p{font-size:13px}.jgbig{font-size:18px!important}
  .jgrow{grid-template-columns:minmax(0,1fr)}.jgdos{grid-template-columns:1fr}
- .jghud .jgx,.jghud .jgchip{font-size:12px;padding:6px 8px 3px}.jghud .jgpos{font-size:16px}
- .jgmini{width:120px;height:94px;top:calc(100px + env(safe-area-inset-top))}.jgfeed{top:calc(100px + env(safe-area-inset-top))}
- .jgcen{top:36%}
- .jgb{width:74px;height:74px}.jgturbo{width:90px;height:90px}.jgfreno{width:60px;height:60px}
+ .jghud .jgx,.jghud .jgchip{font-size:12px;padding:6px 8px 3px}
+ .jglb{top:calc(52px + env(safe-area-inset-top));width:150px;padding:6px 8px}.jglb div{font-size:11px}
+ .jgmini{width:90px;height:90px}.jgfeed{top:calc(52px + env(safe-area-inset-top));max-width:52%}.jgfeed div{font-size:11px}
+ .jgcen{top:34%}
 }
-@media(max-height:500px){.jgb{width:64px;height:64px}.jgturbo{width:76px;height:76px}.jgfreno{width:54px;height:54px}.jgmini{width:110px;height:86px}}
 </style>
 </head>
 <body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script><script>window.__itrT0=performance.now()</script>
@@ -1670,13 +1664,13 @@ body.navidad .jgcard{box-shadow:0 0 0 3px #c8102e,0 10px 0 #020503,0 30px 80px r
 <div class="vmsg vdrop" id="vDrop" hidden><div class="vcard"><button class="cx" type="button" id="vDropX">✕</button><span class="vtag">DROP EN VIVO</span><h3>¡LOS PRIMEROS GANAN!</h3><div class="dprem" id="vDropP"></div><p id="vDropN"></p><button class="btn btn-y" type="button" id="vDropB">¡LO QUIERO!</button><i class="vt" id="vDropT"></i></div></div>
 <div class="jg" id="jg" hidden>
  <canvas id="jgC"></canvas>
- <div class="jghud"><button class="jgx" type="button" id="jgSalir">SALIR</button><button class="jgchip jgcod" type="button" id="jgSala" title="Copiar link de la sala"></button><span class="jgchip jgpos" id="jgPos"></span><span class="jgchip" id="jgVta"></span><span class="jgchip jgt" id="jgTiempo"></span></div>
- <canvas class="jgmini" id="jgMini" width="180" height="140"></canvas>
+ <div class="jghud"><button class="jgx" type="button" id="jgSalir">SALIR</button><button class="jgchip jgcod" type="button" id="jgSala" title="Copiar link de la sala"></button><span class="jgchip jgpos" id="jgLargo">LARGO 10</span><span class="jgchip" id="jgRank"></span></div>
+ <div class="jglb" id="jgLb"></div>
+ <canvas class="jgmini" id="jgMini" width="120" height="120"></canvas>
  <div class="jgfeed" id="jgFeed"></div>
  <div class="jgcen" id="jgCen"></div>
  <div class="jgres" id="jgRes" hidden></div>
- <div class="jgctl jgizq"><button type="button" class="jgb" data-k="izq" aria-label="Izquierda"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="#030806" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="jgb" data-k="der" aria-label="Derecha"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="#030806" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
- <div class="jgctl jgder"><button type="button" class="jgb jgfreno" data-k="freno">FRENO</button><button type="button" class="jgb jgturbo" data-k="turbo" id="jgTurbo">TURBO</button></div>
+ <button type="button" class="jgturbo" id="jgTurbo">TURBO</button>
 </div>
 <button class="rulfab" id="rulFab" type="button" aria-label="Ruleta"><span class="rulfw"></span><b>RULETA</b><i id="rulDot" hidden>1</i></button>
 <section id="ruleta" hidden>
@@ -1872,24 +1866,24 @@ body.navidad .jgcard{box-shadow:0 0 0 3px #c8102e,0 10px 0 #020503,0 30px 80px r
 
 <section id="juego" hidden>
  <div class="wrap">
-  <div class="head rv"><div><div class="eyebrow">NUEVO · MULTIJUGADOR</div><h2>Carreras <span class="grad">CZ</span></h2></div></div>
+  <div class="head rv"><div><div class="eyebrow">NUEVO · MULTIJUGADOR</div><h2>La cuncuna <span class="grad">CZ</span></h2></div></div>
   <div class="jgw">
    <div class="jgcard">
-    <div class="jgarte"><div class="jgarena"></div><img class="jgpj" src="assets/caoz_cuerpo.webp" alt="Personaje de CAOZ"></div>
+    <div class="jgarte"><div class="jgarena"></div><canvas class="jgdemo" id="jgDemo" width="260" height="330"></canvas><img class="jgpj" src="assets/caoz_cuerpo.webp" alt="Personaje de CAOZ"></div>
     <div class="jgin">
-     <span class="jgtag"><i></i><b id="jgOn">Pista global abierta</b></span>
-     <h3>¡Corre con tu avatar de Roblox!</h3>
-     <p>Carreras de karts de 3 vueltas contra gente de todo el mundo, o crea una sala con código para tus amigos. Tu personaje de Roblox va manejando tu kart.</p>
-     <div class="jgdos"><label class="jgnom" id="jgNomW">TU NOMBRE<input id="jgNom" maxlength="16" placeholder="Piloto" autocomplete="off"></label>
-     <label class="jgnom">TU USUARIO DE ROBLOX<input id="jgRbx" maxlength="20" placeholder="Para tu personaje" autocomplete="off"></label></div>
-     <button class="btn btn-y jgbig" type="button" id="jgGlobal">CORRER EN LA PISTA GLOBAL</button>
+     <span class="jgtag"><i></i><b id="jgOn">Arena global abierta</b></span>
+     <h3>¡Come bolitas y crece!</h3>
+     <p>Tu cuncuna lleva la cara de tu avatar de Roblox. Come bolitas para crecer, encierra a los demás y no choques tu cabeza con otra cuncuna.</p>
+     <div class="jgdos"><label class="jgnom" id="jgNomW">TU NOMBRE<input id="jgNom" maxlength="16" placeholder="Cuncuna" autocomplete="off"></label>
+     <label class="jgnom">TU USUARIO DE ROBLOX<input id="jgRbx" maxlength="20" placeholder="Para tu cara" autocomplete="off"></label></div>
+     <button class="btn btn-y jgbig" type="button" id="jgGlobal">JUGAR EN LA ARENA GLOBAL</button>
      <div class="jgrow"><button class="btn btn-s" type="button" id="jgCrear">CREAR SALA</button><form id="jgUnir" autocomplete="off"><input id="jgCod" maxlength="8" placeholder="CÓDIGO"><button class="btn btn-g" type="submit">ENTRAR</button></form></div>
      <p class="jgmsg" id="jgMsg"></p>
     </div>
    </div>
    <div class="twv jgside"><h4>Cómo se juega</h4>
-    <ul><li>El kart acelera solo: tú doblas con A/D, las flechas o los botones</li><li>ESPACIO o TURBO: acelerón (se recarga)</li><li>Fuera del asfalto vas lento, y los atajos no cuentan</li><li>Con cuenta y 2 o más pilotos reales: 1° +15, 2° +8, 3° +4 puntos</li></ul>
-    <h4 style="margin-top:14px">Ganadores de la semana</h4><div class="jgtop" id="jgTop"><div class="twvacio">Todavía nadie gana esta semana.</div></div></div>
+    <ul><li>Tu cuncuna sigue al mouse o a tu dedo</li><li>Mantén clic, ESPACIO o el botón TURBO para ir rápido (gastas un poco de largo)</li><li>Si tu cabeza choca con otra cuncuna o con el borde, pierdes y te vuelves bolitas</li><li>Con cuenta y 2 o más jugadores reales: hasta +15 puntos al top según tu largo</li></ul>
+    <h4 style="margin-top:14px">Récords de la semana</h4><div class="jgtop" id="jgTop"><div class="twvacio">Todavía no hay récords esta semana.</div></div></div>
   </div>
  </div>
 </section>
@@ -2796,17 +2790,11 @@ function apaSet(a){APA=a||null;try{localStorage.setItem("czApa",JSON.stringify(A
 function apaCargar(){if(!CU.api)return;fetch(CU.api+"/apariencia").then(r=>r.json()).then(j=>{if(j&&j.ok)apaSet(j.a)}).catch(()=>{})}
 apaAplicar();
 
-// ===== juego: carreras CZ (multijugador) =====
-var JG={ws:null,id:null,code:"",jug:{},snaps:[],orden:[],estado:"espera",tm:0,res:null,vueltas:3,yo:null,keys:{},btn:{},tact:false,part:[],raf:0,inT:0,tCd:0,tHasta:0,av:{},deco:null,camX:0,camY:0,motor:null,miVta:0,fin:false};
-// --- la pista (misma cuenta que el servidor)
-const JG_CTRL=[[0,0],[900,-120],[1550,120],[1750,700],[1380,1120],[820,930],[520,1330],[-220,1420],[-760,1020],[-560,470],[-1150,60],[-880,-520],[-330,-470]];
-const JG_PTS=(function(){const C=JG_CTRL,n=C.length,raw=[];for(let i=0;i<n;i++){const p0=C[(i-1+n)%n],p1=C[i],p2=C[(i+1)%n],p3=C[(i+2)%n];
- for(let k=0;k<40;k++){const t=k/40,t2=t*t,t3=t2*t;raw.push([0,1].map(d=>.5*(2*p1[d]+(-p0[d]+p2[d])*t+(2*p0[d]-5*p1[d]+4*p2[d]-p3[d])*t2+(-p0[d]+3*p1[d]-3*p2[d]+p3[d])*t3)))}}
- const pts=[raw[0]];let acc=0;for(let i=1;i<=raw.length;i++){const a=raw[i-1],b=raw[i%raw.length];let d=Math.hypot(b[0]-a[0],b[1]-a[1]);acc+=d;while(acc>=20){acc-=20;const k=1-acc/d;pts.push([a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k])}}return pts})();
-const JG_NP=JG_PTS.length,JG_W=150,JG_MAX=520,JG_PASTO=230,JG_TURBO=770;
-const JG_RUTA=(function(){const p=new Path2D();JG_PTS.forEach((q,i)=>i?p.lineTo(q[0],q[1]):p.moveTo(q[0],q[1]));p.closePath();return p})();
+// ===== juego: la cuncuna CZ (multijugador) =====
+var JG={ws:null,id:null,code:"",jug:{},S:{},food:new Map(),R:2000,vivo:false,ang:0,boost:false,inT:0,inA:null,inB:false,raf:0,tact:false,camX:0,camY:0,zoom:1,av:{},part:[],estrellas:null,muerto:null,keys:{}};
+const JG_FC=["#ff3b4f","#ffd23a","#7dff3a","#38d3ff","#b44dff","#ff8a1a","#ff4dc4","#ffffff"],JG_FCN=["#ff3b4f","#ffd23a","#2fd36b","#ffffff","#c8102e","#ffd23a","#2fd36b","#ffffff"];
+const jgLargo=m=>60+m*5,jgGrosor=m=>13+Math.min(17,Math.sqrt(m)*.9);
 function jgEl(i){return document.getElementById(i)}
-// --- imágenes: avatar de Roblox de cada piloto (o el de CAOZ)
 const JG_CAOZ=new Image();JG_CAOZ.src="assets/caoz_cabeza.png";JG_CAOZ.onerror=()=>{if(!/raw\.git/.test(JG_CAOZ.src))JG_CAOZ.src="https://raw.githubusercontent.com/czbigegg/tickets/HEAD/czbigegg/assets/caoz_cabeza.png"};
 function jgAv(u){if(!u)return JG_CAOZ;if(!JG.av[u]){const im=new Image();im.src=u;JG.av[u]=im}const im=JG.av[u];return im.complete&&im.naturalWidth?im:JG_CAOZ}
 // --- menú
@@ -2815,8 +2803,8 @@ function jgMenu(){const s=jgEl("juego");if(!s)return;s.hidden=!CU.vivo;const n=j
  const logged=!!(CU.tok&&CU.p);jgEl("jgNomW").hidden=logged;if(!jgEl("jgNom").value)jgEl("jgNom").value=jgGuard("czJgNom");
  if(!jgEl("jgRbx").value)jgEl("jgRbx").value=jgGuard("czJgRbx")||(logged&&CU.p.roblox)||""}
 function jgTop(){if(!CU.api)return;fetch(CU.api+"/juego/top").then(r=>r.json()).then(j=>{if(!j.ok)return;
- jgEl("jgTop").innerHTML=j.top.length?j.top.map((r,i)=>`<div class="r"><b>${i+1}</b><span>${esc(r.u)}</span><em>${r.w} ${r.w==1?"victoria":"victorias"}</em></div>`).join(""):'<div class="twvacio">Todavía nadie gana esta semana. ¡Sé el primero!</div>'}).catch(()=>{})}
-function jgInfo(){if(!CU.api)return;fetch(CU.api+"/juego/info?c=GLOBAL").then(r=>r.json()).then(j=>{if(j.ok)jgEl("jgOn").textContent=j.n?j.n+(j.n==1?" piloto corriendo":" pilotos corriendo"):"Pista global abierta"}).catch(()=>{})}
+ jgEl("jgTop").innerHTML=j.top.length?j.top.map((r,i)=>`<div class="r"><b>${i+1}</b><span>${esc(r.u)}</span><em>${r.w} de largo</em></div>`).join(""):'<div class="twvacio">Todavía no hay récords esta semana. ¡Pon el primero!</div>'}).catch(()=>{})}
+function jgInfo(){if(!CU.api)return;fetch(CU.api+"/juego/info?c=GLOBAL").then(r=>r.json()).then(j=>{if(j.ok)jgEl("jgOn").textContent=j.n?j.n+(j.n==1?" jugando ahora":" jugando ahora"):"Arena global abierta"}).catch(()=>{})}
 jgEl("jgNom").addEventListener("input",e=>jgGuard("czJgNom",e.target.value.trim()));
 jgEl("jgRbx").addEventListener("input",e=>jgGuard("czJgRbx",e.target.value.trim()));
 jgEl("jgGlobal").onclick=()=>jgEntrar("GLOBAL");
@@ -2824,136 +2812,132 @@ jgEl("jgCrear").onclick=()=>{jgEl("jgMsg").textContent="Creando sala…";fetch(C
 jgEl("jgUnir").onsubmit=e=>{e.preventDefault();const c=jgEl("jgCod").value.trim().toUpperCase();if(!/^[A-Z0-9]{4,8}$/.test(c)){jgEl("jgMsg").textContent="Escribe el código de la sala (ej: K7P2Q)";return}jgEntrar(c)};
 // --- entrar / salir
 function jgEntrar(code,intento){if(!CU.api)return;intento=intento||0;jgSalir(true);
- Object.assign(JG,{code,jug:{},snaps:[],orden:[],estado:"espera",id:null,res:null,yo:null,part:[],fin:false,miVta:0});
+ Object.assign(JG,{code,jug:{},S:{},food:new Map(),id:null,vivo:false,part:[],muerto:null,inA:null});
  const ov=jgEl("jg");ov.hidden=false;document.body.style.overflow="hidden";JG.tact=matchMedia("(pointer:coarse)").matches||navigator.maxTouchPoints>0;ov.classList.toggle("tactil",JG.tact);
- jgEl("jgRes").hidden=true;jgCentro("CONECTANDO…","");jgEl("jgFeed").innerHTML="";jgEl("jgPos").textContent="—";jgEl("jgVta").textContent="VUELTA —";jgEl("jgTiempo").textContent="0:00.0";jgRes();
+ jgEl("jgRes").hidden=true;jgCentro("CONECTANDO…","");jgEl("jgFeed").innerHTML="";jgRes();
  const ws=new WebSocket(CU.api.replace(/^http/,"ws")+"/juego/sala?c="+encodeURIComponent(code));JG.ws=ws;
  ws.onopen=()=>ws.send(JSON.stringify({t:"hola",tok:CU.tok||"",nombre:jgEl("jgNom").value.trim(),roblox:jgEl("jgRbx").value.trim()}));
  ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(_){return}jgMsg(m)};
- ws.onclose=ev=>{if(JG.ws!==ws)return;JG.ws=null;jgMotor(false);
+ ws.onclose=ev=>{if(JG.ws!==ws)return;JG.ws=null;
   if(ev.code===4000&&/^GLOBAL/.test(code)&&intento<4){jgEntrar("GLOBAL"+(intento+2),intento+1);return}
   jgCentro(ev.code===4000?"SALA LLENA":"SE CORTÓ LA CONEXIÓN",ev.code===4000?"Prueba con otra sala o crea la tuya.":"Toca SALIR y vuelve a entrar.")};
  if(!JG.raf)JG.raf=requestAnimationFrame(jgDibujar);
  try{history.replaceState(null,"",/^GLOBAL/.test(code)?location.pathname:"?sala="+code)}catch(_){}}
-function jgSalir(silencio){if(JG.ws){const w=JG.ws;JG.ws=null;try{w.close()}catch(_){}}jgMotor(false);
+function jgSalir(silencio){if(JG.ws){const w=JG.ws;JG.ws=null;try{w.close()}catch(_){}}
  if(!silencio){jgEl("jg").hidden=true;document.body.style.overflow="";cancelAnimationFrame(JG.raf);JG.raf=0;try{history.replaceState(null,"",location.pathname)}catch(_){}jgTop();jgInfo()}}
 jgEl("jgSalir").onclick=()=>jgSalir();
 jgEl("jgSala").onclick=()=>{if(/^GLOBAL/.test(JG.code))return;const link=location.origin+"/?sala="+JG.code;
- if(navigator.share&&JG.tact)navigator.share({title:"Carrera CZ BIG EGG",text:"Corre conmigo, sala "+JG.code,url:link}).catch(()=>{});else{try{navigator.clipboard.writeText(link)}catch(_){}jgFeed("Link de la sala copiado")}};
+ if(navigator.share&&JG.tact)navigator.share({title:"La cuncuna CZ",text:"Juega conmigo, sala "+JG.code,url:link}).catch(()=>{});else{try{navigator.clipboard.writeText(link)}catch(_){}jgFeed("Link de la sala copiado")}};
 // --- mensajes del servidor
 function jgMsg(m){
- if(m.t==="tu"){JG.id=m.id;JG.code=m.code||JG.code;JG.vueltas=m.vueltas||3;jgEl("jgSala").textContent=/^GLOBAL/.test(JG.code)?"PISTA GLOBAL":"SALA "+JG.code}
+ if(m.t==="tu"){JG.id=m.id;JG.code=m.code||JG.code;JG.R=m.R||2000;JG.vivo=true;jgEl("jgSala").textContent=/^GLOBAL/.test(JG.code)?"ARENA GLOBAL":"SALA "+JG.code;jgCentro("","");
+  jgFeed(JG.tact?"Mueve el dedo para guiar tu cuncuna":"Tu cuncuna sigue al mouse · mantén clic para turbo")}
+ else if(m.t==="init"){JG.food=new Map();m.f.forEach(f=>JG.food.set(f[0],{x:f[1],y:f[2],v:f[3],c:f[4],ph:Math.random()*6}));m.s.forEach(([id,tr])=>{JG.S[id]={tr:tr.map(p=>[p[0],p[1]]),m:10,hx:tr[0][0],hy:tr[0][1],b:0}})}
  else if(m.t==="jug"){const n={};m.l.forEach(j=>n[j.id]=j);JG.jug=n}
- else if(m.t==="s"){JG.snaps.push({t:performance.now(),p:m.p});if(JG.snaps.length>30)JG.snaps.shift();JG.orden=m.o;JG.tm=m.tm;
-  if(JG.estado==="cuenta"){const me=m.p.find(q=>q[0]===JG.id);if(me)JG.yo={x:me[1],y:me[2],a:me[3],v:0,pasto:false}}jgHud()}
- else if(m.t==="ronda"){JG.estado=m.e;jgRonda(m)}
- else if(m.t==="vuelta"){if(m.id===JG.id){JG.miVta=m.v;jgCentro(m.v===JG.vueltas-1?"¡ÚLTIMA VUELTA!":"VUELTA "+(m.v+1),"");jgSon("vuelta");setTimeout(()=>{if(JG.estado==="carrera")jgCentro("","")},1300)}}
- else if(m.t==="meta"){const j=JG.jug[m.id]||{};const pos=JG.orden.indexOf(m.id)+1;
-  if(m.id===JG.id){JG.fin=true;jgCentro("¡META!","Llegaste "+(pos||"")+"° en "+jgT(m.ms));jgSon("win");if(pos===1&&typeof confeti==="function")confeti()}
-  else jgFeed(`<b style="color:${j.c}">${esc(j.n||"?")}</b> llegó a la meta · ${jgT(m.ms)}`)}
+ else if(m.t==="s"){const vistos={};
+  m.p.forEach(([id,x,y,mm,b])=>{vistos[id]=1;let s=JG.S[id];if(!s){s=JG.S[id]={tr:[],m:mm,hx:x,hy:y,b:0}}
+   const ult=s.tr[0];if(!ult||Math.abs(ult[0]-x)>400||Math.abs(ult[1]-y)>400){s.tr=[[x,y]];s.hx=x;s.hy=y}else s.tr.unshift([x,y]);
+   s.m=mm;s.b=b;let acc=0;const L=jgLargo(mm)+30;for(let i=1;i<s.tr.length;i++){acc+=Math.hypot(s.tr[i][0]-s.tr[i-1][0],s.tr[i][1]-s.tr[i-1][1]);if(acc>L){s.tr.length=i+1;break}}});
+  for(const id in JG.S)if(!vistos[id])delete JG.S[id];
+  if(m.fa)m.fa.forEach(f=>JG.food.set(f[0],{x:f[1],y:f[2],v:f[3],c:f[4],ph:Math.random()*6,nace:performance.now()}));
+  if(m.fr)m.fr.forEach(id=>{const f=JG.food.get(id);if(f){const yo=JG.S[JG.id];if(yo&&Math.hypot(yo.hx-f.x,yo.hy-f.y)<80)jgSon("ñam");JG.food.delete(id)}});
+  jgHud()}
+ else if(m.t==="muere"){const j=JG.jug[m.id]||{},p=JG.jug[m.por];const s=JG.S[m.id];if(s)for(let i=0;i<s.tr.length;i+=3)JG.part.push({x:s.tr[i][0],y:s.tr[i][1],vx:(Math.random()-.5)*160,vy:(Math.random()-.5)*160,l:1,r:6,c:j.c||"#fff"});
+  delete JG.S[m.id];
+  if(m.id===JG.id){JG.vivo=false;jgSon("muere");jgMuerte(m,p)}
+  else{if(m.por===JG.id){jgSon("ko");jgFeed(`¡Te comiste a <b style="color:${j.c}">${esc(j.n||"?")}</b>!`)}else if(p)jgFeed(`<b style="color:${p.c}">${esc(p.n)}</b> encerró a <b style="color:${j.c}">${esc(j.n||"?")}</b>`)}}
 }
-function jgT(ms){ms=Math.max(0,ms|0);return Math.floor(ms/60000)+":"+String(Math.floor(ms/1000)%60).padStart(2,"0")+"."+Math.floor(ms%1000/100)}
-function jgRonda(m){jgEl("jgRes").hidden=true;
- if(m.e==="espera"){JG.yo=null;jgMotor(false);jgCentro("ESPERANDO PILOTOS",/^GLOBAL/.test(JG.code)?"La carrera arranca en segundos.":"Comparte el código "+JG.code+" (toca el botón morado).")}
- else if(m.e==="cuenta"&&m.tarde){jgCentro("","Entras en la próxima carrera")}
- else if(m.e==="cuenta"){JG.fin=false;JG.miVta=0;const yoCorre=m.grilla&&m.grilla.some(g=>g[0]===JG.id);let n=3;
-  const luz=k=>`<div class="jgsem">${[0,1,2].map(i=>`<i class="${i<k?"r":""}"></i>`).join("")}</div>`;
-  const f=()=>{if(JG.estado!=="cuenta")return;jgEl("jgCen").innerHTML=luz(4-n)+`<h2>${n}</h2>`+(yoCorre?"":"<p>Entras en la próxima carrera</p>");jgSon("tic");n--;if(n>0)setTimeout(f,1000)};setTimeout(f,900)}
- else if(m.e==="carrera"&&m.tarde){JG.yo=null;jgCentro("","Mira la carrera: entras en la próxima")}
- else if(m.e==="carrera"){jgEl("jgCen").innerHTML='<div class="jgsem"><i class="v"></i><i class="v"></i><i class="v"></i></div><h2>¡YA!</h2>';jgSon("go");
-  if(JG.yo){JG.yo.v=60;jgMotor(true)}setTimeout(()=>{if(JG.estado==="carrera"&&!JG.fin)jgCentro("","")},1000);
-  if(!JG.yo)setTimeout(()=>{if(JG.estado==="carrera")jgCentro("","Mira la carrera: entras en la próxima")},1100)}
- else if(m.e==="fin"){jgMotor(false);jgCentro("","");const R=m.res||[];
-  jgEl("jgRes").innerHTML=`<h3>RESULTADOS</h3>`+R.map((r,i)=>`<div class="r${r.id===JG.id?" yo":""}"><b>${i+1}°</b><img src="${esc(r.av||JG_CAOZ.src)}" style="border-color:${r.c}" alt=""><span>${esc(r.n)}${r.b?" · bot":""}</span><em>${r.ms?jgT(r.ms):"sin terminar"}${r.pts?`<small>+${r.pts} puntos</small>`:""}</em></div>`).join("")+
-   `<p>${CU.tok?"Con 2 o más pilotos reales, el podio suma puntos al top.":"Crea tu cuenta para sumar puntos cuando subes al podio."} Nueva carrera en unos segundos.</p>`;
-  jgEl("jgRes").hidden=false}}
+function jgMuerte(m,p){const j=JG.jug[JG.id]||{};const pts=CU.tok?Math.min(15,Math.floor(m.m/40)):0;
+ jgEl("jgRes").innerHTML=`<img src="${esc(j.av||JG_CAOZ.src)}" style="border-color:${j.c||"#8b3dff"}" alt=""><h3>${p?"TE ENCERRÓ "+esc(String(p.n).toUpperCase()):"¡CHOCASTE!"}</h3><div class="big">${m.m}</div><p>de largo</p>`+
+  (CU.tok?(Object.values(JG.jug).filter(x=>!x.b).length>=2?`<div class="pts">+${pts} puntos para el top</div>`:`<p>Con 2 o más jugadores reales en la sala ganas puntos para el top.</p>`):`<p>Crea tu cuenta para guardar tus récords y ganar puntos.</p>`)+
+  `<button class="btn btn-y" type="button" id="jgOtra">JUGAR DE NUEVO</button><button class="btn btn-s" type="button" id="jgFuera">SALIR</button>`;
+ jgEl("jgRes").hidden=false;jgEl("jgOtra").onclick=()=>{jgEl("jgRes").hidden=true;JG.ws&&JG.ws.send(JSON.stringify({t:"revive"}));JG.vivo=true;JG.inA=null};jgEl("jgFuera").onclick=()=>jgSalir()}
 function jgCentro(t,p){jgEl("jgCen").innerHTML=(t?`<h2>${esc(t)}</h2>`:"")+(p?`<p>${esc(p)}</p>`:"")}
 function jgFeed(h){const d=document.createElement("div");d.innerHTML=h;const F=jgEl("jgFeed");F.prepend(d);while(F.children.length>4)F.lastChild.remove();setTimeout(()=>d.remove(),4500)}
-function jgHud(){const pos=JG.orden.indexOf(JG.id)+1,n=JG.orden.length;jgEl("jgPos").textContent=pos?pos+"° / "+n:"—";
- const me=JG.snaps.length?JG.snaps[JG.snaps.length-1].p.find(q=>q[0]===JG.id):null;
- jgEl("jgVta").textContent="VUELTA "+Math.min(JG.vueltas,(me?me[4]:JG.miVta)+1)+"/"+JG.vueltas;jgEl("jgTiempo").textContent=jgT(JG.tm*100)}
-// --- sonido: motor que sube con la velocidad
-function jgMotor(on){if(!on){if(JG.motor){try{JG.motor.o.stop()}catch(_){}JG.motor=null}return}if(JG.motor||typeof rAC!=="function"||!RSON)return;const c=rAC();if(!c)return;
- const o=c.createOscillator(),f=c.createBiquadFilter(),g=c.createGain();o.type="sawtooth";f.type="lowpass";f.frequency.value=700;g.gain.value=.025;o.connect(f).connect(g).connect(c.destination);o.start();JG.motor={o,g}}
-function jgSon(k){if(typeof rTono!=="function")return;if(k==="tic")rTono(520,.18,"square",.06);else if(k==="go")rTono(1040,.4,"square",.07);
- else if(k==="turbo"){rTono(200,.25,"sawtooth",.05);rTono(400,.3,"sawtooth",.04,.08)}else if(k==="vuelta"){rTono(880,.1,"triangle",.07);rTono(1175,.15,"triangle",.07,.1)}else if(k==="choque")rTono(140,.12,"square",.05);else if(k==="win"&&typeof rGana==="function")rGana()}
-// --- controles
-addEventListener("keydown",e=>{if(jgEl("jg").hidden)return;const k=e.key.toLowerCase();JG.keys[k]=true;if(k===" "||k==="shift"){e.preventDefault();jgTurbo()}if(k.startsWith("arrow")||k===" ")e.preventDefault();if(k==="escape")jgSalir()});
-addEventListener("keyup",e=>{JG.keys[e.key.toLowerCase()]=false});
-function jgTurbo(){const ahora=performance.now();if(!JG.yo||JG.estado!=="carrera"||JG.fin||ahora<JG.tCd)return;JG.tHasta=ahora+1300;JG.tCd=ahora+5000;jgSon("turbo");
- const b=jgEl("jgTurbo");b.classList.add("cd");setTimeout(()=>b.classList.remove("cd"),5000);if(navigator.vibrate&&JG.tact)navigator.vibrate(30)}
-document.querySelectorAll("#jg .jgb").forEach(b=>{const k=b.dataset.k;
- b.addEventListener("pointerdown",e=>{e.preventDefault();b.setPointerCapture(e.pointerId);JG.btn[k]=true;b.classList.add("on");if(k==="turbo")jgTurbo()});
- const fin=()=>{JG.btn[k]=false;b.classList.remove("on")};b.addEventListener("pointerup",fin);b.addEventListener("pointercancel",fin);b.addEventListener("lostpointercapture",fin)});
-jgEl("jg").addEventListener("touchstart",()=>{if(!JG.tact){JG.tact=true;jgEl("jg").classList.add("tactil")}},{passive:true});
-jgEl("jg").addEventListener("contextmenu",e=>e.preventDefault());
-// --- física del kart propio
-let jgHint=0;
-function jgCerca(x,y){let mi=1e9,mk=jgHint;for(let d=-40;d<=40;d++){const k=(jgHint+d+JG_NP)%JG_NP,p=JG_PTS[k],q=(p[0]-x)**2+(p[1]-y)**2;if(q<mi){mi=q;mk=k}}
- if(mi>200*200){for(let k=0;k<JG_NP;k+=2){const p=JG_PTS[k],q=(p[0]-x)**2+(p[1]-y)**2;if(q<mi){mi=q;mk=k}}}jgHint=mk;return Math.sqrt(mi)}
-function jgFisica(dt,ahora){const y=JG.yo;if(!y)return;const k=JG.keys,b=JG.btn;
- if(JG.estado!=="carrera"||JG.fin){y.v*=Math.exp(-2.5*dt);y.x+=Math.cos(y.a)*y.v*dt;y.y+=Math.sin(y.a)*y.v*dt;return}
- let giro=0;if(k.a||k.arrowleft||b.izq)giro-=1;if(k.d||k.arrowright||b.der)giro+=1;const freno=k.s||k.arrowdown||b.freno;
- const d=jgCerca(y.x,y.y);y.pasto=d>JG_W/2+6;const turbo=ahora<JG.tHasta;
- const tope=freno?160:turbo?JG_TURBO:y.pasto?JG_PASTO:JG_MAX;y.v+=(tope-y.v)*(y.v<tope?(turbo?2.6:1.1):(y.pasto?2.2:3))*dt;
- y.a+=giro*2.6*dt*Math.min(1,y.v/170)*(freno?1.25:1);
- y.x+=Math.cos(y.a)*y.v*dt;y.y+=Math.sin(y.a)*y.v*dt;
- const S=JG.snaps.length?JG.snaps[JG.snaps.length-1].p:[];
- for(const q of S){if(q[0]===JG.id)continue;const dx=y.x-q[1],dy=y.y-q[2],dd=Math.hypot(dx,dy);if(dd<44&&dd>0){y.x+=dx/dd*(44-dd)*.6;y.y+=dy/dd*(44-dd)*.6;if(y.v>200&&Math.random()<.3)jgSon("choque");y.v*=.97}}
- if(y.pasto&&y.v>120&&Math.random()<.5)JG.part.push({x:y.x-Math.cos(y.a)*22,y:y.y-Math.sin(y.a)*22,vx:(Math.random()-.5)*60,vy:(Math.random()-.5)*60,l:1,r:5+Math.random()*5,c:document.body.classList.contains("navidad")?"#ffffff":"#8a6b3e"});
- if(turbo)for(let i=0;i<2;i++)JG.part.push({x:y.x-Math.cos(y.a)*26,y:y.y-Math.sin(y.a)*26,vx:-Math.cos(y.a)*120+(Math.random()-.5)*80,vy:-Math.sin(y.a)*120+(Math.random()-.5)*80,l:1,r:4+Math.random()*4,c:Math.random()<.5?"#ffd23a":"#ff7a1a"});
- if(ahora-JG.inT>66&&JG.ws&&JG.ws.readyState===1){JG.inT=ahora;JG.ws.send(JSON.stringify({t:"p",x:Math.round(y.x),y:Math.round(y.y),a:Math.round(y.a*100)/100}))}
- if(JG.motor){const c=rAC();if(c)JG.motor.o.frequency.setTargetAtTime(48+y.v*.16+(turbo?40:0),c.currentTime,.05)}}
+function jgHud(){const L=Object.entries(JG.S).map(([id,s])=>({id:+id,m:s.m})).sort((a,b)=>b.m-a.m);const yo=JG.S[JG.id];
+ jgEl("jgLargo").textContent="LARGO "+(yo?yo.m:0);const r=L.findIndex(x=>x.id===JG.id);jgEl("jgRank").textContent=r>=0?"#"+(r+1)+" DE "+L.length:"";
+ jgEl("jgLb").innerHTML="<h5>LOS MÁS LARGOS</h5>"+L.slice(0,8).map((x,i)=>{const j=JG.jug[x.id]||{};return `<div class="${x.id===JG.id?"yo":""}"><b>${i+1}</b><span style="color:${x.id===JG.id?"#ffd23a":j.c}">${esc(x.id===JG.id?"Tú":(j.n||"?"))}</span><em>${x.m}</em></div>`}).join("")}
+function jgSon(k){if(typeof rTono!=="function")return;if(k==="ñam")rTono(700+Math.random()*300,.06,"triangle",.04);else if(k==="ko"){rTono(523,.1,"triangle",.08);rTono(784,.18,"triangle",.08,.08)}
+ else if(k==="muere"){rTono(300,.3,"sawtooth",.06);rTono(150,.4,"sawtooth",.05,.15)}}
+// --- controles: el mouse o el dedo marcan la dirección
+const jgOv=jgEl("jg");
+function jgApunta(cx,cy){const r=jgOv.getBoundingClientRect();JG.ang=Math.atan2(cy-(r.top+r.height/2),cx-(r.left+r.width/2))}
+jgOv.addEventListener("pointermove",e=>{if(e.target.closest("button,.jgres"))return;jgApunta(e.clientX,e.clientY)});
+jgOv.addEventListener("pointerdown",e=>{if(e.target.closest("button,.jgres"))return;jgApunta(e.clientX,e.clientY);if(e.pointerType==="mouse")JG.boost=true});
+addEventListener("pointerup",e=>{if(e.pointerType==="mouse")JG.boost=false});
+jgOv.addEventListener("touchstart",()=>{if(!JG.tact){JG.tact=true;jgOv.classList.add("tactil")}},{passive:true});
+jgOv.addEventListener("contextmenu",e=>e.preventDefault());
+const jgTb=jgEl("jgTurbo");jgTb.addEventListener("pointerdown",e=>{e.preventDefault();e.stopPropagation();jgTb.setPointerCapture(e.pointerId);JG.boost=true;jgTb.classList.add("on")});
+["pointerup","pointercancel","lostpointercapture"].forEach(k=>jgTb.addEventListener(k,()=>{JG.boost=false;jgTb.classList.remove("on")}));
+addEventListener("keydown",e=>{if(jgOv.hidden)return;const k=e.key.toLowerCase();JG.keys[k]=true;if(k===" "){e.preventDefault();JG.boost=true}if(k.startsWith("arrow"))e.preventDefault();if(k==="escape")jgSalir()});
+addEventListener("keyup",e=>{const k=e.key.toLowerCase();JG.keys[k]=false;if(k===" ")JG.boost=false});
+function jgEntrada(dt,ahora){const k=JG.keys;if(k.a||k.arrowleft)JG.ang-=3.5*dt;if(k.d||k.arrowright)JG.ang+=3.5*dt;
+ if(!JG.ws||JG.ws.readyState!==1||!JG.vivo)return;const a=Math.round(JG.ang*100)/100;
+ if(ahora-JG.inT>100&&(JG.inA===null||Math.abs(a-JG.inA)>.03||JG.boost!==JG.inB||ahora-JG.inT>800)){JG.inT=ahora;JG.inA=a;JG.inB=JG.boost;JG.ws.send(JSON.stringify({t:"in",a,b:JG.boost?1:0}))}}
 // --- dibujo
 function jgRes(){const c=jgEl("jgC"),dpr=Math.min(2,devicePixelRatio||1);c.width=innerWidth*dpr;c.height=innerHeight*dpr;JG.dpr=dpr;
- if(!JG.deco){const D=[];let n=0;while(D.length<170&&n++<4000){const x=-1700+Math.random()*3800,y=-1000+Math.random()*2900;let ok=true;for(let k=0;k<JG_NP;k+=3){const p=JG_PTS[k];if((p[0]-x)**2+(p[1]-y)**2<(JG_W/2+70)**2){ok=false;break}}if(ok)D.push({x,y,r:22+Math.random()*26,t:Math.random()})}JG.deco=D}}
-addEventListener("resize",()=>{if(!jgEl("jg").hidden)jgRes()});
-function jgPos(){const S=JG.snaps;if(!S.length)return[];const t=performance.now()-120;let a=S[0],b=S[S.length-1];
- for(let i=S.length-1;i>0;i--){if(S[i-1].t<=t){a=S[i-1];b=S[i];break}}
- const k=b.t===a.t?1:Math.max(0,Math.min(1.15,(t-a.t)/(b.t-a.t)));const A={};a.p.forEach(q=>A[q[0]]=q);
- return b.p.map(q=>{const o=A[q[0]]||q;let da=q[3]-o[3];if(da>Math.PI)da-=2*Math.PI;if(da<-Math.PI)da+=2*Math.PI;return{id:q[0],x:o[1]+(q[1]-o[1])*k,y:o[2]+(q[2]-o[2])*k,a:o[3]+da*k}})}
-function jgKart(x,p,j,yo){x.save();x.translate(p.x,p.y);
- x.fillStyle="rgba(0,0,0,.3)";x.beginPath();x.ellipse(4,6,30,19,p.a,0,7);x.fill();
- x.rotate(p.a);x.fillStyle="#111";[[14,-15],[14,15],[-14,-16],[-14,16]].forEach(([wx,wy])=>{x.beginPath();x.roundRect(wx-7,wy-4,14,8,3);x.fill()});
- x.strokeStyle="#030806";x.lineWidth=3;x.fillStyle=j.c;x.beginPath();x.moveTo(30,0);x.quadraticCurveTo(26,-12,12,-13);x.lineTo(-20,-13);x.quadraticCurveTo(-26,-13,-26,-7);x.lineTo(-26,7);x.quadraticCurveTo(-26,13,-20,13);x.lineTo(12,13);x.quadraticCurveTo(26,12,30,0);x.closePath();x.fill();x.stroke();
- x.fillStyle="rgba(255,255,255,.85)";x.fillRect(14,-3,12,6);x.fillStyle="#030806";x.fillRect(-30,-15,6,30);
- x.restore();
- const im=jgAv(j.av),r=15;x.save();x.beginPath();x.arc(p.x,p.y-6,r,0,7);x.closePath();x.fillStyle="#2a1a4a";x.fill();x.clip();
- if(im===JG_CAOZ)x.drawImage(im,p.x-r*1.35,p.y-6-r*1.25,r*2.7,r*2.7);else x.drawImage(im,p.x-r,p.y-6-r,r*2,r*2);x.restore();
- x.lineWidth=3;x.strokeStyle=yo?"#ffd23a":"#030806";x.beginPath();x.arc(p.x,p.y-6,r,0,7);x.stroke();
- const txt=yo?"TÚ":j.n;x.font=`400 ${yo?15:13}px "Luckiest Guy"`;x.textAlign="center";x.lineWidth=4;x.strokeStyle="#030806";x.strokeText(txt,p.x,p.y-26);x.fillStyle=yo?"#ffd23a":"#fff";x.fillText(txt,p.x,p.y-26)}
+ JG.estrellas=Array.from({length:80},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.5+.3,f:Math.random()*6}))}
+addEventListener("resize",()=>{if(!jgOv.hidden)jgRes()});
+function jgCuerpo(x,s,j,yo,ts){const tr=s.tr;if(!tr.length)return;const r=jgGrosor(s.m),L=jgLargo(s.m),paso=Math.max(5,r*.5);
+ // puntos a lo largo del rastro, empezando en la cabeza suavizada
+ const pts=[];let px=s.hx,py=s.hy,acc=0,next=0,i=0;pts.push([px,py]);
+ for(i=0;i<tr.length&&acc<L;i++){const q=tr[i];let dx=q[0]-px,dy=q[1]-py,d=Math.hypot(dx,dy);while(d>0&&acc+d>=next+paso&&next+paso<=L){const k=(next+paso-acc)/d;pts.push([px+dx*k,py+dy*k]);next+=paso}acc+=d;px=q[0];py=q[1]}
+ const c=j.c||"#8b3dff",nav=document.body.classList.contains("navidad");
+ if(pts.length>1){x.lineCap="round";x.lineJoin="round";const camino=()=>{x.beginPath();x.moveTo(pts[pts.length-1][0],pts[pts.length-1][1]);for(let k=pts.length-2;k>=0;k--)x.lineTo(pts[k][0],pts[k][1])};
+  if(s.b){x.save();x.shadowColor=c;x.shadowBlur=30;camino();x.lineWidth=r*2+8;x.strokeStyle=c;x.stroke();x.restore()}
+  camino();x.lineWidth=r*2+5;x.strokeStyle="rgba(0,0,0,.55)";x.stroke();
+  camino();x.lineWidth=r*2;x.strokeStyle=c;x.stroke();
+  camino();x.lineWidth=r*1.1;x.strokeStyle=nav?"rgba(255,255,255,.28)":"rgba(255,255,255,.22)";x.stroke();
+  x.setLineDash([2,r*1.05]);camino();x.lineWidth=r*1.7;x.strokeStyle="rgba(0,0,0,.13)";x.stroke();x.setLineDash([]);
+  camino();x.lineWidth=r*.35;x.strokeStyle="rgba(255,255,255,.35)";x.save();x.translate(-r*.25,-r*.3);x.stroke();x.restore()}
+ // cabeza: el avatar de Roblox
+ const hr=r*1.45,im=jgAv(j.av);x.fillStyle="#030806";x.beginPath();x.arc(s.hx,s.hy,hr+4,0,7);x.fill();x.fillStyle=c;x.beginPath();x.arc(s.hx,s.hy,hr+1.5,0,7);x.fill();
+ x.save();x.beginPath();x.arc(s.hx,s.hy,hr-1,0,7);x.clip();x.fillStyle="#2a1a4a";x.fill();
+ if(im===JG_CAOZ)x.drawImage(im,s.hx-hr*1.3,s.hy-hr*1.2,hr*2.6,hr*2.6);else x.drawImage(im,s.hx-hr,s.hy-hr,hr*2,hr*2);x.restore();
+ if(yo){x.strokeStyle="#ffd23a";x.lineWidth=3;x.beginPath();x.arc(s.hx,s.hy,hr+7,0,7);x.stroke()}
+ const txt=yo?"TÚ":(j.n||"");x.font=`400 ${yo?16:14}px "Luckiest Guy"`;x.textAlign="center";x.lineWidth=4;x.strokeStyle="#030806";x.strokeText(txt,s.hx,s.hy-hr-10);x.fillStyle=yo?"#ffd23a":"#fff";x.fillText(txt,s.hx,s.hy-hr-10)}
+let JG_HEX=null,JG_HEXN=null;
+function jgHex(x,nav){if(nav?JG_HEXN:JG_HEX)return nav?JG_HEXN:JG_HEX;const R=34,w=Math.sqrt(3)*R,h=3*R,c=document.createElement("canvas");c.width=Math.round(w);c.height=h;const g=c.getContext("2d");
+ g.fillStyle=nav?"#1a1018":"#141020";g.fillRect(0,0,c.width,h);
+ const hexa=(cx,cy)=>{g.beginPath();for(let i=0;i<6;i++){const a=Math.PI/3*i+Math.PI/6;g.lineTo(cx+Math.cos(a)*(R-3),cy+Math.sin(a)*(R-3))}g.closePath();const gr=g.createLinearGradient(cx,cy-R,cx,cy+R);gr.addColorStop(0,nav?"#2b1a24":"#221a38");gr.addColorStop(1,nav?"#1f121b":"#1a1430");g.fillStyle=gr;g.fill();g.strokeStyle=nav?"rgba(255,255,255,.05)":"rgba(170,140,255,.07)";g.lineWidth=2;g.stroke()};
+ [[0,0],[w,0],[w/2,h/2],[0,h],[w,h]].forEach(([cx,cy])=>hexa(cx,cy));const p=x.createPattern(c,"repeat");if(nav)JG_HEXN=p;else JG_HEX=p;return p}
+const JG_CL={};function jgClaro(c){if(JG_CL[c])return JG_CL[c];const n=parseInt(c.slice(1),16),f=v=>Math.min(255,Math.round(v+(255-v)*.35));return JG_CL[c]="rgb("+f(n>>16)+","+f(n>>8&255)+","+f(n&255)+")"}
 let jgUlt=0;
-function jgDibujar(ts){JG.raf=requestAnimationFrame(jgDibujar);const dt=Math.min(.05,(ts-(jgUlt||ts))/1000);jgUlt=ts;const ahora=performance.now();jgFisica(dt,ahora);
+function jgDibujar(ts){JG.raf=requestAnimationFrame(jgDibujar);const dt=Math.min(.05,(ts-(jgUlt||ts))/1000);jgUlt=ts;jgEntrada(dt,performance.now());
  const c=jgEl("jgC"),x=c.getContext("2d"),W=c.width,H=c.height,nav=document.body.classList.contains("navidad");
- const P=jgPos(),miP=JG.yo?{id:JG.id,x:JG.yo.x,y:JG.yo.y,a:JG.yo.a}:null;
- let foco=miP||P.find(p=>p.id===JG.orden[0])||{x:JG_PTS[0][0],y:JG_PTS[0][1]};
- const ver=(JG.tact?470:640)*(1+(JG.yo?JG.yo.v/JG_TURBO*.25:0)),esc_=Math.min(W,H)/ver*(H>W?1.25:1);
- const tx=foco.x+(JG.yo?Math.cos(JG.yo.a)*JG.yo.v*.25:0),ty=foco.y+(JG.yo?Math.sin(JG.yo.a)*JG.yo.v*.25:0);JG.camX+=(tx-JG.camX)*Math.min(1,dt*6);JG.camY+=(ty-JG.camY)*Math.min(1,dt*6);
- if(Math.abs(JG.camX-tx)>1500){JG.camX=tx;JG.camY=ty}
- x.fillStyle=nav?"#e9f2fb":"#2f8a3a";x.fillRect(0,0,W,H);
- x.save();x.translate(W/2,H/2);x.scale(esc_,esc_);x.translate(-JG.camX,-JG.camY);
- const x0=JG.camX-W/2/esc_,y0=JG.camY-H/2/esc_;x.fillStyle=nav?"#dbe8f5":"#2a7f35";for(let gx=Math.floor(x0/120)*120;gx<x0+W/esc_;gx+=120)x.fillRect(gx,y0,60,H/esc_);
- // carretera: borde rojo/blanco, asfalto, línea central
- x.lineJoin="round";x.lineCap="round";x.lineWidth=JG_W+18;x.strokeStyle="#fff";x.stroke(JG_RUTA);x.setLineDash([26,26]);x.strokeStyle=nav?"#c8102e":"#ff3b4f";x.stroke(JG_RUTA);x.setLineDash([]);
- x.lineWidth=JG_W;x.strokeStyle=nav?"#5b6470":"#3b3f47";x.stroke(JG_RUTA);x.lineWidth=JG_W-30;x.strokeStyle=nav?"#646e7b":"#43474f";x.stroke(JG_RUTA);
- x.lineWidth=4;x.setLineDash([30,34]);x.strokeStyle="rgba(255,255,255,.55)";x.stroke(JG_RUTA);x.setLineDash([]);
- // meta a cuadros
- const p0=JG_PTS[0],p1=JG_PTS[1],am=Math.atan2(p1[1]-p0[1],p1[0]-p0[0]);x.save();x.translate(p0[0],p0[1]);x.rotate(am);for(let i=0;i<10;i++)for(let k=0;k<2;k++){x.fillStyle=(i+k)%2?"#fff":"#111";x.fillRect(-12+k*12,-JG_W/2+i*JG_W/10,12,JG_W/10)}x.restore();
- // flechas en la pista
- x.fillStyle="rgba(255,255,255,.18)";for(let k=40;k<JG_NP;k+=60){const p=JG_PTS[k],q=JG_PTS[(k+1)%JG_NP],a=Math.atan2(q[1]-p[1],q[0]-p[0]);x.save();x.translate(p[0],p[1]);x.rotate(a);x.beginPath();x.moveTo(26,0);x.lineTo(-8,-20);x.lineTo(-8,20);x.closePath();x.fill();x.restore()}
- // árboles
- JG.deco.forEach(d=>{if(d.x<x0-80||d.y<y0-80||d.x>x0+W/esc_+80||d.y>y0+H/esc_+80)return;x.fillStyle="rgba(0,0,0,.22)";x.beginPath();x.arc(d.x+8,d.y+10,d.r,0,7);x.fill();
-  x.fillStyle=nav?"#1f6b3a":(d.t<.5?"#1f6b2c":"#2f7f2a");x.beginPath();x.arc(d.x,d.y,d.r,0,7);x.fill();x.fillStyle=nav?"#ffffff":"rgba(255,255,255,.12)";x.beginPath();x.arc(d.x-d.r*.3,d.y-d.r*.3,d.r*(nav?.55:.4),0,7);x.fill()});
- // partículas
- JG.part=JG.part.filter(q=>{q.l-=dt*2.2;if(q.l<=0)return false;q.x+=q.vx*dt;q.y+=q.vy*dt;x.globalAlpha=q.l*.8;x.fillStyle=q.c;x.beginPath();x.arc(q.x,q.y,q.r,0,7);x.fill();return true});x.globalAlpha=1;
- // karts
- const L=P.filter(p=>p.id!==JG.id);if(miP)L.push(miP);L.sort((a,b)=>a.y-b.y).forEach(p=>jgKart(x,p,JG.jug[p.id]||{c:"#8b3dff",n:"?"},p.id===JG.id));
+ for(const id in JG.S){const s=JG.S[id];if(!s.tr.length)continue;const k=Math.min(1,dt*14);s.hx+=(s.tr[0][0]-s.hx)*k;s.hy+=(s.tr[0][1]-s.hy)*k}
+ const yo=JG.S[JG.id];if(yo){JG.camX+=(yo.hx-JG.camX)*Math.min(1,dt*8);JG.camY+=(yo.hy-JG.camY)*Math.min(1,dt*8);if(Math.abs(yo.hx-JG.camX)>800){JG.camX=yo.hx;JG.camY=yo.hy}}
+ const zObj=Math.min(W,H)/((JG.tact?620:820)*(1+Math.min(.9,(yo?yo.m:10)/900)));JG.zoom+=(zObj-JG.zoom)*Math.min(1,dt*2);const z=JG.zoom;
+ const g=x.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.75);g.addColorStop(0,nav?"#2a1424":"#22124a");g.addColorStop(1,nav?"#0b0710":"#0a0616");x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.save();x.translate(W/2,H/2);x.scale(z,z);x.translate(-JG.camX,-JG.camY);
+ const x0=JG.camX-W/2/z,y0=JG.camY-H/2/z,x1=JG.camX+W/2/z,y1=JG.camY+H/2/z;
+ // suelo de hexágonos/puntos dentro de la arena
+ x.save();x.beginPath();x.arc(0,0,JG.R,0,7);x.clip();x.fillStyle=nav?"#1c1220":"#170d33";x.fillRect(x0,y0,x1-x0,y1-y0);
+ const pat=jgHex(x,nav);x.fillStyle=pat;x.fillRect(x0,y0,x1-x0,y1-y0);
  x.restore();
- jgMini(P,miP)}
-function jgMini(P,miP){const c=jgEl("jgMini"),x=c.getContext("2d"),W=c.width,H=c.height;x.clearRect(0,0,W,H);
- const sx=(W-16)/3100,sy=(H-16)/2150,s=Math.min(sx,sy),ox=W/2-300*s,oy=H/2-450*s;x.save();x.translate(ox,oy);x.scale(s,s);
- x.lineWidth=JG_W*.55;x.strokeStyle="rgba(255,255,255,.75)";x.lineJoin="round";x.stroke(JG_RUTA);x.restore();
- const L=P.filter(p=>p.id!==JG.id);if(miP)L.push(miP);L.forEach(p=>{const j=JG.jug[p.id]||{};x.fillStyle=j.c||"#fff";x.strokeStyle="#030806";x.lineWidth=2;x.beginPath();x.arc(ox+p.x*s,oy+p.y*s,p.id===JG.id?6:4.5,0,7);x.fill();x.stroke()})}
+ x.lineWidth=14;x.strokeStyle=`rgba(255,59,79,${.6+.3*Math.sin(ts/300)})`;x.shadowColor="#ff3b4f";x.shadowBlur=30;x.beginPath();x.arc(0,0,JG.R,0,7);x.stroke();x.shadowBlur=0;
+ // bolitas
+ const PAL=nav?JG_FCN:JG_FC;
+ x.globalCompositeOperation="lighter";
+ for(const f of JG.food.values()){if(f.x<x0-20||f.x>x1+20||f.y<y0-20||f.y>y1+20)continue;const r=3+f.v*1.4+Math.sin(ts/260+f.ph)*1,col=PAL[f.c%8];
+  const gr=x.createRadialGradient(f.x,f.y,0,f.x,f.y,r*3.2);gr.addColorStop(0,col);gr.addColorStop(.35,col);gr.addColorStop(1,"rgba(0,0,0,0)");x.globalAlpha=.55;x.fillStyle=gr;x.beginPath();x.arc(f.x,f.y,r*3.2,0,7);x.fill();
+  x.globalAlpha=1;x.fillStyle=col;x.beginPath();x.arc(f.x,f.y,r,0,7);x.fill();x.fillStyle="rgba(255,255,255,.8)";x.beginPath();x.arc(f.x,f.y,r*.45,0,7);x.fill()}
+ x.globalCompositeOperation="source-over";
+ // partículas
+ JG.part=JG.part.filter(q=>{q.l-=dt*1.6;if(q.l<=0)return false;q.x+=q.vx*dt;q.y+=q.vy*dt;x.globalAlpha=q.l;x.fillStyle=q.c;x.beginPath();x.arc(q.x,q.y,q.r,0,7);x.fill();return true});x.globalAlpha=1;
+ // cuncunas (las más chicas arriba)
+ Object.entries(JG.S).sort((a,b)=>b[1].m-a[1].m).forEach(([id,s])=>{id=+id;if(s.hx<x0-1200||s.hx>x1+1200||s.hy<y0-1200||s.hy>y1+1200)return;jgCuerpo(x,s,JG.jug[id]||{},id===JG.id,ts)});
+ x.restore();
+ // flecha que apunta a dónde vas (en celular)
+ if(yo&&JG.tact&&JG.vivo){x.save();x.translate(W/2+Math.cos(JG.ang)*90*JG.dpr,H/2+Math.sin(JG.ang)*90*JG.dpr);x.rotate(JG.ang);x.fillStyle="rgba(255,255,255,.5)";x.beginPath();x.moveTo(14*JG.dpr,0);x.lineTo(-8*JG.dpr,-10*JG.dpr);x.lineTo(-8*JG.dpr,10*JG.dpr);x.closePath();x.fill();x.restore()}
+ jgMini()}
+function jgMini(){const c=jgEl("jgMini"),x=c.getContext("2d"),W=c.width,s=(W/2-6)/JG.R;x.clearRect(0,0,W,W);x.strokeStyle="rgba(255,59,79,.8)";x.lineWidth=2;x.beginPath();x.arc(W/2,W/2,JG.R*s,0,7);x.stroke();
+ for(const id in JG.S){const sn=JG.S[id],j=JG.jug[id]||{},yo=+id===JG.id;x.fillStyle=yo?"#ffd23a":(j.c||"#fff");x.beginPath();x.arc(W/2+sn.hx*s,W/2+sn.hy*s,yo?4.5:2.5+Math.min(3,sn.m/200),0,7);x.fill()}}
+// --- dibujito de la portada: una cuncuna dando vueltas
+(function(){const c=jgEl("jgDemo");if(!c)return;const x=c.getContext("2d");let t=0;
+ (function f(){requestAnimationFrame(f);if(!jgEl("juego")||jgEl("juego").hidden)return;t+=.02;x.clearRect(0,0,260,330);const nav=document.body.classList.contains("navidad");
+  for(let i=22;i>=0;i--){const a=t-i*.16,px=130+Math.cos(a)*92,py=120+Math.sin(a*2)*44,r=13-i*.25;x.fillStyle="#030806";x.beginPath();x.arc(px,py,r+3,0,7);x.fill();x.fillStyle=i%6<3?(nav?"#ff3b4f":"#8b3dff"):(nav?"#ffffff":"#c9a8ff");x.beginPath();x.arc(px,py,r,0,7);x.fill()}
+  for(let k=0;k<7;k++){const fx=40+k*30,fy=40+((k*53)%70);x.fillStyle=JG_FC[k%8];x.globalAlpha=.4+.3*Math.sin(t*3+k);x.beginPath();x.arc(fx,fy,5,0,7);x.fill()}x.globalAlpha=1})()})();
 // --- abrir desde un link ?sala=CODIGO
 function jgDesdeLink(){const c=(new URLSearchParams(location.search).get("sala")||"").toUpperCase();if(/^[A-Z0-9]{4,8}$/.test(c)&&CU.vivo&&!JG.ws)jgEntrar(c)}
 function jgIniciar(){jgMenu();jgTop();jgInfo();jgDesdeLink()}
