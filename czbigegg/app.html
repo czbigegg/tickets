@@ -1910,12 +1910,12 @@ dcVolvio();setTimeout(dcPintar,0);
 function pausaWeb(P){const el=document.getElementById("pausa");if(!el)return;const on=!!(P&&P.on);el.hidden=!on;document.body.classList.toggle("enpausa",on);
  if(on)document.getElementById("pausaTxt").textContent=(P.txt||"Estamos haciendo mejoras en la web. Vuelve en un rato.")}
 function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
-try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);dcWeb(c);resenasWeb(c.resenas);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
+try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);dcWeb(c);resenasWeb(c.resenas);if(c.base)BASE=c.base;VOTO=vkDec(c.vk)||c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
   const r=await fetch(GHAPI,{headers:h,cache:"no-store"});if(r.status===304)return ultWeb;if(r.ok){ETAG=r.headers.get("ETag")||"";return await r.text()}}catch(_){}
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
-function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
+function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=vkDec(j.vk)||j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
  if(solo){pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
@@ -1943,6 +1943,7 @@ try{if(localStorage.getItem("czOwner")==="1")document.getElementById("btnAdm").h
 
 // ===== registro + visitas + clics (todo llega a tu bot) =====
 (()=>{const sel=document.getElementById("rPlan");PLANES.forEach(p=>{const o=document.createElement("option");o.textContent=p.n;sel.appendChild(o)})})();
+function vkDec(k){try{return k?atob(k.split("").reverse().join("")).split("").reverse().join(""):""}catch(_){return ""}}
 function webhook(obj,beacon){if(!VOTO)return false;const fd=new FormData();
  fd.append("payload_json",JSON.stringify({username:"Web CZ BIG EGG",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify(obj)+"\n```"}));
  if(beacon&&navigator.sendBeacon){try{if(navigator.sendBeacon(VOTO,fd))return true}catch(_){}}
