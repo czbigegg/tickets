@@ -1221,7 +1221,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 @media(max-width:560px){.rulsnd{font-size:9px;padding:5px 6px 3px}#ruleta #rulTag{display:none}}
 </style>
 </head>
-<body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script>
+<body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script><script>window.__itrT0=performance.now()</script>
 <div id="pausa" hidden><div class="prays"></div><div class="pin"><img src="assets/logo.png" alt="CZ BIG EGG"><br><span class="ptag">EN MANTENIMIENTO</span><h2>VOLVEMOS <span>PRONTO</span></h2><p id="pausaTxt">Estamos haciendo mejoras en la web. Vuelve en un rato.</p><a class="btn btn-g" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Únete al Discord</a></div></div>
 <div class="bg"></div><div class="grid-bg"></div>
 
@@ -1583,6 +1583,27 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 
 <script>
 const TICKET="https://discord.com/channels/1562656550193991690/1564143741621506088";
+// ===== sonido del huevo al abrirse (intro) =====
+(function(){let intro=document.getElementById("intro");try{if(sessionStorage.getItem("czIntro")||localStorage.getItem("czMu")==="off")return}catch(_){}
+ if(!intro)return;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;let c;try{c=new AC()}catch(_){return}
+ const nav=document.body.classList.contains("navidad"),T0=window.__itrT0||performance.now();let hecho=false;
+ const ruido=d=>{const b=c.createBuffer(1,Math.ceil(c.sampleRate*d),c.sampleRate),x=b.getChannelData(0);for(let i=0;i<x.length;i++)x[i]=Math.random()*2-1;return b};
+ const env=(g,t,a,v,d)=>{g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+d)};
+ const golpe=(t,f,v)=>{const s=c.createBufferSource();s.buffer=ruido(.12);const bp=c.createBiquadFilter();bp.type="bandpass";bp.frequency.value=f;bp.Q.value=4;const g=c.createGain();env(g,t,.003,v,.1);s.connect(bp).connect(g).connect(c.destination);s.start(t);
+  const o=c.createOscillator(),g2=c.createGain();o.frequency.setValueAtTime(180,t);o.frequency.exponentialRampToValueAtTime(70,t+.08);env(g2,t,.003,v*.8,.12);o.connect(g2).connect(c.destination);o.start(t);o.stop(t+.15)};
+ const crack=t=>{for(let k=0;k<7;k++){const tk=t+k*.012+Math.random()*.01,s=c.createBufferSource();s.buffer=ruido(.05);const hp=c.createBiquadFilter();hp.type="highpass";hp.frequency.value=1800+Math.random()*2500;const g=c.createGain();env(g,tk,.001,.5-k*.05,.04);s.connect(hp).connect(g).connect(c.destination);s.start(tk)}
+  const s=c.createBufferSource();s.buffer=ruido(.4);const lp=c.createBiquadFilter();lp.type="lowpass";lp.frequency.setValueAtTime(5000,t);lp.frequency.exponentialRampToValueAtTime(400,t+.35);const g=c.createGain();env(g,t,.002,.35,.38);s.connect(lp).connect(g).connect(c.destination);s.start(t)};
+ const pop=t=>{const o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.setValueAtTime(260,t);o.frequency.exponentialRampToValueAtTime(980,t+.12);env(g,t,.005,.35,.22);o.connect(g).connect(c.destination);o.start(t);o.stop(t+.25)};
+ const chime=(t,f,v,d)=>{const o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain();o.type="triangle";o.frequency.value=f;o2.frequency.value=f*2.76;const g2=c.createGain();g2.gain.value=.25;o2.connect(g2).connect(g);env(g,t,.004,v,d);o.connect(g).connect(c.destination);o.start(t);o.stop(t+d+.05);o2.start(t);o2.stop(t+d+.05)};
+ const cascabel=t=>{for(let k=0;k<5;k++){const tk=t+k*.007,o=c.createOscillator(),g=c.createGain();o.frequency.value=5200+Math.random()*3500;env(g,tk,.001,.08,.12);o.connect(g).connect(c.destination);o.start(tk);o.stop(tk+.15)}};
+ const plan=[[.12,t=>golpe(t,900,.5)],[.32,t=>golpe(t,1100,.45)],[.52,t=>golpe(t,850,.55)],[.72,t=>golpe(t,1200,.5)],[.9,crack],[1.0,pop],
+  ...(nav?[[1.05,t=>chime(t,1047,.18,.6)],[1.15,t=>chime(t,1319,.16,.6)],[1.25,t=>chime(t,1568,.15,.7)],[1.35,t=>chime(t,2093,.13,.9)],[1.05,cascabel],[1.25,cascabel],[1.45,cascabel],[1.65,cascabel]]
+       :[[1.05,t=>chime(t,784,.18,.5)],[1.13,t=>chime(t,988,.16,.5)],[1.21,t=>chime(t,1175,.15,.6)],[1.32,t=>chime(t,1568,.14,.9)]])];
+ const tocar=()=>{if(hecho)return;hecho=true;const ya=(performance.now()-T0)/1000,base=c.currentTime-ya;plan.forEach(([at,fn])=>{if(at>=ya-.02)fn(Math.max(c.currentTime+.005,base+at))})};
+ if(c.state==="running")tocar();else{c.resume().then(()=>{if(c.state==="running")tocar()}).catch(()=>{});
+  const go=()=>{["pointerdown","keydown","touchstart"].forEach(t=>removeEventListener(t,go,true));if((performance.now()-T0)/1000<1.1)c.resume().then(tocar)};
+  ["pointerdown","keydown","touchstart"].forEach(t=>addEventListener(t,go,true));setTimeout(()=>["pointerdown","keydown","touchstart"].forEach(t=>removeEventListener(t,go,true)),3000)}
+ setTimeout(()=>{try{c.close()}catch(_){}},6000)})();
 function hideIntro(){document.getElementById("intro").classList.add("off");try{sessionStorage.setItem("czIntro","1")}catch(e){}}
 try{if(sessionStorage.getItem("czIntro"))document.getElementById("intro").style.display="none";else setTimeout(hideIntro,2900)}catch(e){setTimeout(hideIntro,2900)}
 
