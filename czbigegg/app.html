@@ -559,6 +559,41 @@ body.navidad .stc .nm .ini,body.navidad .seml .eg,body.navidad .vl b,body.navida
 body.navidad .steps-mini .sm b{background:#ffd23a!important}
 body.navidad .toggle button.on{background:#ffd23a!important}
 body.navidad .btn-o{background:#3a1424!important;color:#fff!important}
+/* reseñas */
+#resenas{padding:70px 0 40px;overflow:hidden}
+.resw{position:relative;margin-top:22px;display:grid;gap:14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.resfila{display:flex;align-items:flex-start;gap:14px;width:max-content;animation:resmov 60s linear infinite}
+.resfila.r2{animation-direction:reverse;animation-duration:70s}
+.resw:hover .resfila{animation-play-state:paused}
+@keyframes resmov{to{transform:translateX(-50%)}}
+.rescard{width:320px;flex:none;padding:16px 16px 14px;border:4px solid #030806;border-radius:18px;background:#0f2717;box-shadow:0 0 0 3px #1d5a2c,0 6px 0 #020503;display:flex;flex-direction:column;gap:8px}
+.rescard .rt{display:flex;align-items:center;gap:10px}
+.rescard .ri{width:38px;height:38px;flex:none;border-radius:50%;border:3px solid #030806;display:grid;place-items:center;font:400 18px "Luckiest Guy";color:#030806;background:linear-gradient(135deg,#ffe766,#ffb800)}
+.rescard b{font:400 16px "Luckiest Guy";letter-spacing:.5px;color:#fff;display:block}
+.rescard .rs{color:#ffd23a;font-size:15px;letter-spacing:2px;line-height:1}
+.rescard p{font:500 14px/1.45 Poppins;color:#dfeee2;margin:0}
+.rescard small{font:600 11px Poppins;color:#8fae98;margin-top:auto}
+.resver{display:inline-flex;align-items:center;gap:5px;font:700 10px Poppins;color:#7dff3a}
+body.navidad .rescard{background:#1f1629;box-shadow:0 0 0 3px #6b1d2e,0 6px 0 #020503}
+body.navidad .resver{color:#ffd23a}
+@media(max-width:560px){#resenas{padding:36px 0 20px}.rescard{width:240px;padding:11px 11px 10px;border-width:3px;gap:5px}.rescard p{font-size:11.5px}.rescard b{font-size:13px}.rescard .ri{width:30px;height:30px;font-size:14px}.rescard .rs{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.resfila{animation:none}}
+/* login con Discord */
+.dclog{display:inline-flex;align-items:center;gap:8px}.dclog[hidden]{display:none!important}
+.dclog .btn{background:linear-gradient(180deg,#7d88ff,#4f5bf0)!important;color:#fff!important}
+.dclog svg{width:18px;height:18px;flex:none}
+.dcuser{display:none;align-items:center;gap:8px;padding:4px 10px 4px 4px;border:3px solid #030806;border-radius:99px;background:#5865f2;color:#fff;font:400 14px "Luckiest Guy";cursor:pointer;position:relative}
+.dcuser img{width:28px;height:28px;border-radius:50%;border:2px solid #030806;background:#2b2d31}
+.dcuser.on{display:inline-flex}
+.dcmenu{position:absolute;right:0;top:calc(100% + 8px);background:#12101a;border:3px solid #030806;border-radius:12px;padding:6px;display:none;min-width:170px;z-index:80;box-shadow:0 6px 0 #030806}
+.dcmenu.on{display:block}
+.dcmenu button{width:100%;text-align:left;background:none;border:0;color:#fff;font:600 13px Poppins;padding:8px 10px;border-radius:8px;cursor:pointer}
+.dcmenu button:hover{background:#2a2438}
+.dcok{display:flex;align-items:center;gap:8px;padding:9px 10px;border:3px solid #030806;border-radius:12px;background:#5865f2;color:#fff;font:600 14px Poppins}
+.dcok img{width:26px;height:26px;border-radius:50%;border:2px solid #030806}
+.dcok small{margin-left:auto;font:700 10px Poppins;background:#23a55a;padding:3px 6px;border-radius:6px}
+.dcpide svg{width:18px;height:18px}.dcpide{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;border:3px solid #030806;border-radius:12px;background:#5865f2;color:#fff;font:400 15px "Luckiest Guy";cursor:pointer;box-shadow:0 4px 0 #030806}
+@media(max-width:560px){.dclog .btn span{display:none}.dclog .btn{padding:7px 9px!important}.dcuser span{display:none}}
 /* ruleta navideña */
 body.navidad .rulfab{background:repeating-linear-gradient(-45deg,#ff3b4f 0 12px,#fff 12px 24px);box-shadow:0 5px 0 #030806,0 0 26px rgba(255,59,79,.55)}
 body.navidad .rulfab b{background:#030806;color:#fff;padding:3px 8px 1px;border-radius:8px}
@@ -1283,7 +1318,9 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
  <div class="wrap">
   <a class="brand" href="#"><img src="assets/logo.png" alt="CZ BIG EGG"><b>CZ BIG EGG</b></a>
   <div class="links"><a class="free" href="#gratis">Radar gratis</a><a href="#dentro">El radar</a><a href="#huevos">Huevos</a><a href="#calculadora">Calculadora</a><a href="#encuesta" id="navEnc" hidden>Encuesta</a><a href="#streams" id="navSt" hidden>En vivo</a><a href="#registro" class="regLink" style="color:#ffd23a">Registrarse</a><a href="#planes">Planes</a><a href="#faq">FAQ</a></div>
-  <div class="nav-r"><a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
+  <div class="nav-r"><span class="dclog" id="dcLog" hidden><button class="btn btn-s" type="button" id="dcEntrar"><svg viewBox="0 0 24 24"><path fill="#fff" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg><span>Entrar</span></button></span>
+   <span class="dcuser" id="dcUser"><img id="dcAv" alt=""><span id="dcNom"></span><div class="dcmenu" id="dcMenu"><button type="button" id="dcSalir">Cerrar sesión</button></div></span>
+   <a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar</a>
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>ADMIN</a></div>
  </div>
@@ -1542,6 +1579,13 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    </div>
   </div>
  </div>
+</section>
+
+<section id="resenas" hidden>
+ <div class="wrap">
+  <div class="head rv"><div><div class="eyebrow">RESEÑAS</div><h2>Lo que dicen <span class="grad">nuestros clientes</span></h2></div></div>
+ </div>
+ <div class="resw" id="resW"></div>
 </section>
 
 <section id="planes">
@@ -1826,17 +1870,54 @@ function nieve(on){if(!on){if(NV){cancelAnimationFrame(NV.raf);NV.c.remove();NV=
  const paso=()=>{x.clearRect(0,0,W,H);for(const f of F){f.y+=f.v;f.o+=.012;f.x+=Math.sin(f.o)*.5;if(f.y>H+5){f.y=-5;f.x=Math.random()*W}
   x.globalAlpha=f.a;if(f.r>2.9){x.strokeStyle="#fff";x.lineWidth=1.2;x.save();x.translate(f.x,f.y);x.rotate(f.o);for(let a=0;a<6;a++){x.rotate(1.047);x.beginPath();x.moveTo(0,0);x.lineTo(0,f.r*2.2);x.moveTo(0,f.r*1.3);x.lineTo(f.r*.6,f.r*1.8);x.moveTo(0,f.r*1.3);x.lineTo(-f.r*.6,f.r*1.8);x.stroke()}x.restore()}else{x.beginPath();x.arc(f.x,f.y,f.r,0,6.283);x.fillStyle="#fff";x.fill()}}NV.raf=requestAnimationFrame(paso)};
  NV={c,raf:0};paso()}
+// ===== reseñas reales (4 y 5 estrellas, usuario tapado) =====
+function hace(f){const s=Math.max(0,Date.now()/1000-f);if(s<3600)return "hace un rato";if(s<86400)return "hace "+Math.floor(s/3600)+" h";const d=Math.floor(s/86400);return d===1?"hace 1 día":d<30?"hace "+d+" días":"hace "+Math.floor(d/30)+" mes"+(d>=60?"es":"")}
+var RESK="";
+function resenasWeb(L){const sec=document.getElementById("resenas"),W=document.getElementById("resW");if(!sec||!W)return;
+ if(!Array.isArray(L)||!L.length){sec.hidden=true;return}const k=JSON.stringify(L);if(k===RESK)return;RESK=k;sec.hidden=false;
+ const card=r=>`<div class="rescard"><div class="rt"><span class="ri">${esc((r.n||"?").charAt(0).toUpperCase())}</span><div><b>${esc(r.n)}</b><span class="rs">${"★".repeat(r.e)}${"☆".repeat(5-r.e)}</span></div></div><p>“${esc(r.t)}”</p><small><span class="resver">✔ Cliente verificado</span> · ${hace(r.f)}</small></div>`;
+ const mitad=Math.ceil(L.length/2),a=L.slice(0,mitad),b=L.slice(mitad).length?L.slice(mitad):L.slice(0,mitad);
+ const fila=(arr,c)=>{let x=arr;while(x.length<6)x=x.concat(arr);return `<div class="resfila ${c}">${x.map(card).join("")}${x.map(card).join("")}</div>`};
+ W.innerHTML=fila(a,"")+(L.length>3?fila(b,"r2"):"")}
+
+// ===== iniciar sesión con Discord (solo permiso "identify": tu nombre y foto, nada más) =====
+var DCID="",DC=null;
+function dcGuard(){try{const x=JSON.parse(localStorage.getItem("czDc")||"null");if(x&&x.tok&&x.exp>Date.now()+60000)return x}catch(_){}return null}
+function dcTok(){const x=dcGuard();return x?x.tok:""}
+function dcAvatar(u){return u&&u.avatar?`https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`:"https://cdn.discordapp.com/embed/avatars/0.png"}
+function dcPintar(){DC=dcGuard();const log=document.getElementById("dcLog"),us=document.getElementById("dcUser");if(!log||!us)return;
+ log.hidden=!DCID||!!DC;us.classList.toggle("on",!!DC);
+ if(DC&&DC.u){document.getElementById("dcAv").src=dcAvatar(DC.u);document.getElementById("dcNom").textContent=DC.u.global_name||DC.u.username}
+ [["rDc","fReg"],["rulDc","rulF"]].forEach(([id,f])=>{const inp=document.getElementById(id);if(!inp)return;const lab=inp.closest("label");let box=document.getElementById(id+"Dc");
+  if(!box){box=document.createElement("div");box.id=id+"Dc";lab.parentNode.insertBefore(box,lab)}
+  if(DC&&DC.u){inp.value=DC.u.username;inp.readOnly=true;lab.style.display="none";box.innerHTML=`<div class="dcok"><img src="${dcAvatar(DC.u)}" alt=""><span>${esc(DC.u.global_name||DC.u.username)}</span><small>VERIFICADO</small></div>`}
+  else{inp.readOnly=false;lab.style.display="";box.innerHTML=DCID?`<button type="button" class="dcpide" data-dclog="1"><svg viewBox="0 0 24 24"><path fill="#fff" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg> Entrar con Discord (recomendado)</button>`:""}})}
+function dcEntrar(){if(!DCID)return;const st=Math.random().toString(36).slice(2)+Date.now().toString(36);try{sessionStorage.setItem("czDcSt",st);sessionStorage.setItem("czDcVolver",location.hash||"")}catch(_){}
+ const ru=encodeURIComponent("https://czbigegg.com/");location.href=`https://discord.com/oauth2/authorize?client_id=${DCID}&response_type=token&redirect_uri=${ru}&scope=identify&state=${st}&prompt=none`}
+async function dcVolvio(){const h=new URLSearchParams(location.hash.slice(1));const tok=h.get("access_token");if(!tok)return;
+ let st="";try{st=sessionStorage.getItem("czDcSt")||""}catch(_){}
+ history.replaceState(null,"",location.pathname+location.search);if(!st||h.get("state")!==st)return;
+ try{const r=await fetch("https://discord.com/api/v10/users/@me",{headers:{Authorization:"Bearer "+tok}});if(!r.ok)return;const u=await r.json();
+  localStorage.setItem("czDc",JSON.stringify({tok,exp:Date.now()+(+h.get("expires_in")||604800)*1000,u:{id:u.id,username:u.username,global_name:u.global_name,avatar:u.avatar}}))}catch(_){}
+ dcPintar()}
+function dcSalir(){try{localStorage.removeItem("czDc")}catch(_){}dcPintar()}
+document.addEventListener("click",e=>{if(e.target.closest("#dcEntrar,[data-dclog]")){e.preventDefault();dcEntrar();return}
+ if(e.target.closest("#dcSalir")){dcSalir();document.getElementById("dcMenu").classList.remove("on");return}
+ const u=e.target.closest("#dcUser");document.getElementById("dcMenu")&&document.getElementById("dcMenu").classList.toggle("on",!!u&&!document.getElementById("dcMenu").classList.contains("on"))});
+function dcWeb(j){if(j&&j.dcid&&j.dcid!==DCID){DCID=j.dcid;dcPintar()}}
+dcVolvio();setTimeout(dcPintar,0);
+
 function pausaWeb(P){const el=document.getElementById("pausa");if(!el)return;const on=!!(P&&P.on);el.hidden=!on;document.body.classList.toggle("enpausa",on);
  if(on)document.getElementById("pausaTxt").textContent=(P.txt||"Estamos haciendo mejoras en la web. Vuelve en un rato.")}
-function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);temaWeb(j.tema);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
-try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
+function pintarWeb(j){if(!j)return;pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);if(typeof directos==="function")directos(j.streamers);if(Array.isArray(j.pets)&&j.pets.length){PETS=j.pets}pintarHuevos(j.eggs);anuncios(j.anuncios);encuesta(j.encuesta)}
+try{const c=JSON.parse(localStorage.getItem("czWeb")||"null");if(c&&c.v){pausaWeb(c.pausa);temaWeb(c.tema);dcWeb(c);resenasWeb(c.resenas);if(c.base)BASE=c.base;VOTO=c.voto||"";if(Array.isArray(c.pets))PETS=c.pets;if(c.eggs)pintarHuevos(c.eggs);encuesta(c.encuesta)}}catch(e){}
 let ultWeb="",ETAG="";
 async function leerWeb(){try{const h={Accept:"application/vnd.github.raw+json"};if(ETAG)h["If-None-Match"]=ETAG;
   const r=await fetch(GHAPI,{headers:h,cache:"no-store"});if(r.status===304)return ultWeb;if(r.ok){ETAG=r.headers.get("ETag")||"";return await r.text()}}catch(_){}
  const r=await fetch(GHRAW+"?t="+Math.floor(Date.now()/60000),{cache:"no-store"});if(!r.ok)throw 0;return await r.text()}
 function cargarWeb(){leerWeb().then(t=>{if(!t||t===ultWeb)return;const j=JSON.parse(t);if(!j||!j.ok)return;if(j.base)BASE=j.base;VOTO=j.voto||"";
  const solo=ultWeb&&JSON.stringify(JSON.parse(ultWeb).eggs)===JSON.stringify(j.eggs);ultWeb=t;try{localStorage.setItem("czWeb",t)}catch(e){}
- if(solo){pausaWeb(j.pausa);temaWeb(j.tema);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
+ if(solo){pausaWeb(j.pausa);temaWeb(j.tema);dcWeb(j);resenasWeb(j.resenas);if(Array.isArray(j.regh))REGH=j.regh;if(typeof cuentaWeb==="function")cuentaWeb(j);if(typeof rulWeb==="function")rulWeb(j);anuncios(j.anuncios);directos(j.streamers);const E=j.encuesta;if(!document.querySelector("#pOps .pop:disabled")||miVoto(E&&E.id)!=null)encuesta(E)}else pintarWeb(j)}).catch(()=>{})}
 cargarWeb();setInterval(()=>{if(!document.hidden)cargarWeb()},60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)cargarWeb()});
 
 // ── PLANES (edita los precios aquí) ──
@@ -1887,7 +1968,7 @@ document.getElementById("fReg").onsubmit=async e=>{e.preventDefault();const out=
  const h1=await regHash(rbxU),h2=await regHash(dc);
  if(REGH.length&&(REGH.includes(h1)||REGH.includes(h2))){out.className="regmsg err";out.textContent=REGH.includes(h1)?"Esa cuenta de Roblox ya está registrada.":"Ese usuario de Discord ya está registrado.";return}
  b.disabled=true;b.textContent="ENVIANDO...";
- const ok=webhook({t:"reg",vid:voterId(),rbx:rbxU,dc,pais:document.getElementById("rPais").value,plan:document.getElementById("rPlan").value,msg:document.getElementById("rMsg").value.trim(),hp:document.getElementById("rHp").value});
+ const ok=webhook({t:"reg",tok:dcTok()||undefined,vid:voterId(),rbx:rbxU,dc,pais:document.getElementById("rPais").value,plan:document.getElementById("rPlan").value,msg:document.getElementById("rMsg").value.trim(),hp:document.getElementById("rHp").value});
  if(!ok){out.className="regmsg err";out.textContent="No se pudo enviar, intenta en unos segundos";b.disabled=false;b.textContent="¡REGISTRARME!";return}
  try{localStorage.setItem("czReg",rbxU.toLowerCase())}catch(_){}
  out.textContent="¡Listo! Ya estás registrado. Te escribiremos por Discord";b.textContent="¡REGISTRADO!";setTimeout(regHecho,9000);
@@ -2172,7 +2253,7 @@ document.addEventListener("click",async e=>{if(e.target.id!=="rulOut")return;e.p
 document.getElementById("rulF").onsubmit=async e=>{e.preventDefault();const rbx=document.getElementById("rulRbx").value.trim(),dc=document.getElementById("rulDc").value.trim(),m=document.getElementById("rulMsg");
  if(!/^[A-Za-z0-9_]{3,20}$/.test(rbx))return m.textContent="Escribe un usuario de Roblox válido.";if(dc.length<2)return m.textContent="Escribe tu usuario de Discord.";
  const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="ENVIANDO...";
- try{if(!VOTO)throw 0;const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Ruleta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rulg",id:RUL.id,vid:voterId(),rbx,dc})+"\n```"}));
+ try{if(!VOTO)throw 0;const fd=new FormData();fd.append("payload_json",JSON.stringify({username:"Ruleta web",allowed_mentions:{parse:[]},content:"```json\n"+JSON.stringify({t:"rulg",tok:dcTok()||undefined,id:RUL.id,vid:voterId(),rbx,dc})+"\n```"}));
   try{await fetch(VOTO,{method:"POST",body:fd})}catch(_){await fetch(VOTO,{method:"POST",body:fd,mode:"no-cors"})}
   const g=rulGuard();g.env=1;try{localStorage.setItem("czRul",JSON.stringify(g))}catch(_){}
   e.target.hidden=true;document.getElementById("rulH").textContent="¡Premio reclamado!";m.innerHTML="¡Listo! Te enviamos un <b>código</b> por <b>mensaje privado de Discord</b> a <b>"+esc(dc)+"</b>. Canjéalo en el canal <b>canjear-spin</b> de nuestro Discord y recibes tu radar Premium al instante. Para recibirlo tienes que estar en nuestro Discord: <a href=\"https://discord.gg/czbigegg\" target=\"_blank\" rel=\"noopener\" style=\"color:#7dff3a\">discord.gg/czbigegg</a>"}
