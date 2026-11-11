@@ -434,7 +434,7 @@ body.navidad .navluces i:nth-child(4n+1){background:#ff3b4f;color:#ff3b4f}body.n
 body.navidad .navluces i:nth-child(4n+3){background:#3ee06a;color:#3ee06a;animation-delay:.8s}body.navidad .navluces i:nth-child(4n){background:#4fc3ff;color:#4fc3ff;animation-delay:1.2s}
 @keyframes luz{0%,100%{opacity:1;box-shadow:0 0 10px 2px currentColor}50%{opacity:.35;box-shadow:none}}
 body.navidad .bar{background:repeating-linear-gradient(-45deg,#ff3b4f 0 22px,#fff 22px 44px);color:#030806}
-body.navidad .bar .nw{background:#0b3d1a!important;color:#fff!important}
+body.navidad .bar .nw{background:#c8102e!important;color:#fff!important}
 body.navidad nav{box-shadow:0 4px 0 #b3122a}
 body.navidad .gbar:before{content:"";position:absolute;left:0;right:0;top:-1px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' viewBox='0 0 120 18'%3E%3Cpath d='M0 0h120v6c-6 0-7 9-13 9s-6-7-12-7-5 10-12 10-6-9-12-9-6 6-12 6-6-8-12-8-6 7-13 7S27 6 21 6 15 13 9 13 4 6 0 6z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:120px 12px;z-index:2;pointer-events:none;filter:drop-shadow(0 2px 0 rgba(0,0,0,.15))}
 body.navidad .cdw:before{content:"";position:absolute;left:0;right:0;top:-1px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' viewBox='0 0 120 18'%3E%3Cpath d='M0 0h120v6c-6 0-7 9-13 9s-6-7-12-7-5 10-12 10-6-9-12-9-6 6-12 6-6-8-12-8-6 7-13 7S27 6 21 6 15 13 9 13 4 6 0 6z' fill='%23ffffff'/%3E%3C/svg%3E") repeat-x;background-size:120px 14px;z-index:3;pointer-events:none}
@@ -1422,6 +1422,28 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
 .rulsnd.off{background:#2a4a36;color:#cfe8d4}
 #ruleta .gbar{display:flex;align-items:center}#ruleta #rulTag{margin-left:8px}
 @media(max-width:560px){.rulsnd{font-size:9px;padding:5px 6px 3px}#ruleta #rulTag{display:none}}
+
+/* ===== barra de arriba en celular (v3) ===== */
+.dcBtn .dcIco{display:none}
+@media(max-width:560px){
+ nav .wrap{flex-wrap:wrap!important;height:auto!important;min-height:0!important;row-gap:4px!important;column-gap:6px!important;padding-top:8px!important;padding-bottom:6px!important}
+ .brand{flex:1 1 auto!important;min-width:0!important;gap:6px!important}.brand img{width:34px!important;height:34px!important}
+ .brand b{font-size:15px!important;overflow:hidden;text-overflow:ellipsis}
+ .nav-r{flex:none!important;flex-wrap:nowrap!important;gap:5px!important;margin-left:auto!important;align-items:center}
+ .nav-r .btn{height:32px!important;padding:0 10px!important;font-size:12px!important;border-radius:10px!important;box-shadow:0 3px 0 var(--ink)!important}
+ .dcBtn .dcIco{display:block}.dcBtn span{display:none}.nav-r .dcBtn,.nav-r .cuBtn{width:34px!important;padding:0!important}
+ .cuBtn svg{width:16px;height:16px}
+ .cuChip{height:32px;padding:2px 8px 2px 2px!important}.cuChip .cuAv{width:26px;height:26px;font-size:13px}.cuChip i{font-size:10px;padding:1px 5px}
+ .links{order:3!important;flex:1 1 100%!important;font-size:12.5px!important;gap:16px!important;padding:2px 0 4px!important}
+ body.navidad nav .wrap{padding-bottom:16px!important}
+ body.navidad .navluces{bottom:-26px!important}
+}
+@media(max-width:420px){.brand b{display:none}}
+/* navidad: fuera los últimos verdes */
+body.navidad .tagline{background:#2a1020!important;border-color:#c8102e!important;color:#fff!important}
+body.navidad a[href*="discord.gg"]:not(.btn){color:#ffd23a!important}
+body.navidad .avisob .tag,body.navidad .aviso .tag,body.navidad #avisoBar .tag{background:#c8102e!important;color:#fff!important}
+body.navidad .musica input{accent-color:#ff3b4f}body.navidad .musica.off button{background:radial-gradient(circle at 35% 30%,#ff7a86,#c8102e 70%)}
 </style>
 </head>
 <body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script><script>window.__itrT0=performance.now()</script>
@@ -1451,7 +1473,7 @@ a.lockfree{opacity:.75;filter:saturate(.6)}
    <span class="dcuser" id="dcUser"><img id="dcAv" alt=""><span id="dcNom"></span><div class="dcmenu" id="dcMenu"><button type="button" id="dcSalir">Cerrar sesión</button></div></span>
    <button class="btn btn-s cuBtn" type="button" id="cuEntrar" hidden><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="#030806"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="#030806"/></svg><span>Iniciar sesión</span></button>
    <span class="cuChip" id="cuChip"><span class="cuAv" id="cuAv">?</span><b id="cuNom"></b><i id="cuPts">0</i><div class="cuMenu" id="cuMenu"><button type="button" data-cu="cuenta">Mi cuenta</button><button type="button" data-cu="top">Ver el top</button><button type="button" data-cu="salir">Cerrar sesión</button></div></span>
-   <a class="btn btn-d btn-s" href="https://discord.gg/czbigegg" target="_blank" rel="noopener">Discord</a>
+   <a class="btn btn-d btn-s dcBtn" href="https://discord.gg/czbigegg" target="_blank" rel="noopener" aria-label="Discord"><svg class="dcIco" viewBox="0 0 24 24" width="18" height="18"><path fill="#fff" d="M20.3 4.4a19.8 19.8 0 0 0-4.9-1.5l-.6 1.2a18.4 18.4 0 0 0-5.5 0l-.6-1.2a19.7 19.7 0 0 0-4.9 1.5C.7 9 0 13.6.3 18.1a19.9 19.9 0 0 0 6 3l1.3-2.1a13 13 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.8 19.8 0 0 0 6-3c.5-5.2-.8-9.8-3.8-13.7zM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg><span>Discord</span></a>
    <a class="btn btn-y btn-s" href="https://discord.com/channels/1562656550193991690/1564143741621506088" target="_blank" rel="noopener">Comprar</a>
    <a class="btn btn-adm btn-s" id="btnAdm" href="admin.html" hidden>ADMIN</a></div>
  </div>
@@ -2560,7 +2582,8 @@ function vivoMsg(m){
  else if(m.t==="drop")vivoDrop(m.drop,m.nuevo);
  else if(m.t==="ganaste"){cuEl("vDropB").disabled=true;cuEl("vDropB").textContent="¡ES TUYO!";cuEl("vDropN").textContent="Ganaste "+m.premio+". Te contactaremos por Discord para entregarlo.";if(typeof rGana==="function")rGana();if(typeof confeti==="function")confeti()}
  else if(m.t==="aviso"){cuToast(m.txt);if(/sesión/i.test(m.txt||""))cuAuth("login","Inicia sesión o crea tu cuenta para participar en lo que pasa en vivo.")}
- else if(m.t==="efecto")vivoEfecto(m.efecto)}
+ else if(m.t==="efecto")vivoEfecto(m.efecto);
+ else if(m.t==="apariencia"&&typeof apaSet==="function")apaSet(m.a)}
 function vivoConectados(n){const t=n>1?n+" personas conectadas ahora":"Conectado en vivo";cuEl("twVivo").textContent=t}
 function vivoCuenta(hasta,el,barra,total){const f=()=>{const q=Math.max(0,hasta-Date.now());if(el)el.textContent=Math.floor(q/60000)+":"+String(Math.floor(q/1000)%60).padStart(2,"0");if(barra)barra.style.width=Math.max(0,q/total*100)+"%";return q};return f}
 // mensaje en pantalla
@@ -2615,9 +2638,40 @@ function vivoFuegos(){const cv=document.createElement("canvas");cv.style.cssText
 setInterval(()=>{vivoEnviar({t:"ping",visible:document.visibilityState==="visible",sec:vivoSec()})},60000);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&CU.api&&!CU.ws)vivoConectar()});
 function cuIniciar(api){if(api)api=String(api).replace(/\/+$/,"");if(api&&!CU.api){CU.api=api}else if(!CU.api)return;
- if(CU._ini)return;CU._ini=true;cuPintar();topCargar();vivoConectar();CU.topT=setInterval(topCargar,60000);
+ if(CU._ini)return;CU._ini=true;cuPintar();topCargar();if(typeof apaCargar==="function")setTimeout(apaCargar,0);vivoConectar();CU.topT=setInterval(topCargar,60000);
  if(CU.tok)cuApi("/yo").then(r=>{if(r.ok)cuGuardar(undefined,r.perfil);else if(r.error==="Sesión vencida"){cuGuardar("",null)}})}
 cuIniciar();
+
+// ===== apariencia (logo, colores y textos desde el panel) =====
+var APA=null,APA_ORIG=null,APA_KEY="";
+try{APA=JSON.parse(localStorage.getItem("czApa")||"null")}catch(_){}
+function apaHsl(r,g,b){r/=255;g/=255;b/=255;const M=Math.max(r,g,b),m=Math.min(r,g,b),l=(M+m)/2;let h=0,s=0;if(M!==m){const d=M-m;s=l>.5?d/(2-M-m):d/(M+m);h=M===r?((g-b)/d+(g<b?6:0)):M===g?((b-r)/d+2):((r-g)/d+4);h*=60}return[h,s,l]}
+function apaRgb(h,s,l){h=((h%360)+360)%360/360;const f=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;return t<1/6?p+(q-p)*6*t:t<1/2?q:t<2/3?p+(q-p)*(2/3-t)*6:p};if(!s){const v=Math.round(l*255);return[v,v,v]}const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q;return[f(p,q,h+1/3),f(p,q,h),f(p,q,h-1/3)].map(x=>Math.round(x*255))}
+function apaHex(c){return"#"+c.map(x=>Math.max(0,Math.min(255,x)).toString(16).padStart(2,"0")).join("")}
+function apaParse(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(x=>x+x).join("");return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+function apaTransf(rgb){const[h,s,l]=apaHsl(...rgb);
+ if(APA.color&&s>.18&&h>=70&&h<=170){const[th,ts]=apaHsl(...apaParse(APA.color));return apaRgb(h-99.6+th,Math.min(1,s*Math.max(.05,ts)),l)}
+ if(APA.acento&&s>.55&&h>=36&&h<=56){const[th,ts]=apaHsl(...apaParse(APA.acento));return apaRgb(h-46+th,Math.min(1,s*Math.max(.05,ts)),l)}
+ return null}
+function apaRecolor(t){return t.replace(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g,(m,h)=>{const n=apaTransf(apaParse(h));return n?apaHex(n):m})
+ .replace(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g,(m,r,g,b)=>{const n=apaTransf([+r,+g,+b]);return n?m.replace(/\(\s*\d+\s*,\s*\d+\s*,\s*\d+/,"("+n.join(",")):m})}
+function apaColores(){const nav=document.body.classList.contains("navidad"),on=!!(APA&&(APA.color||APA.acento)&&!nav),k=on?APA.color+"|"+APA.acento:"";if(k===APA_KEY)return;
+ if(!APA_ORIG)APA_ORIG=[...document.querySelectorAll("style")].map(el=>[el,el.textContent]);
+ APA_KEY=k;APA_ORIG.forEach(([el,t])=>{el.textContent=on?apaRecolor(t):t})}
+function apaLogos(){const nav=document.body.classList.contains("navidad");const api=CU.api;
+ const custom=APA&&api?(nav?(APA.logoNav?api+"/logo?nav=1&v="+APA.logoNav:""):(APA.logo?api+"/logo?v="+APA.logo:"")):"";
+ document.querySelectorAll("img").forEach(im=>{let a=im.getAttribute("src")||"";if(!im.dataset.apaBase){if(!/assets\/logo(\.png|_navidad\.webp)/.test(a))return;im.dataset.apaBase=a.replace("logo_navidad.webp","logo.png")}
+  const base=im.dataset.apaBase,want=custom||(nav?base.replace("logo.png","logo_navidad.webp"):base);if(a!==want)im.setAttribute("src",want)});
+ const fav=document.querySelector('link[rel="icon"]');if(fav&&custom&&fav.getAttribute("href")!==custom){const nl=fav.cloneNode();nl.dataset.orig=fav.dataset.orig||fav.getAttribute("href")||"";nl.setAttribute("href",custom);fav.replaceWith(nl)}}
+function apaTextos(){const A=APA||{};const n=A.nombre||"CZ BIG EGG";
+ document.querySelectorAll(".brand b,.logoline .lg").forEach(e=>{if(e.textContent!==n)e.textContent=n});
+ const tg=document.querySelector(".tagline");if(tg){if(!tg.dataset.orig)tg.dataset.orig=tg.textContent.trim();const t=" "+(A.tagline||tg.dataset.orig);if(tg.lastChild&&tg.lastChild.nodeType===3){if(tg.lastChild.textContent!==t)tg.lastChild.textContent=t}}
+ if(!document.documentElement.dataset.tit)document.documentElement.dataset.tit=document.title;document.title=A.titulo||document.documentElement.dataset.tit}
+function apaAplicar(){try{apaColores();apaLogos();apaTextos()}catch(e){}}
+function apaSet(a){APA=a||null;try{localStorage.setItem("czApa",JSON.stringify(APA))}catch(_){}apaAplicar()}
+(function(){const tw=temaWeb;temaWeb=function(t){tw(t);apaAplicar()}})();
+function apaCargar(){if(!CU.api)return;fetch(CU.api+"/apariencia").then(r=>r.json()).then(j=>{if(j&&j.ok)apaSet(j.a)}).catch(()=>{})}
+apaAplicar();
 </script>
 </body>
 </html>
