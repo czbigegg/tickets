@@ -1699,7 +1699,8 @@ var TEMA="";
 function temaWeb(t){t=t==="navidad"?"navidad":"";if(t===TEMA&&document.body.classList.contains("navidad")===(t==="navidad"))return;TEMA=t;const on=t==="navidad";document.body.classList.toggle("navidad",on);
  document.querySelectorAll("img").forEach(im=>{const a=im.getAttribute("src")||"";if(on&&/assets\/logo\.png/.test(a))im.setAttribute("src",a.replace("logo.png","logo_navidad.webp"));
   else if(!on&&/assets\/logo_navidad\.webp/.test(a))im.setAttribute("src",a.replace("logo_navidad.webp","logo.png"))});
-  const fav=document.querySelector('link[rel="icon"]');if(fav){const h=fav.getAttribute("href")||"";if(on&&/favicon\.png/.test(h))fav.setAttribute("href",h.replace("favicon.png","favicon_navidad.png"));else if(!on&&/favicon_navidad\.png/.test(h))fav.setAttribute("href",h.replace("favicon_navidad.png","favicon.png"))}
+  const fav=document.querySelector('link[rel="icon"]');if(fav){if(!fav.dataset.orig)fav.dataset.orig=fav.getAttribute("href")||"";const nl=fav.cloneNode();nl.dataset.orig=fav.dataset.orig;
+  nl.setAttribute("href",on?"https://raw.githubusercontent.com/czbigegg/tickets/HEAD/czbigegg/assets/favicon_navidad.png":(/navidad/.test(fav.dataset.orig)?"/tickets/czbigegg/assets/favicon.png":fav.dataset.orig));fav.replaceWith(nl)}
  nieve(on);if(on)adornos();else{clearInterval(TRT)}
  if(typeof rulDibujar==="function"&&typeof RUL!=="undefined"&&RUL)rulDibujar((RUL.premio||"1 DÍA PREMIUM").toUpperCase());
  const rt=document.querySelector("#ruleta .gtit");if(rt)rt.textContent=on?"RULETA NAVIDEÑA":"RULETA CZ BIG EGG";
