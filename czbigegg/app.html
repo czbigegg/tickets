@@ -1716,7 +1716,8 @@ function muPista(){return TEMA==="navidad"?"navidad":"normal"}
 function muUI(){const el=document.getElementById("musica");if(!el)return;el.classList.toggle("off",!MU.on);el.classList.toggle("espera",!MU.on&&muPref()!=="off");
  const t=document.getElementById("muTxt");if(t)t.textContent=MU.on?(MU.pista==="navidad"?"MÚSICA NAVIDEÑA":"MÚSICA"):"TOCA PARA MÚSICA";document.getElementById("muVol").value=MU.vol}
 function muPref(){try{return localStorage.getItem("czMu")||""}catch(_){return ""}}
-async function muBuf(p){if(MU.buf[p])return MU.buf[p];const r=await fetch(MUS[p][0]);const a=await r.arrayBuffer();MU.buf[p]=await new Promise((ok,no)=>MU.ctx.decodeAudioData(a,ok,no));return MU.buf[p]}
+async function muBuf(p){if(MU.buf[p])return MU.buf[p];let r=null;try{r=await fetch(MUS[p][0])}catch(_){}
+ if(!r||!r.ok)r=await fetch(BASE+"czbigegg/assets/musica_"+p+".mp3");if(!r.ok)throw new Error("musica "+r.status);const a=await r.arrayBuffer();MU.buf[p]=await new Promise((ok,no)=>MU.ctx.decodeAudioData(a,ok,no));return MU.buf[p]}
 async function muTocar(){const p=muPista();if(MU.pista===p&&MU.src)return;if(MU.cargando)return;MU.cargando=true;
  try{const b=await muBuf(p);if(!MU.on){MU.cargando=false;return}const s=MU.ctx.createBufferSource();s.buffer=b;s.loop=true;s.loopStart=0;s.loopEnd=Math.min(b.duration,MUS[p][1]);
   const g=MU.ctx.createGain();g.gain.value=0;s.connect(g).connect(MU.g);s.start();const t=MU.ctx.currentTime;g.gain.linearRampToValueAtTime(1,t+1.2);
