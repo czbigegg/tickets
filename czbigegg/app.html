@@ -1444,6 +1444,18 @@ body.navidad .tagline{background:#2a1020!important;border-color:#c8102e!importan
 body.navidad a[href*="discord.gg"]:not(.btn){color:#ffd23a!important}
 body.navidad .avisob .tag,body.navidad .aviso .tag,body.navidad #avisoBar .tag{background:#c8102e!important;color:#fff!important}
 body.navidad .musica input{accent-color:#ff3b4f}body.navidad .musica.off button{background:radial-gradient(circle at 35% 30%,#ff7a86,#c8102e 70%)}
+
+/* mensaje en vivo: promo de live e invitación a crear cuenta */
+.vcard .vdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#fff;margin:0 6px 1px 0;vertical-align:middle;animation:vdotB 1s infinite}@keyframes vdotB{50%{opacity:.25}}
+.vcard.vlive{box-shadow:0 0 0 4px #ff3b4f,0 14px 0 #020503,0 0 90px rgba(255,59,79,.5);background:linear-gradient(180deg,#2a0f16,#16080c)!important;animation:cajaIn .45s cubic-bezier(.2,1.4,.4,1),liveGlow 1.6s ease-in-out .5s infinite}
+@keyframes liveGlow{50%{box-shadow:0 0 0 4px #ff3b4f,0 14px 0 #020503,0 0 130px rgba(255,59,79,.75)}}
+.vcard.vlive .btn{font-size:20px!important;padding:13px 26px 10px!important}
+.vcard.pl-kick{box-shadow:0 0 0 4px #53fc18,0 14px 0 #020503,0 0 90px rgba(83,252,24,.45)}.vcard.pl-kick .vtag{background:#53fc18;color:#030806}.vcard.pl-kick .btn{background:linear-gradient(180deg,#8dff5a,#53fc18)!important;color:#030806!important}.vcard.pl-kick .vt{background:#53fc18}
+.vcard.pl-youtube .btn{background:linear-gradient(180deg,#ff5a5a,#e00000)!important;color:#fff!important}
+.vcard.pl-twitch{box-shadow:0 0 0 4px #9146ff,0 14px 0 #020503,0 0 90px rgba(145,70,255,.5)}.vcard.pl-twitch .vtag{background:#9146ff}.vcard.pl-twitch .btn{background:linear-gradient(180deg,#b38bff,#9146ff)!important;color:#fff!important}.vcard.pl-twitch .vt{background:#9146ff}
+.vcard.pl-tiktok{box-shadow:-4px 0 0 #25f4ee,4px 0 0 #fe2c55,0 0 0 4px #030806,0 14px 0 #020503,0 0 90px rgba(254,44,85,.4)}.vcard.pl-tiktok .vtag{background:#fe2c55}.vcard.pl-tiktok .btn{background:linear-gradient(90deg,#25f4ee,#fe2c55)!important;color:#fff!important;-webkit-text-stroke:0}
+.vcard.invita{box-shadow:0 0 0 4px #ffd23a,0 14px 0 #020503,0 0 90px rgba(255,210,58,.4)}.vcard.invita .vtag{background:#ffd23a;color:#030806}
+.vcard.invita .btn{font-size:20px!important;padding:13px 26px 10px!important}
 </style>
 </head>
 <body><script>try{if((JSON.parse(localStorage.getItem("czWeb")||"{}")||{}).tema==="navidad")document.body.classList.add("navidad")}catch(_){}</script><script>window.__itrT0=performance.now()</script>
@@ -2587,14 +2599,22 @@ function vivoMsg(m){
 function vivoConectados(n){const t=n>1?n+" personas conectadas ahora":"Conectado en vivo";cuEl("twVivo").textContent=t}
 function vivoCuenta(hasta,el,barra,total){const f=()=>{const q=Math.max(0,hasta-Date.now());if(el)el.textContent=Math.floor(q/60000)+":"+String(Math.floor(q/1000)%60).padStart(2,"0");if(barra)barra.style.width=Math.max(0,q/total*100)+"%";return q};return f}
 // mensaje en pantalla
+const PLATN={kick:"KICK",tiktok:"TIKTOK",youtube:"YOUTUBE",twitch:"TWITCH"};
 function vivoAnuncio(a,inicial){const M=cuEl("vMsg");clearInterval(CU.msgT);
  if(!a||a.hasta<=Date.now()){M.hidden=true;return}
+ if(a.accion&&CU.tok&&CU.p){M.hidden=true;return}                 // la invitación es solo para quienes no tienen sesión
  let vistos=[];try{vistos=JSON.parse(sessionStorage.getItem("czVisto")||"[]")}catch(_){}if(inicial&&vistos.includes(a.id))return;
- cuEl("vCard").className="vcard "+(a.estilo||"info");cuEl("vTit").textContent=a.titulo||"";cuEl("vTit").hidden=!a.titulo;cuEl("vTxt").textContent=a.txt||"";
- const B=cuEl("vBtn");B.hidden=!(a.btn&&a.link);if(a.btn&&a.link){B.textContent=a.btn;B.href=a.link}
- M.hidden=false;if(a.sonido&&!inicial&&typeof rTono==="function"){rTono(880,.12,"triangle",.09);rTono(1320,.25,"triangle",.09,.12)}
+ const live=a.estilo==="live";
+ cuEl("vCard").className="vcard "+(live?"vlive":(a.estilo||"info"))+(live&&a.plat?" pl-"+a.plat:"")+(a.accion?" invita":"");
+ const tag=cuEl("vCard").querySelector(".vtag");if(tag)tag.innerHTML=live?'<i class="vdot"></i>EN VIVO AHORA'+(a.plat?' · '+PLATN[a.plat]:""):a.accion?"SOLO TOMA 10 SEGUNDOS":"EN VIVO";
+ const tit=a.titulo||(live&&a.quien?a.quien+" está en vivo":"");cuEl("vTit").textContent=tit;cuEl("vTit").hidden=!tit;cuEl("vTxt").textContent=a.txt||"";cuEl("vTxt").hidden=!a.txt;
+ const B=cuEl("vBtn");B.onclick=null;
+ if(a.accion){B.hidden=false;B.textContent=a.btn||(a.accion==="registro"?"Crear mi cuenta":"Iniciar sesión");B.href="#";B.removeAttribute("target");
+  B.onclick=e=>{e.preventDefault();cerrar();cuAuth(a.accion==="registro"?"reg":"login")}}
+ else{B.hidden=!(a.link&&(a.btn||live));if(!B.hidden){B.textContent=a.btn||"Ver el live";B.href=a.link;B.target="_blank"}}
+ M.hidden=false;if(a.sonido&&!inicial&&typeof rTono==="function"){if(live){[660,880,1100].forEach((f,i)=>rTono(f,.12,"square",.06,i*.1))}else{rTono(880,.12,"triangle",.09);rTono(1320,.25,"triangle",.09,.12)}}
  const f=vivoCuenta(a.hasta,null,cuEl("vTime"),a.seg*1000);f();CU.msgT=setInterval(()=>{if(f()<=0){clearInterval(CU.msgT);M.hidden=true}},200);
- const cerrar=()=>{M.hidden=true;clearInterval(CU.msgT);try{vistos.push(a.id);sessionStorage.setItem("czVisto",JSON.stringify(vistos.slice(-20)))}catch(_){}};
+ function cerrar(){M.hidden=true;clearInterval(CU.msgT);try{vistos.push(a.id);sessionStorage.setItem("czVisto",JSON.stringify(vistos.slice(-20)))}catch(_){}}
  cuEl("vMsgX").onclick=cerrar;M.onclick=e=>{if(e.target===M)cerrar()}}
 // encuesta
 function vivoEncuesta(e,nueva){CU.enc=e;const V=cuEl("vEnc");clearInterval(CU.encT);
