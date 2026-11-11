@@ -192,6 +192,29 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
 .chm.user{align-self:flex-start;background:#effff0;color:#030806}.chm.admin,.chm.bot{align-self:flex-end;background:#1fb45a;color:#fff}.chm.bot{background:#2a4a36}.chm.sys{align-self:center;background:#3a1a1a;color:#ffb3b3;font-size:12px}
 #chF{display:flex;gap:8px;margin-top:8px}#chF textarea{flex:1;border:3px solid #030806;border-radius:12px;padding:8px;font:600 14px Poppins;background:#effff0;color:#030806;resize:vertical}
 #avisoX{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:999;background:#7dff3a;color:#030806;border:3px solid #030806;border-radius:12px;padding:10px 16px 8px;font:400 16px "Luckiest Guy";box-shadow:0 5px 0 #030806;transition:opacity .4s;pointer-events:none}#avisoX.mal{background:#ff3b4f;color:#fff}
+
+/* en vivo y cuentas */
+.vkey{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vkey input{flex:1;min-width:200px}
+.vkpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.vkpis .box{padding:14px 16px}.vkpis small{display:block;font:400 12px "Luckiest Guy";letter-spacing:.7px;color:var(--mut)}.vkpis b{font:400 34px "Luckiest Guy";color:#fff}
+.vkpis .on b{color:#7dff3a}
+.estilos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:4px 0 8px}
+.estilos label{display:block;cursor:pointer}.estilos input{display:none}
+.estilos span{display:block;text-align:center;border:3px solid #030806;border-radius:11px;padding:8px 4px 5px;font:400 14px "Luckiest Guy";letter-spacing:.4px;color:#fff;background:#14361f}
+.estilos input:checked+span{box-shadow:0 0 0 3px #ffd23a;background:#1d5a2c}
+.vrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vops{display:grid;gap:6px}.vops .op2{display:flex;gap:6px}.vops .op2 input{flex:1}
+.vres .r{position:relative;border:3px solid #030806;border-radius:11px;background:#08150c;padding:8px 12px;margin-bottom:6px;display:flex;justify-content:space-between;font:600 14px Poppins;color:#fff;overflow:hidden}
+.vres .r i{position:absolute;left:0;top:0;bottom:0;background:rgba(125,255,58,.22);z-index:0}.vres .r span,.vres .r em{position:relative;z-index:1;font-style:normal}.vres .r em{font:400 16px "Luckiest Guy";color:#7dff3a}
+.vfx{display:flex;gap:8px;flex-wrap:wrap}.vfx .btn{flex:1;min-width:110px}
+.vlog{max-height:300px;overflow:auto;display:grid;gap:4px}.vlog div{font:500 13px Poppins;color:#cfe8d4;padding:6px 10px;border-radius:9px;background:#0f2717}.vlog b{color:#ffd23a;font-weight:700}.vlog small{color:var(--mut);margin-right:6px}
+.vcon{display:flex;flex-wrap:wrap;gap:6px}.vcon span{border:2px solid #030806;border-radius:9px;background:#14361f;color:#fff;font:600 13px Poppins;padding:5px 9px}.vcon span small{color:#9fbfa8}
+.hbv .r{display:grid;grid-template-columns:110px minmax(0,1fr) 40px;gap:8px;align-items:center;font:600 13px Poppins;color:#cfe8d4;margin-bottom:6px}.hbv .bar{height:12px;border-radius:99px;background:#1a2b20;overflow:hidden}.hbv .bar i{display:block;height:100%;background:linear-gradient(90deg,#3ee06a,#9dff5a)}
+.ban{color:#ff6b7a;font:700 12px Poppins}
+.vmsgok{font:600 13px Poppins;color:#7dff3a;min-height:18px;margin-top:6px}.vmsgok.err{color:#ff6b7a}
+@media(max-width:560px){#cuT td[data-l]{display:flex;justify-content:space-between;padding:6px 10px}#cuT td[data-l]:before{content:attr(data-l);font:400 12px "Luckiest Guy";letter-spacing:.6px;color:var(--mut)}}
+@media(max-width:1000px){.vkpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.vrow,.estilos{grid-template-columns:1fr 1fr}.vkpis b{font-size:26px}.hbv .r{grid-template-columns:86px minmax(0,1fr) 34px}}
 </style>
 </head>
 <body>
@@ -211,6 +234,8 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
   <div class="layout">
   <nav class="side" id="side">
    <button data-t="resumen" class="on">RESUMEN</button>
+   <button data-t="envivo">EN VIVO <span class="ct" id="ctVivo" hidden style="background:#ff3b4f">0</span></button>
+   <button data-t="cuentas">CUENTAS</button>
    <button data-t="registros">REGISTROS <span class="ct" id="ctReg" hidden></span></button>
    <button data-t="usuarios">USUARIOS TOP</button>
    <button data-t="streams">DIRECTOS <span class="ct" id="ctLive" hidden style="background:#ff3b4f">EN VIVO</span></button>
@@ -238,6 +263,51 @@ textarea{width:100%;min-height:76px;resize:vertical;background:#effff0;color:var
      <h3 style="margin-top:18px">DISPOSITIVOS <small>7 días</small></h3><div class="hb" id="hbDev"></div></div>
    </div>
    <div class="box card2" style="margin-top:14px"><h3>ÚLTIMOS REGISTROS <small><a href="#" id="verRegs" style="color:var(--y)">ver todos →</a></small></h3><div id="ultRegs"></div></div>
+  </div>
+  <div data-tab="envivo" hidden>
+   <div class="top"><div><h2 class="L st">EN VIVO</h2><p>Todo lo que mandes aquí le aparece <b>al instante</b> a la gente que está en la web: mensajes en pantalla, encuestas con tiempo, drops de premios y efectos.</p></div>
+    <div class="updated"><span id="vUpd">—</span><button class="btn sm" id="vRef" type="button">ACTUALIZAR</button></div></div>
+   <div class="box card2 vkbox" id="vKeyBox" hidden><h3>CONECTAR CON EL SERVIDOR EN VIVO</h3><p style="font:500 14px Poppins;color:#cfe8d4;margin-bottom:10px">Pega la <b>clave de admin del servidor</b> (te la da Claude cuando lo active). Se guarda solo en este navegador.</p>
+    <div class="vkey"><input id="vKey" type="password" placeholder="Clave de admin del servidor" autocomplete="off"><button class="btn g" type="button" id="vKeyOk">CONECTAR</button></div><div class="vmsgok" id="vKeyM"></div></div>
+   <div id="vCuerpo" hidden>
+   <div class="vkpis"><div class="box on"><small>CONECTADOS AHORA</small><b id="vkCon">0</b></div><div class="box"><small>CON SESIÓN</small><b id="vkSes">0</b></div><div class="box"><small>CUENTAS CREADAS</small><b id="vkCu">0</b></div><div class="box"><small>CUENTAS HOY</small><b id="vkHoy">0</b></div></div>
+   <div class="grid2">
+    <div class="box card2"><h3>MENSAJE EN PANTALLA <small>sale en grande al centro</small></h3>
+     <label class="lb">TÍTULO</label><input id="vaT" maxlength="80" placeholder="Ej: Radar gratis abierto">
+     <label class="lb">MENSAJE</label><textarea id="vaX" maxlength="400" rows="3" placeholder="Lo que quieres decirle a todos"></textarea>
+     <div class="vrow"><div><label class="lb">TEXTO DEL BOTÓN (OPCIONAL)</label><input id="vaB" maxlength="30" placeholder="Ej: Ir al Discord"></div><div><label class="lb">LINK DEL BOTÓN</label><input id="vaL" maxlength="300" placeholder="https://..."></div></div>
+     <label class="lb">ESTILO</label><div class="estilos"><label><input type="radio" name="vaE" value="info" checked><span>NORMAL</span></label><label><input type="radio" name="vaE" value="promo"><span>PROMO</span></label><label><input type="radio" name="vaE" value="alerta"><span>ALERTA</span></label><label><input type="radio" name="vaE" value="navidad"><span>NAVIDAD</span></label></div>
+     <div class="vrow"><div><label class="lb">CUÁNTO DURA</label><select id="vaS"><option value="10">10 segundos</option><option value="20" selected>20 segundos</option><option value="45">45 segundos</option><option value="90">1 minuto y medio</option><option value="300">5 minutos</option><option value="600">10 minutos</option></select></div><label class="chk" style="align-self:end;margin-bottom:10px"><input type="checkbox" id="vaSon" checked> Con sonido</label></div>
+     <div class="acts" style="margin-top:10px"><button class="btn g" type="button" id="vaOk">ENVIAR A TODOS</button><button class="btn r" type="button" id="vaQ">QUITAR</button></div><div class="vmsgok" id="vaM"></div></div>
+    <div class="box card2"><h3>ENCUESTA EN VIVO <small id="veEst">sin encuesta</small></h3>
+     <div id="veForm"><label class="lb">PREGUNTA</label><input id="veQ" maxlength="140" placeholder="Ej: ¿Qué huevo quieres que rastreemos?">
+     <label class="lb">OPCIONES (2 A 6)</label><div class="vops" id="veOps"></div><button class="btn sm" type="button" id="veMas" style="margin-top:6px">+ OPCIÓN</button>
+     <label class="lb">CUÁNTO DURA</label><select id="veS"><option value="30">30 segundos</option><option value="60" selected>1 minuto</option><option value="120">2 minutos</option><option value="300">5 minutos</option><option value="900">15 minutos</option><option value="3600">1 hora</option></select>
+     <div class="acts" style="margin-top:10px"><button class="btn g" type="button" id="veOk">LANZAR ENCUESTA</button></div></div>
+     <div id="veRes" class="vres" style="margin-top:12px"></div><button class="btn r sm" type="button" id="veCerrar" hidden>CERRAR YA</button><div class="vmsgok" id="veM"></div>
+     <p style="font:500 12px Poppins;color:var(--mut);margin-top:8px">Solo votan los que tienen cuenta (1 voto por cuenta, +5 puntos).</p></div>
+   </div>
+   <div class="grid2">
+    <div class="box card2"><h3>DROP DE PREMIO <small>los primeros que toquen ganan</small></h3>
+     <label class="lb">PREMIO</label><input id="vdP" maxlength="60" placeholder="Ej: 1 día Premium">
+     <div class="vrow"><div><label class="lb">GANADORES</label><input id="vdC" type="number" min="1" max="50" value="1"></div><div><label class="lb">DURA</label><select id="vdS"><option value="15">15 segundos</option><option value="30" selected>30 segundos</option><option value="60">1 minuto</option><option value="180">3 minutos</option></select></div></div>
+     <div class="acts" style="margin-top:10px"><button class="btn y" type="button" id="vdOk">LANZAR DROP</button></div><div class="vmsgok" id="vdM"></div>
+     <div id="vdG" style="margin-top:10px"></div></div>
+    <div class="box card2"><h3>EFECTOS EN PANTALLA</h3><div class="vfx"><button class="btn g" type="button" data-fx="confeti">CONFETI</button><button class="btn b" type="button" data-fx="nieve">NIEVE</button><button class="btn y" type="button" data-fx="fuegos">FUEGOS</button></div><div class="vmsgok" id="vfM"></div>
+     <h3 style="margin-top:18px">QUÉ ESTÁN MIRANDO</h3><div class="hbv" id="vSec"></div>
+     <h3 style="margin-top:18px">CON SESIÓN AHORA</h3><div class="vcon" id="vCon"></div></div>
+   </div>
+   <div class="box card2" style="margin-top:14px"><h3>ACTIVIDAD <small>últimos movimientos</small></h3><div class="vlog" id="vLog"></div></div>
+   </div>
+  </div>
+  <div data-tab="cuentas" hidden>
+   <div class="top"><div><h2 class="L st">CUENTAS</h2><p>Personas que crearon su cuenta en la web. Puedes buscarlas, darles o quitarles puntos y suspender a quien haga trampa.</p></div>
+    <div class="updated"><button class="btn r sm" id="cuReset" type="button">REINICIAR TOP DE LA SEMANA</button></div></div>
+   <div class="box card2" id="cuSinKey" hidden><p style="font:500 14px Poppins;color:#cfe8d4">Primero conecta el servidor en la pestaña <b>EN VIVO</b>.</p></div>
+   <div id="cuCuerpo" hidden>
+    <div class="tools" style="display:flex;gap:8px;margin-bottom:10px"><input id="cuQ" placeholder="Buscar por usuario o Roblox"><button class="btn sm" type="button" id="cuBus">BUSCAR</button></div>
+    <div class="box card2"><table class="tbl"><thead><tr><th>USUARIO</th><th>ROBLOX</th><th>PAÍS</th><th>SEMANA</th><th>TOTAL</th><th>RACHA</th><th>ÚLTIMA VEZ</th><th></th></tr></thead><tbody id="cuT"></tbody></table><div class="empty2" id="cuVac" hidden>Todavía nadie crea su cuenta.</div></div>
+   </div>
   </div>
   <div data-tab="registros" hidden>
    <div class="top"><div><h2 class="L st">REGISTROS</h2><p>Personas que se registraron en la web. El bot también te avisa en Discord, en el canal <b>-registros-web</b>.</p></div>
@@ -783,6 +853,64 @@ $("gwList").addEventListener("click",async e=>{const b=e.target.closest("[data-g
 function aviso(t,mal){let el=document.getElementById("avisoX");if(!el){el=document.createElement("div");el.id="avisoX";document.body.appendChild(el)}
  el.className=mal?"mal":"";el.textContent=t;el.style.opacity=1;clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity=0,mal?6000:2600)}
 function sync(v0,cb){let k=0;const iv=setInterval(async()=>{k++;const j=await cargarWeb();if(j&&j.v>v0){clearInterval(iv);try{cb&&cb(j)}catch(_){}}else if(k>=18){clearInterval(iv);aviso("El bot no confirmó el cambio. Revisa que esté prendido.",1)}},5000)}
+
+// ===== EN VIVO y CUENTAS (servidor de cuentas) =====
+let VAPI="",VKEY="",VEST=null,VT=null;
+try{VAPI=(localStorage.getItem("czApi")||"").replace(/\/+$/,"");VKEY=localStorage.getItem("czAdmKey")||""}catch(_){}
+async function vApiCargar(){if(VAPI)return VAPI;const j=await cargarWeb();if(j&&j.api)VAPI=String(j.api).replace(/\/+$/,"");return VAPI}
+async function vReq(ruta,body){await vApiCargar();if(!VAPI)return{ok:false,error:"El servidor en vivo todavía no está activado"};
+ try{const r=await fetch(VAPI+ruta,{method:body?"POST":"GET",headers:{"Content-Type":"application/json","X-Admin-Key":VKEY},body:body?JSON.stringify(body):undefined});const j=await r.json().catch(()=>({ok:false,error:"Respuesta rara del servidor"}));if(r.status===401){vSinClave("La clave no es correcta")}return j}catch(_){return{ok:false,error:"No pude conectar con el servidor"}}}
+function vSinClave(m){VKEY="";try{localStorage.removeItem("czAdmKey")}catch(_){}$("vKeyBox").hidden=false;$("vCuerpo").hidden=true;$("cuCuerpo").hidden=true;$("cuSinKey").hidden=false;if(m)$("vKeyM").className="vmsgok err",$("vKeyM").textContent=m}
+function vOk(id,ok,txt){const m=$(id);m.className="vmsgok"+(ok?"":" err");m.textContent=txt;if(ok)setTimeout(()=>{if(m.textContent===txt)m.textContent=""},5000)}
+const vHace=t=>{const s=Math.max(0,(Date.now()-t)/1000);return s<60?"hace "+Math.floor(s)+" s":s<3600?"hace "+Math.floor(s/60)+" min":s<86400?"hace "+Math.floor(s/3600)+" h":"hace "+Math.floor(s/86400)+" d"};
+const SECN={inicio:"Inicio",gratis:"Radar gratis",dentro:"El radar",huevos:"Huevos",calculadora:"Calculadora",topweb:"Top",resenas:"Reseñas",planes:"Planes",faq:"Preguntas",registro:"Registro",ruleta:"Ruleta"};
+async function vCargar(){if(!VKEY){vSinClave();return}
+ const j=await vReq("/admin/estado");if(!j.ok){if(VKEY)$("vUpd").textContent=j.error||"Error";return}
+ VEST=j;$("vKeyBox").hidden=true;$("vCuerpo").hidden=false;$("cuSinKey").hidden=true;$("cuCuerpo").hidden=false;
+ $("vUpd").textContent="Actualizado "+new Date().toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+ $("vkCon").textContent=j.conectados;$("vkSes").textContent=j.conSesion.length;$("vkCu").textContent=j.cuentas;$("vkHoy").textContent=j.cuentasHoy;
+ $("ctVivo").hidden=!j.conectados;$("ctVivo").textContent=j.conectados;
+ const S=Object.entries(j.secciones).sort((a,b)=>b[1]-a[1]),mx=Math.max(1,...S.map(x=>x[1]));
+ $("vSec").innerHTML=S.length?S.map(([k,v])=>`<div class="r"><span>${esc(SECN[k]||k)}</span><div class="bar"><i style="width:${v/mx*100}%"></i></div><b>${v}</b></div>`).join(""):`<div class="empty2">Nadie conectado ahora</div>`;
+ $("vCon").innerHTML=j.conSesion.length?j.conSesion.map(c=>`<span>${esc(c.u)} <small>· ${esc(SECN[c.sec]||c.sec||"")}</small></span>`).join(""):`<div class="empty2" style="padding:6px">Nadie con sesión ahora</div>`;
+ $("vLog").innerHTML=j.registro.length?j.registro.map(r=>`<div><small>${vHace(r.t)}</small><b>${esc(r.quien)}</b> ${esc(r.accion)}</div>`).join(""):`<div class="empty2">Sin movimientos todavía</div>`;
+ vEncPintar(j.encuesta);
+ const d=j.drop;$("vdG").innerHTML=d?`<label class="lb">ÚLTIMO DROP: ${esc(d.premio)} · ${d.ganadoresDet.length}/${d.cupos} ganadores</label><div class="vcon">${d.ganadoresDet.map(g=>`<span>${esc(g.u)}</span>`).join("")||'<div class="empty2" style="padding:6px">Nadie todavía</div>'}</div><p style="font:500 12px Poppins;color:var(--mut);margin-top:6px">Entrega el premio a estas cuentas por Discord.</p>`:"";
+}
+function vEncPintar(e){const abierta=e&&!e.cerrada;$("veForm").hidden=!!abierta;$("veCerrar").hidden=!abierta;
+ $("veEst").textContent=!e?"sin encuesta":abierta?"abierta · cierra "+new Date(e.hasta).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"cerrada";
+ if(!e){$("veRes").innerHTML="";return}const t=e.total||0;
+ $("veRes").innerHTML=`<label class="lb">${esc(e.q)} · ${t} ${t==1?"voto":"votos"}</label>`+e.ops.map((o,i)=>{const pc=t?Math.round(e.votos[i]/t*100):0;return `<div class="r"><i style="width:${pc}%"></i><span>${esc(o)}</span><em>${e.votos[i]} · ${pc}%</em></div>`}).join("")}
+function veOpsInit(n){$("veOps").innerHTML="";for(let i=0;i<n;i++)veOpAdd()}
+function veOpAdd(){if($("veOps").children.length>=6)return;const d=document.createElement("div");d.className="op2";d.innerHTML=`<input maxlength="60" placeholder="Opción ${$("veOps").children.length+1}"><button class="btn r sm" type="button">✕</button>`;d.querySelector("button").onclick=()=>{if($("veOps").children.length>2)d.remove()};$("veOps").appendChild(d)}
+veOpsInit(3);$("veMas").onclick=veOpAdd;
+$("vKeyOk").onclick=async()=>{const k=$("vKey").value.trim();if(!k)return;VKEY=k;$("vKeyM").className="vmsgok";$("vKeyM").textContent="Probando…";const j=await vReq("/admin/estado");
+ if(j.ok){try{localStorage.setItem("czAdmKey",k)}catch(_){}$("vKey").value="";$("vKeyM").textContent="";vCargar();vCuentas()}else if(VKEY){vOk("vKeyM",false,j.error||"No se pudo conectar")}};
+$("vRef").onclick=vCargar;
+$("vaOk").onclick=async()=>{const b={titulo:$("vaT").value.trim(),txt:$("vaX").value.trim(),btn:$("vaB").value.trim(),link:$("vaL").value.trim(),estilo:(document.querySelector("[name=vaE]:checked")||{}).value,seg:+$("vaS").value,sonido:$("vaSon").checked};
+ if(!b.titulo&&!b.txt)return vOk("vaM",false,"Escribe un título o un mensaje");if(b.link&&!/^https:\/\//.test(b.link))return vOk("vaM",false,"El link debe empezar con https://");
+ const j=await vReq("/admin/anuncio",b);vOk("vaM",j.ok,j.ok?"Enviado a "+j.llego+(j.llego==1?" persona":" personas"):j.error);if(j.ok)vCargar()};
+$("vaQ").onclick=async()=>{const j=await vReq("/admin/anuncio/quitar",{});vOk("vaM",j.ok,j.ok?"Mensaje quitado":j.error)};
+$("veOk").onclick=async()=>{const ops=[...$("veOps").querySelectorAll("input")].map(i=>i.value.trim()).filter(Boolean);const q=$("veQ").value.trim();
+ if(!q||ops.length<2)return vOk("veM",false,"Escribe la pregunta y al menos 2 opciones");
+ const j=await vReq("/admin/encuesta",{q,ops,seg:+$("veS").value});vOk("veM",j.ok,j.ok?"Encuesta enviada a "+j.llego+(j.llego==1?" persona":" personas"):j.error);if(j.ok){$("veQ").value="";veOpsInit(3);vCargar()}};
+$("veCerrar").onclick=async()=>{const j=await vReq("/admin/encuesta/cerrar",{});vOk("veM",j.ok,j.ok?"Encuesta cerrada":j.error);vCargar()};
+$("vdOk").onclick=async()=>{const p=$("vdP").value.trim();if(!p)return vOk("vdM",false,"Escribe el premio");
+ const j=await vReq("/admin/drop",{premio:p,cupos:+$("vdC").value||1,seg:+$("vdS").value});vOk("vdM",j.ok,j.ok?"Drop lanzado a "+j.llego+(j.llego==1?" persona":" personas"):j.error);if(j.ok)vCargar()};
+document.querySelector(".vfx").onclick=async e=>{const b=e.target.closest("[data-fx]");if(!b)return;const j=await vReq("/admin/efecto",{efecto:b.dataset.fx});vOk("vfM",j.ok,j.ok?"Lanzado a "+j.llego+(j.llego==1?" persona":" personas"):j.error)};
+async function vCuentas(){if(!VKEY)return;const j=await vReq("/admin/usuarios?q="+encodeURIComponent($("cuQ").value.trim()));if(!j.ok)return;
+ $("cuVac").hidden=!!j.usuarios.length;
+ $("cuT").innerHTML=j.usuarios.map(u=>`<tr><td><b>${esc(u.usuario)}</b>${u.baneado?' <span class="ban">SUSPENDIDO</span>':""}${u.discord?' <small style="color:#8ea2ff">· Discord</small>':""}</td><td data-l="Roblox">${esc(u.roblox||"—")}</td><td data-l="País">${esc(u.pais||"—")}</td><td data-l="Semana">${nf(u.psem)}</td><td data-l="Total">${nf(u.puntos)}</td><td data-l="Racha">${u.racha||0}</td><td data-l="Última vez">${u.ultvisto?vHace(u.ultvisto):vHace(u.creado)}</td>
+  <td style="white-space:nowrap"><button class="btn sm" type="button" data-cp="${u.id}">± PUNTOS</button> ${u.baneado?`<button class="btn g sm" type="button" data-cd="${u.id}">QUITAR SUSPENSIÓN</button>`:`<button class="btn r sm" type="button" data-cb="${u.id}" data-cn="${esc(u.usuario)}">SUSPENDER</button>`}</td></tr>`).join("")}
+$("cuBus").onclick=vCuentas;$("cuQ").onkeydown=e=>{if(e.key==="Enter")vCuentas()};
+$("cuT").onclick=async e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.cp){const n=prompt("¿Cuántos puntos? (usa - para quitar, ej: -50)");if(!n||isNaN(+n))return;await vReq("/admin/usuario",{id:+b.dataset.cp,accion:"puntos",n:+n})}
+ else if(b.dataset.cb){if(!confirm("¿Suspender a "+b.dataset.cn+"? No podrá entrar ni sumar puntos."))return;await vReq("/admin/usuario",{id:+b.dataset.cb,accion:"banear"})}
+ else if(b.dataset.cd)await vReq("/admin/usuario",{id:+b.dataset.cd,accion:"desbanear"});
+ vCuentas()};
+$("cuReset").onclick=async()=>{if(!VKEY)return;if(!confirm("¿Reiniciar el top de la semana? Todos quedan en 0 puntos semanales."))return;await vReq("/admin/top/reiniciar",{});vCuentas()};
+$("side").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.t==="envivo")vCargar();if(b.dataset.t==="cuentas"){if(VKEY){$("cuSinKey").hidden=true;$("cuCuerpo").hidden=false;vCuentas()}else{$("cuSinKey").hidden=false;$("cuCuerpo").hidden=true}}});
+setInterval(()=>{const t=document.querySelector('[data-tab="envivo"]');if(t&&!t.hidden&&VKEY&&document.visibilityState==="visible")vCargar()},5000);
 </script>
 </body>
 </html>
